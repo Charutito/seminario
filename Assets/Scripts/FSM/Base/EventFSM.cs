@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace FSM
 {
-	public class EventFSM<T> {
-		public readonly State<T> any;
-		State<T> _current;
-		bool _feeding = false;
+    public class EventFSM<T>
+    {
+    public readonly State<T> any;
+    State<T> _current;
+    bool _feeding = false;
 
-		public State<T> current { get { return _current; } }
+    public State<T> current { get { return _current; } }
 
         public bool enabled;
 
@@ -19,7 +20,8 @@ namespace FSM
             this.any.OnEnter += () => { throw new Exception("Can't make transition to fsm's <any> state"); };
         }
 
-        public EventFSM(State<T> initial, State<T> any = null) {
+        public EventFSM(State<T> initial, State<T> any = null)
+        {
             SetInitialState(initial);
 			this.any = any != null ? any : new State<T>("<any>");
 			this.any.OnEnter += () => { throw new Exception("Can't make transition to fsm's <any> state"); };
@@ -32,12 +34,14 @@ namespace FSM
             enabled = true;
         }
 
-        public virtual void Update() {
+        public virtual void Update()
+        {
             if(enabled)
 			    _current._Update();
 		}
 
-		public bool Feed(T input) {
+		public bool Feed(T input)
+        {
 			if(_feeding)
 				throw new Exception("Error: Feeding from OnEnter or OnExit, will cause repeated or missing calls");
 			

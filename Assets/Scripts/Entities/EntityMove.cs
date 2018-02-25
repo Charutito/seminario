@@ -4,12 +4,10 @@ using UnityEngine;
 
 namespace Entities
 {
-    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Entity))]
     public class EntityMove : MonoBehaviour
     {
         private Entity _entity;
-        private Animator _animator;
 
         #region Movement
         public void MoveTransform(float x, float z, bool rotate = true)
@@ -47,28 +45,6 @@ namespace Entities
         private void Start()
         {
             _entity = GetComponent<Entity>();
-            _animator = GetComponent<Animator>();
-        }
-
-        private void Update()
-        {
-            var axisHorizontal = Input.GetAxis("Horizontal");
-            var axisVertical = Input.GetAxis("Vertical");
-
-            if (axisVertical != 0 || axisHorizontal != 0)
-            {
-                MoveTransform(axisHorizontal, axisVertical);
-            }
-
-            // This too
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                _entity.Stats.MoveSpeed.Actual = _entity.Stats.MoveSpeed.Max;
-            }
-            else
-            {
-                _entity.Stats.MoveSpeed.Actual = _entity.Stats.MoveSpeed.Min;
-            }
         }
     }
 }
