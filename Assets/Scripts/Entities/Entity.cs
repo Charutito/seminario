@@ -1,15 +1,12 @@
 ﻿using BattleSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Stats;
-using FSM;
 using System;
 
 namespace Entities
 {
-    public class Entity : MonoBehaviour, ITargettable, IDamageable
+    [RequireComponent(typeof(Animator))]
+    public abstract class Entity : MonoBehaviour, ITargettable, IDamageable
     {
         #region Properties
         public Animator Animator { get { return _animator; } }
@@ -19,6 +16,7 @@ namespace Entities
 
 
         #region Events
+        public event Action OnAnimUnlock = delegate { };
         public event Action OnThink = delegate { };
         #endregion
 
@@ -30,15 +28,12 @@ namespace Entities
         [SerializeField]
         private bool _godMode = false;
 
-        [SerializeField]
-        private CharacterFSM _fsm;
-
         private Animator _animator;
         #endregion 
 
 
         #region Interfaces
-        public virtual void Hit(int damage)
+        public virtual void TakeDamage(int damage)
         {
             Stats.Health.Actual -= damage;
         }
@@ -49,19 +44,34 @@ namespace Entities
         }
         #endregion
 
-        private void Start()
+
+        #region Animation Events
+        public void AnimUnlock()
+        {
+            if (OnAnimUnlock != null)
+            {
+                OnAnimUnlock();
+            }
+        }
+        #endregion
+
+        protected abstract void OnUpdate();
+
+        private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _fsm = new CharacterFSM(this);
         }
 
         private void Update()
         {
+            // Por el momento esto esta bien, pero tendria uqe estar en una corrutina
+            // o en un UpdateManager para poder frenar el pensamiento de la FSM
             if (OnThink != null)
             {
                 OnThink();
             }
-            _fsm.Update();
+
+            OnUpdate();
         }
     }
 }

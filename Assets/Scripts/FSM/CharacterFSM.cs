@@ -10,16 +10,18 @@ namespace FSM
         private class CharacterInput
         {
             public static int Move = 0;
-            public static int Attack = 1;
-            public static int Stun = 2;
-            public static int None = 3;
+            public static int LightAttack = 1;
+            public static int HeavyAttack = 2;
+            public static int Stun = 3;
+            public static int None = 4;
         }
 
         private EntityMove _EntityMove;
         private EntityAttacker _EntityAttack;
 
         private bool isLocked = false;
-        private int 
+        private int maxAttacks = 2;
+        private int currentAttacks = 0;
 
         public CharacterFSM(Entity e)
         {
@@ -28,26 +30,37 @@ namespace FSM
 
             State<int> Idle = new State<int>("Idle");
             State<int> Moving = new State<int>("Moving");
-            State<int> Attack  = new State<int>("Attacking");
+            State<int> LightAttacking = new State<int>("Light Attacking");
+            State<int> HeavyAttacking = new State<int>("Heavy Attacking");
             State<int> Stunned  = new State<int>("Stunned");
 
             SetInitialState(Idle);
 
             StateConfigurer.Create(Idle)
-                .SetTransition(CharacterInput.Attack, Attack)
+                .SetTransition(CharacterInput.LightAttack, LightAttacking)
+                .SetTransition(CharacterInput.HeavyAttack, HeavyAttacking)
                 .SetTransition(CharacterInput.Move, Moving)
                 .SetTransition(CharacterInput.Stun, Stunned);
 
             StateConfigurer.Create(Moving)
-                .SetTransition(CharacterInput.Attack, Attack)
+                .SetTransition(CharacterInput.LightAttack, LightAttacking)
+                .SetTransition(CharacterInput.HeavyAttack, HeavyAttacking)
                 .SetTransition(CharacterInput.Stun, Stunned)
                 .SetTransition(CharacterInput.None, Idle);
 
-            StateConfigurer.Create(Attack)
+            StateConfigurer.Create(LightAttacking)
+                .SetTransition(CharacterInput.HeavyAttack, HeavyAttacking)
                 .SetTransition(CharacterInput.Move, Moving)
                 .SetTransition(CharacterInput.Stun, Stunned)
                 .SetTransition(CharacterInput.None, Idle);
 
+            StateConfigurer.Create(HeavyAttacking)
+                .SetTransition(CharacterInput.LightAttack, HeavyAttacking)
+                .SetTransition(CharacterInput.Move, Moving)
+                .SetTransition(CharacterInput.Stun, Stunned)
+                .SetTransition(CharacterInput.None, Idle);
+
+            #region Moving
             Moving.OnUpdate += () =>
             {
                 if (Input.GetKey(KeyCode.LeftShift))
@@ -67,19 +80,35 @@ namespace FSM
             {
                 e.Animator.SetFloat("Velocity Z", 0);
             };
+            #endregion
 
-            Attack.OnEnter += () =>
+            #region Light Attack
+            LightAttacking.OnUpdate += () =>
             {
-                e.Animator.SetTrigger("Attack");
-            };
-
-            Attack.OnUpdate += () =>
-            {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && currentAttacks < maxAttacks)
                 {
-                    e.Animator.SetTrigger("Attack");
+                    isLocked = true;
+                    currentAttacks++;
+
+                    e.Animator.SetTrigger("LightAttack");
+                    _EntityAttack.LightAttack_Start();
                 }
             };
+
+            LightAttacking.OnExit += () =>
+            {
+                currentAttacks = 0;
+            };
+            #endregion
+
+            #region Heavy Attack
+            HeavyAttacking.OnEnter += () =>
+            {
+                isLocked = true;
+                e.Animator.SetTrigger("HeavyAttack");
+                _EntityAttack.HeavyAttack_Start();
+            };
+            #endregion
 
             e.OnThink += () =>
             {
@@ -87,7 +116,11 @@ namespace FSM
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Feed(CharacterInput.Attack);
+                    Feed(CharacterInput.LightAttack);
+                }
+                else if (Input.GetMouseButton(1))
+                {
+                    Feed(CharacterInput.HeavyAttack);
                 }
                 else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
@@ -98,13 +131,11 @@ namespace FSM
                     Feed(CharacterInput.None);
                 }
             };
-        }
 
-        private IEnumerator UnlockCd()
-        {
-            isLocked = true;
-            yield return new WaitForSeconds(1);
-            isLocked = false;
+            e.OnAnimUnlock += () =>
+            {
+                isLocked = false;
+            };
         }
     }
 }
