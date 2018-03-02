@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 65625701368336446}
   m_Layer: 8
   m_Name: SwordArea
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3136,8 +3136,8 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 1
+  m_IsKinematic: 0
+  m_Interpolate: 2
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65625701368336446
@@ -3246,10 +3246,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f84bcdd30b314445af910d1263dd4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magn: 1.7
-  rough: 1.7
-  fadeIn: 0.1
-  fadeOut: 1
+  l_magn: 1.2
+  l_rough: 1
+  l_fadeIn: 0.1
+  l_fadeOut: 0.5
+  h_magn: 1
+  h_rough: 1.2
+  h_fadeIn: 0.1
+  h_fadeOut: 2
 --- !u!136 &136313878342933932
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3443,7 +3447,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1449599515
+  randomSeed: 45776006
   InitialModule:
     serializedVersion: 3
     enabled: 1

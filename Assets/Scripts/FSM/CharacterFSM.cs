@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,9 @@ namespace FSM
 
         private bool isLocked = false;
         private int maxAttacks = 2;
+        private int maxComboAttacks = 1;
         private int currentAttacks = 0;
+        private int currentComboAttacks = 0;
 
         public CharacterFSM(Entity e)
         {
@@ -72,7 +75,7 @@ namespace FSM
                     e.Stats.MoveSpeed.Actual = e.Stats.MoveSpeed.Min;
                 }
 
-                _EntityMove.MoveTransform(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                _EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
                 e.Animator.SetFloat("Velocity Z", 1);
             };
 
@@ -85,7 +88,7 @@ namespace FSM
             #region Light Attack
             LightAttacking.OnUpdate += () =>
             {
-                if (Input.GetMouseButtonDown(0) && currentAttacks < maxAttacks)
+                if (InputManager.Instance.LightAttack && currentAttacks < maxAttacks)
                 {
                     isLocked = true;
                     currentAttacks++;
@@ -93,11 +96,20 @@ namespace FSM
                     e.Animator.SetTrigger("LightAttack");
                     _EntityAttack.LightAttack_Start();
                 }
+                else if (InputManager.Instance.HeavyAttack && currentComboAttacks < maxComboAttacks)
+                {
+                    isLocked = true;
+                    currentComboAttacks++;
+
+                    e.Animator.SetTrigger("HeavyAttack");
+                    _EntityAttack.HeavyAttack_Start();
+                }
             };
 
             LightAttacking.OnExit += () =>
             {
                 currentAttacks = 0;
+                currentComboAttacks = 0;
             };
             #endregion
 
@@ -114,15 +126,15 @@ namespace FSM
             {
                 if (isLocked) return;
 
-                if (Input.GetMouseButtonDown(0))
+                if (InputManager.Instance.LightAttack)
                 {
                     Feed(CharacterInput.LightAttack);
                 }
-                else if (Input.GetMouseButton(1))
+                else if (InputManager.Instance.HeavyAttack)
                 {
                     Feed(CharacterInput.HeavyAttack);
                 }
-                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+                else if (InputManager.Instance.AxisMoving)
                 {
                     Feed(CharacterInput.Move);
                 }

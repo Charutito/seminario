@@ -7,11 +7,18 @@ namespace Entities
     public class EntityAttacker : MonoBehaviour
     {
         #region Local Vars
+
         [Header("Heavy Attack Shake")]
-        [SerializeField] private float magn = 1;
-        [SerializeField] private float rough = 1;
-        [SerializeField] private float fadeIn = 0.1f;
-        [SerializeField] private float fadeOut = 2f;
+        [SerializeField] private float l_magn = 1;
+        [SerializeField] private float l_rough = 1;
+        [SerializeField] private float l_fadeIn = 0.1f;
+        [SerializeField] private float l_fadeOut = 2f;
+
+        [Header("Heavy Attack Shake")]
+        [SerializeField] private float h_magn = 1;
+        [SerializeField] private float h_rough = 1;
+        [SerializeField] private float h_fadeIn = 0.1f;
+        [SerializeField] private float h_fadeOut = 2f;
 
         private EntityMove _entityMove;
         #endregion
@@ -20,12 +27,12 @@ namespace Entities
         #region Light Attack
         public void LightAttack_Start()
         {
-            LookToMouse();
+            //LookToMouse();
         }
 
         public void LightAttack_Hit()
         {
-            Debug.Log("Light Hit");
+            CameraShaker.Instance.ShakeOnce(l_magn, l_rough, l_fadeIn, l_fadeOut);
         }
         #endregion
 
@@ -33,12 +40,12 @@ namespace Entities
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
-            LookToMouse();
+            //LookToMouse();
         }
 
         public void HeavyAttack_Hit()
         {
-            CameraShaker.Instance.ShakeOnce(magn, rough, fadeIn, fadeOut);
+            CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
         }
         #endregion
 
