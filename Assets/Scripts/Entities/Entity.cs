@@ -10,7 +10,8 @@ namespace Entities
     {
         #region Properties
         public Animator Animator { get { return _animator; } }
-        public bool IsDead { get { return (_stats.Health.Actual <= _stats.Health.Min) && !_godMode; } }
+        public bool IsDead { get { return (_stats.Health.Current
+                    <= _stats.Health.Min) && !_godMode; } }
         public EntityStats Stats { get { return _stats; } }
         #endregion
 
@@ -35,7 +36,7 @@ namespace Entities
         #region Interfaces
         public virtual void TakeDamage(int damage)
         {
-            Stats.Health.Actual -= damage;
+            Stats.Health.Current -= damage;
         }
 
         public virtual Transform Target()

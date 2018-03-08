@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65696951387383620}
   - component: {fileID: 195979705209642654}
   - component: {fileID: 114264596321334274}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Dummy Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8c19a618a0bd9844583b91dca0875a34, type: 2}
+  - {fileID: 2100000, guid: cd05e37b00f894548b8d3cd344c7fe2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,7 +117,42 @@ MonoBehaviour:
       _Actual: 0
       _Min: 4
       _Max: 6
+    _Damage:
+      _Actual: 0
+      _Min: 0
+      _Max: 0
   _godMode: 0
+  _LifeGradient:
+    serializedVersion: 2
+    key0: {r: 0.7794118, g: 0.16046713, b: 0.16046713, a: 1}
+    key1: {r: 0, g: 1, b: 0.21379328, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _Color: {r: 0, g: 0, b: 0, a: 0}
+  _Renderer: {fileID: 23036265942144798}
 --- !u!195 &195979705209642654
 NavMeshAgent:
   m_ObjectHideFlags: 1

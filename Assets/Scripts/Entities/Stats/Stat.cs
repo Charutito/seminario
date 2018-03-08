@@ -18,7 +18,7 @@ namespace Stats
 
         #region Properties
 
-        public float Actual
+        public float Current
         {
             get { return _Actual; }
             set

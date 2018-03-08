@@ -10,7 +10,7 @@ namespace Entities
         #region Movement
         public void MoveTransform(float x, float z, bool rotate = true)
         {
-            var newPosition = transform.position + (new Vector3(x, 0, z).normalized * _entity.Stats.MoveSpeed.Actual * Time.deltaTime);
+            var newPosition = transform.position + (new Vector3(x, 0, z).normalized * _entity.Stats.MoveSpeed.Current * Time.deltaTime);
 
             if (rotate)
             {
