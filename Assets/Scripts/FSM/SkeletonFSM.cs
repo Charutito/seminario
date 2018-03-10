@@ -109,11 +109,16 @@ namespace FSM
 
                 entityMove.RotateInstant(lastTargetPosition);
                 entityMove.MoveAgent(lastTargetPosition);
+
+                if (Vector3.Distance(lineOfSight.target.transform.position, e.transform.position) <= e.attackRange)
+                {
+                    Feed(Trigger.TargetInRange);
+                }
             };
             #endregion
 
 
-            #region Alert State
+            #region Scout State
             var currentTimeToStopScout = 0f;
 
             Scout.OnEnter += () =>
@@ -135,6 +140,18 @@ namespace FSM
                 entityMove.RotateInstant(rotation * lastTargetPosition);*/
 
                 currentTimeToStopScout -= Time.deltaTime;
+            };
+            #endregion
+
+
+            #region Attack State
+            Attack.OnEnter += () =>
+            {
+                isLocked = true;
+                e.Animator.SetTrigger("HeavyAttack");
+
+                entityMove.RotateInstant(lineOfSight.transform.position);
+                entityAttack.LightAttack_Start();
             };
             #endregion
 

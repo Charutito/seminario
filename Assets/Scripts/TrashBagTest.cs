@@ -7,9 +7,14 @@ public class TrashBagTest : MonoBehaviour, IDamageable
 {
     private ParticleSystem _particles;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, DamageType type = DamageType.Unknown)
     {
         _particles.Emit(10);
+    }
+
+    public Transform Target()
+    {
+        throw new System.NotImplementedException();
     }
 
     private void Awake ()

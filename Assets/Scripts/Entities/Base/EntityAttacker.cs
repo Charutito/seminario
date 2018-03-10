@@ -14,11 +14,13 @@ namespace Entities
 
         [SerializeField] private float heavyAttackRadious = 5f;
 
-        [Header("Heavy Attack Shake")]
+        [Header("Heavy Attack")]
         [SerializeField] private float h_magn = 1;
         [SerializeField] private float h_rough = 1;
         [SerializeField] private float h_fadeIn = 0.1f;
         [SerializeField] private float h_fadeOut = 2f;
+        [SerializeField] private LayerMask hitLayers;
+        [SerializeField] private DamageType h_damageType = DamageType.Unknown;
 
         private Entity _entity;
         private EntityMove _entityMove;
@@ -69,28 +71,18 @@ namespace Entities
 
         private void HeavyAttack_Damage()
         {
-            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, (int)Layers.RealWorld << (int)Layers.MixedWorld);
+            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
             foreach (var collider in colliders)
             {
                 var damageable = collider.GetComponent<IDamageable>();
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage((int)_entity.Stats.Damage.Max);
+                    damageable.TakeDamage((int)_entity.Stats.Damage.Max, h_damageType);
                 }
             }
         }
         #endregion
-
-        private void LookToMouse()
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
-            {
-                _entityMove.RotateInstant(hit.point);
-            }
-        }
 
         private void Start()
         {

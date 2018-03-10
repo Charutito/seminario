@@ -18,6 +18,7 @@ namespace Steering
         [SerializeField] public Entity target;
         [SerializeField] public float viewAngle = 5f;
         [SerializeField] public float viewDistance = 10f;
+        [SerializeField] public float detectionDistance = 4f;
         #endregion
 
 
@@ -56,7 +57,8 @@ namespace Steering
 
             var sqrDistanceToTarget = (this.transform.position - target.transform.position).sqrMagnitude;
 
-            targetInSight = (angleToTarget <= viewAngle) && (sqrDistanceToTarget <= viewDistance * viewDistance);
+            targetInSight = (sqrDistanceToTarget <= detectionDistance * detectionDistance) ||
+                            (angleToTarget <= viewAngle) && (sqrDistanceToTarget <= viewDistance * viewDistance);
 
             /*targetInSight =
             // Verifica el angulo de vision
@@ -90,6 +92,10 @@ namespace Steering
             //Dibujamos los límites del campo de visión.
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, viewDistance);
+
+            // Limite del campo de deteccion automatica
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, detectionDistance);
 
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, transform.position + (transform.forward * viewDistance));
