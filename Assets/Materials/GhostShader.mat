@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: GhostShader
+  m_Shader: {fileID: 4800000, guid: 7062b5f8fca33ce48a32bf9c960c14ac, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _10500ambientocclusion:
+        m_Texture: {fileID: 2800000, guid: a9600c0fc2509e349bb477166ab36e8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _11027normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _12719reflectiveocclusion:
+        m_Texture: {fileID: 2800000, guid: cdfc5de4b52fbbb4b935f410ec0b8aab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AO:
+        m_Texture: {fileID: 2800000, guid: aadf0d9213e4b7a479a4464fa79cb5f2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Displacementheightmap:
+        m_Texture: {fileID: 2800000, guid: eba99456f6ff1ce4e8bce5ee896dce47, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Fresnelheightmap:
+        m_Texture: {fileID: 2800000, guid: b6360e920b289c040ab78497612a967d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: ede748a994b255044a62dded372a2dc0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample1:
+        m_Texture: {fileID: 2800000, guid: 20361a7ae9ffa6b47b69ee56ace59c2a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample4:
+        m_Texture: {fileID: 2800000, guid: cdfc5de4b52fbbb4b935f410ec0b8aab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ghost_DefaultMaterial_AlbedoTransparency:
+        m_Texture: {fileID: 2800000, guid: 1686ca1be20dc5b449823f8d5e783ba3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _gridinverse:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _obstacleheightmap:
+        m_Texture: {fileID: 2800000, guid: 43b65b179988bf04ba2eafaae24e26f5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _t_st01_obstacle_normal:
+        m_Texture: {fileID: 2800000, guid: aadf0d9213e4b7a479a4464fa79cb5f2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ChromaticAberration: 0
+    - _EmissionStrenght: 2.27
+    - _Float0: 0.514
+    - _Float1: 1
+    - _Float2: 0.198
+    - _Float3: 2.75
+    - _Float4: 0.071
+    - _Float6: 1.401
+    - _Float9: 0.71
+    - _FresnelNormalP: 1.44
+    - _FresnelPow: 0.7
+    - _FresnelPower: 0.1
+    - _Fresnelscale: 4
+    - _GlowStrenght: 7.31
+    - _MaskClipValue: -2.01
+    - _Opacity: 1
+    - _OpacityStrenght: 0.804
+    - _TransAmbient: 0.299
+    - _TransDirect: 0.324
+    - _TransNormalDistortion: 0.438
+    - _TransScattering: 38.2
+    - _TransShadow: 0.444
+    - _Translucency: 24.8
+    - __dirty: 0
+    - _fresnelbias: 0
+    - _fresnelpower: 1.55
+    m_Colors:
+    - _Color1: {r: 0.6691177, g: 0.33455884, b: 0.33455884, a: 0}

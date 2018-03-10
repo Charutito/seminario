@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Ambient
-  m_Shader: {fileID: 4800000, guid: 5a5af61c77a491a4c96fc33790f4ff3e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7062b5f8fca33ce48a32bf9c960c14ac, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -18,8 +18,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _10500ambientocclusion:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Displacementheightmap:
+        m_Texture: {fileID: 2800000, guid: b6360e920b289c040ab78497612a967d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TextureSample1:
-        m_Texture: {fileID: 2800000, guid: 81b63ee1f1a9ca44ebade7e8ac5f0288, type: 3}
+        m_Texture: {fileID: 2800000, guid: e2d7cd7ffb1ab0d4f820bfee9a993245, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample3:
@@ -31,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alphatexture:
-        m_Texture: {fileID: 2800000, guid: fbf3df0ac9afa5742b89dc5503f0b279, type: 3}
+        m_Texture: {fileID: 2800000, guid: d8e8f50e0cf6fe14aa2f7d408b58e5e5, type: 3}
         m_Scale: {x: 0.75, y: 0.75}
         m_Offset: {x: 0, y: 0}
     - _fullwhite:
@@ -47,12 +59,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _EmissionStrenght: 1.579565
     - _Float1: 1
     - _Float7: 1
     - _Float8: 0.849
     - _FresnelPower: 0.5
     - _MaskClipValue: 0.5
-    - _ToonShader: 1
+    - _Opacity: 0
+    - _ToonShader: 0.634
     - _TransAmbient: 0.268
     - _TransDirect: 0.61
     - _TransNormalDistortion: 0
@@ -60,7 +74,7 @@ Material:
     - _TransShadow: 0.9
     - _Translucency: 1
     - _Transparency: 0.703
-    - _WorldChange: 1
+    - _WorldChange: 0
     - __dirty: 0
     - _fresnelbiasss: 0.381
     - _fresnelscale: 1.114
