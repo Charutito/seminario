@@ -25,6 +25,7 @@ namespace Entities
 
         private SkeletonFSM fsm;
         private NavMeshAgent agent;
+        private Collider selfCollider;
 
         public override void TakeDamage(int damage, DamageType type)
         {
@@ -41,18 +42,27 @@ namespace Entities
             }
         }
 
-        private void Start()
+        private void OnHeathChange(float old, float current)
+        {
+            if (current == Stats.Health.Min)
+            {
+                Animator.SetTrigger("Death");
+                Animator.SetInteger("RandomDeath", Random.Range(0,3));
+
+                agent.enabled = false;
+                selfCollider.enabled = false;
+
+                Stats.Health.OnActualChange -= OnHeathChange;
+            }
+        }
+
+private void Start()
         {
             fsm = new SkeletonFSM(this);
             agent = GetComponent<NavMeshAgent>();
+            selfCollider = GetComponent<Collider>();
 
-            Stats.Health.OnActualChange += (float old, float current) =>
-            {
-                if (current == Stats.Health.Min)
-                {
-                    Destroy(gameObject);
-                }
-            };
+            Stats.Health.OnActualChange += OnHeathChange;
         }
     }
 }

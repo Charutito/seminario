@@ -159,7 +159,7 @@ namespace FSM
             #region Entity Events
             e.OnThink += () =>
             {
-                if (isLocked) return;
+                if (isLocked || e.IsDead) return;
 
                 if (lineOfSight.TargetInSight)
                 {
