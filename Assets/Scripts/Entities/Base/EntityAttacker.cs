@@ -1,7 +1,7 @@
 ﻿using BattleSystem;
 using EZCameraShake;
-using Metadata;
 using UnityEngine;
+using GameUtils;
 using Util;
 
 namespace Entities
@@ -45,9 +45,9 @@ namespace Entities
             });
         }
 
-        private void LightAttack_Damage(Collider collider)
+        private void LightAttack_Damage(Collider other)
         {
-            var damageable = collider.GetComponent<IDamageable>();
+            var damageable = other.GetComponent<IDamageable>();
 
             if (damageable != null)
             {

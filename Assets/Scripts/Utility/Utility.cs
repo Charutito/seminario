@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Util
 {
-    public class Utility
+    public static class Utility
     {
         public static Vector3 RandomDirection()
         {

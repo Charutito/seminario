@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entities;
-using Util;
+using GameUtils;
 using Metadata;
 
 namespace Steering
