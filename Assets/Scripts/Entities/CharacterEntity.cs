@@ -1,19 +1,20 @@
-﻿using FSM;
+﻿using BattleSystem;
+using FSM;
 
 namespace Entities
 {
     public class CharacterEntity : Entity
     {
-        private CharacterFSM _fsm;
+        private CharacterFSM fsm;
 
         protected override void OnUpdate()
         {
-            _fsm.Update();
+            fsm.Update();
         }
 
         private void Start()
         {
-            _fsm = new CharacterFSM(this);
+            fsm = new CharacterFSM(this);
         }
     }
 }
