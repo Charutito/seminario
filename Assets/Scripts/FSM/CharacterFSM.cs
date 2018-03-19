@@ -68,11 +68,11 @@ namespace FSM
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    e.Stats.MoveSpeed.Actual = e.Stats.MoveSpeed.Max;
+                    e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Max;
                 }
                 else
                 {
-                    e.Stats.MoveSpeed.Actual = e.Stats.MoveSpeed.Min;
+                    e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Min;
                 }
 
                 _EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);

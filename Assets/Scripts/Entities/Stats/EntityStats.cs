@@ -9,12 +9,15 @@ namespace Stats
         #region Properties
         public Stat Health { get { return _Health; } }
         public Stat MoveSpeed { get { return _MovementSpeed; } }
+        public Stat Damage { get { return _Damage; } }
         #endregion
 
         #region Local Vars
         [SerializeField] private Stat _Health;
 
         [SerializeField] private Stat _MovementSpeed;
+
+        [SerializeField] private Stat _Damage;
         #endregion
     }
 }
