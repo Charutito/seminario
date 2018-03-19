@@ -47,12 +47,16 @@ namespace Entities
             if (current == Stats.Health.Min)
             {
                 Animator.SetTrigger("Death");
-                Animator.SetInteger("RandomDeath", Random.Range(0,3));
+                Animator.SetInteger("RandomDeath", Random.Range(0, 3));
 
                 agent.enabled = false;
                 selfCollider.enabled = false;
 
                 Stats.Health.OnActualChange -= OnHeathChange;
+            }
+            else
+            {
+                Animator.SetTrigger("GetHit");
             }
         }
 

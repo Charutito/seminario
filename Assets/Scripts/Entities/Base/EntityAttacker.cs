@@ -3,6 +3,7 @@ using EZCameraShake;
 using UnityEngine;
 using GameUtils;
 using Util;
+using System.Linq;
 
 namespace Entities
 {
@@ -11,6 +12,7 @@ namespace Entities
     {
         #region Local Vars
         [SerializeField] private ColliderObserver attackArea;
+        [SerializeField] private LineOfAim lineArea;
 
         [SerializeField] private float heavyAttackRadious = 5f;
 
@@ -30,7 +32,23 @@ namespace Entities
         #region Light Attack
         public void LightAttack_Start()
         {
-            //LookToMouse();
+            if (lineArea != null)
+            {
+                lineArea.GetEnemiesInSight((enemies) =>
+                {
+
+                    var enemy = enemies
+                                    .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
+                                    .FirstOrDefault();
+
+                    if (enemy != null)
+                    {
+                        _entityMove.RotateInstant(enemy.transform.position);
+                        transform.position = enemy.transform.position - transform.forward;
+                        lineArea.transform.rotation = Quaternion.identity;
+                    }
+                });
+            }
         }
 
         public void LightAttack_Hit()
