@@ -9,7 +9,7 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, IDamageable
     {
         #region Properties
-        public Animator Animator { get { return _animator; } }
+        public Animator Animator { get { return animator; } }
         public bool IsDead { get { return (_stats.Health.Current <= _stats.Health.Min) && !_godMode; } }
         public EntityStats Stats { get { return _stats; } }
         #endregion
@@ -28,7 +28,8 @@ namespace Entities
         [SerializeField]
         private bool _godMode = false;
 
-        private Animator _animator;
+        [SerializeField]
+        private Animator animator;
         #endregion 
 
 
@@ -55,12 +56,12 @@ namespace Entities
         }
         #endregion
 
-        protected abstract void OnUpdate();
-
-        private void Awake()
+        protected virtual void Awake()
         {
-            _animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
         }
+
+        protected abstract void OnUpdate();
 
         private void Update()
         {
