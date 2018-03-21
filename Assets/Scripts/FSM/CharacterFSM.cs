@@ -21,9 +21,8 @@ namespace FSM
         private EntityAttacker _EntityAttack;
 
         private bool isLocked = false;
-        private int maxAttacks = 2;
+
         private int maxComboAttacks = 1;
-        private int currentAttacks = 0;
         private int currentComboAttacks = 0;
 
         public CharacterFSM(Entity e)
@@ -66,14 +65,7 @@ namespace FSM
             #region Moving
             Moving.OnUpdate += () =>
             {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Max;
-                }
-                else
-                {
-                    e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Min;
-                }
+                e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Max;
 
                 _EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
                 e.Animator.SetFloat("Velocity Z", 1);
@@ -86,12 +78,15 @@ namespace FSM
             #endregion
 
             #region Light Attack
+            var attackDelay = 0.15f;
+            var currentAttackDelay = 0f;
+
             LightAttacking.OnUpdate += () =>
             {
-                if (InputManager.Instance.LightAttack && currentAttacks < maxAttacks)
+                if (InputManager.Instance.LightAttack && currentAttackDelay <= 0)
                 {
+                    currentAttackDelay = attackDelay;
                     isLocked = true;
-                    currentAttacks++;
 
                     e.Animator.SetTrigger("LightAttack");
                     _EntityAttack.LightAttack_Start();
@@ -104,11 +99,12 @@ namespace FSM
                     e.Animator.SetTrigger("HeavyAttack");
                     _EntityAttack.HeavyAttack_Start();
                 }
+
+                currentAttackDelay -= Time.deltaTime;
             };
 
             LightAttacking.OnExit += () =>
             {
-                currentAttacks = 0;
                 currentComboAttacks = 0;
             };
             #endregion

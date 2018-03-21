@@ -28,7 +28,6 @@ namespace Entities
         [SerializeField]
         private bool _godMode = false;
 
-        [SerializeField]
         private Animator animator;
         #endregion 
 
