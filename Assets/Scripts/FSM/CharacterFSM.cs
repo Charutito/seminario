@@ -78,8 +78,9 @@ namespace FSM
             #endregion
 
             #region Light Attack
-            var attackDelay = 0.15f;
+            var attackDelay = 0.2f;
             var currentAttackDelay = 0f;
+            var consecutiveAttacks = 0;
 
             LightAttacking.OnUpdate += () =>
             {
@@ -91,13 +92,9 @@ namespace FSM
                     e.Animator.SetTrigger("LightAttack");
                     _EntityAttack.LightAttack_Start();
                 }
-                else if (InputManager.Instance.HeavyAttack && currentComboAttacks < maxComboAttacks)
+                else if (InputManager.Instance.HeavyAttack && (consecutiveAttacks % 2) == 0)
                 {
-                    isLocked = true;
-                    currentComboAttacks++;
-
-                    e.Animator.SetTrigger("HeavyAttack");
-                    _EntityAttack.HeavyAttack_Start();
+                    Feed(CharacterInput.HeavyAttack);
                 }
 
                 currentAttackDelay -= Time.deltaTime;
@@ -105,7 +102,7 @@ namespace FSM
 
             LightAttacking.OnExit += () =>
             {
-                currentComboAttacks = 0;
+                consecutiveAttacks = 0;
             };
             #endregion
 
@@ -138,6 +135,11 @@ namespace FSM
                 {
                     Feed(CharacterInput.None);
                 }
+            };
+
+            e.OnAttackEnd += () =>
+            {
+                consecutiveAttacks++;
             };
 
             e.OnAnimUnlock += () =>

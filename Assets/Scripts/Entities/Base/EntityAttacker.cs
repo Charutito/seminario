@@ -36,7 +36,6 @@ namespace Entities
             {
                 lineArea.GetEnemiesInSight((enemies) =>
                 {
-
                     var enemy = enemies
                                     .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
                                     .FirstOrDefault();

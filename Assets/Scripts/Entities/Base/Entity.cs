@@ -17,6 +17,7 @@ namespace Entities
 
         #region Events
         public event Action OnAnimUnlock = delegate { };
+        public event Action OnAttackEnd = delegate { };
         public event Action OnThink = delegate { };
         #endregion
 
@@ -51,6 +52,14 @@ namespace Entities
             if (OnAnimUnlock != null)
             {
                 OnAnimUnlock();
+            }
+        }
+
+        public void AttackEnd()
+        {
+            if (OnAttackEnd != null)
+            {
+                OnAttackEnd();
             }
         }
         #endregion
