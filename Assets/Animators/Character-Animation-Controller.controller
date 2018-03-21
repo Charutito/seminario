@@ -63,7 +63,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!114 &114255019082753066
+--- !u!114 &114606547217332360
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24af8d7141718ef4096ffd32ba63c02f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7738a98bbf3cbdd41b4e01c75504ea71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerToReset: HeavyAttack
@@ -184,7 +184,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 1107358379753175810}
   m_DstState: {fileID: 0}
   m_Solo: 0
-  m_Mute: 1
+  m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.2
@@ -516,7 +516,7 @@ AnimatorState:
   - {fileID: 1101633217037158380}
   - {fileID: 1101094430319289442}
   m_StateMachineBehaviours:
-  - {fileID: 114255019082753066}
+  - {fileID: 114606547217332360}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -594,9 +594,9 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101955908505407792}
   - {fileID: 1101975585609458998}
   - {fileID: 1101472774844552192}
+  - {fileID: 1101955908505407792}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -648,8 +648,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101246804490923210}
-  - {fileID: 1101053264089602800}
   - {fileID: 1101042853846898676}
+  - {fileID: 1101053264089602800}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

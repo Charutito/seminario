@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,15 +83,24 @@ namespace FSM
             var currentAttackDelay = 0f;
             var consecutiveAttacks = 0;
 
+            Action DoAttack = () =>
+            {
+                currentAttackDelay = attackDelay;
+                isLocked = true;
+
+                Debug.Log("Attacks: " + consecutiveAttacks + ". Heavy Attack: " + ((consecutiveAttacks % 2) == 0));
+
+                e.Animator.SetTrigger("LightAttack");
+                _EntityAttack.LightAttack_Start();
+            };
+
+            LightAttacking.OnEnter += DoAttack;
+
             LightAttacking.OnUpdate += () =>
             {
                 if (InputManager.Instance.LightAttack && currentAttackDelay <= 0)
                 {
-                    currentAttackDelay = attackDelay;
-                    isLocked = true;
-
-                    e.Animator.SetTrigger("LightAttack");
-                    _EntityAttack.LightAttack_Start();
+                    DoAttack();
                 }
                 else if (InputManager.Instance.HeavyAttack && (consecutiveAttacks % 2) == 0)
                 {
