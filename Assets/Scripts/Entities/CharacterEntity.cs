@@ -7,7 +7,7 @@ namespace Entities
     {
         private CharacterFSM fsm;
 
-        protected override void OnUpdate()
+        protected override void OnUpdate() 
         {
             fsm.Update();
         }
