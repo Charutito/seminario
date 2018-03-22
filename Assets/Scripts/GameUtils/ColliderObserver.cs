@@ -42,7 +42,6 @@ namespace GameUtils
         {
             TriggerStay(other);
         }
-
         private void OnTriggerExit(Collider other)
         {
             TriggerExit(other);
