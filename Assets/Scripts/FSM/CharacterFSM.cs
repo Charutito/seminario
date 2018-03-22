@@ -23,9 +23,6 @@ namespace FSM
 
         private bool isLocked = false;
 
-        private int maxComboAttacks = 1;
-        private int currentComboAttacks = 0;
-
         public CharacterFSM(Entity e)
         {
             _EntityAttack = e.gameObject.GetComponent<EntityAttacker>();
@@ -88,9 +85,6 @@ namespace FSM
                 currentAttackDelay = attackDelay;
                 isLocked = true;
 
-                Debug.Log("Attacks: " + consecutiveAttacks + ". Heavy Attack: " + ((consecutiveAttacks % 2) == 0));
-
-                e.Animator.SetTrigger("LightAttack");
                 _EntityAttack.LightAttack_Start();
             };
 

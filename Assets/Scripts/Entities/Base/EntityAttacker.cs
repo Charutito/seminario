@@ -30,6 +30,12 @@ namespace Entities
 
 
         #region Light Attack
+        public void OnLighDashEnd()
+        {
+            _entity.Animator.SetFloat("Velocity Z", 0);
+            _entity.Animator.applyRootMotion = true;
+        }
+
         public void LightAttack_Start()
         {
             if (lineArea != null)
@@ -43,8 +49,28 @@ namespace Entities
                     if (enemy != null)
                     {
                         _entityMove.RotateInstant(enemy.transform.position);
-                        transform.position = enemy.transform.position - transform.forward;
-                        lineArea.transform.rotation = Quaternion.identity;
+
+                        // Si el enemigo está a una distancia mayor triggereamos el salto
+                        if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
+                        {
+                            _entity.Animator.applyRootMotion = false; 
+                            _entity.Animator.SetFloat("Velocity Z", 1.5f);
+
+                            FrameUtil.AfterDelay(0.1f, ()=>
+                            {
+                                _entity.Animator.SetTrigger("RunAttack");
+                            });
+
+                            gameObject.MoveTo(enemy.transform.position - transform.forward, 0.75f, iTween.EaseType.easeOutQuart, "OnLighDashEnd");
+                        }
+                        else
+                        {
+                            _entity.Animator.SetTrigger("LightAttack");
+                        }
+                    }
+                    else
+                    {
+                        _entity.Animator.SetTrigger("LightAttack");
                     }
                 });
             }

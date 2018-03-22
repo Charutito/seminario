@@ -1,6 +1,6 @@
 ﻿namespace BattleSystem
 {
-    public interface IDamageable : ITargettable
+    public interface IDamageable
     {
         void TakeDamage(int damage, DamageType type = DamageType.Unknown);
     }

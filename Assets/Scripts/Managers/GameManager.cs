@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using BattleSystem;
+using Entities;
 using GameUtils;
+using Metadata;
 using UnityEngine;
 
 namespace Managers
 {
     public class GameManager : SingletonObject<GameManager>
     {
-        public List<WeaponDefinition> Weapons { get { return weaponFactory.Definitions; } }
-        public List<SpellDefinition> Spells { get { return spellFactory.Definitions; } }
-
-        [SerializeField] private WeaponFactory weaponFactory;
-        [SerializeField] private SpellFactory spellFactory;
+        public CharacterEntity Character { get; private set; }
 
         public Coroutine RunCoroutine(IEnumerator enumerator)
         {
             return (this == Instance) ? StartCoroutine(enumerator) : null;
+        }
+
+        private void Awake()
+        {
+            var characterObject = GameObject.FindGameObjectWithTag(Tags.Player);
+            Character = characterObject.GetComponent<CharacterEntity>();
         }
     }
 }

@@ -2002,8 +2002,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 2, z: 16}
-  m_Center: {x: 0, y: 1, z: 8}
+  m_Size: {x: 5, y: 2, z: 12}
+  m_Center: {x: 0, y: 1, z: 6}
 --- !u!95 &95873800229829942
 Animator:
   serializedVersion: 3
@@ -2065,20 +2065,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1386113a86631d4a88faef44e526d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _Health:
+  stats:
+    health:
       _Actual: 100
       _Min: 0
       _Max: 100
-    _MovementSpeed:
-      _Actual: 0
-      _Min: 4
-      _Max: 4
-    _Damage:
+    movementSpeed:
+      _Actual: 6
+      _Min: 6
+      _Max: 6
+    damage:
       _Actual: 0
       _Min: 25
       _Max: 50
-  _godMode: 0
+  godMode: 0
 --- !u!114 &114747278703523926
 MonoBehaviour:
   m_ObjectHideFlags: 1

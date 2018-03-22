@@ -3274,9 +3274,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e42d9259129992a4d95e0b320ca2a43d, type: 3}
   m_Controller: {fileID: 9100000, guid: 071d3a6763e47f1429d2097cde76799c, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3326,20 +3326,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1386113a86631d4a88faef44e526d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats:
-    _Health:
-      _Actual: 100
+  stats:
+    health:
+      _Actual: 0
       _Min: 0
-      _Max: 100
-    _MovementSpeed:
+      _Max: 0
+    movementSpeed:
       _Actual: 0
-      _Min: 6
-      _Max: 8
-    _Damage:
+      _Min: 0
+      _Max: 0
+    damage:
       _Actual: 0
-      _Min: 25
-      _Max: 50
-  _godMode: 0
+      _Min: 0
+      _Max: 0
+  godMode: 0
 --- !u!114 &114227298029947352
 MonoBehaviour:
   m_ObjectHideFlags: 1

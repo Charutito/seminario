@@ -7,17 +7,17 @@ namespace Stats
     public class EntityStats
     {
         #region Properties
-        public Stat Health { get { return _Health; } }
-        public Stat MoveSpeed { get { return _MovementSpeed; } }
-        public Stat Damage { get { return _Damage; } }
+        public Stat Health { get { return health; } }
+        public Stat MoveSpeed { get { return movementSpeed; } }
+        public Stat Damage { get { return damage; } }
         #endregion
 
         #region Local Vars
-        [SerializeField] private Stat _Health;
+        [SerializeField] private Stat health;
 
-        [SerializeField] private Stat _MovementSpeed;
+        [SerializeField] private Stat movementSpeed;
 
-        [SerializeField] private Stat _Damage;
+        [SerializeField] private Stat damage;
         #endregion
     }
 }

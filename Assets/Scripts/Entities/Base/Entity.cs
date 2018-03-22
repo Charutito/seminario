@@ -10,8 +10,8 @@ namespace Entities
     {
         #region Properties
         public Animator Animator { get { return animator; } }
-        public bool IsDead { get { return (_stats.Health.Current <= _stats.Health.Min) && !_godMode; } }
-        public EntityStats Stats { get { return _stats; } }
+        public bool IsDead { get { return (stats.Health.Current <= stats.Health.Min) && !godMode; } }
+        public EntityStats Stats { get { return stats; } }
         #endregion
 
 
@@ -23,25 +23,18 @@ namespace Entities
 
 
         #region Local Vars
-        [SerializeField]
-        private EntityStats _stats;
+        [SerializeField] private EntityStats stats;
 
-        [SerializeField]
-        private bool _godMode = false;
+        [SerializeField] private bool godMode = false;
 
         private Animator animator;
         #endregion 
 
 
-        #region Interfaces
+        #region IDamageable
         public virtual void TakeDamage(int damage, DamageType type)
         {
             Stats.Health.Current -= damage;
-        }
-
-        public virtual Transform Target()
-        {
-            return transform;
         }
         #endregion
 
