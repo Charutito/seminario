@@ -6,11 +6,13 @@ namespace FSM
 {
     public class EventFSM<T>
     {
-    public readonly State<T> any;
-    State<T> _current;
-    bool _feeding = false;
+        public string debugName = "FSM";
+        public readonly State<T> any;
 
-    public State<T> current { get { return _current; } }
+        State<T> _current;
+        bool _feeding = false;
+
+        public State<T> current { get { return _current; } }
 
         public bool enabled;
 
@@ -54,7 +56,7 @@ namespace FSM
 
 				_current._Exit();
 				#if FP_VERBOSE
-				Debug.Log("FSM state: " + _current.name + "---" + input + "---> " + transition.targetState.name);
+				    Debug.Log(debugName + " state: " + _current.name + "---" + input + "---> " + transition.targetState.name);
 				#endif
 				transition._Transition();
 				_current = transition.targetState;
