@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 
 namespace FSM
 {
@@ -18,15 +19,13 @@ namespace FSM
             public static int None = 4;
         }
 
-        private EntityMove _EntityMove;
-        private EntityAttacker _EntityAttack;
+        private EntityMove entityMove;
+        private EntityAttacker entityAttack;
 
-        private bool isLocked = false;
-
-        public CharacterFSM(Entity e)
+        public CharacterFSM(CharacterEntity e)
         {
-            _EntityAttack = e.gameObject.GetComponent<EntityAttacker>();
-            _EntityMove = e.gameObject.GetComponent<EntityMove>();
+            entityAttack = e.gameObject.GetComponent<EntityAttacker>();
+            entityMove = e.gameObject.GetComponent<EntityMove>();
 
             State<int> Idle = new State<int>("Idle");
             State<int> Moving = new State<int>("Moving");
@@ -49,24 +48,50 @@ namespace FSM
                 .SetTransition(CharacterInput.None, Idle);
 
             StateConfigurer.Create(LightAttacking)
+                .SetTransition(CharacterInput.LightAttack, LightAttacking)
                 .SetTransition(CharacterInput.HeavyAttack, HeavyAttacking)
                 .SetTransition(CharacterInput.Move, Moving)
                 .SetTransition(CharacterInput.Stun, Stunned)
                 .SetTransition(CharacterInput.None, Idle);
 
             StateConfigurer.Create(HeavyAttacking)
-                .SetTransition(CharacterInput.LightAttack, HeavyAttacking)
+                .SetTransition(CharacterInput.HeavyAttack, HeavyAttacking)
+                .SetTransition(CharacterInput.LightAttack, LightAttacking)
                 .SetTransition(CharacterInput.Move, Moving)
                 .SetTransition(CharacterInput.Stun, Stunned)
                 .SetTransition(CharacterInput.None, Idle);
 
+
+            #region Character Events
+            e.OnAttack += FeedAttack;
+            e.OnHeavyAttack += FeedHeavyAttack;
+            e.OnMove += FeedMove;
+
+            //e.OnAttackEnd += () => { };
+            e.OnAnimUnlock += () => {
+                Feed(CharacterInput.None);
+            };
+
+            #endregion
+
+
             #region Moving
-            Moving.OnUpdate += () =>
+            Moving.OnEnter += () =>
             {
                 e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Max;
-
-                _EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
                 e.Animator.SetFloat("Velocity Z", 1);
+            };
+
+            Moving.OnUpdate += () =>
+            {
+                if (InputManager.Instance.AxisMoving)
+                {
+                    entityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
+                }
+                else
+                {
+                    Feed(CharacterInput.None);
+                }
             };
 
             Moving.OnExit += () =>
@@ -75,82 +100,54 @@ namespace FSM
             };
             #endregion
 
+
             #region Light Attack
-            var attackDelay = 0.2f;
-            var currentAttackDelay = 0f;
-            var consecutiveAttacks = 0;
-
-            Action DoAttack = () =>
+            LightAttacking.OnEnter += () =>
             {
-                currentAttackDelay = attackDelay;
-                isLocked = true;
+                e.OnMove -= FeedMove;
 
-                _EntityAttack.LightAttack_Start();
-            };
-
-            LightAttacking.OnEnter += DoAttack;
-
-            LightAttacking.OnUpdate += () =>
-            {
-                if (InputManager.Instance.LightAttack && currentAttackDelay <= 0)
-                {
-                    DoAttack();
-                }
-                else if (InputManager.Instance.HeavyAttack && (consecutiveAttacks % 2) == 0)
-                {
-                    Feed(CharacterInput.HeavyAttack);
-                }
-
-                currentAttackDelay -= Time.deltaTime;
+                entityAttack.LightAttack_Start();
             };
 
             LightAttacking.OnExit += () =>
             {
-                consecutiveAttacks = 0;
+                e.OnMove += FeedMove;
             };
             #endregion
+
 
             #region Heavy Attack
             HeavyAttacking.OnEnter += () =>
             {
-                isLocked = true;
-                e.Animator.SetTrigger("HeavyAttack");
-                _EntityAttack.HeavyAttack_Start();
+                e.OnMove -= FeedMove;
+
+                entityAttack.HeavyAttack_Start();
+            };
+
+            HeavyAttacking.OnExit += () =>
+            {
+                e.OnMove += FeedMove;
             };
             #endregion
-
-            e.OnThink += () =>
-            {
-                if (isLocked) return;
-
-                if (InputManager.Instance.LightAttack)
-                {
-                    Feed(CharacterInput.LightAttack);
-                }
-                else if (InputManager.Instance.HeavyAttack)
-                {
-                    Feed(CharacterInput.HeavyAttack);
-                }
-                else if (InputManager.Instance.AxisMoving)
-                {
-                    Feed(CharacterInput.Move);
-                }
-                else
-                {
-                    Feed(CharacterInput.None);
-                }
-            };
-
-            e.OnAttackEnd += () =>
-            {
-                consecutiveAttacks++;
-            };
-
-            e.OnAnimUnlock += () =>
-            {
-                isLocked = false;
-            };
         }
+
+
+        #region Feed Functions
+        private void FeedMove()
+        {
+            Feed(CharacterInput.Move);
+        }
+
+        private void FeedAttack()
+        {
+            Feed(CharacterInput.LightAttack);
+        }
+
+        private void FeedHeavyAttack()
+        {
+            Feed(CharacterInput.HeavyAttack);
+        }
+        #endregion
     }
 }
 

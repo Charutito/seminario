@@ -26,8 +26,8 @@ namespace Entities
         [SerializeField] private LayerMask hitLayers;
         [SerializeField] private DamageType h_damageType = DamageType.Unknown;
 
-        private Entity _entity;
-        private EntityMove _entityMove;
+        private Entity entity;
+        private EntityMove entityMove;
         #endregion
 
        
@@ -35,8 +35,8 @@ namespace Entities
         #region Light Attack
         public void OnLighDashEnd()
         {
-            _entity.Animator.SetFloat("Velocity Z", 0);
-            _entity.Animator.applyRootMotion = true;
+            entity.Animator.SetFloat("Velocity Z", 0);
+            entity.Animator.applyRootMotion = true;
         }
 
         public void LightAttack_Start()
@@ -51,37 +51,37 @@ namespace Entities
                                     .FirstOrDefault();
                     if (enemy != null)
                     {
-                        _entityMove.RotateInstant(enemy.transform.position);
+                        entityMove.RotateInstant(enemy.transform.position);
 
                         // Si el enemigo está a una distancia mayor triggereamos el salto
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
                         {
-                            _entity.Animator.applyRootMotion = false; 
-                            _entity.Animator.SetFloat("Velocity Z", 1.5f);
+                            entity.Animator.applyRootMotion = false; 
+                            entity.Animator.SetFloat("Velocity Z", 1.5f);
                             if (!enemy.GetComponent<EntityAttacker>().canBeCountered)
                             {
                                 FrameUtil.AfterDelay(0.1f, () =>
                                 {
                                     StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.75f));
-                                    _entity.Animator.SetTrigger("RunAttack");
+                                    entity.Animator.SetTrigger("RunAttack");
 
                                 });
                             }
                             else if (enemy.GetComponent<EntityAttacker>().canBeCountered)
                             {
                                 StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
-                                _entity.Animator.SetTrigger("LightAttack");
+                                entity.Animator.SetTrigger("LightAttack");
                             }
                             // gameObject.MoveTo(enemy.transform.position - transform.forward, 0.75f, iTween.EaseType.easeOutQuart, "OnLighDashEnd");
                         }
                         else
                         {
-                            _entity.Animator.SetTrigger("LightAttack");
+                            entity.Animator.SetTrigger("LightAttack");
                         } 
                     }
                     else
                     {
-                        _entity.Animator.SetTrigger("LightAttack");
+                        entity.Animator.SetTrigger("LightAttack");
 
                     }
                 });
@@ -118,7 +118,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage((int)_entity.Stats.Damage.Min);
+                damageable.TakeDamage((int)entity.Stats.Damage.Min);
             }
         }
         #endregion
@@ -127,9 +127,8 @@ namespace Entities
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
-            //LookToMouse();
+            entity.Animator.SetTrigger("HeavyAttack");
             canBeCountered = true;
-
         }
 
         public void HeavyAttack_Hit()
@@ -149,7 +148,7 @@ namespace Entities
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage((int)_entity.Stats.Damage.Max, h_damageType);
+                    damageable.TakeDamage((int)entity.Stats.Damage.Max, h_damageType);
                 }
             }
         }
@@ -157,8 +156,8 @@ namespace Entities
 
         private void Start()
         {
-            _entity = GetComponent<Entity>();
-            _entityMove = GetComponent<EntityMove>();
+            entity = GetComponent<Entity>();
+            entityMove = GetComponent<EntityMove>();
         }
     }
 }
