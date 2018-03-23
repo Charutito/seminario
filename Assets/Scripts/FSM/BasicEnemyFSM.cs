@@ -45,11 +45,6 @@ namespace FSM
             {
                 entityMove.RotateTowards(e.Target.transform.position);
 
-                if (Vector3.Distance(e.transform.position, e.Target.transform.position) > e.PlayerFollowRange.Max)
-                {
-                    e.transform.position += e.transform.forward * e.Stats.MoveSpeed.Max * Time.deltaTime;
-                }
-
                 e.transform.position += e.transform.right * e.Stats.MoveSpeed.Min * Time.deltaTime;
             };
             #endregion

@@ -15,8 +15,6 @@ namespace Entities
 
         protected override void OnUpdate() 
         {
-            fsm.Update();
-
             if (InputManager.Instance.AxisMoving && OnMove != null)
             {
                 OnMove();
@@ -31,6 +29,8 @@ namespace Entities
             {
                 OnHeavyAttack();
             }
+
+            fsm.Update();
         }
 
         private void Start()

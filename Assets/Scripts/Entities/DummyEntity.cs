@@ -1,8 +1,22 @@
 ﻿
 namespace Entities
 {
-    public class DummyEntity : Entity
+    public class DummyEntity : GroupEntity
     {
-        protected override void OnUpdate() { }
+        public override void TriggerAttack()
+        {
+            // Just for debug
+            Animator.SetTrigger("HeavyAttack");
+        }
+
+        public override void TriggerSpecialAttack()
+        {
+
+        }
+
+        protected override void OnUpdate()
+        {
+
+        }
     }
 }

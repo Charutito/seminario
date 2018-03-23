@@ -2071,9 +2071,9 @@ MonoBehaviour:
       _Min: 0
       _Max: 100
     movementSpeed:
-      _Actual: 6
-      _Min: 6
-      _Max: 6
+      _Actual: 0
+      _Min: 2
+      _Max: 4
     damage:
       _Actual: 0
       _Min: 25
@@ -2093,6 +2093,7 @@ MonoBehaviour:
   attackArea: {fileID: 114783581414631134}
   lineArea: {fileID: 114241354968142456}
   heavyAttackRadious: 2
+  canBeCountered: 0
   h_magn: 1
   h_rough: 1.2
   h_fadeIn: 0.1

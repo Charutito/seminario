@@ -21,5 +21,15 @@ namespace Entities
         {
             fsm.Update();
         }
+
+        public override void TriggerAttack()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void TriggerSpecialAttack()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
