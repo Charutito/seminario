@@ -57,20 +57,17 @@ namespace Entities
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
                         {
                             entity.Animator.applyRootMotion = false; 
-                            entity.Animator.SetFloat("Velocity Z", 1.5f);
+                            entity.Animator.SetFloat("Velocity Z", 2f);
                             if (!enemy.GetComponent<EntityAttacker>().canBeCountered)
                             {
                                 FrameUtil.AfterDelay(0.1f, () =>
                                 {
-                                    StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.75f));
-                                    entity.Animator.SetTrigger("RunAttack");
-
+                                    StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.4f));
                                 });
                             }
                             else if (enemy.GetComponent<EntityAttacker>().canBeCountered)
                             {
                                 StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
-                                entity.Animator.SetTrigger("LightAttack");
                             }
                             // gameObject.MoveTo(enemy.transform.position - transform.forward, 0.75f, iTween.EaseType.easeOutQuart, "OnLighDashEnd");
                         }
@@ -97,6 +94,7 @@ namespace Entities
                 transform.position = Vector3.Lerp(currentPos, position, t);
                 yield return null;
             }
+            entity.Animator.SetTrigger("LightAttack");
             OnLighDashEnd();
         }
 
