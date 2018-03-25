@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using BattleSystem;
+using Entities;
 using UnityEngine;
 
 namespace FSM
@@ -9,7 +10,19 @@ namespace FSM
         {
             public static int None = 0;
             public static int Attack = 1;
-            public static int GroupAlert = 3;
+            public static int Stalking = 2;
+        }
+
+        /// <summary>
+        /// Variables and triggers in animator
+        /// </summary>
+        private class Animations
+        {
+            public static string Attack         = "LightAttack";
+            public static string SpecialAttack  = "HeavyAttack";
+            public static string Death          = "Death";
+            public static string RandomDeath    = "RandomDeath";
+            public static string Move           = "Velocity Z";
         }
 
         #region Components
@@ -18,65 +31,101 @@ namespace FSM
         #endregion
 
         #region Local Vars
+        private string attackAnimation = string.Empty;
         private bool isLocked = false;
         #endregion
 
-        public BasicEnemyFSM(GroupEntity e)
+        public BasicEnemyFSM(BasicEnemy e)
         {
+            this.debugName = "BasicFSM";
+
             entityAttack = e.gameObject.GetComponent<EntityAttacker>();
             entityMove = e.gameObject.GetComponent<EntityMove>();
 
             #region States Definitions
-            State<int> Stalking = new State<int>("Stalking");
+            State<int> Idle = new State<int>("Idling");
+            State<int> Stalk = new State<int>("Stalking");
+            State<int> Follow = new State<int>("Following");
+            State<int> Attack = new State<int>("Attacking");
             #endregion
 
 
             #region States Configuration
-            SetInitialState(Stalking);
-            
-            StateConfigurer.Create(Stalking)
-                .SetTransition(Trigger.None, Stalking);
+            SetInitialState(Idle);
+
+            StateConfigurer.Create(Idle)
+                .SetTransition(Trigger.Stalking, Stalk);
+
+            StateConfigurer.Create(Stalk)
+                .SetTransition(Trigger.Attack, Follow);
+
+            StateConfigurer.Create(Follow)
+                .SetTransition(Trigger.Attack, Attack);
+
+            StateConfigurer.Create(Attack)
+                .SetTransition(Trigger.Stalking, Stalk);
             #endregion
 
-
-            #region Patrol State
-
-            Stalking.OnUpdate += () =>
+            #region Stalk State
+            Stalk.OnUpdate += () =>
             {
                 entityMove.RotateTowards(e.Target.transform.position);
-
-                e.transform.position += e.transform.right * e.Stats.MoveSpeed.Min * Time.deltaTime;
             };
             #endregion
-
 
             #region Follow State
-            /*Follow.OnUpdate += () =>
+            Follow.OnEnter += () =>
             {
-                lastTargetPosition = lineOfSight.Target.position;
+                e.Animator.SetFloat(Animations.Move, 1);
+            };
 
-                entityMove.RotateInstant(lastTargetPosition);
-                entityMove.MoveAgent(lastTargetPosition);
+            Follow.OnUpdate += () =>
+            {
+                entityMove.RotateInstant(e.Target.transform.position);
+                entityMove.MoveAgent(e.Target.transform.position);
 
-                if (Vector3.Distance(lineOfSight.target.transform.position, e.transform.position) <= e.attackRange)
+                if (Vector3.Distance(e.transform.position, e.Target.transform.position) <= e.AttackRange)
                 {
-                    Feed(Trigger.TargetInRange);
+                    Feed(Trigger.Attack);
                 }
-            };*/
+            };
+
+            Follow.OnExit += () =>
+            {
+                e.Animator.SetFloat(Animations.Move, 0);
+            };
             #endregion
 
 
-            #region Entity Events
-            e.OnThink += () =>
+            #region Attack State
+            Attack.OnEnter += () =>
             {
-                if (isLocked || e.IsDead) return;
+                e.Animator.SetTrigger(attackAnimation);
             };
+            #endregion
 
             e.OnAnimUnlock += () =>
             {
-                isLocked = false;
+                e.CurrentAction = GroupAction.Stalking;
             };
-            #endregion
+
+            e.OnSetAction += (GroupAction newAction, GroupAction lastAction) =>
+            {
+                if (newAction == GroupAction.Attacking)
+                {
+                    attackAnimation = Animations.Attack;
+                    Feed(Trigger.Attack);
+                }
+                else if (newAction == GroupAction.SpecialAttack)
+                {
+                    attackAnimation = Animations.SpecialAttack;
+                    Feed(Trigger.Attack);
+                }
+                else if (newAction == GroupAction.Stalking)
+                {
+                    Feed(Trigger.Stalking);
+                }
+            };
         }
     }
 }

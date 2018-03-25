@@ -4,8 +4,7 @@ namespace BattleSystem
 {
     public interface IGroup
     {
-        void SetTarget(CharacterEntity target);
-        void TriggerAttack();
-        void TriggerSpecialAttack();
+        CharacterEntity Target { get; set; }
+        GroupAction CurrentAction { get; set; }
     }
 }

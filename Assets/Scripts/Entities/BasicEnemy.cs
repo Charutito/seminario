@@ -9,6 +9,9 @@ namespace Entities
 {
     public class BasicEnemy : GroupEntity
     {
+        [Range(1f, 5f)]
+        public float AttackRange = 2f;
+
         private BasicEnemyFSM fsm;
 
         private void Start()
@@ -22,22 +25,10 @@ namespace Entities
             fsm.Update();
         }
 
-        public override void TriggerAttack()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void TriggerSpecialAttack()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, 0, 2));
-        
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
     }
 }

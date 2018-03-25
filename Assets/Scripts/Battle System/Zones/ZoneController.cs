@@ -23,12 +23,13 @@ namespace BattleSystem
         public void ExecuteAttack()
         {
             var entityToAttack = entities
+                                    .Where(e => e.CurrentAction == GroupAction.Stalking)
                                     .OrderBy(e => Vector3.Distance(Target.transform.position, e.transform.position))
                                     .FirstOrDefault();
 
             if (entityToAttack != null)
             {
-                entityToAttack.TriggerAttack();
+                entityToAttack.CurrentAction = GroupAction.Attacking;
             }
         }
 
@@ -36,7 +37,8 @@ namespace BattleSystem
         {
             foreach (var entity in entities)
             {
-                entity.SetTarget(GameManager.Instance.Character);
+                entity.CurrentAction = GroupAction.Stalking;
+                entity.Target = GameManager.Instance.Character;
             }
         }
 

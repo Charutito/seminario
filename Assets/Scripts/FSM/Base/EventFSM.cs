@@ -12,7 +12,7 @@ namespace FSM
         State<T> _current;
         bool _feeding = false;
 
-        public State<T> current { get { return _current; } }
+        public State<T> Current { get { return _current; } }
 
         public bool enabled;
 
@@ -45,7 +45,7 @@ namespace FSM
 		public bool Feed(T input)
         {
 			if(_feeding)
-				throw new Exception("Error: Feeding from OnEnter or OnExit, will cause repeated or missing calls");
+				throw new Exception("Error: Feeding from OnEnter or OnExit, will cause repeated or missing calls." + " Feed: " + input);
 			
 			State<T>.Transition transition;
 			if(
