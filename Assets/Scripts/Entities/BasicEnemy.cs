@@ -10,6 +10,9 @@ namespace Entities
 {
     public class BasicEnemy : GroupEntity
     {
+        [Range(1f, 5f)]
+        public float AttackRange = 2f;
+
         private BasicEnemyFSM fsm;
         public GameObject Hitpart;
         public Transform hitpos;
@@ -25,15 +28,15 @@ namespace Entities
             fsm.Update();
         }
 
-        public override void TriggerAttack()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public override void TriggerAttack()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public override void TriggerSpecialAttack()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public override void TriggerSpecialAttack()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
         public override void TakeDamage(int damage, DamageType type)
         {
             base.TakeDamage(damage, type);
@@ -43,10 +46,8 @@ namespace Entities
 
         public void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, 0, 2));
-        
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
     }
 }
