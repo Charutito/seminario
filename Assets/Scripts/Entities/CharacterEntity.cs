@@ -19,17 +19,15 @@ namespace Entities
             {
                 OnMove();
             }
-
             if (InputManager.Instance.LightAttack && OnAttack != null)
             {
                 OnAttack();
             }
-
             if (InputManager.Instance.HeavyAttack && OnHeavyAttack != null)
             {
                 OnHeavyAttack();
             }
-
+           
             fsm.Update();
         }
 

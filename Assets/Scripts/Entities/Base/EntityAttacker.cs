@@ -28,10 +28,7 @@ namespace Entities
 
         private Entity entity;
         private EntityMove entityMove;
-        #endregion
-
-       
-
+        #endregion      
         #region Light Attack
         public void OnLighDashEnd()
         {
@@ -105,7 +102,6 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
-
             if (damageable != null)
             {
                 damageable.TakeDamage((int)entity.Stats.Damage.Min);
