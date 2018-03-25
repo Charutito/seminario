@@ -607,6 +607,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 65366787411806850, guid: e0583aff3ef133c468c65208bc1e6767,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 10.107374
+      objectReference: {fileID: 0}
+    - target: {fileID: 65366787411806850, guid: e0583aff3ef133c468c65208bc1e6767,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 4.2046422e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65366787411806850, guid: e0583aff3ef133c468c65208bc1e6767,
+        type: 2}
+      propertyPath: m_Center.z
+      value: 5.0536876
+      objectReference: {fileID: 0}
+    - target: {fileID: 137572127134707852, guid: e0583aff3ef133c468c65208bc1e6767,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 499122763d706374a901b887dfccf199, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0583aff3ef133c468c65208bc1e6767, type: 2}
   m_IsPrefabParent: 0
@@ -913,7 +933,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4354539128177316, guid: cb01abbf7e178b442b97d669c54b295b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.25
+      value: 7.98
       objectReference: {fileID: 0}
     - target: {fileID: 4354539128177316, guid: cb01abbf7e178b442b97d669c54b295b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1281,7 +1301,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570

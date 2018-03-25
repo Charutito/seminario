@@ -58,17 +58,9 @@ namespace Entities
                         {
                             entity.Animator.applyRootMotion = false; 
                             entity.Animator.SetFloat("Velocity Z", 2f);
-                            if (!enemy.GetComponent<EntityAttacker>().canBeCountered)
-                            {
-                                FrameUtil.AfterDelay(0.1f, () =>
-                                {
-                                    StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.4f));
-                                });
-                            }
-                            else if (enemy.GetComponent<EntityAttacker>().canBeCountered)
-                            {
-                                StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
-                            }
+                            //entity.Animator.SetTrigger("CounterAttack");
+                            StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
+                            
                             // gameObject.MoveTo(enemy.transform.position - transform.forward, 0.75f, iTween.EaseType.easeOutQuart, "OnLighDashEnd");
                         }
                         else
@@ -88,13 +80,13 @@ namespace Entities
         {
             var currentPos = transform.position;
             var t = 0f;
+            entity.Animator.SetTrigger("CounterAttack");
             while (t < 1)
             {
                 t += Time.deltaTime / timeToMove;
                 transform.position = Vector3.Lerp(currentPos, position, t);
                 yield return null;
-            }
-            entity.Animator.SetTrigger("LightAttack");
+            }            
             OnLighDashEnd();
         }
 
