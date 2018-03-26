@@ -157,7 +157,7 @@ namespace FSM
 
 
             #region Entity Events
-            e.OnThink += () =>
+            /*e.OnThink += () =>
             {
                 if (isLocked || e.IsDead) return;
 
@@ -169,12 +169,12 @@ namespace FSM
                 {
                     Feed(Trigger.TargetLost);
                 }
-            };
+            };*/
 
-            e.OnAnimUnlock += () =>
+            /*e.OnAnimUnlock += () =>
             {
                 isLocked = false;
-            };
+            };*/
             #endregion
         }
     }

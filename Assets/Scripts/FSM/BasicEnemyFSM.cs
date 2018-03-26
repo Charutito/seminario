@@ -1,6 +1,7 @@
 ﻿using BattleSystem;
 using Entities;
 using UnityEngine;
+using Util;
 
 namespace FSM
 {
@@ -11,6 +12,8 @@ namespace FSM
             public static int None = 0;
             public static int Attack = 1;
             public static int Stalking = 2;
+            public static int Die = 3;
+            public static int Stun = 4;
         }
 
         /// <summary>
@@ -22,31 +25,36 @@ namespace FSM
             public static string SpecialAttack  = "HeavyAttack";
             public static string Death          = "Death";
             public static string RandomDeath    = "RandomDeath";
+            public static string GetHit         = "GetHit";
             public static string Move           = "Velocity Z";
         }
 
         #region Components
+        private BasicEnemy entity;
         private EntityMove entityMove;
         private EntityAttacker entityAttack;
         #endregion
 
         #region Local Vars
         private string attackAnimation = string.Empty;
-        private bool isLocked = false;
+        private int currentHitsToStun = 0;
         #endregion
 
-        public BasicEnemyFSM(BasicEnemy e)
+        public BasicEnemyFSM(BasicEnemy entity)
         {
             this.debugName = "BasicFSM";
+            this.entity = entity;
 
-            entityAttack = e.gameObject.GetComponent<EntityAttacker>();
-            entityMove = e.gameObject.GetComponent<EntityMove>();
+            entityAttack = entity.gameObject.GetComponent<EntityAttacker>();
+            entityMove = entity.gameObject.GetComponent<EntityMove>();
 
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> Stalk = new State<int>("Stalking");
             State<int> Follow = new State<int>("Following");
             State<int> Attack = new State<int>("Attacking");
+            State<int> Death = new State<int>("Death");
+            State<int> Stunned = new State<int>("Stunned");
             #endregion
 
 
@@ -54,37 +62,50 @@ namespace FSM
             SetInitialState(Idle);
 
             StateConfigurer.Create(Idle)
-                .SetTransition(Trigger.Stalking, Stalk);
+                .SetTransition(Trigger.Stalking, Stalk)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Stalk)
-                .SetTransition(Trigger.Attack, Follow);
+                .SetTransition(Trigger.Attack, Follow)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Follow)
-                .SetTransition(Trigger.Attack, Attack);
+                .SetTransition(Trigger.Attack, Attack)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Attack)
-                .SetTransition(Trigger.Stalking, Stalk);
+                .SetTransition(Trigger.Stalking, Stalk)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Death);
+
+            StateConfigurer.Create(Stunned)
+                .SetTransition(Trigger.Attack, Follow)
+                .SetTransition(Trigger.Stalking, Stalk)
+                .SetTransition(Trigger.Die, Death);
             #endregion
 
             #region Stalk State
             Stalk.OnUpdate += () =>
             {
-                entityMove.RotateTowards(e.Target.transform.position);
+                entityMove.RotateTowards(entity.Target.transform.position);
             };
             #endregion
 
             #region Follow State
             Follow.OnEnter += () =>
             {
-                e.Animator.SetFloat(Animations.Move, 1);
+                entity.Animator.SetFloat(Animations.Move, 1);
             };
 
             Follow.OnUpdate += () =>
             {
-                entityMove.RotateInstant(e.Target.transform.position);
-                entityMove.MoveAgent(e.Target.transform.position);
+                entityMove.RotateInstant(entity.Target.transform.position);
+                entityMove.MoveAgent(entity.Target.transform.position);
 
-                if (Vector3.Distance(e.transform.position, e.Target.transform.position) <= e.AttackRange)
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
                 {
                     Feed(Trigger.Attack);
                 }
@@ -92,7 +113,7 @@ namespace FSM
 
             Follow.OnExit += () =>
             {
-                e.Animator.SetFloat(Animations.Move, 0);
+                entity.Animator.SetFloat(Animations.Move, 0);
             };
             #endregion
 
@@ -100,32 +121,81 @@ namespace FSM
             #region Attack State
             Attack.OnEnter += () =>
             {
-                e.Animator.SetTrigger(attackAnimation);
+                entity.Animator.SetTrigger(attackAnimation);
             };
             #endregion
 
-            e.OnAnimUnlock += () =>
+            #region Death State
+            Death.OnEnter += () =>
             {
-                e.CurrentAction = GroupAction.Stalking;
-            };
+                entity.Animator.SetTrigger("Death");
+                entity.Animator.SetInteger("RandomDeath", Random.Range(0, 3));
 
-            e.OnSetAction += (GroupAction newAction, GroupAction lastAction) =>
+                entity.Agent.enabled = false;
+                entity.Collider.enabled = false;
+            };
+            #endregion
+
+            #region Stunned State
+            Stunned.OnEnter += () =>
             {
-                if (newAction == GroupAction.Attacking)
-                {
-                    attackAnimation = Animations.Attack;
-                    Feed(Trigger.Attack);
-                }
-                else if (newAction == GroupAction.SpecialAttack)
-                {
-                    attackAnimation = Animations.SpecialAttack;
-                    Feed(Trigger.Attack);
-                }
-                else if (newAction == GroupAction.Stalking)
+                Debug.Log("Test");
+                entity.Animator.SetTrigger(Animations.GetHit);
+
+                FrameUtil.AfterDelay(entity.stunDuration, () =>
                 {
                     Feed(Trigger.Stalking);
-                }
+                });
             };
+            #endregion
+
+            #region Entity Events
+            entity.OnAnimUnlock += OnAnimUnlock;
+            entity.OnSetAction += OnSetAction;
+            entity.OnTakeDamage += OnTakingDamage;
+
+            entity.OnDeath += (e) =>
+            {
+                entity.OnAnimUnlock -= OnAnimUnlock;
+                entity.OnSetAction -= OnSetAction;
+                entity.OnTakeDamage -= OnTakingDamage;
+                Debug.Log("Death");
+                Feed(Trigger.Die);
+            };
+            #endregion
+        }
+        
+        private void OnAnimUnlock()
+        {
+            entity.CurrentAction = GroupAction.Stalking;
+        }
+
+        private void OnTakingDamage(int damage, DamageType type)
+        {
+            currentHitsToStun++;
+
+            if (currentHitsToStun >= entity.hitsToGetStunned)
+            {
+                Feed(Trigger.Stun);
+            }
+        }
+
+        private void OnSetAction(GroupAction newAction, GroupAction lastAction)
+        {
+            if (newAction == GroupAction.Attacking)
+            {
+                attackAnimation = Animations.Attack;
+                Feed(Trigger.Attack);
+            }
+            else if (newAction == GroupAction.SpecialAttack)
+            {
+                attackAnimation = Animations.SpecialAttack;
+                Feed(Trigger.Attack);
+            }
+            else if (newAction == GroupAction.Stalking)
+            {
+                Feed(Trigger.Stalking);
+            }
         }
     }
 }

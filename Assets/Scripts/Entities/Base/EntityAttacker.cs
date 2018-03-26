@@ -28,7 +28,8 @@ namespace Entities
 
         private Entity entity;
         private EntityMove entityMove;
-        #endregion      
+        #endregion
+        
         #region Light Attack
         public void OnLighDashEnd()
         {
@@ -57,8 +58,6 @@ namespace Entities
                             entity.Animator.SetFloat("Velocity Z", 2f);
                             entity.Animator.SetTrigger("CounterAttack");
                             StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
-                            
-                            // gameObject.MoveTo(enemy.transform.position - transform.forward, 0.75f, iTween.EaseType.easeOutQuart, "OnLighDashEnd");
                         }
                         else
                         {
@@ -68,31 +67,34 @@ namespace Entities
                     else
                     {
                         entity.Animator.SetTrigger("LightAttack");
-
                     }
                 });
             }
         }
-         public IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeToMove)
+
+        public IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeToMove)
         {
             var currentPos = transform.position;
             var t = 0f;
-            ///entity.Animator.SetTrigger("CounterAttack");
+
             while (t < 1)
             {
                 t += Time.deltaTime / timeToMove;
                 transform.position = Vector3.Lerp(currentPos, position, t);
                 yield return null;
-            }            
+            }         
+            
             OnLighDashEnd();
         }
 
         public void LightAttack_Hit()
         {
-            attackArea.gameObject.SetActive(true);
-            canBeCountered = false;
             attackArea.TriggerEnter += LightAttack_Damage;
-            FrameUtil.AtEndOfFrame(() => 
+            attackArea.gameObject.SetActive(true);
+
+            canBeCountered = false;            
+
+            FrameUtil.AfterFrames(1, () => 
             {
                 attackArea.TriggerEnter -= LightAttack_Damage;
                 attackArea.gameObject.SetActive(false);
@@ -102,9 +104,10 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
+
             if (damageable != null)
             {
-                damageable.TakeDamage((int)entity.Stats.Damage.Min);
+                damageable.TakeDamage((int)entity.Stats.Damage.Min, h_damageType);
             }
         }
         #endregion

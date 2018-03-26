@@ -1,8 +1,5 @@
-﻿using Entities;
-using FSM;
+﻿using FSM;
 using Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using BattleSystem;
 
@@ -13,9 +10,28 @@ namespace Entities
         [Range(1f, 5f)]
         public float AttackRange = 2f;
 
+        [Header("Stun")]
+        public int hitsToGetStunned = 3;
+        public float stunDuration = 0.5f;
+
+        #region Local Vars
         private BasicEnemyFSM fsm;
+        #endregion
+
         public GameObject Hitpart;
         public Transform hitpos;
+
+        public void HitFeedback()
+        {
+            var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
+            Destroy(part, 1);
+        }
+
+        protected override void Update()
+        {
+            fsm.Update();
+            base.Update();
+        }
 
         private void Start()
         {
@@ -23,28 +39,7 @@ namespace Entities
             fsm = new BasicEnemyFSM(this);
         }
 
-        protected override void OnUpdate()
-        {
-            fsm.Update();
-        }
-
-        //public override void TriggerAttack()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public override void TriggerSpecialAttack()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-        public override void TakeDamage(int damage, DamageType type)
-        {
-            base.TakeDamage(damage, type);
-            var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
-            Destroy(part, 1);
-        }
-
-        public void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, AttackRange);

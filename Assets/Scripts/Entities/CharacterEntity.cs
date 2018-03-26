@@ -1,5 +1,4 @@
-﻿using BattleSystem;
-using FSM;
+﻿using FSM;
 using Managers;
 using System;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace Entities
         public event Action OnAttack = delegate { };
         public event Action OnHeavyAttack = delegate { };
 
-        protected override void OnUpdate() 
+        protected override void Update() 
         {
             if (InputManager.Instance.AxisMoving && OnMove != null)
             {
@@ -36,6 +35,7 @@ namespace Entities
             }
            
             fsm.Update();
+            base.Update();
         }
 
         private void Start()

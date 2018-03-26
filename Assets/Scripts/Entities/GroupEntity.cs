@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Entities
 {
-    [RequireComponent(typeof(EntityAttacker))]
     public abstract class GroupEntity : Entity, IGroup
     {
         #region Events
