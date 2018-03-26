@@ -2,6 +2,7 @@
 using UnityEngine;
 using Stats;
 using System;
+using UnityEngine.AI;
 
 namespace Entities
 {
@@ -9,32 +10,44 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, IDamageable
     {
         #region Properties
-        public Animator Animator { get { return animator; } }
-        public bool IsDead { get { return (stats.Health.Current <= stats.Health.Min) && !godMode; } }
+        public NavMeshAgent Agent { get; private set; }
+        public Animator Animator { get; private set; }
+        public Collider Collider { get; private set; }
+        public bool IsDead { get { return stats.Health.Current <= stats.Health.Min; } }
+        public bool IsGod { get { return godMode; } }
         public EntityStats Stats { get { return stats; } }
         #endregion
 
 
         #region Events
         public event Action OnAnimUnlock = delegate { };
-        public event Action OnAttackEnd = delegate { };
-        public event Action OnThink = delegate { };
+        public event Action<int, DamageType> OnTakeDamage = delegate { };
+        public event Action<Entity> OnDeath = delegate { };
         #endregion
 
 
         #region Local Vars
         [SerializeField] private EntityStats stats;
-
         [SerializeField] private bool godMode = false;
-
-        private Animator animator;
         #endregion 
 
 
         #region IDamageable
         public virtual void TakeDamage(int damage, DamageType type)
         {
-            Stats.Health.Current -= damage;
+            if (!godMode)
+            {
+                Stats.Health.Current -= damage;
+            }
+
+            if (IsDead && OnDeath != null)
+            {
+                OnDeath(this);
+            }
+            else if (!IsDead && OnTakeDamage != null)
+            {
+                OnTakeDamage(damage, type);
+            }
         }
         #endregion
 
@@ -47,33 +60,17 @@ namespace Entities
                 OnAnimUnlock();
             }
         }
-
-        public void AttackEnd()
-        {
-            if (OnAttackEnd != null)
-            {
-                OnAttackEnd();
-            }
-        }
         #endregion
+
+        protected virtual void Update() {}
 
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
-        }
+            Animator = GetComponent<Animator>();
+            Agent = GetComponent<NavMeshAgent>();
+            Collider = GetComponent<Collider>();
 
-        protected abstract void OnUpdate();
-
-        private void Update()
-        {
-            // Por el momento esto esta bien, pero tendria uqe estar en una corrutina
-            // o en un UpdateManager para poder frenar el pensamiento de la FSM
-            if (OnThink != null)
-            {
-                OnThink();
-            }
-
-            OnUpdate();
+            Stats.Health.Current = stats.Health.Max;
         }
     }
 }

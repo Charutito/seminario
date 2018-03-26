@@ -32,9 +32,10 @@ namespace Entities
             base.TakeDamage(damage, type);
         }
 
-        protected override void OnUpdate()
+        protected override void Update()
         {
             fsm.Update();
+            base.Update();
 
             if (!IsDead)
             {
@@ -42,7 +43,7 @@ namespace Entities
             }
         }
 
-        private void OnHeathChange(float old, float current)
+        /*private void OnHeathChange(float old, float current)
         {
             if (current == Stats.Health.Min)
             {
@@ -58,15 +59,15 @@ namespace Entities
             {
                 Animator.SetTrigger("GetHit");
             }
-        }
+        }*/
 
-private void Start()
+        private void Start()
         {
             fsm = new SkeletonFSM(this);
             agent = GetComponent<NavMeshAgent>();
             selfCollider = GetComponent<Collider>();
 
-            Stats.Health.OnActualChange += OnHeathChange;
+            //Stats.Health.OnActualChange += OnHeathChange;
         }
     }
 }

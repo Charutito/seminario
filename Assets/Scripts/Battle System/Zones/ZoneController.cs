@@ -12,6 +12,7 @@ namespace BattleSystem
     {
         public bool Initialized { get; set; }
         public CharacterEntity Target { get; protected set; }
+        public int EnemiesLeft { get { return entities.Count; } }
 
         public float minAttackDelay = 2f;
         public float maxAttackDelay = 5f;
@@ -39,7 +40,14 @@ namespace BattleSystem
             {
                 entity.CurrentAction = GroupAction.Stalking;
                 entity.Target = GameManager.Instance.Character;
+                entity.OnDeath += OnEntityDie;
             }
+        }
+
+        private void OnEntityDie(Entity entity)
+        {
+            entities.Remove((GroupEntity)entity);
+            entity.OnDeath -= OnEntityDie;
         }
 
         private void Awake()
