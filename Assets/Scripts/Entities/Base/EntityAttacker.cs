@@ -33,10 +33,10 @@ namespace Entities
         #region Light Attack
         public void OnLighDashEnd()
         {
+            entity.Animator.SetTrigger("LightAttack");
             entity.Animator.SetFloat("Velocity Z", 0);
             entity.Animator.applyRootMotion = true;
         }
-
         public void LightAttack_Start()
         {
             if (lineArea != null)
@@ -56,7 +56,6 @@ namespace Entities
                         {
                             entity.Animator.applyRootMotion = false; 
                             entity.Animator.SetFloat("Velocity Z", 2f);
-                            entity.Animator.SetTrigger("CounterAttack");
                             StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
                         }
                         else
@@ -76,7 +75,6 @@ namespace Entities
         {
             var currentPos = transform.position;
             var t = 0f;
-
             while (t < 1)
             {
                 t += Time.deltaTime / timeToMove;
@@ -91,7 +89,6 @@ namespace Entities
         {
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
-
             canBeCountered = false;            
 
             FrameUtil.AfterFrames(1, () => 
@@ -104,10 +101,11 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
-
+            var enemyToDMG = other.GetComponent<BasicEnemy>();
             if (damageable != null)
             {
                 damageable.TakeDamage((int)entity.Stats.Damage.Min, h_damageType);
+                enemyToDMG.HitFeedback();
             }
         }
         #endregion
@@ -134,10 +132,13 @@ namespace Entities
             foreach (var collider in colliders)
             {
                 var damageable = collider.GetComponent<IDamageable>();
+                var enemyToDMG = collider.GetComponent<BasicEnemy>();
 
                 if (damageable != null)
                 {
                     damageable.TakeDamage((int)entity.Stats.Damage.Max, h_damageType);
+                    enemyToDMG.HitFeedback();
+
                 }
             }
         }
