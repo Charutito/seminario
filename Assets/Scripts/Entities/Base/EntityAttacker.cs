@@ -85,13 +85,8 @@ namespace Entities
             OnLighDashEnd();
         }
 
-        public void LightAttack_Hit(int attackNumber)
+        public void LightAttack_Hit()
         {
-
-            if (attackNumber == 1)
-                Debug.LogError("CONCHALAPELOTA");
-            else if (attackNumber == 2)
-                Debug.LogError("Ataque 2");
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
             canBeCountered = false;            
@@ -106,11 +101,9 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
-            var enemyToDMG = other.GetComponent<BasicEnemy>();
             if (damageable != null)
             {
                 damageable.TakeDamage((int)entity.Stats.Damage.Min, h_damageType);
-                enemyToDMG.HitFeedback();
             }
         }
         #endregion

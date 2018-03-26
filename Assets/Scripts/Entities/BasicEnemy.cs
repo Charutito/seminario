@@ -1,7 +1,6 @@
 ﻿using FSM;
 using Managers;
 using UnityEngine;
-using BattleSystem;
 
 namespace Entities
 {

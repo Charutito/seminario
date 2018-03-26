@@ -35,6 +35,8 @@ namespace Entities
         #region IDamageable
         public virtual void TakeDamage(int damage, DamageType type)
         {
+            if (IsDead) return;
+
             if (!godMode)
             {
                 Stats.Health.Current -= damage;
@@ -44,7 +46,8 @@ namespace Entities
             {
                 OnDeath(this);
             }
-            else if (!IsDead && OnTakeDamage != null)
+
+            if (OnTakeDamage != null)
             {
                 OnTakeDamage(damage, type);
             }

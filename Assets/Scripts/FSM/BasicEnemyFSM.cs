@@ -37,7 +37,7 @@ namespace FSM
 
         #region Local Vars
         private string attackAnimation = string.Empty;
-        private int currentHitsToStun = 0;
+        private int currentHitsToStun = 0; // Tendria que reducirse a lo largo del tiempo si no recibe ataques
         #endregion
 
         public BasicEnemyFSM(BasicEnemy entity)
@@ -139,7 +139,6 @@ namespace FSM
             #region Stunned State
             Stunned.OnEnter += () =>
             {
-                Debug.Log("Test");
                 entity.Animator.SetTrigger(Animations.GetHit);
 
                 FrameUtil.AfterDelay(entity.stunDuration, () =>
@@ -159,7 +158,6 @@ namespace FSM
                 entity.OnAnimUnlock -= OnAnimUnlock;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
-                Debug.Log("Death");
                 Feed(Trigger.Die);
             };
             #endregion
@@ -172,6 +170,8 @@ namespace FSM
 
         private void OnTakingDamage(int damage, DamageType type)
         {
+            entity.HitFeedback();
+
             currentHitsToStun++;
 
             if (currentHitsToStun >= entity.hitsToGetStunned)
