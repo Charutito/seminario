@@ -85,8 +85,13 @@ namespace Entities
             OnLighDashEnd();
         }
 
-        public void LightAttack_Hit()
+        public void LightAttack_Hit(int attackNumber)
         {
+
+            if (attackNumber == 1)
+                Debug.LogError("CONCHALAPELOTA");
+            else if (attackNumber == 2)
+                Debug.LogError("Ataque 2");
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
             canBeCountered = false;            
