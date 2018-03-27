@@ -26,10 +26,9 @@ namespace Entities
             Destroy(part, 1);
         }
 
-        protected override void Update()
+        private void Update()
         {
             fsm.Update();
-            base.Update();
         }
 
         private void Start()

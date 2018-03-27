@@ -16,7 +16,7 @@ namespace Entities
         public event Action OnAttack = delegate { };
         public event Action OnHeavyAttack = delegate { };
 
-        protected override void Update() 
+        private void Update() 
         {
             if (InputManager.Instance.AxisMoving && OnMove != null)
             {
@@ -35,7 +35,6 @@ namespace Entities
             }
            
             fsm.Update();
-            base.Update();
         }
 
         private void Start()

@@ -103,7 +103,7 @@ namespace Entities
             var damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage((int)entity.Stats.Damage.Min, h_damageType);
+                damageable.TakeDamage(0, h_damageType);
             }
         }
         #endregion
@@ -127,15 +127,13 @@ namespace Entities
         {
 
             var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
-            foreach (var collider in colliders)
+            foreach (var other in colliders)
             {
-                var damageable = collider.GetComponent<IDamageable>();
-                var enemyToDMG = collider.GetComponent<BasicEnemy>();
+                var damageable = other.GetComponent<IDamageable>();
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage((int)entity.Stats.Damage.Max, h_damageType);
-                    enemyToDMG.HitFeedback();
+                    damageable.TakeDamage(0, h_damageType);
 
                 }
             }
