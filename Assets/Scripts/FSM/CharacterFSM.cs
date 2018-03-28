@@ -68,9 +68,9 @@ namespace FSM
             e.OnMove += FeedMove;
 
             //e.OnAttackEnd += () => { };
-            e.OnAnimUnlock += () => {
+            /*e.OnAnimUnlock += () => {
                 Feed(CharacterInput.None);
-            };
+            };*/
 
             #endregion
 

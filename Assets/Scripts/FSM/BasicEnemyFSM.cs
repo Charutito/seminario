@@ -149,13 +149,13 @@ namespace FSM
             #endregion
 
             #region Entity Events
-            entity.OnAnimUnlock += OnAnimUnlock;
+            //entity.OnAnimUnlock += OnAnimUnlock;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
 
             entity.OnDeath += (e) =>
             {
-                entity.OnAnimUnlock -= OnAnimUnlock;
+                //entity.OnAnimUnlock -= OnAnimUnlock;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
                 Feed(Trigger.Die);

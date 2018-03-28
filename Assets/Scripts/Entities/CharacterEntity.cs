@@ -16,20 +16,20 @@ namespace Entities
         public event Action OnAttack = delegate { };
         public event Action OnHeavyAttack = delegate { };
 
-        private void Update() 
+        private void Update()
         {
             if (InputManager.Instance.AxisMoving && OnMove != null)
             {
                 OnMove();
             }
-            if (InputManager.Instance.LightAttack && OnAttack != null)
+            if (InputManager.Instance.Attack && OnAttack != null)
 
-            if (InputManager.Instance.LightAttack && Time.time > nextFire && OnAttack != null)
+            if (InputManager.Instance.Attack && Time.time > nextFire && OnAttack != null)
             {
                 nextFire = Time.time + fireRate;
                 OnAttack();
             }
-            if (InputManager.Instance.HeavyAttack && OnHeavyAttack != null)
+            if (InputManager.Instance.SpecialAttack && OnHeavyAttack != null)
             {
                 OnHeavyAttack();
             }
