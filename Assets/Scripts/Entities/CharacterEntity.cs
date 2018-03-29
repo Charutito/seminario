@@ -12,9 +12,18 @@ namespace Entities
         private CharacterFSM fsm;
         private float nextFire = 0f;
 
+        public event Action OnAnimUnlock = delegate { };
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
         public event Action OnHeavyAttack = delegate { };
+
+        public void AnimUnlock()
+        {
+            if (OnAnimUnlock != null)
+            {
+                OnAnimUnlock();
+            }
+        }
 
         private void Update()
         {

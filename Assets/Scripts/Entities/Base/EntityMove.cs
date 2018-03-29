@@ -33,7 +33,7 @@ namespace Entities
         {
             if (!_agent.pathPending && (_agent.remainingDistance <= _agent.stoppingDistance))
             {
-                return (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f);
+                return (!_agent.hasPath || _agent.velocity.sqrMagnitude <= 0f);
             }
 
             return false;

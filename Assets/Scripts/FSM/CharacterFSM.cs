@@ -10,7 +10,7 @@ namespace FSM
 {
     public class CharacterFSM : EventFSM<int>
     {
-        private class CharacterInput
+        private static class CharacterInput
         {
             public static int Move = 0;
             public static int LightAttack = 1;
@@ -19,14 +19,8 @@ namespace FSM
             public static int None = 4;
         }
 
-        private EntityMove entityMove;
-        private EntityAttacker entityAttack;
-
         public CharacterFSM(CharacterEntity e)
         {
-            entityAttack = e.gameObject.GetComponent<EntityAttacker>();
-            entityMove = e.gameObject.GetComponent<EntityMove>();
-
             State<int> Idle = new State<int>("Idle");
             State<int> Moving = new State<int>("Moving");
             State<int> LightAttacking = new State<int>("Light Attacking");
@@ -68,9 +62,9 @@ namespace FSM
             e.OnMove += FeedMove;
 
             //e.OnAttackEnd += () => { };
-            /*e.OnAnimUnlock += () => {
+            e.OnAnimUnlock += () => {
                 Feed(CharacterInput.None);
-            };*/
+            };
 
             #endregion
 
@@ -86,7 +80,7 @@ namespace FSM
             {
                 if (InputManager.Instance.AxisMoving)
                 {
-                    entityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
+                    e.EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
                 }
                 else
                 {
@@ -105,8 +99,8 @@ namespace FSM
             LightAttacking.OnEnter += () =>
             {
                 e.OnMove -= FeedMove;
-
-                entityAttack.LightAttack_Start();
+                
+                e.EntityAttacker.LightAttack_Start();
             };
 
             LightAttacking.OnExit += () =>
@@ -121,7 +115,7 @@ namespace FSM
             {
                 e.OnMove -= FeedMove;
 
-                entityAttack.HeavyAttack_Start();
+                e.EntityAttacker.HeavyAttack_Start();
             };
 
             HeavyAttacking.OnExit += () =>

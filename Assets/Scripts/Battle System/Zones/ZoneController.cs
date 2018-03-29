@@ -67,7 +67,7 @@ namespace BattleSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!Initialized && other.tag == Tags.Player)
+            if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
                 fsm.PlayerEnter();
             }

@@ -39,7 +39,7 @@ namespace Steering
         #region Private Functions
         private void Start()
         {
-            var targetGameObject = GameObject.FindGameObjectWithTag(Tags.Player);
+            var targetGameObject = GameObject.FindGameObjectWithTag(Tags.PLAYER);
             target = (targetGameObject != null) ? targetGameObject.GetComponent<Entity>() : null;
         }
 
