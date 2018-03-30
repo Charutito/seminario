@@ -37,6 +37,7 @@ namespace Entities
             entity.Animator.SetFloat("Velocity Z", 0);
             entity.Animator.applyRootMotion = true;
         }
+
         public void LightAttack_Start()
         {
             if (lineArea != null)

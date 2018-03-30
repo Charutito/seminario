@@ -7,23 +7,29 @@ namespace Entities
 {
     public class CharacterEntity : Entity
     {
-        public float fireRate = 0.5f;
+        public CharacterFSM fsm;
 
-        private CharacterFSM fsm;
-        private float nextFire = 0f;
-
-        public event Action OnAnimUnlock = delegate { };
+		public event Action OnAttackRecovering = delegate { };
+		public event Action OnAttackRecovered = delegate { };
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
         public event Action OnHeavyAttack = delegate { };
 
-        public void AnimUnlock()
-        {
-            if (OnAnimUnlock != null)
-            {
-                OnAnimUnlock();
-            }
-        }
+		public void AttackRecovered()
+		{
+			if (OnAttackRecovered != null)
+			{
+				OnAttackRecovered();
+			}
+		}
+
+		public void AttackRecovering()
+		{
+			if (OnAttackRecovering != null)
+			{
+				OnAttackRecovering();
+			}
+		}
 
         private void Update()
         {
@@ -32,10 +38,7 @@ namespace Entities
                 OnMove();
             }
             if (InputManager.Instance.Attack && OnAttack != null)
-
-            if (InputManager.Instance.Attack && Time.time > nextFire && OnAttack != null)
             {
-                nextFire = Time.time + fireRate;
                 OnAttack();
             }
             if (InputManager.Instance.SpecialAttack && OnHeavyAttack != null)
