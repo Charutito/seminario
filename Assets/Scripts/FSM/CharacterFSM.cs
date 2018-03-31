@@ -51,6 +51,7 @@ namespace FSM
                 .SetTransition(CharacterInput.None, Idle);
 
             StateConfigurer.Create(SpecialAttack)
+				.SetTransition(CharacterInput.Attack, Attacking)
                 .SetTransition(CharacterInput.Move, Moving)
                 .SetTransition(CharacterInput.Stun, Stunned)
                 .SetTransition(CharacterInput.None, Idle);
