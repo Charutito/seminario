@@ -140,7 +140,6 @@ namespace FSM
         {
 			if (!isAttacking)
 			{
-				Debug.Log("Attacking");
 				Feed(CharacterInput.Attack);
 			}
         }
@@ -149,7 +148,6 @@ namespace FSM
         {
 			if (!isAttacking)
 			{
-				Debug.Log("SpecialAttack");
 				Feed(CharacterInput.SpecialAttack);
 			}
         }
