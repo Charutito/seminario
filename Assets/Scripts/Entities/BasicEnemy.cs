@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Managers;
 using UnityEngine;
+using System;
 
 namespace Entities
 {
@@ -13,18 +14,36 @@ namespace Entities
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
 
+		public event Action OnAttackRecovering = delegate { };
+		public event Action OnAttackRecovered = delegate { };
+
         #region Local Vars
+		[SerializeField] public GameObject Hitpart;
+		[SerializeField] public Transform hitpos;
         private BasicEnemyFSM fsm;
         #endregion
-
-        public GameObject Hitpart;
-        public Transform hitpos;
 
         public void HitFeedback()
         {
             var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
             Destroy(part, 1);
         }
+
+		public void AttackRecovered()
+		{
+			if (OnAttackRecovered != null)
+			{
+				OnAttackRecovered();
+			}
+		}
+
+		public void AttackRecovering()
+		{
+			if (OnAttackRecovering != null)
+			{
+				OnAttackRecovering();
+			}
+		}
 
         private void Update()
         {

@@ -21,11 +21,11 @@ namespace FSM
         /// </summary>
         private class Animations
         {
-            public static string Attack         = "LightAttack";
-            public static string SpecialAttack  = "HeavyAttack";
+            public static string Attack         = "Attack";
+            public static string SpecialAttack  = "SpecialAttack";
             public static string Death          = "Death";
             public static string RandomDeath    = "RandomDeath";
-            public static string GetHit         = "GetHit";
+            public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
         }
 
@@ -139,7 +139,9 @@ namespace FSM
             #region Stunned State
             Stunned.OnEnter += () =>
             {
-                entity.Animator.SetTrigger(Animations.GetHit);
+				currentHitsToStun = 0;
+
+                entity.Animator.SetTrigger(Animations.Countered);
 
                 FrameUtil.AfterDelay(entity.stunDuration, () =>
                 {
@@ -149,13 +151,13 @@ namespace FSM
             #endregion
 
             #region Entity Events
-            //entity.OnAnimUnlock += OnAnimUnlock;
+			entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
 
             entity.OnDeath += (e) =>
             {
-                //entity.OnAnimUnlock -= OnAnimUnlock;
+				entity.OnAttackRecovered -= OnAttackRecover;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
                 Feed(Trigger.Die);
@@ -163,7 +165,7 @@ namespace FSM
             #endregion
         }
         
-        private void OnAnimUnlock()
+        private void OnAttackRecover()
         {
             entity.CurrentAction = GroupAction.Stalking;
         }

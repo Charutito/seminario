@@ -27,13 +27,12 @@ namespace Entities
         [SerializeField] private DamageType h_damageType = DamageType.Unknown;
 
         private Entity entity;
-        private EntityMove entityMove;
         #endregion
         
         #region Light Attack
         public void OnLighDashEnd()
         {
-            entity.Animator.SetTrigger("LightAttack");
+            entity.Animator.SetTrigger("Attack");
             entity.Animator.SetFloat("Velocity Z", 0);
             entity.Animator.applyRootMotion = true;
         }
@@ -50,7 +49,7 @@ namespace Entities
                                     .FirstOrDefault();
                     if (enemy != null)
                     {
-                        entityMove.RotateInstant(enemy.transform.position);
+							entity.EntityMove.RotateInstant(enemy.transform.position);
 
                         // Si el enemigo está a una distancia mayor triggereamos el salto
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
@@ -61,12 +60,12 @@ namespace Entities
                         }
                         else
                         {
-                            entity.Animator.SetTrigger("LightAttack");
+                            entity.Animator.SetTrigger("Attack");
                         } 
                     }
                     else
                     {
-                        entity.Animator.SetTrigger("LightAttack");
+							entity.Animator.SetTrigger("Attack");
                     }
                 });
             }
@@ -113,7 +112,7 @@ namespace Entities
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
-            entity.Animator.SetTrigger("HeavyAttack");
+            entity.Animator.SetTrigger("SpecialAttack");
             canBeCountered = true;
         }
 
@@ -144,7 +143,6 @@ namespace Entities
         private void Start()
         {
             entity = GetComponent<Entity>();
-            entityMove = GetComponent<EntityMove>();
         }
     }
 }
