@@ -118,24 +118,26 @@ namespace Entities
 
         public void HeavyAttack_Hit()
         {
-            CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
-            canBeCountered = false;
-            HeavyAttack_Damage();
+            //CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
+			canBeCountered = false;
+			attackArea.TriggerEnter += HeavyAttack_Damage;
+			attackArea.gameObject.SetActive(true);
+
+			FrameUtil.AfterFrames(3, () => 
+			{
+				attackArea.TriggerEnter -= HeavyAttack_Damage;
+				attackArea.gameObject.SetActive(false);
+			});
         }
 
-        private void HeavyAttack_Damage()
+		private void HeavyAttack_Damage(Collider other)
         {
+            //var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
+            var damageable = other.GetComponent<IDamageable>();
 
-            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
-            foreach (var other in colliders)
+            if (damageable != null)
             {
-                var damageable = other.GetComponent<IDamageable>();
-
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(0, h_damageType);
-
-                }
+                damageable.TakeDamage(0, h_damageType);
             }
         }
         #endregion
