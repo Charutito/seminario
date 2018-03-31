@@ -90,9 +90,8 @@ namespace Entities
         {
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
-            canBeCountered = false;            
 
-            FrameUtil.AfterFrames(1, () => 
+            FrameUtil.AfterFrames(3, () => 
             {
                 attackArea.TriggerEnter -= LightAttack_Damage;
                 attackArea.gameObject.SetActive(false);
@@ -102,6 +101,7 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
+
             if (damageable != null)
             {
                 damageable.TakeDamage(0, h_damageType);
