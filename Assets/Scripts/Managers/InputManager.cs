@@ -20,6 +20,8 @@ namespace Managers
         
         public bool Attack { get { return Input.GetKeyDown(keyboard.Attack) || Input.GetKeyDown(joystick.Attack); } }
         public bool SpecialAttack { get { return Input.GetKeyDown(keyboard.SpecialAttack) || Input.GetKeyDown(joystick.SpecialAttack); } }
+        public bool ChargedAttackDown { get { return Input.GetKeyDown(keyboard.ChargedAttack) || Input.GetKeyDown(joystick.ChargedAttack); } }
+        public bool ChargedAttackUp { get { return Input.GetKeyUp(keyboard.ChargedAttack) || Input.GetKeyUp(joystick.ChargedAttack); } }
         
         public bool FirstAbility { get { return Input.GetKeyDown(keyboard.FirstAbility) || Input.GetKeyDown(joystick.FirstAbility); } }
         public bool SecondAbility { get { return Input.GetKeyDown(keyboard.SecondAbility) || Input.GetKeyDown(joystick.SecondAbility); } }

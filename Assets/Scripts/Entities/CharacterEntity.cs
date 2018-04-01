@@ -7,13 +7,14 @@ namespace Entities
 {
     public class CharacterEntity : Entity
     {
-        public CharacterFSM fsm;
+        private CharacterFSM fsm;
 
 		public event Action OnAttackRecovering = delegate { };
 		public event Action OnAttackRecovered = delegate { };
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
-        public event Action OnHeavyAttack = delegate { };
+        public event Action OnSpecialAttack = delegate { };
+        public event Action OnChargedAttack = delegate { };
 
 		public void AttackRecovered()
 		{
@@ -41,10 +42,14 @@ namespace Entities
             {
                 OnAttack();
             }
-            if (InputManager.Instance.SpecialAttack && OnHeavyAttack != null)
-            {
-                OnHeavyAttack();
-            }
+	        if (InputManager.Instance.SpecialAttack && OnSpecialAttack != null)
+	        {
+		        OnSpecialAttack();
+	        }
+	        if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
+	        {
+		        OnChargedAttack();
+	        }
            
             fsm.Update();
         }
