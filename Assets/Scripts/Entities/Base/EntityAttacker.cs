@@ -118,7 +118,7 @@ namespace Entities
 
         public void HeavyAttack_Hit()
         {
-            //CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
+            CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
 			canBeCountered = false;
 			attackArea.TriggerEnter += HeavyAttack_Damage;
 			attackArea.gameObject.SetActive(true);
@@ -138,6 +138,23 @@ namespace Entities
             if (damageable != null)
             {
                 damageable.TakeDamage(0, h_damageType);
+            }
+        }
+        #endregion
+
+        #region Charged Attack
+        public void ChargedAttack_Hit()
+        {
+            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
+
+            foreach (var other in colliders)
+            {
+                var damageable = other.GetComponent<IDamageable>();
+
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(0, h_damageType);
+                }
             }
         }
         #endregion

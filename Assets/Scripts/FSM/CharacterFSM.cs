@@ -168,11 +168,6 @@ namespace FSM
                     {
                         isCharging = false;
                         e.Animator.SetTrigger("ChargedAttackStart");
-                    
-                        FrameUtil.AfterDelay(Mathf.Clamp(pusheen, minPusheen, maxPusheen), () =>
-                        {
-                            e.Animator.SetTrigger("ChargedAttackEnd");
-                        });
                     }
                 }
             };
