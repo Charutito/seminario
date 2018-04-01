@@ -2,6 +2,7 @@
 using UnityEngine;
 using Stats;
 using System;
+using FSM;
 using UnityEngine.AI;
 
 namespace Entities
@@ -14,9 +15,13 @@ namespace Entities
         public Collider Collider { get; private set; }
         public EntityAttacker EntityAttacker { get; private set; }
         public EntityMove EntityMove { get; private set; }
+        public EventFSM<int> EntityFsm { get; protected set; }
         #endregion
         
-        #region Stats
+        #region 
+        public bool IsAttacking { get; set; }
+        public bool IsSpecialAttacking { get; set; }
+        public bool IsBlocking { get; set; }
         public bool IsDead { get { return stats.Health.Current <= stats.Health.Min; } }
         public bool IsGod { get { return godMode; } }
         public EntityStats Stats { get { return stats; } }
@@ -24,6 +29,8 @@ namespace Entities
 
 
         #region Events
+        public event Action OnAttackRecovering = delegate { };
+        public event Action OnAttackRecovered = delegate { };
         public event Action<int, DamageType> OnTakeDamage = delegate { };
         public event Action<Entity> OnDeath = delegate { };
         #endregion
@@ -33,6 +40,25 @@ namespace Entities
         [SerializeField] private EntityStats stats;
         [SerializeField] private bool godMode = false;
         #endregion 
+        
+        
+        #region Animation Events
+        public virtual void AttackRecovered()
+        {
+            if (OnAttackRecovered != null)
+            {
+                OnAttackRecovered();
+            }
+        }
+
+        public virtual void AttackRecovering()
+        {
+            if (OnAttackRecovering != null)
+            {
+                OnAttackRecovering();
+            }
+        }
+        #endregion
 
 
         #region IDamageable
@@ -40,7 +66,7 @@ namespace Entities
         {
             if (IsDead) return;
 
-            if (!godMode)
+            if (!IsGod)
             {
                 Stats.Health.Current -= damage;
             }
@@ -62,6 +88,14 @@ namespace Entities
             Stats.Health.Current = stats.Health.Max;
             
             TryGetComponents();
+        }
+
+        protected virtual void Update()
+        {
+            if (EntityFsm != null)
+            {
+                EntityFsm.Update();
+            }
         }
 
         private void TryGetComponents()

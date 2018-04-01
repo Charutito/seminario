@@ -2,6 +2,7 @@
 using Managers;
 using UnityEngine;
 using System;
+using BattleSystem;
 
 namespace Entities
 {
@@ -14,13 +15,9 @@ namespace Entities
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
 
-		public event Action OnAttackRecovering = delegate { };
-		public event Action OnAttackRecovered = delegate { };
-
         #region Local Vars
 		[SerializeField] public GameObject Hitpart;
 		[SerializeField] public Transform hitpos;
-        private BasicEnemyFSM fsm;
         #endregion
 
         public void HitFeedback()
@@ -29,31 +26,22 @@ namespace Entities
             Destroy(part, 1);
         }
 
-		public void AttackRecovered()
-		{
-			if (OnAttackRecovered != null)
-			{
-				OnAttackRecovered();
-			}
-		}
+	    public override void TakeDamage(int damage, DamageType type)
+	    {
+		    if (type == DamageType.SpecialAttack ||
+		        (IsAttacking && (type == DamageType.Attack)))
+		    {
+			    type = DamageType.Block;
+			    damage = 0;
+		    }
 
-		public void AttackRecovering()
-		{
-			if (OnAttackRecovering != null)
-			{
-				OnAttackRecovering();
-			}
-		}
-
-        private void Update()
-        {
-            fsm.Update();
-        }
+		    base.TakeDamage(damage, type);
+	    }
 
         private void Start()
         {
             Target = GameManager.Instance.Character;
-            fsm = new BasicEnemyFSM(this);
+            EntityFsm = new BasicEnemyFSM(this);
         }
 
         private void OnDrawGizmos()

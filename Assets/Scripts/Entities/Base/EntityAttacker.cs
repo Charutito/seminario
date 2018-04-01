@@ -16,7 +16,6 @@ namespace Entities
         [SerializeField] private ColliderObserver attackArea;
         [SerializeField] private LineOfAim lineArea;
         [SerializeField] private float heavyAttackRadious = 5f;
-        public bool canBeCountered = false;
 
         [Header("Heavy Attack")]
         [SerializeField] private float h_magn = 1;
@@ -24,7 +23,6 @@ namespace Entities
         [SerializeField] private float h_fadeIn = 0.1f;
         [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private DamageType h_damageType = DamageType.Unknown;
 
         private Entity entity;
         #endregion
@@ -43,10 +41,10 @@ namespace Entities
             {
                 lineArea.GetEnemiesInSight((enemies) =>
                 {
-                    canBeCountered = true;
                     var enemy = enemies
                                     .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
                                     .FirstOrDefault();
+                    
                     if (enemy != null)
                     {
 							entity.EntityMove.RotateInstant(enemy.transform.position);
@@ -65,7 +63,7 @@ namespace Entities
                     }
                     else
                     {
-							entity.Animator.SetTrigger("Attack");
+                        entity.Animator.SetTrigger("Attack");
                     }
                 });
             }
@@ -103,7 +101,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(0, h_damageType);
+                damageable.TakeDamage(0, DamageType.Attack);
             }
         }
         #endregion
@@ -113,13 +111,11 @@ namespace Entities
         public void HeavyAttack_Start()
         {
             entity.Animator.SetTrigger("SpecialAttack");
-            canBeCountered = true;
         }
 
         public void HeavyAttack_Hit()
         {
             CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
-			canBeCountered = false;
 			attackArea.TriggerEnter += HeavyAttack_Damage;
 			attackArea.gameObject.SetActive(true);
 
@@ -137,7 +133,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(0, h_damageType);
+                damageable.TakeDamage(0, DamageType.SpecialAttack);
             }
         }
         #endregion
@@ -153,7 +149,7 @@ namespace Entities
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(0, h_damageType);
+                    damageable.TakeDamage(0, DamageType.ChargedAttack);
                 }
             }
         }

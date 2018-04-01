@@ -162,6 +162,7 @@ namespace FSM
         
         private void OnAttackRecover()
         {
+            entity.IsAttacking = false;
             entity.CurrentAction = GroupAction.Stalking;
         }
 
@@ -171,7 +172,7 @@ namespace FSM
 
             currentHitsToStun++;
 
-            if (currentHitsToStun >= entity.hitsToGetStunned)
+            if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
             }
@@ -182,6 +183,7 @@ namespace FSM
             if (newAction == GroupAction.Attacking)
             {
                 attackAnimation = Animations.Attack;
+                entity.IsAttacking = true;
                 Feed(Trigger.Attack);
             }
             else if (newAction == GroupAction.SpecialAttack)
