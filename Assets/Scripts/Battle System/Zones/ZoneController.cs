@@ -1,22 +1,34 @@
-﻿using Entities;
+﻿using System;
+using Entities;
 using FSM;
 using Managers;
 using Metadata;
 using System.Collections.Generic;
 using System.Linq;
+using GameUtils;
 using UnityEngine;
 
 namespace BattleSystem
 {
     public class ZoneController : MonoBehaviour
     {
+        [Serializable]
+        private class BehaviourWeight : IWeighted
+        {
+            public int Weight { get { return weight; } }
+            [SerializeField] public GroupAction targetAction = GroupAction.None;
+            [SerializeField] public int weight;
+        }
+
         public bool Initialized { get; set; }
         public CharacterEntity Target { get; protected set; }
         public int EnemiesLeft { get { return entities.Count; } }
 
         public float minAttackDelay = 2f;
         public float maxAttackDelay = 5f;
-        public List<GroupEntity> entities;
+        
+        [SerializeField] private List<BehaviourWeight> entityActions;
+        [SerializeField] private List<GroupEntity> entities;
 
         private ZoneFSM fsm;
 
@@ -30,7 +42,7 @@ namespace BattleSystem
 
             if (entityToAttack != null)
             {
-                entityToAttack.CurrentAction = GroupAction.Attacking;
+                entityToAttack.CurrentAction = RandomHelper.Select(entityActions).targetAction;
             }
         }
 

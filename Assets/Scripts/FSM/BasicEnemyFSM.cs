@@ -31,8 +31,6 @@ namespace FSM
 
         #region Components
         private BasicEnemy entity;
-        private EntityMove entityMove;
-        private EntityAttacker entityAttack;
         #endregion
 
         #region Local Vars
@@ -44,9 +42,6 @@ namespace FSM
         {
             this.debugName = "BasicFSM";
             this.entity = entity;
-
-            entityAttack = entity.gameObject.GetComponent<EntityAttacker>();
-            entityMove = entity.gameObject.GetComponent<EntityMove>();
 
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
@@ -90,7 +85,7 @@ namespace FSM
             #region Stalk State
             Stalk.OnUpdate += () =>
             {
-                entityMove.RotateTowards(entity.Target.transform.position);
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);
             };
             #endregion
 
@@ -102,8 +97,8 @@ namespace FSM
 
             Follow.OnUpdate += () =>
             {
-                entityMove.RotateInstant(entity.Target.transform.position);
-                entityMove.MoveAgent(entity.Target.transform.position);
+                entity.EntityMove.RotateInstant(entity.Target.transform.position);
+                entity.EntityMove.MoveAgent(entity.Target.transform.position);
 
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
                 {
