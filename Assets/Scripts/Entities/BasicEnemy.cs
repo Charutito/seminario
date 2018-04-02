@@ -38,11 +38,10 @@ namespace Entities
 		    base.TakeDamage(damage, type);
 	    }
 
-        private void Start()
-        {
-            Target = GameManager.Instance.Character;
-            EntityFsm = new BasicEnemyFSM(this);
-        }
+	    protected override void SetFsm()
+	    {
+		    EntityFsm = new BasicEnemyFSM(this);
+	    }
 
         private void OnDrawGizmos()
         {

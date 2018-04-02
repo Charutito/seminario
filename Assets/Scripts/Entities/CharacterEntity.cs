@@ -29,6 +29,11 @@ namespace Entities
 		    base.TakeDamage(damage, type);
 	    }
 
+	    protected override void SetFsm()
+	    {
+		    EntityFsm = new CharacterFSM(this);
+	    }
+
 	    protected override void Update()
 	    {
 		    if (InputManager.Instance.AxisMoving && OnMove != null)
@@ -50,10 +55,5 @@ namespace Entities
 		    
 		    base.Update();
 	    }
-
-        private void Start()
-        {
-	        EntityFsm = new CharacterFSM(this);
-        }
     }
 }

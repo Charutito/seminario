@@ -1,5 +1,6 @@
 ﻿using BattleSystem;
 using System;
+using Managers;
 using UnityEngine;
 
 namespace Entities
@@ -38,5 +39,10 @@ namespace Entities
         private CharacterEntity currentTarget = null;
         private GroupAction currentAction = GroupAction.None;
         #endregion
+
+        protected virtual void Start()
+        {
+            Target = GameManager.Instance.Character;
+        }
     }
 }
