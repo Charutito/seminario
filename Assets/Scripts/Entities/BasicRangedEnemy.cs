@@ -14,12 +14,10 @@ namespace Entities
 
         [Range(1f, 5f)]
         public float RangeToAim;
+       [Range(0.5f, 5f)]
         public float MaxAimTime;
         
 
-        void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	protected override void Update () {
