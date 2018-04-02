@@ -28,7 +28,6 @@ namespace FSM
             public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
         }
-
         #region Components
         private BasicEnemy entity;
         #endregion
@@ -42,7 +41,6 @@ namespace FSM
         {
             this.debugName = "BasicFSM";
             this.entity = entity;
-
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> Stalk = new State<int>("Stalking");
