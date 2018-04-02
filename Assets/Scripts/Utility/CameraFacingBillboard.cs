@@ -3,11 +3,16 @@ using System.Collections;
 
 public class CameraFacingBillboard : MonoBehaviour
 {
-    public Camera m_Camera;
+    private Camera _camera;
 
-    void Update()
+    private void Awake()
     {
-        transform.LookAt(transform.position + m_Camera.transform.rotation * Vector3.forward,
-            m_Camera.transform.rotation * Vector3.up);
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+    
+    private void Update()
+    {
+        transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward,
+            _camera.transform.rotation * Vector3.up);
     }
 }

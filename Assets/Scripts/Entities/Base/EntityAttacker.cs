@@ -101,7 +101,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(0, DamageType.Attack);
+                damageable.TakeDamage(entity.AttackDamage, DamageType.Attack);
             }
         }
         #endregion
@@ -133,7 +133,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(0, DamageType.SpecialAttack);
+                damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.SpecialAttack);
             }
         }
         #endregion
@@ -149,7 +149,7 @@ namespace Entities
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(0, DamageType.ChargedAttack);
+                    damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.ChargedAttack);
                 }
             }
         }

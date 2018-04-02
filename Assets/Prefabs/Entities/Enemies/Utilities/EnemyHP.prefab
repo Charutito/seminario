@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114774244524874178}
   - component: {fileID: 114203403889305818}
   m_Layer: 0
-  m_Name: EnemyCanvas
+  m_Name: EnemyHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e8ba9358bf61f4ea55990a20c49091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
 --- !u!114 &114540512454685498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -215,7 +214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.728}
+  m_AnchoredPosition: {x: 0, y: 2.7}
   m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224612903487461280

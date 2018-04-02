@@ -1,4 +1,5 @@
 ﻿using BattleSystem;
+using Managers;
 using UnityEngine;
 
 namespace FSM
@@ -71,7 +72,7 @@ namespace FSM
 
         public override void Update()
         {
-            if (zone.Initialized)
+            if (zone.Initialized && !GameManager.Instance.Character.IsDead)
             {
                 if (currentTimeToAttack <= 0)
                 {

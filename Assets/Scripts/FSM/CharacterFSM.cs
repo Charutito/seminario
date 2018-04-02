@@ -3,6 +3,7 @@ using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BattleSystem;
 using UnityEngine;
 using Util;
 
@@ -10,7 +11,7 @@ namespace FSM
 {
     public class CharacterFSM : EventFSM<int>
     {
-        private static class CharacterInput
+        private static class Trigger
         {
             public static int Move = 0;
             public static int Attack = 1;
@@ -18,68 +19,86 @@ namespace FSM
             public static int ChargedAttack = 3;
             public static int Stun = 4;
             public static int None = 5;
+            public static int Die = 6;
         }
 
-		private bool isAttacking = false;
+        private Entity entity;
 
-        public CharacterFSM(CharacterEntity e)
+        public CharacterFSM(CharacterEntity entity)
         {
+            this.debugName = "CharacterFSM";
+            this.entity = entity;
+            
             State<int> Idle = new State<int>("Idle");
             State<int> Moving = new State<int>("Moving");
 			State<int> Attacking = new State<int>("Light Attacking");
 			State<int> SpecialAttack = new State<int>("Special Attacking");
 			State<int> ChargedAttack = new State<int>("Charged Attacking");
             State<int> Stunned  = new State<int>("Stunned");
+            State<int> Dead  = new State<int>("Dead");
 
             SetInitialState(Idle);
 
             StateConfigurer.Create(Idle)
-                .SetTransition(CharacterInput.Attack, Attacking)
-                .SetTransition(CharacterInput.SpecialAttack, SpecialAttack)
-                .SetTransition(CharacterInput.ChargedAttack, ChargedAttack)
-                .SetTransition(CharacterInput.Move, Moving)
-                .SetTransition(CharacterInput.Stun, Stunned);
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.ChargedAttack, ChargedAttack)
+                .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.Stun, Stunned);
 
             StateConfigurer.Create(Moving)
-                .SetTransition(CharacterInput.Attack, Attacking)
-                .SetTransition(CharacterInput.SpecialAttack, SpecialAttack)
-                .SetTransition(CharacterInput.ChargedAttack, ChargedAttack)
-                .SetTransition(CharacterInput.Stun, Stunned)
-                .SetTransition(CharacterInput.None, Idle);
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.ChargedAttack, ChargedAttack)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
 
             StateConfigurer.Create(Attacking)
-                .SetTransition(CharacterInput.Attack, Attacking)
-                .SetTransition(CharacterInput.SpecialAttack, SpecialAttack)
-                //.SetTransition(CharacterInput.ChargedAttack, ChargedAttack)
-                .SetTransition(CharacterInput.Move, Moving)
-                .SetTransition(CharacterInput.Stun, Stunned)
-                .SetTransition(CharacterInput.None, Idle);
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
 
             StateConfigurer.Create(SpecialAttack)
-                /*.SetTransition(CharacterInput.Attack, Attacking)
-                .SetTransition(CharacterInput.ChargedAttack, ChargedAttack)
-                .SetTransition(CharacterInput.Move, Moving)*/
-                .SetTransition(CharacterInput.Stun, Stunned)
-                .SetTransition(CharacterInput.None, Idle);
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
             
             StateConfigurer.Create(ChargedAttack)
-                /*.SetTransition(CharacterInput.Attack, Attacking)
-                .SetTransition(CharacterInput.SpecialAttack, SpecialAttack)
-                .SetTransition(CharacterInput.Move, Moving)*/
-                .SetTransition(CharacterInput.Stun, Stunned)
-                .SetTransition(CharacterInput.None, Idle);
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
+            
+            StateConfigurer.Create(Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
 
 
             #region Character Events
-            e.OnAttack += FeedAttack;
-            e.OnSpecialAttack += FeedSpecialAttack;
-            e.OnChargedAttack += FeedChargedAttack;
-            e.OnMove += FeedMove;
-			e.OnAttackRecovering += () => {
-				isAttacking = false;
+            entity.OnAttack += FeedAttack;
+            entity.OnSpecialAttack += FeedSpecialAttack;
+            entity.OnChargedAttack += FeedChargedAttack;
+            entity.OnStun += FeedStun;
+            entity.OnMove += FeedMove;
+			entity.OnAttackRecovering += () => {
+				entity.IsAttacking = false;
+			    entity.IsSpecialAttacking = false;
 			};
-            e.OnAttackRecovered += () => {
-				Feed(CharacterInput.None);
+            entity.OnAttackRecovered += () => {
+				Feed(Trigger.None);
+            };
+            entity.OnDeath += (e) =>
+            {
+                entity.OnAttack -= FeedAttack;
+                entity.OnSpecialAttack -= FeedSpecialAttack;
+                entity.OnChargedAttack -= FeedChargedAttack;
+                entity.OnStun -= FeedStun;
+                entity.OnMove -= FeedMove;
+                Feed(Trigger.Die);
             };
 
             #endregion
@@ -88,25 +107,25 @@ namespace FSM
             #region Moving
             Moving.OnEnter += () =>
             {
-                e.Stats.MoveSpeed.Current = e.Stats.MoveSpeed.Max;
-                e.Animator.SetFloat("Velocity Z", 1);
+                entity.Stats.MoveSpeed.Current = entity.Stats.MoveSpeed.Max;
+                entity.Animator.SetFloat("Velocity Z", 1);
             };
 
             Moving.OnUpdate += () =>
             {
                 if (InputManager.Instance.AxisMoving)
                 {
-                    e.EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
+                    entity.EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical);
                 }
                 else
                 {
-                    Feed(CharacterInput.None);
+                    Feed(Trigger.None);
                 }
             };
 
             Moving.OnExit += () =>
             {
-                e.Animator.SetFloat("Velocity Z", 0);
+                entity.Animator.SetFloat("Velocity Z", 0);
             };
             #endregion
 
@@ -114,15 +133,15 @@ namespace FSM
             #region Light Attack
             Attacking.OnEnter += () =>
             {
-				isAttacking = true;
+				entity.IsAttacking = true;
 
-                e.OnMove -= FeedMove;
-                e.EntityAttacker.LightAttack_Start();
+                entity.OnMove -= FeedMove;
+                entity.EntityAttacker.LightAttack_Start();
             };
 
             Attacking.OnExit += () =>
             {
-                e.OnMove += FeedMove;
+                entity.OnMove += FeedMove;
             };
             #endregion
 
@@ -130,32 +149,31 @@ namespace FSM
             #region Special Attack
             SpecialAttack.OnEnter += () =>
             {
-                isAttacking = true;
+                entity.IsSpecialAttacking = true;
 
-                e.OnMove -= FeedMove;
-                e.EntityAttacker.HeavyAttack_Start();
+                entity.OnMove -= FeedMove;
+                entity.EntityAttacker.HeavyAttack_Start();
             };
 
             SpecialAttack.OnExit += () =>
             {
-                e.OnMove += FeedMove;
+                entity.OnMove += FeedMove;
             };
             #endregion
             
             
             #region Charged Attack
             var pusheen = 0f;
-            var minPusheen = 0.5f;
             var maxPusheen = 3f;
             var isCharging = false;
             
             ChargedAttack.OnEnter += () =>
             {
                 isCharging = true;
-                isAttacking = true;
+                entity.IsSpecialAttacking = true;
 
-                e.OnMove -= FeedMove;
-                e.Animator.SetTrigger("ChargedAttack");
+                entity.OnMove -= FeedMove;
+                entity.Animator.SetTrigger("ChargedAttack");
             };
             
             ChargedAttack.OnUpdate += () =>
@@ -167,7 +185,7 @@ namespace FSM
                     if (InputManager.Instance.ChargedAttackUp || pusheen >= maxPusheen)
                     {
                         isCharging = false;
-                        e.Animator.SetTrigger("ChargedAttackStart");
+                        entity.Animator.SetTrigger("ChargedAttackStart");
                     }
                 }
             };
@@ -175,41 +193,61 @@ namespace FSM
             ChargedAttack.OnExit += () =>
             {
                 pusheen = 0;
-                isAttacking = false;
-                e.OnMove += FeedMove;
+                entity.IsSpecialAttacking = false;
+                entity.OnMove += FeedMove;
+            };
+            #endregion
+            
+            #region Stunned State
+            Stunned.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger("Countered");
+            };
+            #endregion
+            
+            #region Dead State
+            Dead.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger("Death");
             };
             #endregion
         }
 
-
         #region Feed Functions
+        private void FeedStun()
+        {
+            Feed(Trigger.Stun);
+        }
+        
         private void FeedMove()
         {
-			if(!isAttacking)
-            Feed(CharacterInput.Move);
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
+            {
+                Feed(Trigger.Move);
+            }
         }
 
         private void FeedAttack()
         {
-			if (!isAttacking)
+			if (!entity.IsAttacking && !entity.IsSpecialAttacking)
 			{
-				Feed(CharacterInput.Attack);
+				Feed(Trigger.Attack);
 			}
         }
 
         private void FeedSpecialAttack()
         {
-            if (!isAttacking)
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
-                Feed(CharacterInput.SpecialAttack);
+                Feed(Trigger.SpecialAttack);
             }
         }
         
         private void FeedChargedAttack()
         {
-            if (!isAttacking)
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
-                Feed(CharacterInput.ChargedAttack);
+                Feed(Trigger.ChargedAttack);
             }
         }
         #endregion

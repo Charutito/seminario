@@ -18,13 +18,15 @@ namespace Entities
         public EventFSM<int> EntityFsm { get; protected set; }
         #endregion
         
-        #region 
+        #region Stats
         public bool IsAttacking { get; set; }
         public bool IsSpecialAttacking { get; set; }
         public bool IsBlocking { get; set; }
         public bool IsDead { get { return stats.Health.Current <= stats.Health.Min; } }
         public bool IsGod { get { return godMode; } }
         public EntityStats Stats { get { return stats; } }
+        public int AttackDamage { get { return attackDamage; } }
+        public int HeavyAttackDamage { get { return heavyAttackDamage; } }
         #endregion
 
 
@@ -38,6 +40,8 @@ namespace Entities
 
         #region Local Vars
         [SerializeField] private EntityStats stats;
+        [SerializeField] private int attackDamage = 10;
+        [SerializeField] private int heavyAttackDamage = 25;
         [SerializeField] private bool godMode = false;
         #endregion 
         

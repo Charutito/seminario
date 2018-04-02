@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace BattleSystem
 {
+    [RequireComponent(typeof(Collider))]
     public class ZoneController : MonoBehaviour
     {
         [Serializable]

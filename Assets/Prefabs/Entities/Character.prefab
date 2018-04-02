@@ -2434,6 +2434,8 @@ MonoBehaviour:
       _Actual: 2
       _Min: 2
       _Max: 2
+  attackDamage: 10
+  heavyAttackDamage: 25
   godMode: 0
 --- !u!114 &114834045257584748
 MonoBehaviour:
@@ -2471,7 +2473,6 @@ MonoBehaviour:
   attackArea: {fileID: 114958416480748104}
   lineArea: {fileID: 114023290422945666}
   heavyAttackRadious: 2
-  canBeCountered: 0
   h_magn: 1
   h_rough: 1.2
   h_fadeIn: 0.1
@@ -2479,7 +2480,6 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 2048
-  h_damageType: 2
 --- !u!136 &136363932930809266
 CapsuleCollider:
   m_ObjectHideFlags: 1
