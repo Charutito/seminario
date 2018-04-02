@@ -190,23 +190,30 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.45537552
-        functionName: HeavyAttack_Hit
-        data: 
+      - time: 0.2858332
+        functionName: TriggerEvent
+        data: HeavyStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8401613
-        functionName: AnimUnlock
-        data: 
+      - time: 0.47699714
+        functionName: TriggerEvent
+        data: HeavyHit
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.2511329
-        functionName: HeavySlashEffect
-        data: 
+      - time: 0.5902579
+        functionName: TriggerEvent
+        data: HeavyRecovering
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8541608
+        functionName: TriggerEvent
+        data: HeavyRecovered
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

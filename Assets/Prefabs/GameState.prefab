@@ -100,12 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327139d09f285124ca2f0b661a0307fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightAttack:
-    joystick: 332
-    keyboard: 323
-  heavyAttack:
-    joystick: 333
-    keyboard: 324
+  keyboard: {fileID: 11400000, guid: 4e1f06a6e720b439089e471c708a2b53, type: 2}
+  joystick: {fileID: 11400000, guid: 0c73eca06aebe4bc09a82abc4bbb74e0, type: 2}
 --- !u!114 &114492063347302814
 MonoBehaviour:
   m_ObjectHideFlags: 1

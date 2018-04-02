@@ -1,46 +1,59 @@
 ﻿using FSM;
 using Managers;
 using System;
+using BattleSystem;
 using UnityEngine;
 
 namespace Entities
 {
     public class CharacterEntity : Entity
     {
-        public float fireRate = 0.5f;
-
-        private CharacterFSM fsm;
-        private float nextFire = 0f;
-
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
-        public event Action OnHeavyAttack = delegate { };
+        public event Action OnStun = delegate { };
+        public event Action OnSpecialAttack = delegate { };
+        public event Action OnChargedAttack = delegate { };
+	    
+	    public override void TakeDamage(int damage, DamageType type)
+	    {
+		    if (type == DamageType.SpecialAttack)
+		    {
+			    OnStun();
+			    
+			    if (IsSpecialAttacking)
+			    {
+				    damage = 0;
+			    }
+		    }
 
-        protected override void Update() 
-        {
-            if (InputManager.Instance.AxisMoving && OnMove != null)
-            {
-                OnMove();
-            }
-            if (InputManager.Instance.LightAttack && OnAttack != null)
+		    base.TakeDamage(damage, type);
+	    }
 
-            if (InputManager.Instance.LightAttack && Time.time > nextFire && OnAttack != null)
-            {
-                nextFire = Time.time + fireRate;
-                OnAttack();
-            }
-            if (InputManager.Instance.HeavyAttack && OnHeavyAttack != null)
-            {
-                OnHeavyAttack();
-            }
-           
-            fsm.Update();
-            base.Update();
-        }
+	    protected override void Update()
+	    {
+		    if (InputManager.Instance.AxisMoving && OnMove != null)
+		    {
+			    OnMove();
+		    }
+		    if (InputManager.Instance.Attack && OnAttack != null)
+		    {
+			    OnAttack();
+		    }
+		    if (InputManager.Instance.SpecialAttack && OnSpecialAttack != null)
+		    {
+			    OnSpecialAttack();
+		    }
+		    if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
+		    {
+			    OnChargedAttack();
+		    }
+		    
+		    base.Update();
+	    }
 
         private void Start()
         {
-            fsm = new CharacterFSM(this);
+	        EntityFsm = new CharacterFSM(this);
         }
     }
 }

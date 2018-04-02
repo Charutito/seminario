@@ -14,6 +14,6 @@ namespace BattleSystem
 
         // Movement
         Stalking = 20,
-        Following = 21,
+        Following = 21
     }
 }

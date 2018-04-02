@@ -19,7 +19,7 @@ namespace Managers
 
         private void Awake()
         {
-            var characterObject = GameObject.FindGameObjectWithTag(Tags.Player);
+            var characterObject = GameObject.FindGameObjectWithTag(Tags.PLAYER);
             Character = characterObject.GetComponent<CharacterEntity>();
         }
     }

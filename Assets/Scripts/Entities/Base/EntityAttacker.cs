@@ -16,7 +16,6 @@ namespace Entities
         [SerializeField] private ColliderObserver attackArea;
         [SerializeField] private LineOfAim lineArea;
         [SerializeField] private float heavyAttackRadious = 5f;
-        public bool canBeCountered = false;
 
         [Header("Heavy Attack")]
         [SerializeField] private float h_magn = 1;
@@ -24,32 +23,31 @@ namespace Entities
         [SerializeField] private float h_fadeIn = 0.1f;
         [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private DamageType h_damageType = DamageType.Unknown;
 
         private Entity entity;
-        private EntityMove entityMove;
         #endregion
         
         #region Light Attack
         public void OnLighDashEnd()
         {
-            entity.Animator.SetTrigger("LightAttack");
+            entity.Animator.SetTrigger("Attack");
             entity.Animator.SetFloat("Velocity Z", 0);
             entity.Animator.applyRootMotion = true;
         }
+
         public void LightAttack_Start()
         {
             if (lineArea != null)
             {
                 lineArea.GetEnemiesInSight((enemies) =>
                 {
-                    canBeCountered = true;
                     var enemy = enemies
                                     .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
                                     .FirstOrDefault();
+                    
                     if (enemy != null)
                     {
-                        entityMove.RotateInstant(enemy.transform.position);
+							entity.EntityMove.RotateInstant(enemy.transform.position);
 
                         // Si el enemigo está a una distancia mayor triggereamos el salto
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
@@ -60,12 +58,12 @@ namespace Entities
                         }
                         else
                         {
-                            entity.Animator.SetTrigger("LightAttack");
+                            entity.Animator.SetTrigger("Attack");
                         } 
                     }
                     else
                     {
-                        entity.Animator.SetTrigger("LightAttack");
+                        entity.Animator.SetTrigger("Attack");
                     }
                 });
             }
@@ -89,9 +87,8 @@ namespace Entities
         {
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
-            canBeCountered = false;            
 
-            FrameUtil.AfterFrames(1, () => 
+            FrameUtil.AfterFrames(3, () => 
             {
                 attackArea.TriggerEnter -= LightAttack_Damage;
                 attackArea.gameObject.SetActive(false);
@@ -101,9 +98,10 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
+
             if (damageable != null)
             {
-                damageable.TakeDamage((int)entity.Stats.Damage.Min, h_damageType);
+                damageable.TakeDamage(entity.AttackDamage, DamageType.Attack);
             }
         }
         #endregion
@@ -112,31 +110,46 @@ namespace Entities
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
-            entity.Animator.SetTrigger("HeavyAttack");
-            canBeCountered = true;
+            entity.Animator.SetTrigger("SpecialAttack");
         }
 
         public void HeavyAttack_Hit()
         {
             CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
-            canBeCountered = false;
-            HeavyAttack_Damage();
+			attackArea.TriggerEnter += HeavyAttack_Damage;
+			attackArea.gameObject.SetActive(true);
+
+			FrameUtil.AfterFrames(3, () => 
+			{
+				attackArea.TriggerEnter -= HeavyAttack_Damage;
+				attackArea.gameObject.SetActive(false);
+			});
         }
 
-        private void HeavyAttack_Damage()
+		private void HeavyAttack_Damage(Collider other)
         {
+            //var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
+            var damageable = other.GetComponent<IDamageable>();
 
-            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
-            foreach (var collider in colliders)
+            if (damageable != null)
             {
-                var damageable = collider.GetComponent<IDamageable>();
-                var enemyToDMG = collider.GetComponent<BasicEnemy>();
+                damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.SpecialAttack);
+            }
+        }
+        #endregion
+
+        #region Charged Attack
+        public void ChargedAttack_Hit()
+        {
+            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
+
+            foreach (var other in colliders)
+            {
+                var damageable = other.GetComponent<IDamageable>();
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage((int)entity.Stats.Damage.Max, h_damageType);
-                    enemyToDMG.HitFeedback();
-
+                    damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.ChargedAttack);
                 }
             }
         }
@@ -145,7 +158,6 @@ namespace Entities
         private void Start()
         {
             entity = GetComponent<Entity>();
-            entityMove = GetComponent<EntityMove>();
         }
     }
 }

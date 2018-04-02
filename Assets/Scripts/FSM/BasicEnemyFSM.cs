@@ -21,18 +21,16 @@ namespace FSM
         /// </summary>
         private class Animations
         {
-            public static string Attack         = "LightAttack";
-            public static string SpecialAttack  = "HeavyAttack";
+            public static string Attack         = "Attack";
+            public static string SpecialAttack  = "SpecialAttack";
             public static string Death          = "Death";
             public static string RandomDeath    = "RandomDeath";
-            public static string GetHit         = "GetHit";
+            public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
         }
 
         #region Components
         private BasicEnemy entity;
-        private EntityMove entityMove;
-        private EntityAttacker entityAttack;
         #endregion
 
         #region Local Vars
@@ -44,9 +42,6 @@ namespace FSM
         {
             this.debugName = "BasicFSM";
             this.entity = entity;
-
-            entityAttack = entity.gameObject.GetComponent<EntityAttacker>();
-            entityMove = entity.gameObject.GetComponent<EntityMove>();
 
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
@@ -90,7 +85,7 @@ namespace FSM
             #region Stalk State
             Stalk.OnUpdate += () =>
             {
-                entityMove.RotateTowards(entity.Target.transform.position);
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);
             };
             #endregion
 
@@ -102,8 +97,8 @@ namespace FSM
 
             Follow.OnUpdate += () =>
             {
-                entityMove.RotateInstant(entity.Target.transform.position);
-                entityMove.MoveAgent(entity.Target.transform.position);
+                entity.EntityMove.RotateInstant(entity.Target.transform.position);
+                entity.EntityMove.MoveAgent(entity.Target.transform.position);
 
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
                 {
@@ -139,7 +134,9 @@ namespace FSM
             #region Stunned State
             Stunned.OnEnter += () =>
             {
-                entity.Animator.SetTrigger(Animations.GetHit);
+				currentHitsToStun = 0;
+
+                entity.Animator.SetTrigger(Animations.Countered);
 
                 FrameUtil.AfterDelay(entity.stunDuration, () =>
                 {
@@ -149,13 +146,13 @@ namespace FSM
             #endregion
 
             #region Entity Events
-            entity.OnAnimUnlock += OnAnimUnlock;
+			entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
 
             entity.OnDeath += (e) =>
             {
-                entity.OnAnimUnlock -= OnAnimUnlock;
+				entity.OnAttackRecovered -= OnAttackRecover;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
                 Feed(Trigger.Die);
@@ -163,8 +160,9 @@ namespace FSM
             #endregion
         }
         
-        private void OnAnimUnlock()
+        private void OnAttackRecover()
         {
+            entity.IsAttacking = false;
             entity.CurrentAction = GroupAction.Stalking;
         }
 
@@ -174,7 +172,7 @@ namespace FSM
 
             currentHitsToStun++;
 
-            if (currentHitsToStun >= entity.hitsToGetStunned)
+            if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
             }
@@ -185,6 +183,7 @@ namespace FSM
             if (newAction == GroupAction.Attacking)
             {
                 attackAnimation = Animations.Attack;
+                entity.IsAttacking = true;
                 Feed(Trigger.Attack);
             }
             else if (newAction == GroupAction.SpecialAttack)

@@ -292,23 +292,37 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.39985266
-        functionName: LightAttack_Hit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.99826646
-        functionName: AnimUnlock
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.25279164
-        functionName: RightSlashEffect
-        data: 
+        functionName: TriggerEvent
+        data: RightAttackStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.39985266
+        functionName: TriggerEvent
+        data: AttackHit
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5033842
+        functionName: TriggerEvent
+        data: RightAttackEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.58165926
+        functionName: TriggerEvent
+        data: AttackRecovering
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9216274
+        functionName: TriggerEvent
+        data: AttackRecovered
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

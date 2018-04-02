@@ -1,6 +1,8 @@
 ﻿using FSM;
 using Managers;
 using UnityEngine;
+using System;
+using BattleSystem;
 
 namespace Entities
 {
@@ -14,11 +16,9 @@ namespace Entities
         public float stunDuration = 0.5f;
 
         #region Local Vars
-        private BasicEnemyFSM fsm;
+		[SerializeField] public GameObject Hitpart;
+		[SerializeField] public Transform hitpos;
         #endregion
-
-        public GameObject Hitpart;
-        public Transform hitpos;
 
         public void HitFeedback()
         {
@@ -26,16 +26,22 @@ namespace Entities
             Destroy(part, 1);
         }
 
-        protected override void Update()
-        {
-            fsm.Update();
-            base.Update();
-        }
+	    public override void TakeDamage(int damage, DamageType type)
+	    {
+		    if (type == DamageType.SpecialAttack ||
+		        (IsAttacking && (type == DamageType.Attack)))
+		    {
+			    type = DamageType.Block;
+			    damage = 0;
+		    }
+
+		    base.TakeDamage(damage, type);
+	    }
 
         private void Start()
         {
             Target = GameManager.Instance.Character;
-            fsm = new BasicEnemyFSM(this);
+            EntityFsm = new BasicEnemyFSM(this);
         }
 
         private void OnDrawGizmos()
