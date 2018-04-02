@@ -84,6 +84,7 @@ namespace FSM
             Stalk.OnUpdate += () =>
             {
                 entity.EntityMove.RotateTowards(entity.Target.transform.position);
+
             };
             #endregion
 

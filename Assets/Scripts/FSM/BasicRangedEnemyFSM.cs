@@ -77,14 +77,102 @@ namespace FSM
             #endregion
 
             #region Aim State
+            Follow.OnEnter += () =>
+            {
+                entity.Animator.SetBool(Animations.Aim, true);
+            };
             aim.OnUpdate += () =>
             {
-                //setear animator en "aim"
                 entity.EntityMove.RotateTowards(entity.Target.transform.position);
+            };
+            Follow.OnExit += () =>
+            {
+                entity.Animator.SetBool(Animations.Aim, false);
+            };
+            #endregion
+            #region Attack State
+            Attack.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger(attackAnimation);
+            };
+            #endregion
+            #region Death State
+            Death.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger("Death");
+                entity.Animator.SetInteger("RandomDeath", Random.Range(0, 3));
+
+                entity.Agent.enabled = false;
+                entity.Collider.enabled = false;
+            };
+            #endregion
+            #region Stunned State
+            Stunned.OnEnter += () =>
+            {
+                currentHitsToStun = 0;
+
+                entity.Animator.SetTrigger(Animations.Countered);
+
+                FrameUtil.AfterDelay(entity.stunDuration, () =>
+                {
+                    Feed(Trigger.Aim);
+                });
+            };
+            #endregion
+            #region Entity Events
+            entity.OnAttackRecovered += OnAttackRecover;
+            entity.OnSetAction += OnSetAction;
+            entity.OnTakeDamage += OnTakingDamage;
+
+            entity.OnDeath += (e) =>
+            {
+                entity.OnAttackRecovered -= OnAttackRecover;
+                entity.OnSetAction -= OnSetAction;
+                entity.OnTakeDamage -= OnTakingDamage;
+                Feed(Trigger.Die);
             };
             #endregion
 
+
+
+        }
+        private void OnAttackRecover()
+        {
+            entity.IsAttacking = false;
+            entity.CurrentAction = GroupAction.Stalking;
         }
 
+        private void OnTakingDamage(int damage, DamageType type)
+        {
+            entity.HitFeedback();
+
+            currentHitsToStun++;
+
+            if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
+            {
+                Feed(Trigger.Stun);
+            }
+        }
+
+        private void OnSetAction(GroupAction newAction, GroupAction lastAction)
+        {
+            if (newAction == GroupAction.Attacking)
+            {
+                attackAnimation = Animations.Attack;
+                entity.IsAttacking = true;
+                Feed(Trigger.Attack);
+            }
+            else if (newAction == GroupAction.SpecialAttack)
+            {
+                attackAnimation = Animations.SpecialAttack;
+                Feed(Trigger.Attack);
+            }
+            else if (newAction == GroupAction.Stalking)
+            {
+                Feed(Trigger.Aim);
+            }
+        }
     }
-    }
+
+}
+    
