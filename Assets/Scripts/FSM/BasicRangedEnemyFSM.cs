@@ -15,6 +15,8 @@ namespace FSM
             public static int Aim = 2;
             public static int Die = 3;
             public static int Stun = 4;
+            public static int Idle = 5;
+
         }
         private class Animations
         {
@@ -22,6 +24,7 @@ namespace FSM
             public static string SpecialAttack = "SpecialAttack";
             public static string Death = "Death";
             public static string Aim = "Aim";
+            public static string Relax = "Relax";
             public static string RandomDeath = "RandomDeath";
             public static string Countered = "Countered";
             public static string Move = "Velocity Z";
@@ -51,11 +54,13 @@ namespace FSM
             SetInitialState(Idle);
 
             StateConfigurer.Create(Idle)
-                .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);
+                .SetTransition(Trigger.Die, Death)
+                .SetTransition(Trigger.Aim, aim);
+
 
             StateConfigurer.Create(aim)
+                 .SetTransition(Trigger.Idle, Idle)
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death);
@@ -75,17 +80,38 @@ namespace FSM
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Die, Death);
             #endregion
+            #region idle State
+            Idle.OnEnter += () =>
+            {
+                entity.Animator.SetBool(Animations.Relax, true);
+            };
+            Idle.OnUpdate += () =>
+            {                
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.RangeToAim)
+                {
+                    Feed(Trigger.Aim);
+                }
+            };
+            Idle.OnExit += () =>
+            {
+                entity.Animator.SetBool(Animations.Relax, false);
+            };
+            #endregion
 
             #region Aim State
-            Follow.OnEnter += () =>
+            aim.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, true);
             };
             aim.OnUpdate += () =>
             {
                 entity.EntityMove.RotateTowards(entity.Target.transform.position);
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
+                {
+                    Feed(Trigger.Idle);
+                }
             };
-            Follow.OnExit += () =>
+            aim.OnExit += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, false);
             };
@@ -110,12 +136,10 @@ namespace FSM
             Stunned.OnEnter += () =>
             {
                 currentHitsToStun = 0;
-
                 entity.Animator.SetTrigger(Animations.Countered);
-
                 FrameUtil.AfterDelay(entity.stunDuration, () =>
                 {
-                    Feed(Trigger.Aim);
+                    Feed(Trigger.Idle);
                 });
             };
             #endregion
@@ -175,4 +199,4 @@ namespace FSM
     }
 
 }
-    
+   

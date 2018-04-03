@@ -6,23 +6,25 @@ using System;
 
 namespace Entities
 {
-   
-        
+
+
 
     public class BasicRangedEnemy : BasicEnemy
     {
 
-        [Range(1f, 5f)]
+        [Range(0f, 5f)]
         public float RangeToAim;
-       [Range(0.5f, 5f)]
+        [Range(0.5f, 5f)]
         public float MaxAimTime;
-        
+        public float AttackSpeed;
 
-	
-	// Update is called once per frame
-	protected override void Update () {
-		
-	}
-}
+        protected override void SetFsm()
+        {
+            EntityFsm = new BasicRangedEnemyFSM(this);
+            
+        }
+
+     
+    }
 }
 
