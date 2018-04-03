@@ -9,7 +9,6 @@ using System.Linq;
 
 namespace Entities
 {
-    [RequireComponent(typeof(EntityMove))]
     public class EntityAttacker : MonoBehaviour
     {
         #region Local Vars
@@ -24,15 +23,15 @@ namespace Entities
         [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private LayerMask hitLayers;
 
-        private Entity entity;
+        private Entity _entity;
         #endregion
         
         #region Light Attack
         public void OnLighDashEnd()
         {
-            entity.Animator.SetTrigger("Attack");
-            entity.Animator.SetFloat("Velocity Z", 0);
-            entity.Animator.applyRootMotion = true;
+            _entity.Animator.SetTrigger("Attack");
+            _entity.Animator.SetFloat("Velocity Z", 0);
+            _entity.Animator.applyRootMotion = true;
         }
 
         public void LightAttack_Start()
@@ -47,23 +46,23 @@ namespace Entities
                     
                     if (enemy != null)
                     {
-							entity.EntityMove.RotateInstant(enemy.transform.position);
+							_entity.EntityMove.RotateInstant(enemy.transform.position);
 
                         // Si el enemigo está a una distancia mayor triggereamos el salto
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
                         {
-                            entity.Animator.applyRootMotion = false; 
-                            entity.Animator.SetFloat("Velocity Z", 2f);
+                            _entity.Animator.applyRootMotion = false; 
+                            _entity.Animator.SetFloat("Velocity Z", 2f);
                             StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
                         }
                         else
                         {
-                            entity.Animator.SetTrigger("Attack");
+                            _entity.Animator.SetTrigger("Attack");
                         } 
                     }
                     else
                     {
-                        entity.Animator.SetTrigger("Attack");
+                        _entity.Animator.SetTrigger("Attack");
                     }
                 });
             }
@@ -101,7 +100,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(entity.AttackDamage, DamageType.Attack);
+                damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
             }
         }
         #endregion
@@ -110,7 +109,7 @@ namespace Entities
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
-            entity.Animator.SetTrigger("SpecialAttack");
+            _entity.Animator.SetTrigger("SpecialAttack");
         }
 
         public void HeavyAttack_Hit()
@@ -133,7 +132,7 @@ namespace Entities
 
             if (damageable != null)
             {
-                damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.SpecialAttack);
+                damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
             }
         }
         #endregion
@@ -149,7 +148,7 @@ namespace Entities
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(entity.HeavyAttackDamage, DamageType.ChargedAttack);
+                    damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.ChargedAttack);
                 }
             }
         }
@@ -157,7 +156,7 @@ namespace Entities
 
         private void Start()
         {
-            entity = GetComponent<Entity>();
+            _entity = GetComponent<Entity>();
         }
     }
 }

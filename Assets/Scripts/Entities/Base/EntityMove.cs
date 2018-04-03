@@ -3,11 +3,9 @@ using UnityEngine.AI;
 
 namespace Entities
 {
-    [RequireComponent(typeof(Entity))]
     public class EntityMove : MonoBehaviour
     {
         private Entity _entity;
-        private NavMeshAgent _agent;
 
         #region Movement
         public void MoveTransform(float x, float z, bool rotate = true)
@@ -26,14 +24,14 @@ namespace Entities
         #region NavMesh Movement
         public void MoveAgent(Vector3 dest)
         {
-            _agent.SetDestination(dest);
+            _entity.Agent.SetDestination(dest);
         }
 
         public bool HasAgentArrived()
         {
-            if (!_agent.pathPending && (_agent.remainingDistance <= _agent.stoppingDistance))
+            if (!_entity.Agent.pathPending && (_entity.Agent.remainingDistance <= _entity.Agent.stoppingDistance))
             {
-                return (!_agent.hasPath || _agent.velocity.sqrMagnitude <= 0f);
+                return (!_entity.Agent.hasPath || _entity.Agent.velocity.sqrMagnitude <= 0f);
             }
 
             return false;
@@ -57,7 +55,6 @@ namespace Entities
 
         private void Start()
         {
-            _agent = GetComponent<NavMeshAgent>();
             _entity = GetComponent<Entity>();
         }
 

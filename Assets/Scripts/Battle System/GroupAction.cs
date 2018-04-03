@@ -7,6 +7,7 @@ namespace BattleSystem
     public enum GroupAction
     {
         None = 1,
+        OutOfControl = 2,
 
         // Agressive
         Attacking = 10,

@@ -26,7 +26,7 @@ namespace Entities
             Destroy(part, 1);
         }
 
-	    public override void TakeDamage(int damage, DamageType type)
+	    /*public override void TakeDamage(int damage, DamageType type)
 	    {
 		    if (type == DamageType.SpecialAttack ||
 		        (IsAttacking && (type == DamageType.Attack)))
@@ -36,7 +36,7 @@ namespace Entities
 		    }
 
 		    base.TakeDamage(damage, type);
-	    }
+	    }*/
 
 	    protected override void SetFsm()
 	    {

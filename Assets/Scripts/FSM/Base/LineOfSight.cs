@@ -2,6 +2,7 @@
 using System.Collections;
 using Entities;
 using GameUtils;
+using Managers;
 using Metadata;
 
 namespace Steering
@@ -15,10 +16,10 @@ namespace Steering
 
 
         #region Inspector Vars
-        [SerializeField] public Entity target;
-        [SerializeField] public float viewAngle = 5f;
-        [SerializeField] public float viewDistance = 10f;
-        [SerializeField] public float detectionDistance = 4f;
+        public Entity target;
+        public float viewAngle = 5f;
+        public float viewDistance = 10f;
+        public float detectionDistance = 4f;
         #endregion
 
 
@@ -39,8 +40,7 @@ namespace Steering
         #region Private Functions
         private void Start()
         {
-            var targetGameObject = GameObject.FindGameObjectWithTag(Tags.PLAYER);
-            target = (targetGameObject != null) ? targetGameObject.GetComponent<Entity>() : null;
+            target = GameManager.Instance.Character;
         }
 
         private void Update()
@@ -100,10 +100,10 @@ namespace Steering
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, transform.position + (transform.forward * viewDistance));
 
-            Vector3 rightLimit = Quaternion.AngleAxis(viewAngle, transform.up) * transform.forward;
+            var rightLimit = Quaternion.AngleAxis(viewAngle, transform.up) * transform.forward;
             Gizmos.DrawLine(transform.position, transform.position + (rightLimit * viewDistance));
 
-            Vector3 leftLimit = Quaternion.AngleAxis(-viewAngle, transform.up) * transform.forward;
+            var leftLimit = Quaternion.AngleAxis(-viewAngle, transform.up) * transform.forward;
             Gizmos.DrawLine(transform.position, transform.position + (leftLimit * viewDistance));
         }
         #endregion

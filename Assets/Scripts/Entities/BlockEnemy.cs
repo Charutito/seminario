@@ -1,17 +1,28 @@
 ﻿using BattleSystem;
 using FSM;
+using Steering;
+using UnityEngine;
 
 namespace Entities
 {
 	public class BlockEnemy : BasicEnemy
 	{
+		public int shieldHealth = 100;
+		public int currentShieldHealth;
+
+		private LineOfSight lineOfSight;
+		
 		public override void TakeDamage(int damage, DamageType type)
 		{
-			if (type == DamageType.SpecialAttack ||
-			    (IsAttacking && (type == DamageType.Attack)))
+			if (IsBlocking && lineOfSight.TargetInSight)
 			{
 				type = DamageType.Block;
+				currentShieldHealth -= damage;
 				damage = 0;
+			}
+			else
+			{
+				HitFeedback();
 			}
 
 			base.TakeDamage(damage, type);
@@ -19,7 +30,15 @@ namespace Entities
 
 		protected override void SetFsm()
 		{
-			EntityFsm = new BasicEnemyFSM(this);
+			EntityFsm = new BlockEnemyFSM(this);
+		}
+
+		protected override void Start()
+		{
+			lineOfSight = GetComponent<LineOfSight>();
+			
+			currentShieldHealth = shieldHealth;
+			base.Start();
 		}
 	}
 }
