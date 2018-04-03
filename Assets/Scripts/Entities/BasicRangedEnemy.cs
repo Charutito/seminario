@@ -12,11 +12,12 @@ namespace Entities
     public class BasicRangedEnemy : BasicEnemy
     {
 
-        [Range(0f, 5f)]
+        [Range(0f, 10f)]
         public float RangeToAim;
-        [Range(0.5f, 5f)]
-        public float MaxAimTime;
-        public float AttackSpeed;
+        
+        public float fireSpeed;
+        public float recoilTime;
+        public float nextFire;
 
         protected override void SetFsm()
         {

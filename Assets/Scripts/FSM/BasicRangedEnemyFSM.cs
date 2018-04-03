@@ -42,6 +42,7 @@ namespace FSM
         {
             this.debugName = "BasicFSM";
             this.entity = entity;
+
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> aim = new State<int>("Aiming");
@@ -102,25 +103,42 @@ namespace FSM
             aim.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, true);
+                
             };
             aim.OnUpdate += () =>
             {
-                entity.EntityMove.RotateTowards(entity.Target.transform.position);
+
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);                
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
                 {
                     Feed(Trigger.Idle);
                 }
+                FrameUtil.AfterDelay(entity.fireSpeed, () =>
+                {
+                    Feed(Trigger.Attack);
+                });
             };
             aim.OnExit += () =>
             {
-                entity.Animator.SetBool(Animations.Aim, false);
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
+                {
+                    entity.Animator.SetBool(Animations.Aim, false);
+                }
             };
             #endregion
             #region Attack State
             Attack.OnEnter += () =>
             {
-                entity.Animator.SetTrigger(attackAnimation);
+                entity.Animator.SetTrigger(Animations.Attack);
+
+                FrameUtil.AfterDelay(entity.stunDuration, () =>
+                {
+                    Feed(Trigger.Aim);
+                });
+
             };
+         
+
             #endregion
             #region Death State
             Death.OnEnter += () =>
