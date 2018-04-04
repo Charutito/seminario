@@ -154,6 +154,7 @@ namespace FSM
             Attack.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.Attack);
+                entity.Shot();
                 FrameUtil.AfterDelay(entity.fireSpeed, () =>
                 {
                     Feed(Trigger.Aim);
