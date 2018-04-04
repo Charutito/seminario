@@ -22,7 +22,7 @@ namespace FSM
             public static int Die = 6;
         }
 
-        private Entity entity;
+        private CharacterEntity entity;
 
         public CharacterFSM(CharacterEntity entity)
         {
@@ -31,6 +31,7 @@ namespace FSM
             
             State<int> Idle = new State<int>("Idle");
             State<int> Moving = new State<int>("Moving");
+            State<int> Dashing = new State<int>("Dash");
 			State<int> Attacking = new State<int>("Light Attacking");
 			State<int> SpecialAttack = new State<int>("Special Attacking");
 			State<int> ChargedAttack = new State<int>("Charged Attacking");
@@ -80,10 +81,12 @@ namespace FSM
 
             #region Character Events
             entity.OnAttack += FeedAttack;
+            entity.OnDash += DoDash;
             entity.OnSpecialAttack += FeedSpecialAttack;
             entity.OnChargedAttack += FeedChargedAttack;
             entity.OnStun += FeedStun;
             entity.OnMove += FeedMove;
+            
 			entity.OnAttackRecovering += () => {
 				entity.IsAttacking = false;
 			    entity.IsSpecialAttacking = false;
@@ -94,13 +97,13 @@ namespace FSM
             entity.OnDeath += (e) =>
             {
                 entity.OnAttack -= FeedAttack;
+                entity.OnDash -= DoDash;
                 entity.OnSpecialAttack -= FeedSpecialAttack;
                 entity.OnChargedAttack -= FeedChargedAttack;
                 entity.OnStun -= FeedStun;
                 entity.OnMove -= FeedMove;
                 Feed(Trigger.Die);
             };
-
             #endregion
 
 
@@ -109,6 +112,7 @@ namespace FSM
             {
                 entity.Stats.MoveSpeed.Current = entity.Stats.MoveSpeed.Max;
                 entity.Animator.SetFloat("Velocity Z", 1);
+                entity.OnDash += DoDash;
             };
 
             Moving.OnUpdate += () =>
@@ -126,9 +130,9 @@ namespace FSM
             Moving.OnExit += () =>
             {
                 entity.Animator.SetFloat("Velocity Z", 0);
+                entity.OnDash -= DoDash;
             };
             #endregion
-
 
             #region Light Attack
             Attacking.OnEnter += () =>
@@ -211,6 +215,19 @@ namespace FSM
                 entity.Animator.SetTrigger("Death");
             };
             #endregion
+        }
+
+        private void DoDash()
+        {
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.currentDashCharges > 0)
+            {
+                var dashPosition = entity.transform.position +
+                                   entity.EntityAttacker.lineArea.transform.forward * entity.dashLenght;
+                
+                entity.currentDashCharges--;
+                entity.EntityMove.RotateInstant(dashPosition);
+                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
+            }
         }
 
         #region Feed Functions
