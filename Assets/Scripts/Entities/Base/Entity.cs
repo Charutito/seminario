@@ -4,9 +4,11 @@ using Stats;
 using System;
 using FSM;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 namespace Entities
 {
+    [DisallowMultipleComponent]
     public abstract class Entity : MonoBehaviour, IDamageable
     {
         #region EntityComponents
@@ -87,11 +89,15 @@ namespace Entities
         }
         #endregion
 
+        protected abstract void SetFsm();
+
         protected virtual void Awake()
         {
             Stats.Health.Current = stats.Health.Max;
             
             TryGetComponents();
+
+            SetFsm();
         }
 
         protected virtual void Update()

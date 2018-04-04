@@ -28,7 +28,7 @@ namespace FSM
             public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
         }
-
+        
         #region Components
         private BasicEnemy entity;
         #endregion
@@ -42,7 +42,6 @@ namespace FSM
         {
             this.debugName = "BasicFSM";
             this.entity = entity;
-
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> Stalk = new State<int>("Stalking");
@@ -82,10 +81,35 @@ namespace FSM
                 .SetTransition(Trigger.Die, Death);
             #endregion
 
-            #region Stalk State
+            #region Stalk State 
+            var nextLocation = Vector3.zero;
+            var normalSpeed = 1f;
+
+            Stalk.OnEnter += () =>
+            {
+                normalSpeed = entity.Agent.speed;
+
+                entity.Agent.speed = 0.3f;
+            };
+
             Stalk.OnUpdate += () =>
             {
-                entity.EntityMove.RotateTowards(entity.Target.transform.position);
+                if (entity.EntityMove.HasAgentArrived())
+                {
+                    var newLocation = Random.insideUnitCircle * 4;
+                    
+                    nextLocation = entity.transform.position + new Vector3(newLocation.x, entity.transform.position.y, newLocation.y);
+                    
+                    entity.EntityMove.MoveAgent(nextLocation);
+                }
+                
+                entity.EntityMove.RotateInstant(entity.Target.transform.position);
+            };
+            
+            Stalk.OnExit += () =>
+            {
+                entity.Agent.isStopped = true;
+                entity.Agent.speed = normalSpeed;
             };
             #endregion
 

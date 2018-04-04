@@ -8,8 +8,18 @@ namespace Entities
 {
     public class CharacterEntity : Entity
     {
+	    [Header("Dash")]
+	    public int dashLenght = 2;
+	    public int maxDashCharges = 3;
+	    public int currentDashCharges = 3;
+	    public float dashChargesCooldown = 4f;
+	    public float currentDashCooldown = 0;
+	    
+	    
+	    
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
+        public event Action OnDash = delegate { };
         public event Action OnStun = delegate { };
         public event Action OnSpecialAttack = delegate { };
         public event Action OnChargedAttack = delegate { };
@@ -29,6 +39,12 @@ namespace Entities
 		    base.TakeDamage(damage, type);
 	    }
 
+	    protected override void SetFsm()
+	    {
+		    currentDashCharges = maxDashCharges;
+		    EntityFsm = new CharacterFSM(this);
+	    }
+
 	    protected override void Update()
 	    {
 		    if (InputManager.Instance.AxisMoving && OnMove != null)
@@ -39,6 +55,10 @@ namespace Entities
 		    {
 			    OnAttack();
 		    }
+		    if (InputManager.Instance.Dash && OnDash != null)
+		    {
+			    OnDash();
+		    }
 		    if (InputManager.Instance.SpecialAttack && OnSpecialAttack != null)
 		    {
 			    OnSpecialAttack();
@@ -47,13 +67,24 @@ namespace Entities
 		    {
 			    OnChargedAttack();
 		    }
-		    
+
+		    if (currentDashCharges < maxDashCharges)
+		    {
+			    if (currentDashCooldown <= 0)
+			    {
+				    currentDashCharges++;
+
+				    currentDashCooldown = dashChargesCooldown;
+			    }
+			    
+			    currentDashCooldown -= Time.deltaTime;
+		    }
+		    else
+		    {
+			    currentDashCooldown = dashChargesCooldown;
+		    }
+
 		    base.Update();
 	    }
-
-        private void Start()
-        {
-	        EntityFsm = new CharacterFSM(this);
-        }
     }
 }

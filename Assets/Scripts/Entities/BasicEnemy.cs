@@ -26,7 +26,7 @@ namespace Entities
             Destroy(part, 1);
         }
 
-	    public override void TakeDamage(int damage, DamageType type)
+	    /*public override void TakeDamage(int damage, DamageType type)
 	    {
 		    if (type == DamageType.SpecialAttack ||
 		        (IsAttacking && (type == DamageType.Attack)))
@@ -36,13 +36,12 @@ namespace Entities
 		    }
 
 		    base.TakeDamage(damage, type);
-	    }
+	    }*/
 
-        private void Start()
-        {
-            Target = GameManager.Instance.Character;
-            EntityFsm = new BasicEnemyFSM(this);
-        }
+	    protected override void SetFsm()
+	    {
+		    EntityFsm = new BasicEnemyFSM(this);
+	    }
 
         private void OnDrawGizmos()
         {
