@@ -53,7 +53,8 @@ namespace Entities
                         {
                             _entity.Animator.applyRootMotion = false; 
                             _entity.Animator.SetFloat("Velocity Z", 2f);
-                            StartCoroutine(MoveToPosition(transform, enemy.transform.position - transform.forward, 0.1f));
+                            
+                            _entity.EntityMove.SmoothMoveTransform(enemy.transform.position - transform.forward, 0.1f, OnLighDashEnd);
                         }
                         else
                         {
@@ -66,20 +67,6 @@ namespace Entities
                     }
                 });
             }
-        }
-
-        public IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeToMove)
-        {
-            var currentPos = transform.position;
-            var t = 0f;
-            while (t < 1)
-            {
-                t += Time.deltaTime / timeToMove;
-                transform.position = Vector3.Lerp(currentPos, position, t);
-                yield return null;
-            }         
-            
-            OnLighDashEnd();
         }
 
         public void LightAttack_Hit()

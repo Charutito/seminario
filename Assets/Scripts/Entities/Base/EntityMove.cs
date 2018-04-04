@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Entities
@@ -6,6 +9,8 @@ namespace Entities
     public class EntityMove : MonoBehaviour
     {
         private Entity _entity;
+
+        private Coroutine _moveCoroutine;
 
         #region Movement
         public void MoveTransform(float x, float z, bool rotate = true)
@@ -18,6 +23,16 @@ namespace Entities
             }
 
             transform.position = newPosition;
+        }
+
+        public void SmoothMoveTransform(Vector3 position, float timeToMove, Action onFinish = null)
+        {
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+
+            _moveCoroutine = StartCoroutine(MoveToPosition(transform, position, timeToMove, onFinish));
         }
         #endregion
 
@@ -56,6 +71,21 @@ namespace Entities
         private void Start()
         {
             _entity = GetComponent<Entity>();
+        }
+        
+        private static IEnumerator MoveToPosition(Transform target, Vector3 position, float timeToMove, Action onFinish = null)
+        {
+            var currentPos = target.position;
+            var t = 0f;
+            
+            while (t < 1)
+            {
+                t += Time.deltaTime / timeToMove;
+                target.position = Vector3.Lerp(currentPos, position, t);
+                yield return null;
+            }
+
+            if (onFinish != null) onFinish();
         }
 
         // Animation Crap
