@@ -1162,7 +1162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782631308341054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.48, y: 0.38, z: 6.5}
+  m_LocalPosition: {x: -2.48, y: 0.38, z: 16.97}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4971468138428726}
@@ -1343,13 +1343,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1477903763898638}
-  m_LocalRotation: {x: -0.16571042, y: 0.16856036, z: 0.37876877, w: 0.894797}
-  m_LocalPosition: {x: 0.271, y: 0.263, z: -0.157}
-  m_LocalScale: {x: 1.6666695, y: 1.66667, z: 1.6666666}
+  m_LocalRotation: {x: -0.048837435, y: 0.22340651, z: 0.27282465, w: 0.93448985}
+  m_LocalPosition: {x: 0.154, y: 0.125, z: -0.037}
+  m_LocalScale: {x: 1.1664015, y: 1.166402, z: 1.1663996}
   m_Children: []
   m_Father: {fileID: 4801070998105838}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -25.103, y: 11.215, z: 43.382004}
+  m_LocalEulerAnglesHint: {x: -12.309001, y: 23.584002, z: 29.971}
 --- !u!4 &4643671480957246
 Transform:
   m_ObjectHideFlags: 1
@@ -1833,13 +1833,16 @@ MonoBehaviour:
   attackDamage: 10
   heavyAttackDamage: 25
   godMode: 1
-  AttackRange: 2
+  AttackRange: 3
   hitsToGetStunned: 3
   stunDuration: 0.5
   Hitpart: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
   hitpos: {fileID: 4869568394911778}
-  RangeToAim: 0
-  MaxAimTime: 0
+  RangeToAim: 3
+  fireSpeed: 0.5
+  recoilTime: 0.5
+  nextFire: 0.5
+  FleeTime: 1
 --- !u!114 &114709905474312578
 MonoBehaviour:
   m_ObjectHideFlags: 1

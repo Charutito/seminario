@@ -16,7 +16,7 @@ namespace FSM
             public static int Die = 3;
             public static int Stun = 4;
             public static int Idle = 5;
-
+            public static int RunAway = 6;
         }
         private class Animations
         {
@@ -40,7 +40,7 @@ namespace FSM
         #endregion
         public BasicRangedEnemyFSM(BasicRangedEnemy entity)
         {
-            this.debugName = "BasicFSM";
+            this.debugName = "Ranged Enemy";
             this.entity = entity;
 
             #region States Definitions
@@ -50,6 +50,8 @@ namespace FSM
             State<int> Attack = new State<int>("Attacking");
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
+            State<int> RunAway = new State<int>("RunAway");
+
             #endregion
             #region States Configuration
             SetInitialState(Idle);
@@ -57,8 +59,8 @@ namespace FSM
             StateConfigurer.Create(Idle)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
+                .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Aim, aim);
-
 
             StateConfigurer.Create(aim)
                  .SetTransition(Trigger.Idle, Idle)
@@ -74,6 +76,7 @@ namespace FSM
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Stunned)
@@ -96,6 +99,27 @@ namespace FSM
             Idle.OnExit += () =>
             {
                 entity.Animator.SetBool(Animations.Relax, false);
+            };
+            #endregion
+
+            #region RunAway State
+            RunAway.OnEnter += () =>
+            {
+                entity.Animator.SetFloat(Animations.Move, 1);
+            };
+            RunAway.OnUpdate += () =>
+            {
+                entity.EntityMove.RotateInstant(entity.Target.transform.position);
+                entity.EntityMove.MoveAgent(entity.Target.transform.position);
+
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
+                {
+                    Feed(Trigger.Attack);
+                }
+            };
+            Follow.OnExit += () =>
+            {
+                entity.Animator.SetFloat(Animations.Move, 0);
             };
             #endregion
 
@@ -130,12 +154,10 @@ namespace FSM
             Attack.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.Attack);
-
-                FrameUtil.AfterDelay(entity.stunDuration, () =>
+                FrameUtil.AfterDelay(entity.fireSpeed, () =>
                 {
                     Feed(Trigger.Aim);
                 });
-
             };
          
 
