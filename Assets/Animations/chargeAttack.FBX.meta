@@ -250,7 +250,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.60940063
+        functionName: TriggerEvent
+        data: HitGroundStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -282,6 +289,13 @@ ModelImporter:
       - time: 0.9196345
         functionName: TriggerEvent
         data: AttackRecovered
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8726165
+        functionName: TriggerEvent
+        data: HitGroundEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
