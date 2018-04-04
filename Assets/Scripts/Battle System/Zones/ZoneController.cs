@@ -24,9 +24,14 @@ namespace BattleSystem
         public bool Initialized { get; set; }
         public CharacterEntity Target { get; protected set; }
         public int EnemiesLeft { get { return entities.Count; } }
-
+    
+        [Header("Attack Delay")]
         public float minAttackDelay = 2f;
         public float maxAttackDelay = 5f;
+
+        [Header("Entities To pick")]
+        public int minEntitiesToAttack = 1;
+        public int maxEntitiesToAttack = 2;
         
         [SerializeField] private List<BehaviourWeight> entityActions;
         [SerializeField] private List<GroupEntity> entities;
@@ -36,12 +41,12 @@ namespace BattleSystem
         // Deberia tener un random para ver si pega uno o otro
         public void ExecuteAttack()
         {
-            var entityToAttack = entities
+            var entitiesToAttack = entities
                                     .Where(e => e.CurrentAction == GroupAction.Stalking)
                                     .OrderBy(e => Vector3.Distance(Target.transform.position, e.transform.position))
-                                    .FirstOrDefault();
+                                    .Take(UnityEngine.Random.Range(minEntitiesToAttack, maxEntitiesToAttack));
 
-            if (entityToAttack != null)
+            foreach (var entityToAttack in entitiesToAttack)
             {
                 entityToAttack.CurrentAction = RandomHelper.Select(entityActions).targetAction;
             }

@@ -307,7 +307,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4809762410167274, guid: 914da36175870a14cbfe40cf1c3482e9, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 914da36175870a14cbfe40cf1c3482e9, type: 2}
@@ -1021,6 +1021,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAttackDelay: 2
   maxAttackDelay: 4
+  minEntitiesToAttack: 1
+  maxEntitiesToAttack: 3
   entityActions:
   - targetAction: 10
     weight: 8
@@ -1669,7 +1671,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 0
+  m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &1737700424
 CanvasRenderer:

@@ -12,9 +12,9 @@ namespace Entities
     public class EntityAttacker : MonoBehaviour
     {
         #region Local Vars
-        [SerializeField] private ColliderObserver attackArea;
-        [SerializeField] private LineOfAim lineArea;
-        [SerializeField] private float heavyAttackRadious = 5f;
+        public ColliderObserver attackArea;
+        public LineOfAim lineArea;
+        public float heavyAttackRadious = 5f;
 
         [Header("Heavy Attack")]
         [SerializeField] private float h_magn = 1;

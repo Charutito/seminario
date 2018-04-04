@@ -20,6 +20,6 @@ public class DashUIDebug : MonoBehaviour
 	private void Update()
 	{
 		text.text = _character.currentDashCharges.ToString();
-		fill.fillAmount = _character.currentDashCooldown / _character.dashChargesCooldown;
+		fill.fillAmount = 1 - _character.currentDashCooldown / _character.dashChargesCooldown;
 	}
 }

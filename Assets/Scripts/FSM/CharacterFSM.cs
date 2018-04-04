@@ -221,8 +221,12 @@ namespace FSM
         {
             if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.currentDashCharges > 0)
             {
+                var dashPosition = entity.transform.position +
+                                   entity.EntityAttacker.lineArea.transform.forward * entity.dashLenght;
+                
                 entity.currentDashCharges--;
-                entity.EntityMove.SmoothMoveTransform(entity.transform.position + entity.transform.forward * entity.dashLenght, 0.1f);
+                entity.EntityMove.RotateInstant(dashPosition);
+                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
             }
         }
 
