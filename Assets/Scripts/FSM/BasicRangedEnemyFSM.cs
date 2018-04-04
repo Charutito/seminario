@@ -46,7 +46,6 @@ namespace FSM
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> aim = new State<int>("Aiming");
-            State<int> Follow = new State<int>("Following");
             State<int> Attack = new State<int>("Attacking");
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
@@ -64,14 +63,8 @@ namespace FSM
 
             StateConfigurer.Create(aim)
                  .SetTransition(Trigger.Idle, Idle)
-                .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);
-
-            StateConfigurer.Create(Follow)
-                .SetTransition(Trigger.Attack, Attack)
-                .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);
+                .SetTransition(Trigger.Die, Death);         
 
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Aim, aim)
@@ -80,8 +73,8 @@ namespace FSM
                 .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Stunned)
-                .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Aim, aim)
+                .SetTransition(Trigger.Idle, Idle)
                 .SetTransition(Trigger.Die, Death);
             #endregion
             #region idle State
@@ -109,38 +102,30 @@ namespace FSM
             };
             RunAway.OnUpdate += () =>
             {
-                entity.EntityMove.RotateInstant(entity.Target.transform.position);
-                entity.EntityMove.MoveAgent(entity.Target.transform.position);
-
-                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
-                {
-                    Feed(Trigger.Attack);
-                }
+                entity.EntityMove.RotateInstant(-entity.Target.transform.position);
+                entity.EntityMove.MoveAgent(entity.transform.position-entity.Target.transform.position);
+                entity.FleeTime -= Time.deltaTime;
+                if (entity.FleeTime <= 0)
+                    Feed(Trigger.Aim);
             };
-            Follow.OnExit += () =>
+            RunAway.OnExit += () =>
             {
+                entity.FleeTime = 0.5f;
                 entity.Animator.SetFloat(Animations.Move, 0);
             };
             #endregion
-
             #region Aim State
             aim.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, true);
-                
             };
             aim.OnUpdate += () =>
             {
-
                 entity.EntityMove.RotateTowards(entity.Target.transform.position);                
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
                 {
                     Feed(Trigger.Idle);
                 }
-                FrameUtil.AfterDelay(entity.fireSpeed, () =>
-                {
-                    Feed(Trigger.Attack);
-                });
             };
             aim.OnExit += () =>
             {
@@ -155,13 +140,11 @@ namespace FSM
             {
                 entity.Animator.SetTrigger(Animations.Attack);
                 entity.Shot();
-                FrameUtil.AfterDelay(entity.fireSpeed, () =>
-                {
-                    Feed(Trigger.Aim);
-                });
-            };
-         
-
+                //FrameUtil.AfterDelay(entity.fireSpeed, () =>
+                //{
+                //    Feed(Trigger.RunAway);
+                //});
+            };      
             #endregion
             #region Death State
             Death.OnEnter += () =>
