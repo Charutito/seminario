@@ -34,6 +34,7 @@ namespace FSM
         
         #region Components
         private BlockEnemy entity;
+        private bool weakPointHit = false;
         #endregion
 
         public BlockEnemyFSM(BlockEnemy entity)
@@ -99,6 +100,7 @@ namespace FSM
             #endregion
             
             #region Block State
+            
             Block.OnEnter += () =>
             {
                 entity.IsBlocking = true;
@@ -106,7 +108,15 @@ namespace FSM
             
             Block.OnUpdate += () =>
             {
-                entity.EntityMove.RotateTowards(entity.Target.transform.position, 1f);
+                if (weakPointHit)
+                {
+                    weakPointHit = false;
+                    entity.EntityMove.RotateInstant(entity.Target.transform.position);
+                }
+                else
+                {
+                    entity.EntityMove.RotateTowards(entity.Target.transform.position, 0.8f);
+                }
             };
             
             Block.OnExit += () =>
@@ -200,8 +210,13 @@ namespace FSM
                 }
                 else
                 {
+                    entity.Animator.SetFloat("IdleSelect", 0);
                     entity.CurrentAction = GroupAction.OutOfControl;
                 }
+            }
+            else if(type == DamageType.Back)
+            {
+                weakPointHit = true;
             }
         }
         

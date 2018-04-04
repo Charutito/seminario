@@ -22,6 +22,13 @@ namespace Entities
 			}
 			else
 			{
+				if (!lineOfSight.TargetInSight)
+				{
+					damage *= 2;
+					Animator.SetTrigger("BackHit");
+					type = DamageType.Back;
+				}
+				
 				HitFeedback();
 			}
 
