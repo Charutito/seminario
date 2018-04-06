@@ -53,7 +53,7 @@ namespace Entities
                         {
                             _entity.Animator.applyRootMotion = false; 
                             _entity.Animator.SetFloat("Velocity Z", 2f);
-                            
+                            _entity.Animator.SetTrigger("Dash");
                             _entity.EntityMove.SmoothMoveTransform(enemy.transform.position - transform.forward, 0.1f, OnLighDashEnd);
                         }
                         else

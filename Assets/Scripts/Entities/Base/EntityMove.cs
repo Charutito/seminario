@@ -77,15 +77,17 @@ namespace Entities
         {
             var currentPos = target.position;
             var t = 0f;
-            
+
+            if (onFinish != null) onFinish();
+
             while (t < 1)
             {
-                t += Time.deltaTime / timeToMove;
+                t += Time.deltaTime / timeToMove;           
                 target.position = Vector3.Lerp(currentPos, position, t);
                 yield return null;
             }
 
-            if (onFinish != null) onFinish();
+            
         }
 
         // Animation Crap
