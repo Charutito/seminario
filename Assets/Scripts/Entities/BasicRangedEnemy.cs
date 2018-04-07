@@ -16,9 +16,9 @@ namespace Entities
     {
         [Range(0f, 10f)]
         public float RangeToAim;        
-        public float fireSpeed;
+        public float FireRate;
         public float recoilTime;
-        public float nextFire;
+        public float nextFire= 0f;
         [Range(0f, 10f)]
         public float FleeTime;
 

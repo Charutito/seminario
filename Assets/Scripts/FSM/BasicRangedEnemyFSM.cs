@@ -60,18 +60,21 @@ namespace FSM
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Aim, aim);
-
+            StateConfigurer.Create(RunAway)
+               .SetTransition(Trigger.Stun, Stunned)
+               .SetTransition(Trigger.Idle, Idle)
+               .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(aim)
                  .SetTransition(Trigger.Idle, Idle)
+                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);         
-
+                .SetTransition(Trigger.Die, Death);  
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Die, Death);
-
             StateConfigurer.Create(Stunned)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Idle, Idle)
@@ -105,13 +108,23 @@ namespace FSM
                 entity.EntityMove.RotateInstant(-entity.Target.transform.position);
                 entity.EntityMove.MoveAgent(entity.transform.position-entity.Target.transform.position);
                 entity.FleeTime -= Time.deltaTime;
-                if (entity.FleeTime <= 0)
-                    Feed(Trigger.Aim);
+                Debug.Log(entity.FleeTime);
+                if (entity.FleeTime < 0)
+                {
+                    if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
+                    {
+                        Feed(Trigger.Idle);
+                    }
+                    else
+                    {
+                        Feed(Trigger.Aim);
+                    }
+                }
             };
             RunAway.OnExit += () =>
             {
-                entity.FleeTime = 0.5f;
                 entity.Animator.SetFloat(Animations.Move, 0);
+                entity.FleeTime = 0.5f;
             };
             #endregion
             #region Aim State
@@ -121,12 +134,17 @@ namespace FSM
             };
             aim.OnUpdate += () =>
             {
-                entity.EntityMove.RotateTowards(entity.Target.transform.position);                
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
                 {
                     Feed(Trigger.Idle);
                 }
+                FrameUtil.AfterDelay(entity.FireRate, () =>
+                {
+                    Feed(Trigger.Attack);
+                });
             };
+
             aim.OnExit += () =>
             {
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
@@ -140,10 +158,10 @@ namespace FSM
             {
                 entity.Animator.SetTrigger(Animations.Attack);
                 entity.Shot();
-                //FrameUtil.AfterDelay(entity.fireSpeed, () =>
-                //{
-                //    Feed(Trigger.RunAway);
-                //});
+                FrameUtil.AfterDelay(entity.recoilTime, () =>
+                {
+                    Feed(Trigger.RunAway);
+                });
             };      
             #endregion
             #region Death State
