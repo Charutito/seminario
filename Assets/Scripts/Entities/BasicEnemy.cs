@@ -15,6 +15,9 @@ namespace Entities
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
 
+        [Header("GetHit")]
+        public int getHitDuration = 1;
+
         #region Local Vars
 		[SerializeField] public GameObject Hitpart;
 		[SerializeField] public Transform hitpos;
