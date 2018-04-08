@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameUtils;
 using Managers.Mappings;
 using UnityEngine;
+using Util;
+using XInputDotNetPure;
 
 namespace Managers
 {
@@ -10,6 +13,8 @@ namespace Managers
     {
         [SerializeField] private InputMapping keyboard;
         [SerializeField] private InputMapping joystick;
+
+        private static Coroutine _stopCoroutine;
 
         #region Properties
         
@@ -39,5 +44,24 @@ namespace Managers
         public bool Dash { get { return Input.GetKeyDown(keyboard.Dash) || Input.GetKeyDown(joystick.Dash); } }
         
         #endregion
+
+        public void Vibrate(float left, float right, float duration = 0.1f)
+        {
+            GamePad.SetVibration(0, left, right);
+
+            if (_stopCoroutine != null)
+            {
+                StopCoroutine(_stopCoroutine);
+            }
+
+            _stopCoroutine = StartCoroutine(StopVibration(duration));
+        }
+        
+        private IEnumerator StopVibration(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            
+            GamePad.SetVibration(0, 0, 0);
+        }
     }
 }

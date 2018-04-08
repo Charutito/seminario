@@ -358,7 +358,6 @@ namespace FSM
         
         private void FeedAimSpell()
         {
-            Debug.Log("FeedAimSpell");
             if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
                 Feed(Trigger.AimSpell);

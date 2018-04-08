@@ -6,6 +6,7 @@ using Util;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using Managers;
 
 namespace Entities
 {
@@ -84,13 +85,20 @@ namespace Entities
         {
             var damageable = other.GetComponent<IDamageable>();
             var Character = other.GetComponent<CharacterEntity>();
+            
             if (Character!=null)
             {
                 Character.DmgDdisp(transform.forward);
             }
+            
             if (damageable != null)
             {                
                 damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
+                
+                if (_entity.CompareTag("Player"))
+                {
+                    InputManager.Instance.Vibrate(0.5f, 0.3f, 0.25f);
+                }
             }
         }
         #endregion
@@ -105,6 +113,8 @@ namespace Entities
         public void HeavyAttack_Hit()
         {
             CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
+            InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
+            
 			attackArea.TriggerEnter += HeavyAttack_Damage;
 			attackArea.gameObject.SetActive(true);
 
