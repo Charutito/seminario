@@ -6,9 +6,9 @@ namespace Entities.Base
 {
 	public class EntitySpells : MonoBehaviour
 	{
-		public void Cast(SpellDefinition definition)
+		public void Cast(SpellDefinition definition, Transform pos)
 		{
-			Instantiate(definition.prefab, transform.position + transform.forward, transform.rotation);
+			Instantiate(definition.prefab, pos.position, transform.rotation);
 		}
 	}
 }

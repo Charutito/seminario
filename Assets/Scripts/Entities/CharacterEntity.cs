@@ -22,6 +22,8 @@ namespace Entities
         [Range(0, 1)]
         public float DmgDispl = 0.5f;
 
+        [Header("Spells")]
+        public Transform castPosition;
 	    public SpellDefinition fireballSpell;
 
         public event Action OnMove = delegate { };

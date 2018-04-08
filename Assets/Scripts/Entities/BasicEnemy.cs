@@ -8,7 +8,7 @@ namespace Entities
 {
     public class BasicEnemy : GroupEntity
     {
-        [Range(1f, 5f)]
+        [Range(1f, 10f)]
         public float AttackRange = 2f;
 
         [Header("Stun")]

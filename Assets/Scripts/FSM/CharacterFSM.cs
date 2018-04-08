@@ -242,6 +242,7 @@ namespace FSM
             CastingSpell.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
+                entity.Animator.SetTrigger("AimStart");
                 //entity.Animator.SetTrigger("ChargedAttack"); // This should be "Aiming" or something like that
             };
             
@@ -261,7 +262,8 @@ namespace FSM
                 else if(InputManager.Instance.AbilityCast && canShoot)
                 {
                     canShoot = false;
-                    entity.EntitySpells.Cast(entity.fireballSpell);
+                    entity.EntitySpells.Cast(entity.fireballSpell, entity.castPosition);
+                    entity.Animator.SetTrigger("Shoot");
                 }
                 else if(!InputManager.Instance.AbilityCast)
                 {
@@ -273,6 +275,7 @@ namespace FSM
             {
                 canShoot = true;
                 entity.OnMove += FeedMove;
+                entity.Animator.SetTrigger("AimEnd");
             };
             #endregion
             
