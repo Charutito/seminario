@@ -5,6 +5,6 @@ namespace BattleSystem
     {
         None = 1,
         Fireball = 10,
-        Forcefield = 11
+        Graviton = 11,
     }
 }

@@ -10,7 +10,7 @@ namespace BattleSystem
         public SpellType type = SpellType.None;
         public Texture2D sprite;
         public GameObject prefab;
-        public GameObject collisionParticle;
+        public GameObject collisionPrefab;
         public AudioClip sound;
         public float cooldown = 1f;
 

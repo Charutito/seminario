@@ -2,6 +2,7 @@
 using UnityEngine;
 using Stats;
 using System;
+using Entities.Base;
 using FSM;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -17,6 +18,7 @@ namespace Entities
         public Collider Collider { get; private set; }
         public EntityAttacker EntityAttacker { get; private set; }
         public EntityMove EntityMove { get; private set; }
+        public EntitySpells EntitySpells { get; private set; }
         public EventFSM<int> EntityFsm { get; protected set; }
         #endregion
         
@@ -116,6 +118,7 @@ namespace Entities
             Collider = GetComponent<Collider>();
             EntityAttacker = GetComponent<EntityAttacker>();
             EntityMove = GetComponent<EntityMove>();
+            EntitySpells = GetComponent<EntitySpells>();
         }
         
         // Animator.SetFloat("Velocity Z", Vector3.Project(agent.desiredVelocity, transform.forward).magnitude)

@@ -813,6 +813,7 @@ GameObject:
   - component: {fileID: 114546486413364574}
   - component: {fileID: 195402188659011008}
   - component: {fileID: 114470487424743876}
+  - component: {fileID: 114095227419582654}
   m_Layer: 8
   m_Name: Character
   m_TagString: Player
@@ -2379,6 +2380,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb1f72402aa064e86f3420a5f5c1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114095227419582654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723195614099692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e1caae1c3edd74ba0d811c4a028351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114142617092991746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2650,6 +2662,10 @@ MonoBehaviour:
   currentDashCharges: 3
   dashChargesCooldown: 4
   currentDashCooldown: 0
+  getHitDuration: 0.7
+  AtkDispl: 0.5
+  DmgDispl: 0.5
+  fireballSpell: {fileID: 11400000, guid: 4f84ca22675bf7146a8aa1aa84f6cde5, type: 2}
 --- !u!114 &114834045257584748
 MonoBehaviour:
   m_ObjectHideFlags: 1

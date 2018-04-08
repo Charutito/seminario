@@ -20,8 +20,6 @@ namespace Managers.Mappings
         [Header("Spells")]
         [SerializeField] public KeyCode FirstAbility     = KeyCode.Alpha1;
         [SerializeField] public KeyCode SecondAbility    = KeyCode.Alpha2;
-        [SerializeField] public KeyCode ThirdAbility     = KeyCode.Alpha3;
-        [SerializeField] public KeyCode FourAbility      = KeyCode.Alpha4;
 
         [Header("Inventory")]
         [SerializeField] public KeyCode SelectWeapon1    = KeyCode.None;

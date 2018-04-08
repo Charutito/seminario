@@ -14,7 +14,7 @@ namespace Entities
 	    public int currentDashCharges = 3;
 	    public float dashChargesCooldown = 4f;
 	    public float currentDashCooldown = 0;
-
+	    
         [Header("GetHit")]
         public float getHitDuration = 0.7f;
         [Range(0,1)]
@@ -22,7 +22,7 @@ namespace Entities
         [Range(0, 1)]
         public float DmgDispl = 0.5f;
 
-
+	    public SpellDefinition fireballSpell;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -31,6 +31,7 @@ namespace Entities
         public event Action OnSpecialAttack = delegate { };
         public event Action OnChargedAttack = delegate { };
         public event Action OnShowDamage = delegate { };
+        public event Action OnSpellAiming = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -84,6 +85,10 @@ namespace Entities
 		    if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
 		    {
 			    OnChargedAttack();
+		    }
+		    if (InputManager.Instance.AbilityAim && OnSpellAiming != null)
+		    {
+			    OnSpellAiming();
 		    }
 
 		    if (currentDashCharges < maxDashCharges)
