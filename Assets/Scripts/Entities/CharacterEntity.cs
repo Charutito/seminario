@@ -34,7 +34,7 @@ namespace Entities
 
         public void DmgDdisp(Vector3 direction)
         {
-            this.EntityMove.SmoothMoveTransform(transform.position - direction * DmgDispl, 0.1f);
+            this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             this.EntityMove.RotateInstant(direction);
         }
         private void AtkDdisp()
