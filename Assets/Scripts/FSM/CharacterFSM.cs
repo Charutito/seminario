@@ -101,7 +101,7 @@ namespace FSM
             entity.OnChargedAttack += FeedChargedAttack;
             entity.OnStun += FeedStun;
             entity.OnMove += FeedMove;
-            entity.OnTakeDamage += FeedGetHit;
+            entity.OnShowDamage += FeedGetHit;
 
 
             entity.OnAttackRecovering += () => {

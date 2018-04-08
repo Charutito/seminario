@@ -30,7 +30,7 @@ namespace Entities
         public event Action OnStun = delegate { };
         public event Action OnSpecialAttack = delegate { };
         public event Action OnChargedAttack = delegate { };
-        public event Action OnTakeDamage = delegate { };
+        public event Action OnShowDamage = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -43,7 +43,7 @@ namespace Entities
         }
         public override void TakeDamage(int damage, DamageType type)
 	    {
-            OnTakeDamage();
+            OnShowDamage();
             if (type == DamageType.SpecialAttack)
 		    {
 			    OnStun();

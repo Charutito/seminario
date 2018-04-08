@@ -17,7 +17,7 @@ public class LifeUIDebug : MonoBehaviour {
     private void Start()
     {
         _entity = GameManager.Instance.Character;
-        _entity.OnTakeDamage += ShowRedScreen;
+        _entity.OnShowDamage += ShowRedScreen;
     }
 
     private void Update()
