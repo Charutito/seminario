@@ -8,16 +8,34 @@ using UnityEngine.UI;
 public class LifeUIDebug : MonoBehaviour {
 
     public Image fill;
+    private CharacterEntity _entity;
 
-    private CharacterEntity _character;
+    public float timeToDisplay;
+    public Animator redScreen;
+
 
     private void Start()
     {
-        _character = GameManager.Instance.Character;
+        _entity = GameManager.Instance.Character;
+        _entity.OnTakeDamage += ShowRedScreen;
     }
 
     private void Update()
     {
-        fill.fillAmount = _character.Stats.Health.Current / _character.Stats.Health.Max;    
+        fill.fillAmount = _entity.Stats.Health.Current / _entity.Stats.Health.Max;    
+    }
+
+    private void ShowRedScreen()
+    {
+        redScreen.SetTrigger("Show");
+        //redScreen.SetActive(true);
+        StartCoroutine(Show(timeToDisplay));
+    }
+
+    private IEnumerator Show(float timeToDisplay)
+    {
+        yield return new WaitForSeconds(timeToDisplay);
+        //redScreen.SetActive(false);
+        redScreen.SetTrigger("Hide");
     }
 }
