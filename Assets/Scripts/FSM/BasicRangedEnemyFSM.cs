@@ -63,6 +63,7 @@ namespace FSM
             StateConfigurer.Create(RunAway)
                .SetTransition(Trigger.Stun, Stunned)
                .SetTransition(Trigger.Idle, Idle)
+               .SetTransition(Trigger.Idle, Idle)
                .SetTransition(Trigger.Die, Death)
                .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(aim)
@@ -105,10 +106,12 @@ namespace FSM
             };
             RunAway.OnUpdate += () =>
             {
-                entity.EntityMove.RotateInstant(-entity.Target.transform.position);
-                entity.EntityMove.MoveAgent(entity.transform.position-entity.Target.transform.position);
-                entity.FleeTime -= Time.deltaTime;
-                Debug.Log(entity.FleeTime);
+                entity.EntityMove.RotateInstant(entity.Target.transform.forward);
+                //encontrar una posicion a la cual desplazarse
+                //entity.EntityMove.MoveAgent(entity.transform.position-entity.Target.transform.position);
+                entity.EntityMove.SmoothMoveTransform(entity.transform.position - entity.Target.transform.position, entity.FleeTime);
+
+               //sim estoy en esa posicion disparar alguno de estos dos eventos
                 if (entity.FleeTime < 0)
                 {
                     if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
