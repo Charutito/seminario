@@ -1,6 +1,7 @@
 ﻿using BattleSystem;
 using Entities;
 using UnityEngine;
+using System.Linq;
 using Util;
 
 namespace FSM
@@ -103,31 +104,34 @@ namespace FSM
             RunAway.OnEnter += () =>
             {
                 entity.Animator.SetFloat(Animations.Move, 1);
+                var newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
+                while (newpos == entity.NextPos)
+                {
+                    newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
+                }
+                entity.NextPos = newpos;
+
             };
             RunAway.OnUpdate += () =>
             {
-                entity.EntityMove.RotateInstant(entity.Target.transform.forward);
-                //encontrar una posicion a la cual desplazarse
-                //entity.EntityMove.MoveAgent(entity.transform.position-entity.Target.transform.position);
-                entity.EntityMove.SmoothMoveTransform(entity.transform.position - entity.Target.transform.position, entity.FleeTime);
-
-               //sim estoy en esa posicion disparar alguno de estos dos eventos
-                if (entity.FleeTime < 0)
+                entity.EntityMove.RotateInstant(entity.NextPos.position);
+                Debug.Log(entity.PosToFlee);
+                if (entity.NextPos!= null && entity.NextPos.position !=entity.transform.position)
                 {
-                    if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
-                    {
-                        Feed(Trigger.Idle);
-                    }
-                    else
-                    {
-                        Feed(Trigger.Aim);
-                    }
+                    entity.EntityMove.MoveAgent(entity.NextPos.position);
                 }
+
+                if (Vector3.Distance(entity.transform.position, entity.NextPos.position) <= 1f)
+                {
+                    Feed(Trigger.Idle);
+
+                   
+              }
+
             };
             RunAway.OnExit += () =>
             {
                 entity.Animator.SetFloat(Animations.Move, 0);
-                entity.FleeTime = 0.5f;
             };
             #endregion
             #region Aim State

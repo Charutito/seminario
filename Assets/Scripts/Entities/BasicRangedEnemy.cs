@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using GameUtils;
 using Util;
+using System.Collections;
 using BattleSystem;
 
 
@@ -19,18 +20,16 @@ namespace Entities
         public float FireRate;
         public float recoilTime;
         public float nextFire= 0f;
+        public Transform[] PosToFlee;
+        public Transform NextPos;
+
         [Range(0f, 10f)]
-        public float FleeTime;
+        public float FleeRange;
 
         protected override void SetFsm()
         {
             EntityFsm = new BasicRangedEnemyFSM(this);            
         }     
-
-        public Vector3 PosToFlee()
-        {
-            return transform.position - Target.transform.position * FleeTime;
-        }
 
         public void Shot()
         {
