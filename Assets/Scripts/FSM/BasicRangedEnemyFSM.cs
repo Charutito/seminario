@@ -64,7 +64,6 @@ namespace FSM
             StateConfigurer.Create(RunAway)
                .SetTransition(Trigger.Stun, Stunned)
                .SetTransition(Trigger.Idle, Idle)
-               .SetTransition(Trigger.Idle, Idle)
                .SetTransition(Trigger.Die, Death)
                .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(aim)
@@ -86,6 +85,7 @@ namespace FSM
             Idle.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Relax, true);
+                entity.Animator.SetFloat(Animations.Move, 0f);
             };
             Idle.OnUpdate += () =>
             {                
@@ -110,34 +110,30 @@ namespace FSM
                     newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
                 }
                 entity.NextPos = newpos;
-
             };
             RunAway.OnUpdate += () =>
             {
                 entity.EntityMove.RotateInstant(entity.NextPos.position);
-                Debug.Log(entity.PosToFlee);
-                if (entity.NextPos!= null && entity.NextPos.position !=entity.transform.position)
+                if (entity.NextPos != null)
                 {
                     entity.EntityMove.MoveAgent(entity.NextPos.position);
                 }
-
                 if (Vector3.Distance(entity.transform.position, entity.NextPos.position) <= 1f)
                 {
-                    Feed(Trigger.Idle);
-
-                   
-              }
-
+                    Feed(Trigger.Aim);
+                }
             };
             RunAway.OnExit += () =>
             {
                 entity.Animator.SetFloat(Animations.Move, 0);
+
             };
             #endregion
             #region Aim State
             aim.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, true);
+                entity.Animator.SetFloat(Animations.Move, 0);
             };
             aim.OnUpdate += () =>
             {
@@ -154,10 +150,7 @@ namespace FSM
 
             aim.OnExit += () =>
             {
-                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
-                {
                     entity.Animator.SetBool(Animations.Aim, false);
-                }
             };
             #endregion
             #region Attack State
