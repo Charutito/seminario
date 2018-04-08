@@ -83,9 +83,13 @@ namespace Entities
         private void LightAttack_Damage(Collider other)
         {
             var damageable = other.GetComponent<IDamageable>();
-
-            if (damageable != null)
+            var Caracter = other.GetComponent<CharacterEntity>();
+            if (Caracter!=null)
             {
+                Caracter.DmgDdisp(transform.forward);
+            }
+            if (damageable != null)
+            {                
                 damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
             }
         }

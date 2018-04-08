@@ -32,9 +32,10 @@ namespace Entities
         public event Action OnChargedAttack = delegate { };
         public event Action OnTakeDamage = delegate { };
 
-        private void DmgDdisp()
+        public void DmgDdisp(Vector3 direction)
         {
-            this.EntityMove.SmoothMoveTransform(transform.position - transform.forward * DmgDispl, 0.1f);
+            this.EntityMove.SmoothMoveTransform(transform.position - direction * DmgDispl, 0.1f);
+            this.EntityMove.RotateInstant(direction);
         }
         private void AtkDdisp()
         {
@@ -43,7 +44,6 @@ namespace Entities
         public override void TakeDamage(int damage, DamageType type)
 	    {
             OnTakeDamage();
-            DmgDdisp();
             if (type == DamageType.SpecialAttack)
 		    {
 			    OnStun();
