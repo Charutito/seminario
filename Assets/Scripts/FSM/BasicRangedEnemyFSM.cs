@@ -1,6 +1,7 @@
 ﻿using BattleSystem;
 using Entities;
 using UnityEngine;
+using System.Linq;
 using Util;
 
 namespace FSM
@@ -16,7 +17,7 @@ namespace FSM
             public static int Die = 3;
             public static int Stun = 4;
             public static int Idle = 5;
-
+            public static int RunAway = 6;
         }
         private class Animations
         {
@@ -40,16 +41,17 @@ namespace FSM
         #endregion
         public BasicRangedEnemyFSM(BasicRangedEnemy entity)
         {
-            this.debugName = "BasicFSM";
+            this.debugName = "Ranged Enemy";
             this.entity = entity;
 
             #region States Definitions
             State<int> Idle = new State<int>("Idling");
             State<int> aim = new State<int>("Aiming");
-            State<int> Follow = new State<int>("Following");
             State<int> Attack = new State<int>("Attacking");
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
+            State<int> RunAway = new State<int>("RunAway");
+
             #endregion
             #region States Configuration
             SetInitialState(Idle);
@@ -57,34 +59,33 @@ namespace FSM
             StateConfigurer.Create(Idle)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
+                .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Aim, aim);
-
-
+            StateConfigurer.Create(RunAway)
+               .SetTransition(Trigger.Stun, Stunned)
+               .SetTransition(Trigger.Idle, Idle)
+               .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(aim)
                  .SetTransition(Trigger.Idle, Idle)
-                .SetTransition(Trigger.Attack, Follow)
+                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);
-
-            StateConfigurer.Create(Follow)
-                .SetTransition(Trigger.Attack, Attack)
-                .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death);
-
+                .SetTransition(Trigger.Die, Death);  
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.RunAway, RunAway)
                 .SetTransition(Trigger.Die, Death);
-
             StateConfigurer.Create(Stunned)
-                .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Aim, aim)
+                .SetTransition(Trigger.Idle, Idle)
                 .SetTransition(Trigger.Die, Death);
             #endregion
             #region idle State
             Idle.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Relax, true);
+                entity.Animator.SetFloat(Animations.Move, 0f);
             };
             Idle.OnUpdate += () =>
             {                
@@ -99,46 +100,69 @@ namespace FSM
             };
             #endregion
 
+            #region RunAway State
+            RunAway.OnEnter += () =>
+            {
+                entity.Animator.SetFloat(Animations.Move, 1);
+                var newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
+                while (newpos == entity.NextPos)
+                {
+                    newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
+                }
+                entity.NextPos = newpos;
+            };
+            RunAway.OnUpdate += () =>
+            {
+                entity.EntityMove.RotateInstant(entity.NextPos.position);
+                if (entity.NextPos != null)
+                {
+                    entity.EntityMove.MoveAgent(entity.NextPos.position);
+                }
+                if (Vector3.Distance(entity.transform.position, entity.NextPos.position) <= 1f)
+                {
+                    Feed(Trigger.Aim);
+                }
+            };
+            RunAway.OnExit += () =>
+            {
+                entity.Animator.SetFloat(Animations.Move, 0);
+
+            };
+            #endregion
             #region Aim State
             aim.OnEnter += () =>
             {
                 entity.Animator.SetBool(Animations.Aim, true);
-                
+                entity.Animator.SetFloat(Animations.Move, 0);
             };
             aim.OnUpdate += () =>
             {
-
-                entity.EntityMove.RotateTowards(entity.Target.transform.position);                
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);
                 if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
                 {
                     Feed(Trigger.Idle);
                 }
-                FrameUtil.AfterDelay(entity.fireSpeed, () =>
+                FrameUtil.AfterDelay(entity.FireRate, () =>
                 {
                     Feed(Trigger.Attack);
                 });
             };
+
             aim.OnExit += () =>
             {
-                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) >= entity.RangeToAim)
-                {
                     entity.Animator.SetBool(Animations.Aim, false);
-                }
             };
             #endregion
             #region Attack State
             Attack.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.Attack);
-
-                FrameUtil.AfterDelay(entity.stunDuration, () =>
+                entity.Shot();
+                FrameUtil.AfterDelay(entity.recoilTime, () =>
                 {
-                    Feed(Trigger.Aim);
+                    Feed(Trigger.RunAway);
                 });
-
-            };
-         
-
+            };      
             #endregion
             #region Death State
             Death.OnEnter += () =>
