@@ -1839,10 +1839,15 @@ MonoBehaviour:
   Hitpart: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
   hitpos: {fileID: 4869568394911778}
   RangeToAim: 3
-  fireSpeed: 0.5
+  FireRate: 0.5
   recoilTime: 0.5
   nextFire: 0.5
-  FleeTime: 1
+  PosToFlee:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  NextPos: {fileID: 0}
+  FleeRange: 10
 --- !u!114 &114709905474312578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2012,7 +2017,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6169b457d0df68741b71ad8fdead40b2, type: 2}
+  - {fileID: 2100000, guid: 73f27a7683aca524c97883d7c8a03069, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
