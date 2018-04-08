@@ -17,7 +17,7 @@ namespace Entities
     {
         [Range(0f, 10f)]
         public float RangeToAim;        
-        public float FireRate;
+        public float FireRate; 
         public float recoilTime;
         public float nextFire= 0f;
         public Transform[] PosToFlee;
