@@ -14,22 +14,29 @@ namespace Entities
 	    public int currentDashCharges = 3;
 	    public float dashChargesCooldown = 4f;
 	    public float currentDashCooldown = 0;
-	    
-	    
-	    
+
+        [Header("GetHit")]
+        public float getHitDuration = 0.7f;
+
+
+
+
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
         public event Action OnDash = delegate { };
         public event Action OnStun = delegate { };
         public event Action OnSpecialAttack = delegate { };
         public event Action OnChargedAttack = delegate { };
-	    
-	    public override void TakeDamage(int damage, DamageType type)
+        public event Action OnTakeDamage = delegate { };
+
+        public override void TakeDamage(int damage, DamageType type)
 	    {
-		    if (type == DamageType.SpecialAttack)
+            OnTakeDamage();
+
+            if (type == DamageType.SpecialAttack)
 		    {
 			    OnStun();
-			    
+
 			    if (IsSpecialAttacking)
 			    {
 				    damage = 0;

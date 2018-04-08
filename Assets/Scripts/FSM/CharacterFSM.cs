@@ -20,6 +20,7 @@ namespace FSM
             public static int Stun = 4;
             public static int None = 5;
             public static int Die = 6;
+            public static int GetHit = 7;
         }
 
         private CharacterEntity entity;
@@ -37,6 +38,7 @@ namespace FSM
 			State<int> ChargedAttack = new State<int>("Charged Attacking");
             State<int> Stunned  = new State<int>("Stunned");
             State<int> Dead  = new State<int>("Dead");
+            State<int> GetHit = new State<int>("GetHit");
 
             SetInitialState(Idle);
 
@@ -46,6 +48,7 @@ namespace FSM
                 .SetTransition(Trigger.ChargedAttack, ChargedAttack)
                 .SetTransition(Trigger.Move, Moving)
                 .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Stun, Stunned);
 
             StateConfigurer.Create(Moving)
@@ -54,6 +57,7 @@ namespace FSM
                 .SetTransition(Trigger.ChargedAttack, ChargedAttack)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle);
 
             StateConfigurer.Create(Attacking)
@@ -62,19 +66,30 @@ namespace FSM
                 .SetTransition(Trigger.Move, Moving)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle);
 
             StateConfigurer.Create(SpecialAttack)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle);
             
             StateConfigurer.Create(ChargedAttack)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle);
             
             StateConfigurer.Create(Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle);
+
+            StateConfigurer.Create(GetHit)
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle);
 
@@ -86,8 +101,10 @@ namespace FSM
             entity.OnChargedAttack += FeedChargedAttack;
             entity.OnStun += FeedStun;
             entity.OnMove += FeedMove;
-            
-			entity.OnAttackRecovering += () => {
+            entity.OnTakeDamage += FeedGetHit;
+
+
+            entity.OnAttackRecovering += () => {
 				entity.IsAttacking = false;
 			    entity.IsSpecialAttacking = false;
 			};
@@ -208,7 +225,15 @@ namespace FSM
                 entity.Animator.SetTrigger("Countered");
             };
             #endregion
-            
+
+            #region GetHit State
+            GetHit.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger("GetHit");
+                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+            };
+            #endregion
+
             #region Dead State
             Dead.OnEnter += () =>
             {
@@ -242,6 +267,11 @@ namespace FSM
             {
                 Feed(Trigger.Move);
             }
+        }
+
+        private void FeedGetHit()
+        {
+            Feed(Trigger.GetHit);
         }
 
         private void FeedAttack()
