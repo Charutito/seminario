@@ -18,7 +18,9 @@ namespace FSM
             public static int Stun = 4;
             public static int Idle = 5;
             public static int RunAway = 6;
+            public static int GetHit = 7;
         }
+
         private class Animations
         {
             public static string Attack = "Attack";
@@ -29,8 +31,8 @@ namespace FSM
             public static string RandomDeath = "RandomDeath";
             public static string Countered = "Countered";
             public static string Move = "Velocity Z";
+            public static string GetHit = "GetHit";
         }
-
         #region Components
         private BasicRangedEnemy entity;
         #endregion
@@ -51,6 +53,8 @@ namespace FSM
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
             State<int> RunAway = new State<int>("RunAway");
+            State<int> GetHit = new State<int>("GetHit");
+
 
             #endregion
             #region States Configuration
@@ -80,6 +84,12 @@ namespace FSM
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Idle, Idle)
                 .SetTransition(Trigger.Die, Death);
+            StateConfigurer.Create(GetHit).
+                SetTransition(Trigger.Attack, Attack)
+               .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.GetHit, GetHit);
+
+
             #endregion
             #region idle State
             Idle.OnEnter += () =>
@@ -174,6 +184,21 @@ namespace FSM
                 entity.Collider.enabled = false;
             };
             #endregion
+
+            #region GetHit State
+
+            GetHit.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger(Animations.GetHit);
+                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+
+                FrameUtil.AfterDelay(entity.getHitDuration, () =>
+                {
+                    Feed(Trigger.Attack);
+                });
+            };
+
+            #endregion
             #region Stunned State
             Stunned.OnEnter += () =>
             {
@@ -217,6 +242,10 @@ namespace FSM
             if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
+            }
+            else
+            {
+                Feed(Trigger.GetHit);
             }
         }
 
