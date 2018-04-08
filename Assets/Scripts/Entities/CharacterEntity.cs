@@ -17,7 +17,10 @@ namespace Entities
 
         [Header("GetHit")]
         public float getHitDuration = 0.7f;
-
+        [Range(0,1)]
+        public float AtkDispl= 0.5f;
+        [Range(0, 1)]
+        public float DmgDispl = 0.5f;
 
 
 
@@ -29,10 +32,18 @@ namespace Entities
         public event Action OnChargedAttack = delegate { };
         public event Action OnTakeDamage = delegate { };
 
+        private void DmgDdisp()
+        {
+            this.EntityMove.SmoothMoveTransform(transform.position - transform.forward * DmgDispl, 0.1f);
+        }
+        private void AtkDdisp()
+        {
+            this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
+        }
         public override void TakeDamage(int damage, DamageType type)
 	    {
             OnTakeDamage();
-
+            DmgDdisp();
             if (type == DamageType.SpecialAttack)
 		    {
 			    OnStun();

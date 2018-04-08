@@ -85,6 +85,7 @@ namespace Entities
             if (OnTakeDamage != null)
             {
                 OnTakeDamage(damage, type);
+
             }
         }
         #endregion

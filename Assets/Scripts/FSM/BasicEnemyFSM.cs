@@ -14,7 +14,6 @@ namespace FSM
             public static int Stalking = 2;
             public static int Die = 3;
             public static int Stun = 4;
-            public static int GetHit = 5;
         }
 
         /// <summary>
@@ -28,8 +27,6 @@ namespace FSM
             public static string RandomDeath    = "RandomDeath";
             public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
-            public static string GetHit         = "GetHit";
-
         }
         
         #region Components
@@ -52,7 +49,6 @@ namespace FSM
             State<int> Attack = new State<int>("Attacking");
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
-            State<int> GetHit = new State<int>("GetHit");
             #endregion
 
 
@@ -62,43 +58,29 @@ namespace FSM
             StateConfigurer.Create(Idle)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Stalk)
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Follow)
                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Attack)
-                .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
-
+                .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Stunned)
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stalking, Stalk)
-                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
-
-            StateConfigurer.Create(GetHit)
-               .SetTransition(Trigger.Attack, Attack)
-               .SetTransition(Trigger.Stalking, Stalk)
-               .SetTransition(Trigger.Die, Death)
-               .SetTransition(Trigger.GetHit, GetHit);
-
+                .SetTransition(Trigger.Die, Death);
             #endregion
-
+            
             #region Stalk State 
             var nextLocation = Vector3.zero;
             var normalSpeed = 1f;
@@ -187,23 +169,8 @@ namespace FSM
             };
             #endregion
 
-            #region GetHit State
-
-            GetHit.OnEnter += () =>
-            {
-                entity.Animator.SetTrigger(Animations.GetHit);
-                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
-
-                FrameUtil.AfterDelay(entity.getHitDuration, () =>
-                {
-                    Feed(Trigger.Attack);
-                });
-            };
-
-            #endregion
-
             #region Entity Events
-            entity.OnAttackRecovered += OnAttackRecover;
+			entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
 
@@ -226,15 +193,12 @@ namespace FSM
         private void OnTakingDamage(int damage, DamageType type)
         {
             entity.HitFeedback();
-            
+
             currentHitsToStun++;
 
             if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
-            }else
-            {
-                Feed(Trigger.GetHit);
             }
         }
 
