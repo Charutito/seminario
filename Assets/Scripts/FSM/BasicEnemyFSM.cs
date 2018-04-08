@@ -78,10 +78,12 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit);
 
             StateConfigurer.Create(Attack)
+                .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.GetHit, GetHit);
+
 
             StateConfigurer.Create(Stunned)
                 .SetTransition(Trigger.Attack, Follow)
@@ -90,9 +92,11 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit);
 
             StateConfigurer.Create(GetHit)
-               .SetTransition(Trigger.Attack, Follow)
+               .SetTransition(Trigger.Attack, Attack)
+               .SetTransition(Trigger.Stalking, Stalk)
                .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+               .SetTransition(Trigger.GetHit, GetHit);
+
             #endregion
 
             #region Stalk State 
@@ -182,6 +186,9 @@ namespace FSM
                 });
             };
             #endregion
+
+            #region GetHit State
+
             GetHit.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.GetHit);
@@ -192,9 +199,6 @@ namespace FSM
                     Feed(Trigger.Attack);
                 });
             };
-            #region
-
-
 
             #endregion
 
