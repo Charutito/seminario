@@ -92,7 +92,9 @@ namespace FSM
             StateConfigurer.Create(GetHit).
                 SetTransition(Trigger.Attack, Attack)
                .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.Idle, Idle)
                .SetTransition(Trigger.RunAway, RunAway)
+               .SetTransition(Trigger.Aim, aim)
                .SetTransition(Trigger.GetHit, GetHit);
 
 
@@ -121,10 +123,7 @@ namespace FSM
             {
                 entity.Animator.SetFloat(Animations.Move, 1);
                 var newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
-                while (newpos == entity.NextPos)
-                {
-                    newpos = entity.PosToFlee[Random.Range(0, entity.PosToFlee.Length)];
-                }
+                entity.NextPos = entity.PosToFlee.First(x => x != entity.NextPos);
                 entity.NextPos = newpos;
             };
             RunAway.OnUpdate += () =>
@@ -142,8 +141,8 @@ namespace FSM
             RunAway.OnExit += () =>
             {
                 entity.Animator.SetFloat(Animations.Move, 0);
-
             };
+
             #endregion
             #region Aim State
             aim.OnEnter += () =>
@@ -196,10 +195,9 @@ namespace FSM
             GetHit.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.GetHit);
-                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
-                entity.NextPos = null;
+                //entity.NextPos = null;
 
-                FrameUtil.AfterDelay(entity.getHitDuration, () =>
+                FrameUtil.AfterDelay(0.14f, () =>
                 {
                     Feed(Trigger.RunAway);
                 });
