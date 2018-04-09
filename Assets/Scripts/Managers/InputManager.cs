@@ -63,5 +63,10 @@ namespace Managers
             
             GamePad.SetVibration(0, 0, 0);
         }
+
+        private void OnDestroy()
+        {
+            GamePad.SetVibration(0, 0, 0);
+        }
     }
 }

@@ -4,23 +4,20 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DebugShortcuts : MonoBehaviour
+namespace Utility
 {
-    [SerializeField] private KeyCode editorPauseKey = KeyCode.F12;
-    [SerializeField] private KeyCode resetScene = KeyCode.R;
-
-#if UNITY_EDITOR
-    private void Update()
+    public class DebugShortcuts : MonoBehaviour
     {
-        if (Input.GetKeyDown(editorPauseKey))
-        {
-            EditorApplication.isPaused = true;
-        }
+        [SerializeField] private KeyCode editorPauseKey = KeyCode.F12;
 
-        if (Input.GetKeyDown(resetScene))
+        private void Update()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(editorPauseKey))
+            {
+                EditorApplication.isPaused = true;
+            }
+#endif
         }
     }
-#endif
 }

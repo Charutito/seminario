@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class LoadScene : MonoBehaviour {
-
-    public void LoadByIndex(int sceneIndex)
+namespace Menu
+{
+    public class LoadScene : MonoBehaviour
     {
-        SceneManager.LoadScene(sceneIndex);
+        public void LoadByIndex(int sceneIndex)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
+
+        public void ReloadScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
