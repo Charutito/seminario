@@ -165,7 +165,8 @@ namespace FSM
             #region Death State
             Death.OnEnter += () =>
             {
-                entity.Animator.SetTrigger("Death");
+                entity.Animator.SetBool("Death", false);
+                entity.Animator.SetTrigger("TriggerDeath");
                 entity.Animator.SetInteger("RandomDeath", Random.Range(0, 3));
 
                 entity.Agent.enabled = false;
