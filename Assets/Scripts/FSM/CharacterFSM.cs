@@ -242,8 +242,7 @@ namespace FSM
             CastingSpell.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
-                entity.Animator.SetTrigger("AimStart");
-                //entity.Animator.SetTrigger("ChargedAttack"); // This should be "Aiming" or something like that
+                entity.Animator.SetBool("AimSpell", true);
             };
             
             CastingSpell.OnUpdate += () =>
@@ -257,11 +256,11 @@ namespace FSM
                 if (!InputManager.Instance.AbilityAim)
                 {
                     Feed(Trigger.None);
-                    //entity.Animator.SetTrigger("ChargedAttackStart");
                 }
-                else if(InputManager.Instance.AbilityCast && canShoot)
+                else if(InputManager.Instance.AbilityCast && canShoot && entity.currentFireballCharges > 0)
                 {
                     canShoot = false;
+                    entity.currentFireballCharges--;
                     entity.EntitySpells.Cast(entity.fireballSpell, entity.castPosition);
                     entity.Animator.SetTrigger("Shoot");
                 }
@@ -275,7 +274,7 @@ namespace FSM
             {
                 canShoot = true;
                 entity.OnMove += FeedMove;
-                entity.Animator.SetTrigger("AimEnd");
+                entity.Animator.SetBool("AimSpell", false);
             };
             #endregion
             
@@ -298,7 +297,8 @@ namespace FSM
             #region Dead State
             Dead.OnEnter += () =>
             {
-                entity.Animator.SetTrigger("Death");
+                entity.Animator.SetBool("Death", true);
+                entity.Animator.SetTrigger("TriggerDeath");
             };
             #endregion
         }

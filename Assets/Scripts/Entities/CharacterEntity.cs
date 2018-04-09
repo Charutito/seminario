@@ -25,6 +25,10 @@ namespace Entities
         [Header("Spells")]
         public Transform castPosition;
 	    public SpellDefinition fireballSpell;
+	    public int maxFireballCharges = 5;
+	    public int currentFireballCharges = 5;
+	    public float fireballChargesCooldown = 3f;
+	    public float currentFireballCooldown = 0;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -63,6 +67,7 @@ namespace Entities
 	    protected override void SetFsm()
 	    {
 		    currentDashCharges = maxDashCharges;
+		    currentFireballCharges = maxFireballCharges;
 		    EntityFsm = new CharacterFSM(this);
 	    }
 
@@ -84,13 +89,29 @@ namespace Entities
 		    {
 			    OnSpecialAttack();
 		    }
-		    if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
+		    /*if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
 		    {
 			    OnChargedAttack();
-		    }
+		    }*/
 		    if (InputManager.Instance.AbilityAim && OnSpellAiming != null)
 		    {
 			    OnSpellAiming();
+		    }
+		    
+		    if (currentFireballCharges < maxFireballCharges)
+		    {
+			    if (currentFireballCooldown <= 0)
+			    {
+				    currentFireballCharges++;
+
+				    currentFireballCooldown = fireballChargesCooldown;
+			    }
+			    
+			    currentFireballCooldown -= Time.deltaTime;
+		    }
+		    else
+		    {
+			    currentFireballCooldown = fireballChargesCooldown;
 		    }
 
 		    if (currentDashCharges < maxDashCharges)
