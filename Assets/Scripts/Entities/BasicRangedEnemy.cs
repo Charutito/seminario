@@ -7,10 +7,6 @@ using Util;
 using System.Collections;
 using BattleSystem;
 
-
-
-
-
 namespace Entities
 {
     public class BasicRangedEnemy : BasicEnemy
@@ -23,6 +19,9 @@ namespace Entities
         public Transform[] PosToFlee;
         public Transform NextPos;
 
+        public GameObject bullet;
+        public Transform bulletSpawnPos;
+
         [Range(0f, 10f)]
         public float FleeRange;
 
@@ -33,22 +32,8 @@ namespace Entities
 
         public void Shot()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Vector3.Distance(transform.position, Target.transform.position))){
-                if (hit.collider.gameObject.tag == "Player")
-                {
-                    var damageable = hit.collider.gameObject.GetComponent<IDamageable>();
-                    if (damageable != null)
-                    {
-                        damageable.TakeDamage(AttackDamage, DamageType.Attack);
-                    }
-                }
-
-            }
-            
-
-            
-    }
+            Instantiate(bullet, bulletSpawnPos.position, transform.rotation);    
+        }
     }
 }
 

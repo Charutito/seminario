@@ -64,29 +64,35 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.RunAway, RunAway)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(RunAway)
                .SetTransition(Trigger.Stun, Stunned)
                .SetTransition(Trigger.Idle, Idle)
                .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.GetHit, GetHit)
                .SetTransition(Trigger.Aim, aim);
             StateConfigurer.Create(aim)
                  .SetTransition(Trigger.Idle, Idle)
                  .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);  
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.RunAway, RunAway)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
             StateConfigurer.Create(Stunned)
                 .SetTransition(Trigger.Aim, aim)
                 .SetTransition(Trigger.Idle, Idle)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
             StateConfigurer.Create(GetHit).
                 SetTransition(Trigger.Attack, Attack)
                .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.RunAway, RunAway)
                .SetTransition(Trigger.GetHit, GetHit);
 
 
@@ -130,7 +136,7 @@ namespace FSM
                 }
                 if (Vector3.Distance(entity.transform.position, entity.NextPos.position) <= 1f)
                 {
-                    Feed(Trigger.Aim);
+                    Feed(Trigger.Idle);
                 }
             };
             RunAway.OnExit += () =>
@@ -191,10 +197,11 @@ namespace FSM
             {
                 entity.Animator.SetTrigger(Animations.GetHit);
                 entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+                entity.NextPos = null;
 
                 FrameUtil.AfterDelay(entity.getHitDuration, () =>
                 {
-                    Feed(Trigger.Attack);
+                    Feed(Trigger.RunAway);
                 });
             };
 
