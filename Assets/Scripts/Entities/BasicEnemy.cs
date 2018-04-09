@@ -14,38 +14,28 @@ namespace Entities
         [Header("Stun")]
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
-
+        [Range(0, 1)]
+        public float DmgDispl = 0.5f;
         [Header("GetHit")]
         public int getHitDuration = 1;
-
         #region Local Vars
 		[SerializeField] public GameObject Hitpart;
 		[SerializeField] public Transform hitpos;
         #endregion
-
+        public void DmgDdisp()
+        {
+            this.EntityMove.SmoothMoveTransform(transform.position -transform.forward * DmgDispl, 0.1f);
+        }
         public void HitFeedback()
         {
             var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
+            DmgDdisp();
             Destroy(part, 1);
         }
-
-	    /*public override void TakeDamage(int damage, DamageType type)
-	    {
-		    if (type == DamageType.SpecialAttack ||
-		        (IsAttacking && (type == DamageType.Attack)))
-		    {
-			    type = DamageType.Block;
-			    damage = 0;
-		    }
-
-		    base.TakeDamage(damage, type);
-	    }*/
-
-	    protected override void SetFsm()
+        protected override void SetFsm()
 	    {
 		    EntityFsm = new BasicEnemyFSM(this);
 	    }
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
