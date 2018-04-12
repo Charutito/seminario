@@ -4,6 +4,7 @@ using UnityEngine;
 using GameUtils;
 using Util;
 using System.Collections.Generic;
+using BattleSystem.Spells;
 using System.Collections;
 using System.Linq;
 using Managers;
@@ -129,10 +130,14 @@ namespace Entities
         {
             //var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
             var damageable = other.GetComponent<IDamageable>();
-
+            var Bullet = other.GetComponent<BulletMove>();
             if (damageable != null)
             {
                 damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
+            }
+            if (Bullet != null)
+            {
+                Bullet.ChangeDir();
             }
         }
         #endregion

@@ -5,7 +5,6 @@ using UnityEngine;
 public class FadeObstacles : MonoBehaviour {
     public GameObject target;
     public GameObject current;
-    bool autoFindPlayer = false;
 
    
 
@@ -14,14 +13,19 @@ public class FadeObstacles : MonoBehaviour {
         Debug.DrawRay(transform.position, transform.forward, Color.green);
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
+
             if (hit.collider.gameObject.tag == "Ambient" && hit.collider.gameObject!= current)
             {
                 current = hit.collider.gameObject;
-                current.GetComponent<MeshRenderer>().material.SetFloat("_TotalOpacity", 0.5f);
+                var c = current.GetComponent<Renderer>().material.color;
+                c.a = 0.5f;
+                current.GetComponent<MeshRenderer>().material.color = c;
             }
             else if (hit.collider.gameObject.tag != "Ambient" && current != null)
             {
-                current.GetComponent<MeshRenderer>().material.SetFloat("_TotalOpacity", 1f);
+                var c2 = current.GetComponent<Renderer>().material.color;
+                c2.a = 1f;
+                current.GetComponent<MeshRenderer>().material.color = c2;
                 current = null;
             }           
         }
