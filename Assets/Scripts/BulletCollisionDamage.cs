@@ -13,14 +13,11 @@ public class BulletCollisionDamage : MonoBehaviour {
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Player")
+        var damageable = col.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            var damageable = col.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage , DamageType.Attack);
-                Destroy(this.gameObject);
-            }
+            damageable.TakeDamage(damage , DamageType.Attack);
+            Destroy(this.gameObject);
         }
     }
 }
