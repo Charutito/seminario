@@ -15,27 +15,34 @@ namespace Entities
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
         [Range(0, 1)]
-        public float DmgDispl = 0.5f;
+        public float DmgDispl = 0.7f;
         [Header("GetHit")]
         public int getHitDuration = 1;
+        [Header("GettingHitBack")]
+        public int getHitBackDuration = 2;
+        
         #region Local Vars
-		[SerializeField] public GameObject Hitpart;
+        [SerializeField] public GameObject Hitpart;
 		[SerializeField] public Transform hitpos;
         #endregion
-        public void DmgDdisp()
+
+        public void DmgDisp()
         {
             this.EntityMove.SmoothMoveTransform(transform.position -transform.forward * DmgDispl, 0.1f);
         }
+
         public void HitFeedback()
         {
             var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
-            DmgDdisp();
+            DmgDisp();
             Destroy(part, 1);
         }
+
         protected override void SetFsm()
 	    {
 		    EntityFsm = new BasicEnemyFSM(this);
 	    }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

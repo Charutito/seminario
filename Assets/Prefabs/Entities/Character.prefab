@@ -1210,7 +1210,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508055875776016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.172, y: 0.131, z: -0.053}
+  m_LocalPosition: {x: -0.091, y: -0.043, z: -0.011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4344682994851620}
@@ -2191,7 +2191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723195614099692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.53, y: 0.26, z: -2.75}
+  m_LocalPosition: {x: -1.53, y: 0.26, z: 37.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593626326013340}
@@ -2379,8 +2379,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 8}
-  m_Center: {x: 0, y: 1, z: 4}
+  m_Size: {x: 3, y: 2, z: 4.2811294}
+  m_Center: {x: 3.638389e-10, y: 1, z: 2.1405616}
 --- !u!95 &95179920222572374
 Animator:
   serializedVersion: 3
@@ -2663,6 +2663,34 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+  - name: AttackHitBack
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114979555464429802}
+          m_MethodName: ThirdAttack_Hit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 114546486413364574}
+          m_MethodName: AttackRecovering
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!114 &114546486413364574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2696,6 +2724,10 @@ MonoBehaviour:
   DmgDispl: 0.5
   castPosition: {fileID: 4007300918899862}
   fireballSpell: {fileID: 11400000, guid: 4f84ca22675bf7146a8aa1aa84f6cde5, type: 2}
+  maxFireballCharges: 5
+  currentFireballCharges: 5
+  fireballChargesCooldown: 3
+  currentFireballCooldown: 0
 --- !u!114 &114834045257584748
 MonoBehaviour:
   m_ObjectHideFlags: 1

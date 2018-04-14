@@ -15,6 +15,7 @@ namespace FSM
             public static int Die = 3;
             public static int Stun = 4;
             public static int GetHit = 5;
+            public static int GettingHitBack = 6;
         }
 
         /// <summary>
@@ -29,6 +30,7 @@ namespace FSM
             public static string Countered      = "Countered";
             public static string Move           = "Velocity Z";
             public static string GetHit         = "GetHit";
+            public static string GettingHitBack = "GetHitBack";
 
         }
         
@@ -53,6 +55,7 @@ namespace FSM
             State<int> Death = new State<int>("Death");
             State<int> Stunned = new State<int>("Stunned");
             State<int> GetHit = new State<int>("GetHit");
+            State<int> GettingHitBack = new State<int>("Getting Hit Back");
             #endregion
 
 
@@ -63,39 +66,52 @@ namespace FSM
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Stalk)
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Follow)
                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
 
             StateConfigurer.Create(Stunned)
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Die, Death)
-                .SetTransition(Trigger.GetHit, GetHit);
+                .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(GetHit)
                .SetTransition(Trigger.Attack, Attack)
                .SetTransition(Trigger.Stalking, Stalk)
                .SetTransition(Trigger.Die, Death)
-               .SetTransition(Trigger.GetHit, GetHit);
+               .SetTransition(Trigger.GetHit, GetHit)
+               .SetTransition(Trigger.GettingHitBack, GettingHitBack);
+
+            StateConfigurer.Create(GettingHitBack)
+               .SetTransition(Trigger.Attack, Attack)
+               .SetTransition(Trigger.Stalking, Stalk)
+               .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.GetHit, GetHit)
+               .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             #endregion
 
@@ -203,6 +219,22 @@ namespace FSM
 
             #endregion
 
+            #region GettingHitBack State
+
+            GettingHitBack.OnEnter += () =>
+            {
+                entity.Animator.SetTrigger(Animations.GettingHitBack);
+                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+                entity.HitFeedback();
+
+                FrameUtil.AfterDelay(entity.getHitBackDuration, () =>
+                {
+                    Feed(Trigger.Attack);
+                });
+            };
+
+            #endregion
+
             #region Entity Events
             entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
@@ -233,6 +265,9 @@ namespace FSM
             if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
+            }else if(type == DamageType.ThirdAttack)
+            {
+                Feed(Trigger.GettingHitBack);
             }else
             {
                 Feed(Trigger.GetHit);
