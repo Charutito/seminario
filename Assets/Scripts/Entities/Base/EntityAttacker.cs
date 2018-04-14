@@ -95,11 +95,6 @@ namespace Entities
             if (damageable != null)
             {                
                 damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
-                
-                if (_entity.CompareTag("Player"))
-                {
-                    InputManager.Instance.Vibrate(0.5f, 0.3f, 0.25f);
-                }
             }
         }
         #endregion
