@@ -242,6 +242,7 @@ namespace FSM
             CastingSpell.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
+                entity.OnDash -= DoDash;
                 entity.Animator.SetBool("AimSpell", true);
             };
             
@@ -274,6 +275,7 @@ namespace FSM
             {
                 canShoot = true;
                 entity.OnMove += FeedMove;
+                entity.OnDash += DoDash;
                 entity.Animator.SetBool("AimSpell", false);
             };
             #endregion
