@@ -75,7 +75,7 @@ namespace Entities
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
 
-            FrameUtil.AfterFrames(3, () => 
+            FrameUtil.AfterFrames(4, () => 
             {
                 attackArea.TriggerEnter -= LightAttack_Damage;
                 attackArea.gameObject.SetActive(false);
