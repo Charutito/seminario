@@ -12,20 +12,14 @@ namespace Managers.Camera
 	void Awake () {
         CameraPoints = new GameObject[GameObject.FindGameObjectsWithTag("CameraPoint").Length];
         CameraPoints = GameObject.FindGameObjectsWithTag("CameraPoint");
-        cameraScript = gameObject.GetComponent<CameraFollow>();
-            foreach (var item in CameraPoints)
-            {
-                item.GetComponent<CameraPoint>().Range = Range;
-            }
-            //entity.NextPos = entity.PosToFlee.First(x => x != entity.NextPos);
+        cameraScript = gameObject.GetComponent<CameraFollow>();          
             if (player == null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
             }
         }
-    // Update is called once per frame
     void Update () {
-            if(CameraPoints.Any(x => Vector3.Distance(player.transform.position, x.transform.position) <= Range))
+            if (CameraPoints.Any(x => Vector3.Distance(player.transform.position, x.transform.position) <= x.GetComponent<CameraPoint>().Range))
             {
                 cameraScript.target = CameraPoints.First(x => Vector3.Distance(transform.position, x.transform.position) <= Range);
             }
