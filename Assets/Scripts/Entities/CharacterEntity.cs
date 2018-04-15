@@ -27,6 +27,7 @@ namespace Entities
 	    public SpellDefinition fireballSpell;
 	    public int maxFireballCharges = 5;
 	    public int currentFireballCharges = 5;
+	    public int fireballCastSpirit = 15;
 	    public float fireballChargesCooldown = 3f;
 	    public float currentFireballCooldown = 0;
 
@@ -35,7 +36,6 @@ namespace Entities
         public event Action OnDash = delegate { };
         public event Action OnStun = delegate { };
         public event Action OnSpecialAttack = delegate { };
-        public event Action OnChargedAttack = delegate { };
         public event Action OnShowDamage = delegate { };
         public event Action OnSpellAiming = delegate { };
         public event Action OnGettingHitBack = delegate { };
@@ -101,16 +101,12 @@ namespace Entities
 		    {
 			    OnSpecialAttack();
 		    }
-		    /*if (InputManager.Instance.ChargedAttackDown && OnChargedAttack != null)
-		    {
-			    OnChargedAttack();
-		    }*/
 		    if (InputManager.Instance.AbilityAim && OnSpellAiming != null)
 		    {
 			    OnSpellAiming();
 		    }
 		    
-		    if (currentFireballCharges < maxFireballCharges)
+		    /*if (currentFireballCharges < maxFireballCharges)
 		    {
 			    if (currentFireballCooldown <= 0)
 			    {
@@ -124,7 +120,7 @@ namespace Entities
 		    else
 		    {
 			    currentFireballCooldown = fireballChargesCooldown;
-		    }
+		    }*/
 
 		    if (currentDashCharges < maxDashCharges)
 		    {

@@ -129,7 +129,6 @@ namespace FSM
             entity.OnAttack += FeedAttack;
             entity.OnDash += DoDash;
             entity.OnSpecialAttack += FeedSpecialAttack;
-            entity.OnChargedAttack += FeedChargedAttack;
             entity.OnStun += FeedStun;
             entity.OnMove += FeedMove;
             entity.OnGetHit += FeedGetHit;
@@ -149,7 +148,6 @@ namespace FSM
                 entity.OnAttack -= FeedAttack;
                 entity.OnDash -= DoDash;
                 entity.OnSpecialAttack -= FeedSpecialAttack;
-                entity.OnChargedAttack -= FeedChargedAttack;
                 entity.OnStun -= FeedStun;
                 entity.OnSpellAiming -= FeedAimSpell;
                 entity.OnGetHit -= FeedGetHit;
@@ -227,7 +225,7 @@ namespace FSM
             
             
             #region Charged Attack
-            var pusheen = 0f;
+            /*var pusheen = 0f;
             var maxPusheen = 3f;
             var isCharging = false;
             
@@ -259,7 +257,7 @@ namespace FSM
                 pusheen = 0;
                 entity.IsSpecialAttacking = false;
                 entity.OnMove += FeedMove;
-            };
+            };*/
             #endregion
             
             
@@ -285,10 +283,15 @@ namespace FSM
                 {
                     Feed(Trigger.None);
                 }
-                else if(InputManager.Instance.AbilityCast && canShoot && entity.currentFireballCharges > 0)
+                else if(InputManager.Instance.AbilityCast &&
+                        canShoot &&
+                        //entity.currentFireballCharges > 0 &&
+                        entity.Stats.Spirit.Current >= entity.fireballCastSpirit
+                        )
                 {
                     canShoot = false;
-                    entity.currentFireballCharges--;
+                    //entity.currentFireballCharges--;
+                    entity.Stats.Spirit.Current -= entity.fireballCastSpirit;
                     entity.EntitySpells.Cast(entity.fireballSpell, entity.castPosition);
                     entity.Animator.SetTrigger("Shoot");
                 }
@@ -382,14 +385,6 @@ namespace FSM
             if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
                 Feed(Trigger.SpecialAttack);
-            }
-        }
-        
-        private void FeedChargedAttack()
-        {
-            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
-            {
-                Feed(Trigger.ChargedAttack);
             }
         }
         
