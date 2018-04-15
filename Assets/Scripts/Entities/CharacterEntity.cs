@@ -46,10 +46,12 @@ namespace Entities
             this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             this.EntityMove.RotateInstant(direction);
         }
-        private void AtkDdisp()
+
+        public void AtkDdisp()
         {
             this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
         }
+
         public override void TakeDamage(int damage, DamageType type)
 	    {
             OnShowDamage();

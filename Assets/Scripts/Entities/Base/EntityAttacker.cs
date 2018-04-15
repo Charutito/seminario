@@ -74,6 +74,9 @@ namespace Entities
         {
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
+            var character = this.GetComponent<CharacterEntity>();
+            if (character != null)
+                character.AtkDdisp();
 
             FrameUtil.AfterFrames(4, () => 
             {
