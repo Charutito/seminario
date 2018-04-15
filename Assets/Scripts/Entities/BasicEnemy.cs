@@ -41,6 +41,7 @@ namespace Entities
         protected override void SetFsm()
 	    {
 		    EntityFsm = new BasicEnemyFSM(this);
+	        OnDeath += entity => Destroy(gameObject, 2);
 	    }
 
         private void OnDrawGizmos()

@@ -22,6 +22,7 @@ namespace BattleSystem
         }
 
         public bool Initialized { get; set; }
+        public bool Cleared { get; set; }
         public CharacterEntity Target { get; protected set; }
         public int EnemiesLeft { get { return entities.Count; } }
     
@@ -35,6 +36,7 @@ namespace BattleSystem
         
         [SerializeField] private List<BehaviourWeight> entityActions;
         [SerializeField] private List<GroupEntity> entities;
+        [SerializeField] private List<GameObject> doors;
 
         private ZoneFSM fsm;
 
@@ -62,15 +64,37 @@ namespace BattleSystem
             }
         }
 
+        public void ClearZone()
+        {
+            Cleared = true;
+            ToggleDoors(false);
+            Destroy(gameObject, 5);
+        }
+
+        private void ToggleDoors(bool state)
+        {
+            foreach (var door in doors)
+            {
+                door.SetActive(state);
+            }
+        }
+
         private void OnEntityDie(Entity entity)
         {
             entities.Remove((GroupEntity)entity);
             entity.OnDeath -= OnEntityDie;
+            
+            if (entities.Count <= 0)
+            {
+                ClearZone();
+            }
         }
 
         private void Awake()
         {
             fsm = new ZoneFSM(this);
+
+            ToggleDoors(false);
         }
 
         private void Start()
@@ -87,6 +111,7 @@ namespace BattleSystem
         {
             if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
+                ToggleDoors(true);
                 fsm.PlayerEnter();
             }
         }

@@ -65,7 +65,7 @@ namespace FSM
             #region Clearing State
             Clearing.OnEnter += () =>
             {
-                zone.Initialized = false;
+                
             };
             #endregion
         }
