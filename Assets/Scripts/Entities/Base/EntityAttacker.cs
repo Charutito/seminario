@@ -74,6 +74,9 @@ namespace Entities
         {
             attackArea.TriggerEnter += LightAttack_Damage;
             attackArea.gameObject.SetActive(true);
+            var character = this.GetComponent<CharacterEntity>();
+            if (character != null)
+                character.AtkDdisp();
 
             FrameUtil.AfterFrames(4, () => 
             {
@@ -99,6 +102,36 @@ namespace Entities
         }
         #endregion
 
+        #region Third Attack
+        public void ThirdAttack_Hit()
+        {
+            Debug.LogError("Lanzooo");
+            attackArea.TriggerEnter += ThirdAttack_Damage;
+            attackArea.gameObject.SetActive(true);
+
+            FrameUtil.AfterFrames(4, () =>
+            {
+                attackArea.TriggerEnter -= ThirdAttack_Damage;
+                attackArea.gameObject.SetActive(false);
+            });
+        }
+
+        private void ThirdAttack_Damage(Collider other)
+        {
+            var damageable = other.GetComponent<IDamageable>();
+            var Character = other.GetComponent<CharacterEntity>();
+
+            if (Character != null)
+            {
+                Character.DmgDdisp(transform.forward);
+            }
+
+            if (damageable != null)
+            {
+                damageable.TakeDamage(_entity.AttackDamage, DamageType.ThirdAttack);
+            }
+        }
+        #endregion
 
         #region Heavy Attack
         public void HeavyAttack_Start()

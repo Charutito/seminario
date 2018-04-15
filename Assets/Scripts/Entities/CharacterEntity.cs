@@ -38,19 +38,32 @@ namespace Entities
         public event Action OnChargedAttack = delegate { };
         public event Action OnShowDamage = delegate { };
         public event Action OnSpellAiming = delegate { };
+        public event Action OnGettingHitBack = delegate { };
+        public event Action OnGetHit = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
             this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             this.EntityMove.RotateInstant(direction);
         }
-        private void AtkDdisp()
+
+        public void AtkDdisp()
         {
             this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
         }
+
         public override void TakeDamage(int damage, DamageType type)
 	    {
             OnShowDamage();
+
+            if (type == DamageType.ThirdAttack)
+            {
+                OnGettingHitBack();
+            }else
+            {
+                OnGetHit();
+            }
+
             if (type == DamageType.SpecialAttack)
 		    {
 			    OnStun();
@@ -60,8 +73,7 @@ namespace Entities
 				    damage = 0;
 			    }
 		    }
-
-		    base.TakeDamage(damage, type);
+            base.TakeDamage(damage, type);
 	    }
 
 	    protected override void SetFsm()

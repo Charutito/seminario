@@ -9,6 +9,7 @@
         ChargedAttack = 5,
         Block = 6,
         Back = 7,
-        Spell = 8
+        Spell = 8,
+        ThirdAttack = 9
     }
 }
