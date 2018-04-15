@@ -6,7 +6,7 @@ namespace Managers.Camera
 {
     public class CameraFollow : MonoBehaviour
     {
-        [SerializeField] private GameObject target;
+        [SerializeField] public GameObject target;
         [SerializeField] private bool autoFindPlayer = false;
 
         [SerializeField] private float moveSpeed = 3f;
