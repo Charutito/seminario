@@ -105,7 +105,6 @@ namespace Entities
         #region Third Attack
         public void ThirdAttack_Hit()
         {
-            Debug.LogError("Lanzooo");
             attackArea.TriggerEnter += ThirdAttack_Damage;
             attackArea.gameObject.SetActive(true);
 
