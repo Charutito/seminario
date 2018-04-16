@@ -2191,7 +2191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723195614099692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.53, y: 0.26, z: 37.03}
+  m_LocalPosition: {x: -1.53, y: 0.26, z: -0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593626326013340}
@@ -2379,8 +2379,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 4.2811294}
-  m_Center: {x: 3.638389e-10, y: 1, z: 2.1405616}
+  m_Size: {x: 3, y: 2, z: 3.4607353}
+  m_Center: {x: -9.711254e-11, y: 1, z: 1.7303622}
 --- !u!95 &95179920222572374
 Animator:
   serializedVersion: 3
@@ -2711,6 +2711,10 @@ MonoBehaviour:
       _Actual: 2
       _Min: 2
       _Max: 2
+    spirit:
+      _Actual: 0
+      _Min: 0
+      _Max: 0
   attackDamage: 10
   heavyAttackDamage: 25
   godMode: 0
@@ -2726,6 +2730,7 @@ MonoBehaviour:
   fireballSpell: {fileID: 11400000, guid: 4f84ca22675bf7146a8aa1aa84f6cde5, type: 2}
   maxFireballCharges: 5
   currentFireballCharges: 5
+  fireballCastSpirit: 15
   fireballChargesCooldown: 3
   currentFireballCooldown: 0
 --- !u!114 &114834045257584748
@@ -2771,6 +2776,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 2048
+  basicAttackSpirit: 5
+  heavyAttackSpirit: 10
 --- !u!136 &136363932930809266
 CapsuleCollider:
   m_ObjectHideFlags: 1
