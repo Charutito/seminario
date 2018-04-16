@@ -51,27 +51,27 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1428790714196806}
-  m_LocalRotation: {x: -0.26774356, y: 0.030179571, z: 0.0083910115, w: 0.9629809}
-  m_LocalPosition: {x: 0.00999999, y: 0.45, z: 1.8}
-  m_LocalScale: {x: 0.9693638, y: 0.9693651, z: 0.4697401}
+  m_LocalRotation: {x: -0.6901061, y: 0.013129113, z: 0.0114952875, w: 0.7234978}
+  m_LocalPosition: {x: 0.05, y: 0.29, z: 1.24}
+  m_LocalScale: {x: 0.7102273, y: 0.71022826, z: 0.34416616}
   m_Children:
   - {fileID: 4367638507108822}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -31.076002, y: 3.5900002, z: 0}
+  m_LocalEulerAnglesHint: {x: -87.291, y: 3.7990003, z: -1.8030001}
 --- !u!4 &4367638507108822
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275464491098380}
-  m_LocalRotation: {x: 0.02796708, y: -0.5002656, z: -0.86393005, w: -0.05076556}
-  m_LocalPosition: {x: 0.047, y: 0.155, z: -1.75}
-  m_LocalScale: {x: 2.860136, y: 2.860135, z: 2.860135}
+  m_LocalRotation: {x: -0.031154484, y: 0.0065812455, z: -0.0005307207, w: 0.9994928}
+  m_LocalPosition: {x: 0.01, y: -0.11, z: -0.48}
+  m_LocalScale: {x: 4.1625457, y: 4.1625443, z: 4.1625443}
   m_Children: []
   m_Father: {fileID: 4071642219735630}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -88.77801, y: -186.64699, z: 0.002}
+  m_LocalEulerAnglesHint: {x: -3.5700002, y: 0.757, z: -0.08400001}
 --- !u!198 &198589344136749172
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -132,7 +132,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1308119935
+  randomSeed: 927966474
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -534,7 +534,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -575,7 +575,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 5
     enabled: 1
-    type: 4
+    type: 10
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -1785,7 +1785,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
