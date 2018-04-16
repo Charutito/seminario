@@ -11,7 +11,7 @@ namespace Entities
 {
     public class BasicRangedEnemy : BasicEnemy
     {
-        [Range(0f, 10f)]
+        [Range(0f, 15f)]
         public float RangeToAim;        
         public float FireRate; 
         public float recoilTime;
