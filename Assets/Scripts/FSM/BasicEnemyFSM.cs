@@ -229,7 +229,7 @@ namespace FSM
 
                 FrameUtil.AfterDelay(entity.getHitBackDuration, () =>
                 {
-                    Feed(Trigger.Attack);
+                    Feed(Trigger.None);
                 });
             };
 

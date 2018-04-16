@@ -25,6 +25,9 @@ namespace Entities
         [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private LayerMask hitLayers;
 
+        [SerializeField] private int basicAttackSpirit = 5;
+        [SerializeField] private int heavyAttackSpirit = 10;
+
         private Entity _entity;
         #endregion
         
@@ -96,7 +99,8 @@ namespace Entities
             }
             
             if (damageable != null)
-            {                
+            {
+                _entity.Stats.Spirit.Current += basicAttackSpirit;
                 damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
             }
         }
@@ -160,28 +164,12 @@ namespace Entities
             var Bullet = other.GetComponent<BulletMove>();
             if (damageable != null)
             {
+                _entity.Stats.Spirit.Current += heavyAttackSpirit;
                 damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
             }
             if (Bullet != null)
             {
                 Bullet.ChangeDir();
-            }
-        }
-        #endregion
-
-        #region Charged Attack
-        public void ChargedAttack_Hit()
-        {
-            var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
-
-            foreach (var other in colliders)
-            {
-                var damageable = other.GetComponent<IDamageable>();
-
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.ChargedAttack);
-                }
             }
         }
         #endregion
