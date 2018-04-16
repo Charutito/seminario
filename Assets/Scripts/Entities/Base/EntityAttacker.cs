@@ -92,12 +92,18 @@ namespace Entities
         {
             var damageable = other.GetComponent<IDamageable>();
             var Character = other.GetComponent<CharacterEntity>();
-            
+            var Bullet = other.GetComponent<BulletMove>();
+
             if (Character!=null)
             {
                 Character.DmgDdisp(transform.forward);
             }
-            
+
+            if (Bullet != null)
+            {
+                Bullet.ChangeDir();
+            }
+
             if (damageable != null)
             {
                 _entity.Stats.Spirit.Current += basicAttackSpirit;
@@ -123,10 +129,16 @@ namespace Entities
         {
             var damageable = other.GetComponent<IDamageable>();
             var Character = other.GetComponent<CharacterEntity>();
+            var Bullet = other.GetComponent<BulletMove>();
 
             if (Character != null)
             {
                 Character.DmgDdisp(transform.forward);
+            }
+
+            if (Bullet != null)
+            {
+                Bullet.ChangeDir();
             }
 
             if (damageable != null)
