@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,7 +25,9 @@ namespace Entities
 
             transform.position = newPosition;
         }
-
+        #region  circular move
+        
+        #endregion
         public void SmoothMoveTransform(Vector3 position, float timeToMove, Action onFinish = null)
         {
             if (_moveCoroutine != null)
