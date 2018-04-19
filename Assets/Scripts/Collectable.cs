@@ -8,9 +8,8 @@ public class Collectable : MonoBehaviour {
     // Use this for initialization
     private void OnDestroy()
     {
-       var parts= Instantiate(particle);
+        var parts = Instantiate(particle);
+        parts.transform.position = transform.position;
         Destroy(particle, 1);
-    }
-
- 
+    } 
 }

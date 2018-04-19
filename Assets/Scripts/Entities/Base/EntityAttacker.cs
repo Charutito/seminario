@@ -93,7 +93,11 @@ namespace Entities
             var damageable = other.GetComponent<IDamageable>();
             var Character = other.GetComponent<CharacterEntity>();
             var Bullet = other.GetComponent<BulletMove>();
-
+            var destructible = other.GetComponent<Destructible>();
+            if (destructible != null)
+            {
+                destructible.destroy();
+            }
             if (Character!=null)
             {
                 Character.DmgDdisp(transform.forward);
@@ -130,12 +134,16 @@ namespace Entities
             var damageable = other.GetComponent<IDamageable>();
             var Character = other.GetComponent<CharacterEntity>();
             var Bullet = other.GetComponent<BulletMove>();
-
+            var destructible = other.GetComponent<Destructible>();
+            if (destructible != null)
+            {
+                destructible.destroy();
+            }
             if (Character != null)
             {
                 Character.DmgDdisp(transform.forward);
             }
-
+           
             if (Bullet != null)
             {
                 Bullet.ChangeDir();
@@ -174,6 +182,11 @@ namespace Entities
             //var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
             var damageable = other.GetComponent<IDamageable>();
             var Bullet = other.GetComponent<BulletMove>();
+            var destructible = other.GetComponent<Destructible>();
+            if (destructible != null)
+            {
+                destructible.destroy();
+            }
             if (damageable != null)
             {
                 _entity.Stats.Spirit.Current += heavyAttackSpirit;
