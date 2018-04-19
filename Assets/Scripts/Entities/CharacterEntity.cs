@@ -46,7 +46,14 @@ namespace Entities
             this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             this.EntityMove.RotateInstant(direction);
         }
-
+        public void Heal(float amount)
+        {
+            Stats.Health.Current += amount;
+        }
+        public void HealEnergy(float amount)
+        {
+            Stats.Spirit.Current += amount;
+        }
         public void AtkDdisp()
         {
             this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);

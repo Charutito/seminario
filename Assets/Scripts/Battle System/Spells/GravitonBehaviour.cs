@@ -9,35 +9,18 @@ namespace BattleSystem.Spells
 	public class GravitonBehaviour : MonoBehaviour
 	{
         float TimeToMove = 0.5f;
-        float radius = 3;
+        public float radius;
+        public float displacement;
         public Entity[] entidades;
-
-        private void PullToCenter()
-		{
-			var colliders = Physics.OverlapSphere(transform.position, transform.localScale.x);
-            entidades = colliders.Select(x => x.GetComponent<Entity>()).Where(x => x!=null).ToArray();
-
-            SetArroundPoint(entidades, radius, transform);
-            SetArroundPoint(entidades, radius+1, transform);
-
-            //foreach (var target in colliders)
-            //{
-            //	if (target.CompareTag("Player")) return;
-            //	var entity = target.GetComponent<Entity>();
-            //	if (entity != null)
-            //	{
-            //		entity.Agent.ResetPath();                    
-            //		entity.EntityMove.SmoothMoveTransform(transform.position, 0.5f);
-            //	}
-            //}
-        }
-
 
         private void Start()
 		{
-			PullToCenter();
-		}
-
+            transform.localScale = new Vector3(radius, radius, radius);
+            var colliders = Physics.OverlapSphere(transform.position, radius);
+            entidades = colliders.Select(x => x.GetComponent<Entity>()).Where(x => x!=null).ToArray();
+            SetArroundPoint(entidades, radius, transform);
+            SetArroundPoint(entidades, radius + displacement, transform);
+        }
 
         public void SetArroundPoint(Entity[] objects, float radius, Transform center)
         {
@@ -57,6 +40,13 @@ namespace BattleSystem.Spells
             pos.y = center.y;
             pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad); 
             return pos;
+        }
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, radius);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, radius+displacement);
         }
     }
 }
