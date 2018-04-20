@@ -112,22 +112,6 @@ namespace Entities
 		    {
 			    OnSpellAiming();
 		    }
-		    
-		    /*if (currentFireballCharges < maxFireballCharges)
-		    {
-			    if (currentFireballCooldown <= 0)
-			    {
-				    currentFireballCharges++;
-
-				    currentFireballCooldown = fireballChargesCooldown;
-			    }
-			    
-			    currentFireballCooldown -= Time.deltaTime;
-		    }
-		    else
-		    {
-			    currentFireballCooldown = fireballChargesCooldown;
-		    }*/
 
 		    if (currentDashCharges < maxDashCharges)
 		    {

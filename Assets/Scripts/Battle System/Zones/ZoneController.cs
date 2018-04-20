@@ -21,10 +21,13 @@ namespace BattleSystem
             [SerializeField] public int weight;
         }
 
+        
+
         public bool Initialized { get; set; }
         public bool Cleared { get; set; }
         public CharacterEntity Target { get; protected set; }
         public int EnemiesLeft { get { return entities.Count; } }
+        public AudioSource audio;
     
         [Header("Attack Delay")]
         public float minAttackDelay = 2f;
@@ -111,6 +114,7 @@ namespace BattleSystem
         {
             if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
+                if(audio != null) audio.Play();
                 ToggleDoors(true);
                 fsm.PlayerEnter();
             }

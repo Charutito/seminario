@@ -5,6 +5,7 @@ using System;
 using Entities.Base;
 using FSM;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Entities
@@ -39,6 +40,8 @@ namespace Entities
         public event Action OnAttackRecovered = delegate { };
         public event Action<int, DamageType> OnTakeDamage = delegate { };
         public event Action<Entity> OnDeath = delegate { };
+        public UnityEvent OnEntityDie;
+        public UnityEvent OnEntityDamage;
         #endregion
 
 
@@ -82,12 +85,13 @@ namespace Entities
             if (IsDead && OnDeath != null)
             {
                 OnDeath(this);
+                OnEntityDie.Invoke();
             }
 
             if (OnTakeDamage != null)
             {
                 OnTakeDamage(damage, type);
-
+                OnEntityDamage.Invoke();
             }
         }
         #endregion
