@@ -18,8 +18,10 @@ namespace BattleSystem
         public float Cooldown = 1f;
         public int SpiritCost;
         
-        [Header("Base")]
+        [Header("Damage")]
         public int Damage;
+        public int DamageMultiplier;
+        public DamageType DamageType = DamageType.Spell;
         
         [Header("Sounds")]
         public AudioClip CastSound;

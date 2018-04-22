@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ namespace BattleSystem.Spells
     public class CollisionDamage : MonoBehaviour
     {
         private SpellBehaviour _behaviour;
+        private int _damage;
         
         private void Start()
         {
             _behaviour = GetComponent<SpellBehaviour>();
+            _damage = _behaviour.Definition.Damage;
         }
 
         private void DealDamage(GameObject target)
@@ -20,9 +23,11 @@ namespace BattleSystem.Spells
 
             if (damageable != null)
             {
-                damageable.TakeDamage(_behaviour.Definition.Damage, DamageType.Spell);
+                damageable.TakeDamage(_damage, _behaviour.Definition.DamageType);
                 
                 if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);
+
+                if (_behaviour.Definition.DamageMultiplier > 0) _damage = _damage * _behaviour.Definition.DamageMultiplier;
             }
         }
 
