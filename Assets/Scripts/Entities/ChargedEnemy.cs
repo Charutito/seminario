@@ -61,6 +61,15 @@ namespace Entities
             }
         }
 
+        public override void TakeDamage(int damage, DamageType type)
+        {
+
+            if (!IsGod && (EntityFsm.Current.name ==  "Recovering" || EntityFsm.Current.name == "Stalking" || EntityFsm.Current.name == "Idling"))
+            {
+                base.TakeDamage(damage, type);
+            }
+        }
+
         public void Attack()
         {
             if (OnAttack!=null)

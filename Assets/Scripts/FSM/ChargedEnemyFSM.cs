@@ -207,6 +207,18 @@ namespace FSM
 
             #endregion
 
+            #region Death State
+            Death.OnEnter += () =>
+            {
+                entity.Animator.SetBool("Death", false);
+                entity.Animator.SetTrigger("TriggerDeath");
+                entity.Animator.SetInteger("RandomDeath", Random.Range(0, 3));
+
+                entity.Agent.enabled = false;
+                entity.Collider.enabled = false;
+            };
+            #endregion
+
             #region Entity Events
             entity.OnAttack += OnAttack;
             entity.OnAttackRecovered += OnAttackRecover;
@@ -236,12 +248,10 @@ namespace FSM
         }
 
         private void OnTakingDamage(int damage, DamageType type)
-        {           
-
+        {   
             if (entity.EntityFsm.Current.name == "Recovering" || entity.EntityFsm.Current.name == "Stalking" || entity.EntityFsm.Current.name == "Idling")
             {
                 entity.HitFeedback();
-                Debug.LogError("GetHite");
                 Feed(Trigger.GetHit);
             }
         }
