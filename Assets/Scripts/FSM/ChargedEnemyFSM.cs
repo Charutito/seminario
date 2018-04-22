@@ -120,9 +120,7 @@ namespace FSM
                 {
                     Feed(Trigger.Attack);
                 }
-
             };
-
             Stalk.OnExit += () =>
             {
                 entity.Agent.isStopped = true;
@@ -133,29 +131,40 @@ namespace FSM
             #region Charge State
             Charge.OnEnter += () =>
            {
-               entity.EntityMove.RotateInstant(entity.Target.transform.position);
                entity.Animator.SetTrigger(Animations.Charging);
            };
+            Charge.OnExit += () =>
+            {
+            };
             #endregion
 
             #region Attack State
             Attack.OnEnter += () =>
             {
-                entity.EntityMove.SmoothMoveTransform(entity.transform.GetMaxDistancePosition(), entity.ChargeTime);
+                entity.posToCharge = entity.Target.transform;
+                var dashPosition = entity.posToCharge.position +
+                                   entity.transform.forward * entity.transform.GetMaxDistance();
+                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.5f,() => Feed(Trigger.Recover));
             };
-            Attack.OnUpdate += () =>
-            {
-            };
-            Attack.OnExit += () =>
-            {
-                
-            };
+        
             #endregion
 
             #region Recover State
             Recovering.OnEnter += () =>
             {
-               
+                entity.Animator.SetBool(Animations.Recovering,true);
+            };
+            Recovering.OnUpdate += () =>
+            {
+                FrameUtil.AfterDelay(entity.recoveryTime, () =>
+                {
+                    Feed(Trigger.Stalking);
+                });
+            };
+            Recovering.OnExit += () =>
+            {
+                entity.Animator.SetBool(Animations.Recovering, false);
+
             };
             #endregion
 

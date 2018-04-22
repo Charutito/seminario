@@ -13,8 +13,8 @@ namespace Entities
         public float recoveryTime;
         public event Action OnAttack = delegate { };
         public event Action OnCrash = delegate { };
-        public ColliderObserver attackarea;      
-
+        public ColliderObserver attackarea;
+        public Transform posToCharge;
         protected override void SetFsm()
         {
             EntityFsm = new ChargedEnemyFSM(this);

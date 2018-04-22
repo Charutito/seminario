@@ -51790,12 +51790,17 @@ Prefab:
     - target: {fileID: 114062260812954180, guid: 2d0310bac5a87e04e9307c0c3a6a7f94,
         type: 2}
       propertyPath: AttackRange
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114062260812954180, guid: 2d0310bac5a87e04e9307c0c3a6a7f94,
         type: 2}
       propertyPath: ChargeTime
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114062260812954180, guid: 2d0310bac5a87e04e9307c0c3a6a7f94,
+        type: 2}
+      propertyPath: recoveryTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d0310bac5a87e04e9307c0c3a6a7f94, type: 2}
