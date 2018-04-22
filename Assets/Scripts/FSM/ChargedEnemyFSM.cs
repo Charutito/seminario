@@ -116,6 +116,11 @@ namespace FSM
                     entity.EntityMove.MoveAgent(nextLocation);
                 }
                 entity.EntityMove.RotateInstant(entity.Target.transform.position);
+                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
+                {
+                    Feed(Trigger.Attack);
+                }
+
             };
 
             Stalk.OnExit += () =>
@@ -128,27 +133,29 @@ namespace FSM
             #region Charge State
             Charge.OnEnter += () =>
            {
-               entity.Animator.SetFloat(Animations.Move, 1);
+               entity.Animator.SetTrigger(Animations.Charging);              
            };
             Charge.OnUpdate += () =>
             {
-                entity.EntityMove.RotateInstant(entity.Target.transform.position);
-                entity.EntityMove.MoveAgent(entity.Target.transform.position);
-                if (Vector3.Distance(entity.transform.position, entity.Target.transform.position) <= entity.AttackRange)
-                {
-                    entity.EntityMove.SmoothMoveTransform(entity.Target.transform.position, entity.ChargeTime);
-                    Feed(Trigger.Attack);
-                }
+               
             };
             Charge.OnExit += () =>
             {
-                entity.Animator.SetFloat(Animations.Move, 0);
+
             };
             #endregion
             #region Attack State
             Attack.OnEnter += () =>
             {
-                entity.Animator.SetTrigger(attackAnimation);                
+
+            };
+            Attack.OnUpdate += () =>
+            {
+                entity.EntityMove.MoveAgent(entity.Target.transform.position);
+                if (true)
+                {
+
+                }
             };
 
             Attack.OnExit += () =>
@@ -159,10 +166,11 @@ namespace FSM
             #region Recover State
             Recovering.OnEnter += () =>
             {
-               //triger reovering animation;
+               
             };
             #endregion
             #region Entity Events
+            entity.OnAttack += onAttack;
             entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
@@ -176,7 +184,10 @@ namespace FSM
             #endregion
         }
 
-
+        private void onAttack()
+        {
+            Feed(Trigger.Attack);
+        }
         private void OnAttackRecover()
         {
             entity.IsAttacking = false;
@@ -185,17 +196,15 @@ namespace FSM
 
         private void OnTakingDamage(int damage, DamageType type)
         {
-            entity.HitFeedback();
-          
+            entity.HitFeedback();          
         }
-
         private void OnSetAction(GroupAction newAction, GroupAction lastAction)
         {
             if (newAction == GroupAction.Attacking)
             {
-                attackAnimation = Animations.Attack;
+                attackAnimation = Animations.Charging;
                 entity.IsAttacking = true;
-                Feed(Trigger.Attack);
+                Feed(Trigger.Charging);
             }
             else if (newAction == GroupAction.Stalking)
             {
