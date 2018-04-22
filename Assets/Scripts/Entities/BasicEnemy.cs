@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Managers;
 using UnityEngine;
+using System.Collections;
 using System;
 using BattleSystem;
 
@@ -10,7 +11,6 @@ namespace Entities
     {
         [Range(1f, 15f)]
         public float AttackRange = 2f;
-
         [Header("Stun")]
         public int hitsToGetStunned = 3;
         public float stunDuration = 0.5f;
@@ -20,7 +20,8 @@ namespace Entities
         public int getHitDuration = 1;
         [Header("GettingHitBack")]
         public int getHitBackDuration = 2;
-        
+
+
         #region Local Vars
         [SerializeField] public GameObject Hitpart;
 		[SerializeField] public Transform hitpos;
@@ -43,11 +44,40 @@ namespace Entities
 		    EntityFsm = new BasicEnemyFSM(this);
 	        OnDeath += entity => Destroy(gameObject, 2);
 	    }
-
+        public void Disolve()
+        {
+           StartCoroutine("DisolveCorroutine");
+        }
+        public void flash()
+        {
+            StartCoroutine("FlashCorroutine");
+        }
+        IEnumerator DisolveCorroutine()
+        {
+            var mesh = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            float Disolve = 0;
+            while (Disolve<1)
+            {
+                Disolve += 0.01f;
+                mesh.material.SetFloat("_Disolve", Disolve);
+                yield return null;
+            }
+        }
+         IEnumerator FlashCorroutine()
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Tint", Color.red);
+                yield return new WaitForSeconds(0.2f);
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Tint", Color.white);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
+
     }
 }

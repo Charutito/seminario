@@ -1,6 +1,7 @@
 ﻿using BattleSystem;
 using Entities;
 using UnityEngine;
+using System.Collections;
 using Util;
 
 namespace FSM
@@ -184,7 +185,6 @@ namespace FSM
                 entity.Animator.SetBool("Death", false);
                 entity.Animator.SetTrigger("TriggerDeath");
                 entity.Animator.SetInteger("RandomDeath", Random.Range(0, 3));
-
                 entity.Agent.enabled = false;
                 entity.Collider.enabled = false;
             };
@@ -259,9 +259,7 @@ namespace FSM
         private void OnTakingDamage(int damage, DamageType type)
         {
             entity.HitFeedback();
-            
             currentHitsToStun++;
-
             if (type == DamageType.Block || currentHitsToStun >= entity.hitsToGetStunned)
             {
                 Feed(Trigger.Stun);
