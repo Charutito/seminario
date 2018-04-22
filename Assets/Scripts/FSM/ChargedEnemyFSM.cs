@@ -49,6 +49,7 @@ namespace FSM
             State<int> Death = new State<int>("Death");
             State<int> Recovering = new State<int>("Recovering");
             #endregion
+
             #region States Configuration
             SetInitialState(Idle);
 
@@ -96,7 +97,6 @@ namespace FSM
             };
             #endregion
 
-
             #region Stalk State 
             var nextLocation = Vector3.zero;
             var normalSpeed = 1f;
@@ -133,29 +133,19 @@ namespace FSM
             #region Charge State
             Charge.OnEnter += () =>
            {
-               entity.Animator.SetTrigger(Animations.Charging);              
+               entity.Animator.SetTrigger(Animations.Charging);
            };
-            Charge.OnUpdate += () =>
-            {
-               
-            };
-            Charge.OnExit += () =>
-            {
-
-            };
             #endregion
+
             #region Attack State
             Attack.OnEnter += () =>
             {
-
+                Debug.LogError("Attacking");
             };
             Attack.OnUpdate += () =>
             {
                 entity.EntityMove.MoveAgent(entity.Target.transform.position);
-                if (true)
-                {
-
-                }
+                Debug.LogError("Algo");
             };
 
             Attack.OnExit += () =>
@@ -163,19 +153,25 @@ namespace FSM
                 
             };
             #endregion
+
             #region Recover State
             Recovering.OnEnter += () =>
             {
                
             };
             #endregion
+
             #region Entity Events
-            entity.OnAttack += onAttack;
+            entity.OnAttack += OnAttack;
+            entity.OnCrash += OnCrash;
             entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
+
             entity.OnDeath += (e) =>
             {
+                entity.OnAttack -= OnAttack;
+                entity.OnCrash -= OnCrash;
                 entity.OnAttackRecovered -= OnAttackRecover;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
@@ -184,10 +180,16 @@ namespace FSM
             #endregion
         }
 
-        private void onAttack()
+        private void OnAttack()
         {
-            Feed(Trigger.Attack);
+            Feed(Trigger.Attack);           
         }
+
+        private void OnCrash()
+        {
+            Feed(Trigger.Recover);
+        }
+
         private void OnAttackRecover()
         {
             entity.IsAttacking = false;
@@ -198,6 +200,7 @@ namespace FSM
         {
             entity.HitFeedback();          
         }
+
         private void OnSetAction(GroupAction newAction, GroupAction lastAction)
         {
             if (newAction == GroupAction.Attacking)

@@ -13,17 +13,20 @@ namespace Entities
         public float recoveryTime;
         public event Action OnAttack = delegate { };
         public event Action OnCrash = delegate { };
-        public ColliderObserver Attackarea;      
+        public ColliderObserver attackarea;      
 
         protected override void SetFsm()
         {
             EntityFsm = new ChargedEnemyFSM(this);
+            attackarea.TriggerEnter += Crash;
+        }
 
-        }
-        public void Crash()
+        private void Crash(Collider obj)
         {
-           
+            if (obj.gameObject.layer == LayerMask.NameToLayer("Ambient"))
+                OnCrash();
         }
+
         public void Attack()
         {
             if (OnAttack!=null)
