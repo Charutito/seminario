@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c34b66767c7dd418ee74ace059ba6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
   minAttackDelay: 0.5
   maxAttackDelay: 1
   minEntitiesToAttack: 2
@@ -667,6 +668,7 @@ MonoBehaviour:
   - {fileID: 162132801}
   - {fileID: 377360147}
   - {fileID: 1396035869}
+  doors: []
 --- !u!65 &486360669
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1194,6 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c34b66767c7dd418ee74ace059ba6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
   minAttackDelay: 2
   maxAttackDelay: 4
   minEntitiesToAttack: 1
@@ -1205,6 +1208,7 @@ MonoBehaviour:
     weight: 2
   entities:
   - {fileID: 298462560}
+  doors: []
 --- !u!65 &1044880051
 BoxCollider:
   m_ObjectHideFlags: 0

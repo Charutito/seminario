@@ -223,51 +223,16 @@ namespace FSM
             };
             #endregion
             
-            
-            #region Charged Attack
-            /*var pusheen = 0f;
-            var maxPusheen = 3f;
-            var isCharging = false;
-            
-            ChargedAttack.OnEnter += () =>
-            {
-                isCharging = true;
-                entity.IsSpecialAttacking = true;
-
-                entity.OnMove -= FeedMove;
-                entity.Animator.SetTrigger("ChargedAttack");
-            };
-            
-            ChargedAttack.OnUpdate += () =>
-            {
-                if (isCharging)
-                {
-                    pusheen += Time.deltaTime;
-
-                    if (InputManager.Instance.ChargedAttackUp || pusheen >= maxPusheen)
-                    {
-                        isCharging = false;
-                        entity.Animator.SetTrigger("ChargedAttackStart");
-                    }
-                }
-            };
-
-            ChargedAttack.OnExit += () =>
-            {
-                pusheen = 0;
-                entity.IsSpecialAttacking = false;
-                entity.OnMove += FeedMove;
-            };*/
-            #endregion
-            
-            
             #region Casting Spell
             var canShoot = true;
+            var preparingShoot = false;
+            var currentCastTime = 0f;
             
             CastingSpell.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
                 entity.OnDash -= DoDash;
+                currentCastTime = 0;
                 entity.Animator.SetBool("AimSpell", true);
             };
             
@@ -285,25 +250,47 @@ namespace FSM
                 }
                 else if(InputManager.Instance.AbilityCast &&
                         canShoot &&
-                        //entity.currentFireballCharges > 0 &&
-                        entity.Stats.Spirit.Current >= entity.fireballCastSpirit
-                        )
+                        entity.Stats.Spirit.Current >= entity.fireballSpell.SpiritCost && entity.maxChargeTime > currentCastTime)
+                {
+                    preparingShoot = true;
+                }
+                else if(preparingShoot && canShoot)
                 {
                     canShoot = false;
-                    //entity.currentFireballCharges--;
-                    entity.Stats.Spirit.Current -= entity.fireballCastSpirit;
-                    entity.EntitySpells.Cast(entity.fireballSpell, entity.castPosition);
-                    entity.Animator.SetTrigger("Shoot");
+                    
+                    if (currentCastTime <= entity.minChargeTime)
+                    {
+                        entity.Stats.Spirit.Current -= entity.fireballSpell.SpiritCost;
+                        SpellDefinition.Cast(entity.fireballSpell, entity.castPosition, entity.transform.rotation);
+                        entity.Animator.SetTrigger("Shoot");
+                    }
+                    else
+                    {
+                        SpellDefinition.Cast(entity.chargedFireballSpell, entity.castPosition, entity.transform.rotation);
+                        entity.Animator.SetTrigger("Shoot");
+                    }
+                    
+                    currentCastTime = 0;
                 }
                 else if(!InputManager.Instance.AbilityCast)
                 {
                     canShoot = true;
+                    preparingShoot = false;
+                    preparingShoot = false;
+                    currentCastTime = 0;
+                }
+
+                if (preparingShoot)
+                {
+                    currentCastTime += Time.deltaTime;
                 }
             };
 
             CastingSpell.OnExit += () =>
             {
                 canShoot = true;
+                preparingShoot = false;
+                
                 entity.OnMove += FeedMove;
                 entity.OnDash += DoDash;
                 entity.Animator.SetBool("AimSpell", false);

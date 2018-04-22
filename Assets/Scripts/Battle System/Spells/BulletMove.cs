@@ -5,26 +5,24 @@
 {
 	public class BulletMove : MonoBehaviour
 	{
-		public float speed = 5f;
-        public int direction = 1;
+		private SpellBehaviour _behaviour;
+		private int _direction = 1;
+		private float _speed;
+		
+		private void Start()
+		{
+			_behaviour = GetComponent<SpellBehaviour>();
+			_speed = _behaviour.Definition.Speed;
+		}
+		
 		private void Update()
 		{
-			transform.localPosition += transform.forward* direction * speed * Time.deltaTime;
+			transform.localPosition += transform.forward * _direction * _speed * Time.deltaTime;
 		}
 
         public void ChangeDir()
         {
-            if (direction ==1)
-            {
-                direction = -1;
-            }
-            else
-            {
-                direction = 1;
-
-            }
+	        _direction = -_direction;
         }
 	}
-
-
 }

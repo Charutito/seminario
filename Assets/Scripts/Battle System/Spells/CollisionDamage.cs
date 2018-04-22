@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace BattleSystem.Spells
 {
+    [RequireComponent(typeof(SpellBehaviour))]
     public class CollisionDamage : MonoBehaviour
     {
-        public int Damage = 0;
-
-        public bool DestroyOnCollision = false;
-
-        public void SetDamage(int damage)
+        private SpellBehaviour _behaviour;
+        
+        private void Start()
         {
-            this.Damage = damage;
+            _behaviour = GetComponent<SpellBehaviour>();
         }
 
         private void DealDamage(GameObject target)
@@ -21,15 +20,10 @@ namespace BattleSystem.Spells
 
             if (damageable != null)
             {
-                damageable.TakeDamage(Damage, DamageType.Spell);
+                damageable.TakeDamage(_behaviour.Definition.Damage, DamageType.Spell);
                 
-                if(DestroyOnCollision) Destroy(gameObject);
+                if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);
             }
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            DealDamage(other.collider.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)

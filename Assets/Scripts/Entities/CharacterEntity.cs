@@ -13,7 +13,7 @@ namespace Entities
 	    public int maxDashCharges = 3;
 	    public int currentDashCharges = 3;
 	    public float dashChargesCooldown = 4f;
-	    public float currentDashCooldown = 0;
+	    public float currentDashCooldown;
 	    
         [Header("GetHit")]
         public float getHitDuration = 0.7f;
@@ -25,11 +25,9 @@ namespace Entities
         [Header("Spells")]
         public Transform castPosition;
 	    public SpellDefinition fireballSpell;
-	    public int maxFireballCharges = 5;
-	    public int currentFireballCharges = 5;
-	    public int fireballCastSpirit = 15;
-	    public float fireballChargesCooldown = 3f;
-	    public float currentFireballCooldown = 0;
+	    public SpellDefinition chargedFireballSpell;
+	    public float minChargeTime = 0.5f;
+	    public float maxChargeTime = 3f;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -86,7 +84,6 @@ namespace Entities
 	    protected override void SetFsm()
 	    {
 		    currentDashCharges = maxDashCharges;
-		    currentFireballCharges = maxFireballCharges;
 		    EntityFsm = new CharacterFSM(this);
 	    }
 
