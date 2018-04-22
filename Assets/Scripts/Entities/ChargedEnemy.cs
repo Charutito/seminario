@@ -5,6 +5,7 @@ using System;
 using GameUtils;
 using UnityEngine;
 using Util;
+using System.Collections.Generic;
 
 namespace Entities
 {
@@ -13,10 +14,11 @@ namespace Entities
         public float ChargeTime;
         public float recoveryTime;
         public event Action OnAttack = delegate { };
-        public event Action OnCrash = delegate { };
         public ColliderObserver attackArea;
         public Transform posToCharge;
         public Vector3 dashpos;
+
+        public List<GameObject> chargeParticle;
 
         private Entity _entity;
 
@@ -35,6 +37,11 @@ namespace Entities
         {
             attackArea.TriggerEnter -= ChargeAttack_Damage;
             attackArea.gameObject.SetActive(false);
+
+            foreach (var item in chargeParticle)
+            {
+                item.SetActive(false);
+            }
         }
 
         private void ChargeAttack_Damage(Collider other)

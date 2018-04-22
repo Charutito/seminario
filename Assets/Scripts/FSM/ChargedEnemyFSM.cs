@@ -143,6 +143,11 @@ namespace FSM
             Charge.OnEnter += () =>
             {
                 entity.Animator.SetTrigger(Animations.Charging);
+
+                foreach (var item in entity.chargeParticle)
+                {
+                    item.SetActive(true);
+                }
             };
             Charge.OnUpdate += () =>
             {
@@ -191,7 +196,6 @@ namespace FSM
 
             GetHit.OnEnter += () =>
             {
-                Debug.LogError("GetHitState");
                 entity.Animator.SetTrigger(Animations.GetHit);
                 entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
 
@@ -232,11 +236,12 @@ namespace FSM
         }
 
         private void OnTakingDamage(int damage, DamageType type)
-        {
-            entity.HitFeedback();
-            Debug.LogError("GetHite");
+        {           
+
             if (entity.EntityFsm.Current.name == "Recovering" || entity.EntityFsm.Current.name == "Stalking" || entity.EntityFsm.Current.name == "Idling")
             {
+                entity.HitFeedback();
+                Debug.LogError("GetHite");
                 Feed(Trigger.GetHit);
             }
         }

@@ -2231,6 +2231,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a9d453a5fb284eabf090bcfa23343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEntityDie:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnEntityDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   stats:
     health:
       _Actual: 0
@@ -2253,7 +2263,7 @@ MonoBehaviour:
   DmgDispl: 0.7
   getHitDuration: 1
   getHitBackDuration: 2
-  Hitpart: {fileID: 100008, guid: 5cd612e83713bde4da6e0a059cac6984, type: 2}
+  Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
   hitpos: {fileID: 4790944661825068}
 --- !u!114 &114817859952300270
 MonoBehaviour:
