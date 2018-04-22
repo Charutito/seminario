@@ -22,12 +22,14 @@ namespace Entities
         [Range(0, 1)]
         public float DmgDispl = 0.5f;
 
-        [Header("Spells")]
+	    [Header("Spells")]
+	    public AudioSource noSpiritSound;
         public Transform castPosition;
 	    public SpellDefinition fireballSpell;
 	    public SpellDefinition chargedFireballSpell;
 	    public float minChargeTime = 0.5f;
 	    public float maxChargeTime = 3f;
+	    
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
