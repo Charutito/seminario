@@ -248,9 +248,16 @@ namespace FSM
                 {
                     Feed(Trigger.None);
                 }
+                else if (InputManager.Instance.AbilityCast &&
+                         canShoot &&
+                         entity.Stats.Spirit.Current < entity.fireballSpell.SpiritCost)
+                {
+                    canShoot = false;
+                    entity.noSpiritSound.Play();
+                }
                 else if(InputManager.Instance.AbilityCast &&
                         canShoot &&
-                        entity.Stats.Spirit.Current >= entity.fireballSpell.SpiritCost && entity.maxChargeTime > currentCastTime)
+                        entity.maxChargeTime > currentCastTime)
                 {
                     preparingShoot = true;
                 }
