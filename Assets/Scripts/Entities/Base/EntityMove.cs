@@ -37,6 +37,16 @@ namespace Entities
 
             _moveCoroutine = StartCoroutine(MoveToPosition(transform, position, timeToMove, onFinish));
         }
+
+        public void ConstantMoveTransform(Vector3 position,float speed, Action onFinish = null)
+        {
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+
+            _moveCoroutine = StartCoroutine(MoveToPositionConstantly(transform, position, speed, onFinish));
+        }
         #endregion
 
         #region NavMesh Movement
@@ -84,6 +94,21 @@ namespace Entities
             while (t < 1)
             {
                 t += Time.deltaTime / timeToMove;
+                target.position = Vector3.Lerp(currentPos, position, t);
+                yield return null;
+            }
+
+            if (onFinish != null) onFinish();
+        }
+
+        private static IEnumerator MoveToPositionConstantly(Transform target, Vector3 position, float speed, Action onFinish = null)
+        {
+            var currentPos = target.position;
+            var t = 0f;
+
+            while (t < 1)
+            {
+                t += Time.deltaTime * speed;
                 target.position = Vector3.Lerp(currentPos, position, t);
                 yield return null;
             }

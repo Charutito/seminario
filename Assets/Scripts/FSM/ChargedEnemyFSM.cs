@@ -16,6 +16,7 @@ namespace FSM
             public static int Recover = 3;
             public static int Charging = 4;
             public static int Stalking = 5;
+            public static int GetHit = 6;
         }
 
         private class Animations
@@ -28,6 +29,7 @@ namespace FSM
             public static string RandomDeath = "RandomDeath";
             public static string Move = "Velocity Z";
             public static string Charging = "Charging";
+            public static string GetHit = "GetHit";
         }
 
         #region Components
@@ -48,6 +50,7 @@ namespace FSM
             State<int> Attack = new State<int>("Attacking");
             State<int> Death = new State<int>("Death");
             State<int> Recovering = new State<int>("Recovering");
+            State<int> GetHit = new State<int>("GetHit");
             #endregion
 
             #region States Configuration
@@ -56,6 +59,7 @@ namespace FSM
             StateConfigurer.Create(Idle)
                 .SetTransition(Trigger.Charging, Charge)
                 .SetTransition(Trigger.Stalking, Stalk)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Charge)
@@ -64,6 +68,7 @@ namespace FSM
 
             StateConfigurer.Create(Stalk)
                 .SetTransition(Trigger.Attack, Charge)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Attack)
@@ -74,9 +79,15 @@ namespace FSM
             StateConfigurer.Create(Recovering)
                 .SetTransition(Trigger.Charging, Charge)
                 .SetTransition(Trigger.Stalking, Stalk)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
-            #endregion
 
+            StateConfigurer.Create(GetHit)
+               .SetTransition(Trigger.Recover, Recovering)
+               .SetTransition(Trigger.Stalking, Stalk)
+               .SetTransition(Trigger.Die, Death)
+               .SetTransition(Trigger.GetHit, GetHit);
+            #endregion
 
             #region idle State
             Idle.OnEnter += () =>
@@ -130,21 +141,29 @@ namespace FSM
 
             #region Charge State
             Charge.OnEnter += () =>
-           {
-               entity.Animator.SetTrigger(Animations.Charging);
-           };
+            {
+                entity.Animator.SetTrigger(Animations.Charging);
+            };
+            Charge.OnUpdate += () =>
+            {
+                entity.EntityMove.RotateTowards(entity.Target.transform.position);
+            };
+
             Charge.OnExit += () =>
             {
+                entity.posToCharge = entity.Target.transform;
+                entity.dashpos = entity.posToCharge.position +
+                                   entity.transform.forward * entity.transform.GetMaxDistance();
+                entity.EntityMove.RotateInstant(entity.dashpos);
             };
             #endregion
 
             #region Attack State
             Attack.OnEnter += () =>
             {
-                entity.posToCharge = entity.Target.transform;
-                var dashPosition = entity.posToCharge.position +
-                                   entity.transform.forward * entity.transform.GetMaxDistance();
-                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.5f,() => Feed(Trigger.Recover));
+                
+                //entity.EntityMove.SmoothMoveTransform(dashPosition, 0.5f,() => Feed(Trigger.Recover));
+                entity.EntityMove.ConstantMoveTransform(entity.dashpos, 4, () => Feed(Trigger.Recover));
             };
         
             #endregion
@@ -168,9 +187,24 @@ namespace FSM
             };
             #endregion
 
+            #region GetHit State
+
+            GetHit.OnEnter += () =>
+            {
+                Debug.LogError("GetHitState");
+                entity.Animator.SetTrigger(Animations.GetHit);
+                entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+
+                FrameUtil.AfterDelay(entity.getHitDuration, () =>
+                {
+                    Feed(Trigger.Recover);
+                });
+            };
+
+            #endregion
+
             #region Entity Events
             entity.OnAttack += OnAttack;
-            entity.OnCrash += OnCrash;
             entity.OnAttackRecovered += OnAttackRecover;
             entity.OnSetAction += OnSetAction;
             entity.OnTakeDamage += OnTakingDamage;
@@ -178,7 +212,6 @@ namespace FSM
             entity.OnDeath += (e) =>
             {
                 entity.OnAttack -= OnAttack;
-                entity.OnCrash -= OnCrash;
                 entity.OnAttackRecovered -= OnAttackRecover;
                 entity.OnSetAction -= OnSetAction;
                 entity.OnTakeDamage -= OnTakingDamage;
@@ -192,11 +225,6 @@ namespace FSM
             Feed(Trigger.Attack);           
         }
 
-        private void OnCrash()
-        {
-            Feed(Trigger.Recover);
-        }
-
         private void OnAttackRecover()
         {
             entity.IsAttacking = false;
@@ -205,7 +233,12 @@ namespace FSM
 
         private void OnTakingDamage(int damage, DamageType type)
         {
-            entity.HitFeedback();          
+            entity.HitFeedback();
+            Debug.LogError("GetHite");
+            if (entity.EntityFsm.Current.name == "Recovering" || entity.EntityFsm.Current.name == "Stalking" || entity.EntityFsm.Current.name == "Idling")
+            {
+                Feed(Trigger.GetHit);
+            }
         }
 
         private void OnSetAction(GroupAction newAction, GroupAction lastAction)
@@ -220,7 +253,6 @@ namespace FSM
             {
                 Feed(Trigger.Stalking);
             }
-
         }
 
     }
