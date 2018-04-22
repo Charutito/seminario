@@ -133,6 +133,7 @@ namespace FSM
             #region Charge State
             Charge.OnEnter += () =>
            {
+               entity.EntityMove.RotateInstant(entity.Target.transform.position);
                entity.Animator.SetTrigger(Animations.Charging);
            };
             #endregion
@@ -140,14 +141,11 @@ namespace FSM
             #region Attack State
             Attack.OnEnter += () =>
             {
-                Debug.LogError("Attacking");
+                entity.EntityMove.SmoothMoveTransform(entity.transform.GetMaxDistancePosition(), entity.ChargeTime);
             };
             Attack.OnUpdate += () =>
             {
-                entity.EntityMove.MoveAgent(entity.Target.transform.position);
-                Debug.LogError("Algo");
             };
-
             Attack.OnExit += () =>
             {
                 
