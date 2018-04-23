@@ -14,7 +14,7 @@ MonoBehaviour:
   Name: 
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1652481407855950, guid: 7580d52e84170f245af90c037f72f559, type: 2}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
   Cooldown: 1
@@ -27,3 +27,7 @@ MonoBehaviour:
   Speed: 0
   DestroyAfterTime: 1
   DestroyOnCollision: 0
+  EffectRadius: 10
+  EffectLayer:
+    serializedVersion: 2
+    m_Bits: 2048

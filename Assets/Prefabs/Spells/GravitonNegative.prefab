@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4790775258784258}
-  - component: {fileID: 135779634125860684}
   - component: {fileID: 114582010255535760}
   - component: {fileID: 114596882466020064}
   - component: {fileID: 114512222797478996}
@@ -55,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1331786808390748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 4790775258784258}
   m_RootOrder: 0
@@ -68,7 +67,7 @@ Transform:
   m_GameObject: {fileID: 1652481407855950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4062725120147076}
   m_Father: {fileID: 0}
@@ -126,9 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6dc874c196e95d46b9e1d5b358d8ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3.01
-  displacement: 0.7
-  entidades: []
+  IsNegative: 1
+  TimeToMove: 0.5
+  Displacement: 3
 --- !u!114 &114582010255535760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,15 +151,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e71f99e58ef89049a4d17e288feb136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135779634125860684
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652481407855950}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

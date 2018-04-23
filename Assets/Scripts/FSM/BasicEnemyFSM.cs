@@ -17,6 +17,7 @@ namespace FSM
             public static int Stun = 4;
             public static int GetHit = 5;
             public static int GettingHitBack = 6;
+            public static int Follow = 7;
         }
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.Follow, Follow)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Stalk)
@@ -75,6 +77,7 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.GetHit, GetHit)
+                .SetTransition(Trigger.Follow, Follow)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Follow)
@@ -88,6 +91,7 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Attack)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Follow, Follow)
                 .SetTransition(Trigger.Die, Death)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
@@ -97,11 +101,13 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Follow)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Die, Death)
+                .SetTransition(Trigger.Follow, Follow)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(GetHit)
-               .SetTransition(Trigger.Attack, Attack)
+               .SetTransition(Trigger.Attack, Follow)
+               .SetTransition(Trigger.Follow, Follow)
                .SetTransition(Trigger.Stalking, Stalk)
                .SetTransition(Trigger.Die, Death)
                .SetTransition(Trigger.GetHit, GetHit)
@@ -109,6 +115,7 @@ namespace FSM
 
             StateConfigurer.Create(GettingHitBack)
                .SetTransition(Trigger.Attack, Attack)
+               .SetTransition(Trigger.Follow, Follow)
                .SetTransition(Trigger.Stalking, Stalk)
                .SetTransition(Trigger.Die, Death)
                .SetTransition(Trigger.GetHit, GetHit)
@@ -199,7 +206,7 @@ namespace FSM
 
                 FrameUtil.AfterDelay(entity.stunDuration, () =>
                 {
-                    Feed(Trigger.Stalking);
+                    Feed(Trigger.Follow);
                 });
             };
             #endregion
@@ -213,7 +220,7 @@ namespace FSM
 
                 FrameUtil.AfterDelay(entity.getHitDuration, () =>
                 {
-                    Feed(Trigger.Attack);
+                    Feed(Trigger.Follow);
                 });
             };
 
@@ -229,7 +236,7 @@ namespace FSM
 
                 FrameUtil.AfterDelay(entity.getHitBackDuration, () =>
                 {
-                    Feed(Trigger.None);
+                    Feed(Trigger.Follow);
                 });
             };
 
