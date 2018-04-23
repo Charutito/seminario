@@ -31,6 +31,10 @@ namespace BattleSystem
         public float Speed = 0f;
         public float DestroyAfterTime = 1f;
         public bool DestroyOnCollision = true;
+
+        [Header("AoE")]
+        public float EffectRadius = 1f;
+        public LayerMask EffectLayer;
         
         
         public static void Cast(SpellDefinition definition, Transform origin, Quaternion rotation)

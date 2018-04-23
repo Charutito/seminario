@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace BattleSystem.Spells
 {
+	[RequireComponent(typeof(SpellBehaviour))]
 	public class DestroyAfterTime : MonoBehaviour
 	{
 		private SpellBehaviour _behaviour;
@@ -29,8 +30,11 @@ namespace BattleSystem.Spells
 
 		private void SelfKill()
 		{
-			if(_behaviour.Definition.DeathEffect != null) Instantiate(_behaviour.Definition.DeathEffect, transform.position, transform.rotation);
-			
+			if (_behaviour.Definition.DeathEffect != null)
+			{
+				Instantiate(_behaviour.Definition.DeathEffect, transform.position, transform.rotation);
+			}
+
 			Destroy(gameObject);
 		}
 	}

@@ -15,7 +15,7 @@ namespace Managers.Mappings
         [Header("Combat")]
         [SerializeField] public KeyCode Attack           = KeyCode.Mouse0;
         [SerializeField] public KeyCode SpecialAttack    = KeyCode.Mouse1;
-        [SerializeField] public KeyCode ChargedAttack    = KeyCode.LeftControl;
+        [SerializeField] public KeyCode Graviton    = KeyCode.LeftControl;
         
         [Header("Spells")]
         [SerializeField] public KeyCode FirstAbility     = KeyCode.Alpha1;

@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Managers;
 using System;
+using System.Runtime.Remoting.Messaging;
 using BattleSystem;
 using UnityEngine;
 
@@ -25,11 +26,15 @@ namespace Entities
 	    [Header("Spells")]
 	    public AudioSource noSpiritSound;
         public Transform castPosition;
+	    
+	    [Tooltip("Cast with Circle")]
+	    public SpellDefinition gravitonSpell;
+	    
+	    [Header("Fireball")]
 	    public SpellDefinition fireballSpell;
 	    public SpellDefinition chargedFireballSpell;
 	    public float minChargeTime = 0.5f;
 	    public float maxChargeTime = 3f;
-	    
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -110,6 +115,11 @@ namespace Entities
 		    if (InputManager.Instance.AbilityAim && OnSpellAiming != null)
 		    {
 			    OnSpellAiming();
+		    }
+
+		    if (InputManager.Instance.CastGratiton)
+		    {
+			    SpellDefinition.Cast(gravitonSpell, transform);
 		    }
 
 		    if (currentDashCharges < maxDashCharges)
