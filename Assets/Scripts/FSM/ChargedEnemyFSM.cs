@@ -33,10 +33,8 @@ namespace FSM
         }
 
         #region Components
-        private string attackAnimation = string.Empty;
         private ChargedEnemy entity;
         #endregion
-
 
         public ChargedEnemyFSM(ChargedEnemy entity)
         {
@@ -73,11 +71,10 @@ namespace FSM
 
             StateConfigurer.Create(Attack)
                 .SetTransition(Trigger.Recover, Recovering)
-                .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.Die, Death);
 
             StateConfigurer.Create(Recovering)
-                .SetTransition(Trigger.Charging, Charge)
+                //.SetTransition(Trigger.Charging, Charge)
                 .SetTransition(Trigger.Stalking, Stalk)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Die, Death);
@@ -153,7 +150,6 @@ namespace FSM
             {
                 entity.EntityMove.RotateTowards(entity.Target.transform.position);
             };
-
             Charge.OnExit += () =>
             {
                 entity.posToCharge = entity.Target.transform;
@@ -166,29 +162,32 @@ namespace FSM
             #region Attack State
             Attack.OnEnter += () =>
             {
-                
                 //entity.EntityMove.SmoothMoveTransform(dashPosition, 0.5f,() => Feed(Trigger.Recover));
                 entity.EntityMove.ConstantMoveTransform(entity.dashpos, 4, () => Feed(Trigger.Recover));
             };
-        
+            Attack.OnExit += () =>
+            {
+                //entity.Animator.SetBool(Animations.Recovering, true);
+            };          
             #endregion
 
             #region Recover State
             Recovering.OnEnter += () =>
             {
-                entity.Animator.SetBool(Animations.Recovering,true);
-            };
-            Recovering.OnUpdate += () =>
-            {
+                entity.Animator.SetBool(Animations.Recovering, true);
+
                 FrameUtil.AfterDelay(entity.recoveryTime, () =>
                 {
                     Feed(Trigger.Stalking);
                 });
             };
+            Recovering.OnUpdate += () =>
+            {
+
+            };
             Recovering.OnExit += () =>
             {
                 entity.Animator.SetBool(Animations.Recovering, false);
-
             };
             #endregion
 
@@ -204,7 +203,6 @@ namespace FSM
                     Feed(Trigger.Recover);
                 });
             };
-
             #endregion
 
             #region Death State
@@ -251,6 +249,7 @@ namespace FSM
         {   
             if (entity.EntityFsm.Current.name == "Recovering" || entity.EntityFsm.Current.name == "Stalking" || entity.EntityFsm.Current.name == "Idling")
             {
+
                 entity.HitFeedback();
                 Feed(Trigger.GetHit);
             }
@@ -260,9 +259,8 @@ namespace FSM
         {
             if (newAction == GroupAction.Attacking)
             {
-                attackAnimation = Animations.Charging;
                 entity.IsAttacking = true;
-                Feed(Trigger.Charging);
+                Feed(Trigger.Attack);
             }
             else if (newAction == GroupAction.Stalking)
             {
