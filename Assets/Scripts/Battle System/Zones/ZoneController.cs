@@ -62,7 +62,7 @@ namespace BattleSystem
             foreach (var entity in entities)
             {
                 entity.CurrentAction = GroupAction.Stalking;
-                entity.Target = GameManager.Instance.Character;
+                if (entity.Target == null) entity.Target = GameManager.Instance.Character;
                 entity.OnDeath += OnEntityDie;
             }
         }

@@ -22,9 +22,16 @@ namespace Entities
 
         private Entity _entity;
 
+        public Entity fakeCharacter;
+
+        protected override void Start()
+        {
+            Target = fakeCharacter;
+        }
+
         protected override void SetFsm()
         {
-            EntityFsm = new ChargedEnemyFSM(this);
+            EntityFsm = new ChargedEnemyFSM(this);          
         }
 
         public void ChargeAttack_HitInit()

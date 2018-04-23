@@ -1457,7 +1457,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032691269069724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5848591, y: 0.17, z: -2.99}
+  m_LocalPosition: {x: 4.806, y: 0.17, z: -1.8650017}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_Children:
   - {fileID: 4232640293051732}
@@ -2215,7 +2215,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cdef865ec879cc3478acc15450d14c1e, type: 3}
   m_Controller: {fileID: 9100000, guid: 81d94e9ddeac6694d82f463938d09cde, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -2311,8 +2311,8 @@ MonoBehaviour:
       _Max: 30
     movementSpeed:
       _Actual: 0
-      _Min: 2
-      _Max: 4
+      _Min: 4
+      _Max: 6
     spirit:
       _Actual: 0
       _Min: 0
@@ -2389,7 +2389,7 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114492648941852760}
+        - m_Target: {fileID: 0}
           m_MethodName: LightAttack_Hit
           m_Mode: 1
           m_Arguments:
@@ -2413,7 +2413,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114492648941852760}
-          m_MethodName: HeavyAttack_Hit
+          m_MethodName: LightAttack_Hit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2448,6 +2448,40 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 114321216910754070}
           m_MethodName: AttackRecovered
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - name: Flash
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114321216910754070}
+          m_MethodName: flash
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - name: Disolve
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114321216910754070}
+          m_MethodName: Disolve
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2570,9 +2604,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.5
+  m_Height: 2.01
   m_Direction: 1
-  m_Center: {x: 0, y: 1.25, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!137 &137915658079345244
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

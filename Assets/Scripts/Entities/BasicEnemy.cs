@@ -9,7 +9,7 @@ namespace Entities
 {
     public class BasicEnemy : GroupEntity
     {
-        [Range(1f, 15f)]
+        [Range(1f, 25f)]
         public float AttackRange = 2f;
         [Header("Stun")]
         public int hitsToGetStunned = 3;
@@ -65,12 +65,12 @@ namespace Entities
         }
          IEnumerator FlashCorroutine()
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
                 gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Tint", Color.red);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
                 gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Tint", Color.white);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
             }
         }
         private void OnDrawGizmos()

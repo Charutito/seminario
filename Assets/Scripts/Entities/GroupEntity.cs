@@ -12,7 +12,7 @@ namespace Entities
         #endregion
 
         #region Properties 
-        public CharacterEntity Target
+        public Entity Target
         {
             get { return currentTarget; }
             set { currentTarget = value; }
@@ -36,7 +36,7 @@ namespace Entities
         #endregion
 
         #region Local Vars
-        private CharacterEntity currentTarget = null;
+        private Entity currentTarget = null;
         private GroupAction currentAction = GroupAction.None;
         #endregion
 

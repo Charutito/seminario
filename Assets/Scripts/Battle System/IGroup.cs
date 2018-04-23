@@ -4,7 +4,7 @@ namespace BattleSystem
 {
     public interface IGroup
     {
-        CharacterEntity Target { get; set; }
+        Entity Target { get; set; }
         GroupAction CurrentAction { get; set; }
     }
 }
