@@ -141,6 +141,8 @@ namespace FSM
 			    entity.IsSpecialAttacking = false;
 			};
             entity.OnAttackRecovered += () => {
+                entity.IsAttacking = false;
+                entity.IsSpecialAttacking = false;
 				Feed(Trigger.None);
             };
             entity.OnDeath += (e) =>

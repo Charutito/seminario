@@ -3,7 +3,7 @@
 
     namespace BattleSystem.Spells
 {
-	public class BulletMove : MonoBehaviour
+	public class ProjectileMove : MonoBehaviour
 	{
 		private SpellBehaviour _behaviour;
 		private int _direction = 1;
