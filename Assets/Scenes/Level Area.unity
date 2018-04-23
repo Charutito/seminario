@@ -21546,10 +21546,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180.00002
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
   m_IsPrefabParent: 0
@@ -25542,7 +25538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c34b66767c7dd418ee74ace059ba6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
+  audio: {fileID: 669139749}
   minAttackDelay: 2
   maxAttackDelay: 3
   minEntitiesToAttack: 1
@@ -33436,6 +33432,11 @@ Prefab:
     - target: {fileID: 1790024792272832, guid: 281e1a5058f1986498ab1925b3abdd09, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114716744343129430, guid: 281e1a5058f1986498ab1925b3abdd09,
+        type: 2}
+      propertyPath: audio
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 281e1a5058f1986498ab1925b3abdd09, type: 2}
@@ -45169,6 +45170,11 @@ Prefab:
       propertyPath: entities.Array.data[9]
       value: 
       objectReference: {fileID: 2074042800}
+    - target: {fileID: 114716744343129430, guid: 281e1a5058f1986498ab1925b3abdd09,
+        type: 2}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 803255200}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 281e1a5058f1986498ab1925b3abdd09, type: 2}
   m_IsPrefabParent: 0
@@ -73667,6 +73673,11 @@ Prefab:
       propertyPath: m_Name
       value: Empty Zone (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114716744343129430, guid: 281e1a5058f1986498ab1925b3abdd09,
+        type: 2}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 1884991647}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 281e1a5058f1986498ab1925b3abdd09, type: 2}
   m_IsPrefabParent: 0
