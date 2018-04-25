@@ -14,7 +14,7 @@ MonoBehaviour:
   Name: Fireball
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 100010, guid: 367a74e50844cfe4aa8f243f8429528a, type: 2}
+  Prefab: {fileID: 1225010002872268, guid: 1b325fc977e8f874891a3dc01c6019f6, type: 2}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 100014, guid: dc2085ede280df24cb05d19b91d0e545, type: 2}
   Cooldown: 1
@@ -27,3 +27,7 @@ MonoBehaviour:
   Speed: 15
   DestroyAfterTime: 1
   DestroyOnCollision: 1
+  EffectRadius: 1
+  EffectLayer:
+    serializedVersion: 2
+    m_Bits: 0
