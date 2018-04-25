@@ -9,113 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1652481407855950}
+  m_RootGameObject: {fileID: 1969541118075942}
   m_IsPrefabParent: 1
---- !u!1 &1090508496532768
+--- !u!1 &1969541118075942
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4532235300960122}
-  - component: {fileID: 198939222240403720}
-  - component: {fileID: 199965083824301836}
+  - component: {fileID: 4365986196983258}
+  - component: {fileID: 198883362770730106}
+  - component: {fileID: 199988359390443312}
   m_Layer: 8
-  m_Name: GravitonParticles
+  m_Name: GravitonParticles 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1652481407855950
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4790775258784258}
-  - component: {fileID: 114582010255535760}
-  - component: {fileID: 114596882466020064}
-  - component: {fileID: 114512222797478996}
-  m_Layer: 8
-  m_Name: GravitonNegative
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4532235300960122
+--- !u!4 &4365986196983258
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090508496532768}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_GameObject: {fileID: 1969541118075942}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4790775258784258}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!4 &4790775258784258
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652481407855950}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.25, y: 1.489, z: 3.992}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4532235300960122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114512222797478996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652481407855950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6dc874c196e95d46b9e1d5b358d8ef9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsNegative: 1
-  TimeToMove: 0.5
-  Displacement: 3
---- !u!114 &114582010255535760
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652481407855950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0cb01dfb9a80d418eb26e00261fa9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Definition: {fileID: 0}
---- !u!114 &114596882466020064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652481407855950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e71f99e58ef89049a4d17e288feb136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!198 &198939222240403720
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!198 &198883362770730106
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090508496532768}
+  m_GameObject: {fileID: 1969541118075942}
   serializedVersion: 5
   lengthInSec: 1
   simulationSpeed: 1
@@ -170,7 +101,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2019239187
+  randomSeed: -683212966
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3516,13 +3447,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &199965083824301836
+--- !u!199 &199988359390443312
 ParticleSystemRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090508496532768}
+  m_GameObject: {fileID: 1969541118075942}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
