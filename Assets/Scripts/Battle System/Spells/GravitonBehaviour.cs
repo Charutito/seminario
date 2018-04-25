@@ -12,7 +12,6 @@ namespace BattleSystem.Spells
 	    public bool IsNegative;
         public float TimeToMove = 0.5f;
         public float Displacement;
-		
         private Entity[] entidades;
 	    private SpellBehaviour _behaviour;
 
@@ -43,8 +42,8 @@ namespace BattleSystem.Spells
 				}
 			}
 		}
-
-	    private void CastNegative(IEnumerable<Collider> colliders)
+       
+        private void CastNegative(IEnumerable<Collider> colliders)
 		{
             entidades = colliders.Select(x => x.GetComponent<Entity>()).Where(x => x != null).ToArray();
             SetArroundPoint(entidades, _behaviour.Definition.EffectRadius, transform);
