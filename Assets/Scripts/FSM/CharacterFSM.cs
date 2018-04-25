@@ -84,6 +84,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.AimSpell, CastingSpell)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
