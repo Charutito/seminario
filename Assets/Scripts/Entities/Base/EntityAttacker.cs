@@ -51,7 +51,7 @@ namespace Entities
                     
                     if (enemy != null)
                     {
-							_entity.EntityMove.RotateInstant(enemy.transform.position);
+						_entity.EntityMove.RotateInstant(enemy.transform.position);
 
                         // Si el enemigo está a una distancia mayor triggereamos el salto
                         if (Vector3.Distance(transform.position, enemy.transform.position) > 2f)
@@ -121,6 +121,9 @@ namespace Entities
         {
             attackArea.TriggerEnter += ThirdAttack_Damage;
             attackArea.gameObject.SetActive(true);
+            var character = this.GetComponent<CharacterEntity>();
+            if (character != null)
+                character.AtkDdisp();
 
             FrameUtil.AfterFrames(4, () =>
             {
@@ -151,6 +154,7 @@ namespace Entities
 
             if (damageable != null)
             {
+                _entity.Stats.Spirit.Current += basicAttackSpirit;
                 damageable.TakeDamage(_entity.AttackDamage, DamageType.ThirdAttack);
             }
         }
