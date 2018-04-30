@@ -28,6 +28,7 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.GetHit, typeof(GetHitState));
 			AvailableStates.Add(EnemyState.Stun, typeof(StunnedState));
 			AvailableStates.Add(EnemyState.KnockBack, typeof(KnockBackState));
+			AvailableStates.Add(EnemyState.FlyUp, typeof(FlyUpState));
 		}
 
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -58,5 +59,6 @@ namespace AnimatorFSM
 		GetHit = 21,
 		Stun = 22,
 		KnockBack = 23,
+		FlyUp = 24,
 	}
 }

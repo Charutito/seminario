@@ -1108,6 +1108,7 @@ GameObject:
   - component: {fileID: 114319726440278706}
   - component: {fileID: 114630335606529664}
   - component: {fileID: 114986441764394876}
+  - component: {fileID: 114586010209644846}
   - component: {fileID: 114570195547325572}
   - component: {fileID: 114076040279892102}
   - component: {fileID: 114899200458184096}
@@ -2675,35 +2676,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handlers:
-  - name: RightAttackStart
-    action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: RightAttackEnd
-    action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: LeftAttackStart
-    action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: LeftAttackEnd
-    action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
   - name: AttackHit
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 114037439731424662, guid: 0457118b02b24714392c803d9ae94d5d,
+            type: 2}
           m_MethodName: LightAttack_Hit
           m_Mode: 1
           m_Arguments:
@@ -2714,54 +2692,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: HeavyStart
-    action:
-      m_PersistentCalls:
-        m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - name: HeavyHit
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114492648941852760}
+        - m_Target: {fileID: 114037439731424662, guid: 0457118b02b24714392c803d9ae94d5d,
+            type: 2}
           m_MethodName: LightAttack_Hit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: AttackRecovered
-    action:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 114321216910754070}
-          m_MethodName: AttackRecovered
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: HeavyRecovered
-    action:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 114321216910754070}
-          m_MethodName: AttackRecovered
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2777,7 +2716,8 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114321216910754070}
+        - m_Target: {fileID: 114739231034376042, guid: 0457118b02b24714392c803d9ae94d5d,
+            type: 2}
           m_MethodName: flash
           m_Mode: 1
           m_Arguments:
@@ -2857,6 +2797,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ad3428022fc0844bb0cd65f410893dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114586010209644846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1923117793213752}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c75a970556dace44990261f0b80d381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114611090419297228

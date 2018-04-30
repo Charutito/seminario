@@ -10,7 +10,14 @@ namespace AnimatorFSM
         public BasicEnemy Entity { get; private set; }
         public Animator FSM { get; private set; }
 
+        public bool StateLocked { get; set; }
+
         private int _currentHitsToStun;
+
+        private void SetState(string state, bool force = false)
+        {
+            if(!StateLocked || force) FSM.SetTrigger(state);
+        }
 
         private void Awake()
         {
@@ -22,7 +29,7 @@ namespace AnimatorFSM
         {
             Entity.OnDeath += entity =>
             {
-                FSM.SetTrigger("Death");
+                SetState("Death", true);
             };
 
             Entity.OnTakeDamage += (amount, type) =>
@@ -32,15 +39,20 @@ namespace AnimatorFSM
 
                 if (type == DamageType.Block || _currentHitsToStun >= Entity.hitsToGetStunned)
                 {
-                    FSM.SetTrigger("Stun");
+                    SetState("Stun");
+                    _currentHitsToStun = 0;
                 }
                 else if (type == DamageType.ThirdAttack)
                 {
-                    FSM.SetTrigger("KnockBack");
+                    SetState("KnockBack", true);
                 }
-                else
+                else if (type == DamageType.FlyUp)
                 {
-                    FSM.SetTrigger("GetHit");
+                    SetState("FlyUp");
+                }
+                else 
+                {
+                    SetState("GetHit");
                 }
             };
 
@@ -50,7 +62,7 @@ namespace AnimatorFSM
                 {
                     case GroupAction.Attacking:
                     case GroupAction.SpecialAttack:
-                        FSM.SetTrigger("Attack");
+                        SetState("Attack");
                         break;
                     case GroupAction.Stalking:
                         FSM.SetBool("Activated", true);
