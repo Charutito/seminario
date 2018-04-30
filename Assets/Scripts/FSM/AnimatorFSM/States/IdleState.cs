@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class IdleState : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+namespace AnimatorFSM.States
+{
+    [AddComponentMenu("State Machine/Idle State")]
+    public class IdleState : MonoBehaviour
+    {
+    
+    }
 }

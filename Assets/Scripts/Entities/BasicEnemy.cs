@@ -41,29 +41,15 @@ namespace Entities
 
         protected override void SetFsm()
 	    {
-		    EntityFsm = new BasicEnemyFSM(this);
-	        OnDeath += entity => Destroy(gameObject, 2);
+		    //EntityFsm = new BasicEnemyFSM(this);
 	    }
-        public void Disolve()
-        {
-           StartCoroutine("DisolveCorroutine");
-        }
+        
         public void flash()
         {
             StartCoroutine("FlashCorroutine");
         }
-        IEnumerator DisolveCorroutine()
-        {
-            var mesh = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-            float Disolve = 0;
-            while (Disolve<1)
-            {
-                Disolve += 0.01f;
-                mesh.material.SetFloat("_Disolve", Disolve);
-                yield return null;
-            }
-        }
-         IEnumerator FlashCorroutine()
+        
+        IEnumerator FlashCorroutine()
         {
             for (int i = 0; i < 2; i++)
             {
@@ -73,11 +59,10 @@ namespace Entities
                 yield return new WaitForSeconds(0.1f);
             }
         }
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
-
     }
 }

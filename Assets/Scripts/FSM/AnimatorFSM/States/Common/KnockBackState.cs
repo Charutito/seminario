@@ -1,12 +1,13 @@
-﻿using BattleSystem;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Entities;
 using Entities.Base;
 using UnityEngine;
 
 namespace AnimatorFSM.States
 {
-	[AddComponentMenu("State Machine/Stalking State")]
-	public class AttackState : BaseState
+	[AddComponentMenu("State Machine/KnockBack State")]
+	public class KnockBackState : BaseState
 	{
 		private BasicEnemy _entity;
 
@@ -19,8 +20,8 @@ namespace AnimatorFSM.States
 		{
 			OnEnter += () =>
 			{
-				_entity.Animator.SetTrigger(EntityAnimations.Attack);
-				_entity.CurrentAction = GroupAction.Stalking;
+				_entity.Animator.SetTrigger(EntityAnimations.GettingHitBack); 
+				_entity.EntityAttacker.attackArea.enabled = false;
 			};
 		}
 	}
