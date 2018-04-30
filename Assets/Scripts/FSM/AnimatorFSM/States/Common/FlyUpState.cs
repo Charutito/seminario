@@ -8,11 +8,11 @@ using UnityEngine;
 
 public class FlyUpState : BaseState
 {
-	private BasicEnemyStateManager _stateManager;
+	private AbstractStateManager _stateManager;
 
 	protected override void Setup()
 	{
-		_stateManager = GetComponent<BasicEnemyStateManager>();
+		_stateManager = GetComponent<AbstractStateManager>();
 	}
 
 	protected override void DefineState()

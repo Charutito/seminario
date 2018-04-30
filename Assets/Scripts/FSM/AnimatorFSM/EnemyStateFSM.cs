@@ -20,9 +20,11 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.Chase, typeof(ChaseState));
 			AvailableStates.Add(EnemyState.Target, typeof(TargetLostState));
 			AvailableStates.Add(EnemyState.Stalk, typeof(StalkingState));
+			AvailableStates.Add(EnemyState.Flee, typeof(FleeToPositionState));
 		
 			AvailableStates.Add(EnemyState.Attack, typeof(AttackState));
 			AvailableStates.Add(EnemyState.RangedAttack, typeof(RangedAttackState));
+			AvailableStates.Add(EnemyState.Aim, typeof(AimTargetState));
 		
 			AvailableStates.Add(EnemyState.Death, typeof(DeathState));
 			AvailableStates.Add(EnemyState.GetHit, typeof(GetHitState));
@@ -51,9 +53,11 @@ namespace AnimatorFSM
 		Chase = 2,
 		Target = 3,
 		Stalk = 4,
+		Flee = 5,
 	
 		Attack = 10,
-		RangedAttack = 12,
+		RangedAttack = 11,
+		Aim = 12,
     
 		Death = 20,
 		GetHit = 21,

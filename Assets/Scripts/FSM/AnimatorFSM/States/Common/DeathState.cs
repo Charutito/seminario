@@ -9,11 +9,11 @@ namespace AnimatorFSM.States
     [AddComponentMenu("State Machine/Death State")]
     public class DeathState : BaseState
     {
-        private BasicEnemyStateManager _stateManager;
+        private AbstractStateManager _stateManager;
 
         protected override void Setup()
         {
-            _stateManager = GetComponent<BasicEnemyStateManager>();
+            _stateManager = GetComponent<AbstractStateManager>();
         }
 
         protected override void DefineState()

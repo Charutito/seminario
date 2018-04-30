@@ -1,29 +1,11 @@
-﻿using System;
-using BattleSystem;
-using Entities;
+﻿using BattleSystem;
 using UnityEngine;
 
 namespace AnimatorFSM
 {
-    public class BasicEnemyStateManager : MonoBehaviour
+    public class BasicEnemyStateManager : AbstractStateManager
     {
-        public BasicEnemy Entity { get; private set; }
-        public Animator FSM { get; private set; }
-
-        public bool StateLocked { get; set; }
-
         private int _currentHitsToStun;
-
-        private void SetState(string state, bool force = false)
-        {
-            if(!StateLocked || force) FSM.SetTrigger(state);
-        }
-
-        private void Awake()
-        {
-            Entity = GetComponentInParent<BasicEnemy>();
-            FSM = GetComponent<Animator>();
-        }
 
         private void Start()
         {

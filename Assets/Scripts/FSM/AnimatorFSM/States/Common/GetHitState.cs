@@ -7,19 +7,23 @@ namespace AnimatorFSM.States
     [AddComponentMenu("State Machine/Get Hit State")]
     public class GetHitState : BaseState
     {
-        private BasicEnemy _entity;
+        private AbstractStateManager _stateManager;
 
         protected override void Setup()
         {
-            _entity = GetComponentInParent<BasicEnemy>();
+            _stateManager = GetComponentInParent<AbstractStateManager>();
         }
 
         protected override void DefineState()
         {
             OnEnter += () =>
             {
-                _entity.Animator.SetTrigger(EntityAnimations.GetHit); 
-                _entity.EntityAttacker.attackArea.enabled = false;
+                _stateManager.Entity.Animator.SetTrigger(EntityAnimations.GetHit);
+                
+                if (_stateManager.Entity.EntityAttacker != null)
+                {
+                    _stateManager.Entity.EntityAttacker.attackArea.enabled = false;
+                }
             };
         }
     }
