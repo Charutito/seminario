@@ -967,9 +967,9 @@ GameObject:
   - component: {fileID: 95179920222572374}
   - component: {fileID: 54534389500280766}
   - component: {fileID: 136363932930809266}
+  - component: {fileID: 114546486413364574}
   - component: {fileID: 114979555464429802}
   - component: {fileID: 114142617092991746}
-  - component: {fileID: 114546486413364574}
   - component: {fileID: 195402188659011008}
   - component: {fileID: 114470487424743876}
   m_Layer: 8
@@ -2439,8 +2439,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439987858868850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.7}
+  m_LocalScale: {x: 2.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 4909423342118004}
   m_RootOrder: 3
@@ -2551,7 +2551,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723195614099692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.26, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593626326013340}
@@ -2769,7 +2769,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1.5, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65867797543242432
 BoxCollider:
@@ -3811,7 +3811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 114958416480748104}
   lineArea: {fileID: 114023290422945666}
-  heavyAttackRadious: 2
+  IsCharacter: 1
   h_magn: 1
   h_rough: 1.2
   h_fadeIn: 0.1

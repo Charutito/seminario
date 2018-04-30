@@ -42,7 +42,6 @@ namespace Entities
         public event Action OnStun = delegate { };
         public event Action OnSpecialAttack = delegate { };
         public event Action OnShowDamage = delegate { };
-        public event Action OnSpellAiming = delegate { };
         public event Action OnGettingHitBack = delegate { };
         public event Action OnGetHit = delegate { };
 
@@ -111,10 +110,6 @@ namespace Entities
 		    if (InputManager.Instance.SpecialAttack && OnSpecialAttack != null)
 		    {
 			    OnSpecialAttack();
-		    }
-		    if (InputManager.Instance.AbilityAim && OnSpellAiming != null)
-		    {
-			    OnSpellAiming();
 		    }
 
 		    if (InputManager.Instance.CastGratiton)

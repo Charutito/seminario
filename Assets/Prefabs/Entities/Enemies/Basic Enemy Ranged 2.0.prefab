@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344819752269148}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 516cd6b0d5adc4d48870afeb4e635fb3, type: 3}
   m_Name: 
@@ -2501,13 +2501,11 @@ MonoBehaviour:
   heavyAttackDamage: 25
   godMode: 0
   AttackRange: 11
-  hitsToGetStunned: 3
-  stunDuration: 0.5
+  HitsToGetStunned: 3
   DmgDispl: 0.7
   getHitDuration: 1
-  getHitBackDuration: 2
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
-  hitpos: {fileID: 4315692245635698}
+  Hitpos: {fileID: 4315692245635698}
 --- !u!114 &114713289805242520
 MonoBehaviour:
   m_ObjectHideFlags: 1

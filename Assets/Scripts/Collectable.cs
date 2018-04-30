@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour {
-
+public abstract class Collectable : MonoBehaviour
+{
     public GameObject particle;
-    // Use this for initialization
-    private void OnDestroy()
+
+    protected abstract void Collect();
+
+    protected virtual void SelfDestruct()
     {
         var parts = Instantiate(particle);
         parts.transform.position = transform.position;
-        Destroy(particle, 1);
-    } 
+        Destroy(parts, 1);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Collect();
+        SelfDestruct();
+    }
 }

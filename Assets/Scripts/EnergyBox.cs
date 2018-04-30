@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Entities;
+using Managers;
 using UnityEngine;
 
-public class EnergyBox : Collectable {
+public class EnergyBox : Collectable
+{
     public float HealingPow;
 
-    private void OnTriggerEnter(Collider other)
+    protected override void Collect()
     {
-        var player = other.GetComponent<CharacterEntity>();
-        player.HealEnergy(HealingPow);
-        Destroy(gameObject);
+        GameManager.Instance.Character.HealEnergy(HealingPow);
     }
 }

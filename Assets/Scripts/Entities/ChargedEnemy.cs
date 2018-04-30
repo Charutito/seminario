@@ -54,12 +54,7 @@ namespace Entities
         private void ChargeAttack_Damage(Collider other)
         {
             var character = other.GetComponent<CharacterEntity>();
-            var destructible = other.GetComponent<Destructible>();
-
-            if (destructible != null)
-            {
-                destructible.destroy();
-            }
+            
             if (character != null)
             {
                 _entity = GetComponent<Entity>();

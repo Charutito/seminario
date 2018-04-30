@@ -21,7 +21,6 @@ namespace FSM
             public static int None = 5;
             public static int Die = 6;
             public static int GetHit = 7;
-            public static int AimSpell = 8;
             public static int GettingHitBack = 9;
         }
 
@@ -38,7 +37,6 @@ namespace FSM
 			State<int> Attacking = new State<int>("Light Attacking");
 			State<int> SpecialAttack = new State<int>("Special Attacking");
 			State<int> ChargedAttack = new State<int>("Charged Attacking");
-			State<int> CastingSpell = new State<int>("Casting Spell");
             State<int> Stunned  = new State<int>("Stunned");
             State<int> Dead  = new State<int>("Dead");
             State<int> GetHit = new State<int>("GetHit");
@@ -50,7 +48,6 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Attacking)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.ChargedAttack, ChargedAttack)
-                .SetTransition(Trigger.AimSpell, CastingSpell)
                 .SetTransition(Trigger.Move, Moving)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
@@ -61,7 +58,6 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Attacking)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.ChargedAttack, ChargedAttack)
-                .SetTransition(Trigger.AimSpell, CastingSpell)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
@@ -72,7 +68,6 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Attacking)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.Move, Moving)
-                .SetTransition(Trigger.AimSpell, CastingSpell)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
@@ -83,20 +78,11 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
-                .SetTransition(Trigger.AimSpell, CastingSpell)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(ChargedAttack)
-                .SetTransition(Trigger.Stun, Stunned)
-                .SetTransition(Trigger.Die, Dead)
-                .SetTransition(Trigger.AimSpell, CastingSpell)
-                .SetTransition(Trigger.GetHit, GetHit)
-                .SetTransition(Trigger.None, Idle)
-                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
-
-            StateConfigurer.Create(CastingSpell)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
@@ -133,7 +119,6 @@ namespace FSM
             entity.OnStun += FeedStun;
             entity.OnMove += FeedMove;
             entity.OnGetHit += FeedGetHit;
-            entity.OnSpellAiming += FeedAimSpell;
             entity.OnGettingHitBack += FeedGettingHitBack;
 
 
@@ -152,7 +137,6 @@ namespace FSM
                 entity.OnDash -= DoDash;
                 entity.OnSpecialAttack -= FeedSpecialAttack;
                 entity.OnStun -= FeedStun;
-                entity.OnSpellAiming -= FeedAimSpell;
                 entity.OnGetHit -= FeedGetHit;
                 entity.OnMove -= FeedMove;
                 entity.OnGettingHitBack -= FeedGettingHitBack;
@@ -225,88 +209,6 @@ namespace FSM
                 entity.OnMove += FeedMove;
             };
             #endregion
-            
-            #region Casting Spell
-            var canShoot = true;
-            var preparingShoot = false;
-            var currentCastTime = 0f;
-            
-            CastingSpell.OnEnter += () =>
-            {
-                entity.OnMove -= FeedMove;
-                entity.OnDash -= DoDash;
-                currentCastTime = 0;
-                entity.Animator.SetBool("AimSpell", true);
-            };
-            
-            CastingSpell.OnUpdate += () =>
-            {
-                if (InputManager.Instance.AxisMoving)
-                {
-                    var newRotation = entity.transform.position + new Vector3(InputManager.Instance.AxisHorizontal, 0, InputManager.Instance.AxisVertical);
-                    entity.EntityMove.RotateTowards(newRotation);
-                }
-
-                if (!InputManager.Instance.AbilityAim)
-                {
-                    Feed(Trigger.None);
-                }
-                else if (InputManager.Instance.AbilityCast &&
-                         canShoot &&
-                         entity.Stats.Spirit.Current < entity.fireballSpell.SpiritCost)
-                {
-                    canShoot = false;
-                    entity.noSpiritSound.Play();
-                }
-                else if(InputManager.Instance.AbilityCast &&
-                        canShoot &&
-                        entity.maxChargeTime > currentCastTime)
-                {
-                    preparingShoot = true;
-                }
-                else if(preparingShoot && canShoot)
-                {
-                    canShoot = false;
-                    
-                    if (currentCastTime <= entity.minChargeTime)
-                    {
-                        entity.Stats.Spirit.Current -= entity.fireballSpell.SpiritCost;
-                        SpellDefinition.Cast(entity.fireballSpell, entity.castPosition, entity.transform.rotation);
-                        entity.Animator.SetTrigger("Shoot");
-                    }
-                    else
-                    {
-                        SpellDefinition.Cast(entity.chargedFireballSpell, entity.castPosition, entity.transform.rotation);
-                        entity.Animator.SetTrigger("Shoot");
-                    }
-                    
-                    currentCastTime = 0;
-                }
-                else if(!InputManager.Instance.AbilityCast)
-                {
-                    canShoot = true;
-                    preparingShoot = false;
-                    preparingShoot = false;
-                    currentCastTime = 0;
-                }
-
-                if (preparingShoot)
-                {
-                    currentCastTime += Time.deltaTime;
-                }
-            };
-
-            CastingSpell.OnExit += () =>
-            {
-                canShoot = true;
-                preparingShoot = false;
-                
-                entity.OnMove += FeedMove;
-                entity.OnDash += DoDash;
-                entity.Animator.SetBool("AimSpell", false);
-            };
-            #endregion
-            
             
             #region Stunned State
             Stunned.OnEnter += () =>
@@ -382,14 +284,6 @@ namespace FSM
             if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
                 Feed(Trigger.SpecialAttack);
-            }
-        }
-        
-        private void FeedAimSpell()
-        {
-            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
-            {
-                Feed(Trigger.AimSpell);
             }
         }
         #endregion

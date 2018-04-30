@@ -21,7 +21,7 @@ namespace AnimatorFSM
                 _currentHitsToStun++;
                 Entity.HitFeedback();
 
-                if (type == DamageType.Block || _currentHitsToStun >= Entity.hitsToGetStunned)
+                if (type == DamageType.Block || _currentHitsToStun >= Entity.HitsToGetStunned)
                 {
                     SetState("Stun");
                     _currentHitsToStun = 0;

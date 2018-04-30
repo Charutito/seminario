@@ -11,20 +11,19 @@ namespace Entities
     {
         [Range(1f, 25f)]
         public float AttackRange = 2f;
+        
         [Header("Stun")]
-        public int hitsToGetStunned = 3;
-        public float stunDuration = 0.5f;
+        public int HitsToGetStunned = 3;
+        
         [Range(0, 1)]
         public float DmgDispl = 0.7f;
+        
         [Header("GetHit")]
         public int getHitDuration = 1;
-        [Header("GettingHitBack")]
-        public int getHitBackDuration = 2;
-
 
         #region Local Vars
         [SerializeField] public GameObject Hitpart;
-		[SerializeField] public Transform hitpos;
+		[SerializeField] public Transform Hitpos;
         #endregion
 
         public void DmgDisp()
@@ -34,17 +33,12 @@ namespace Entities
 
         public void HitFeedback()
         {
-            var part = Instantiate(Hitpart, hitpos.position, hitpos.rotation, hitpos);
+            var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
             DmgDisp();
             Destroy(part, 1);
         }
-
-        protected override void SetFsm()
-	    {
-		    //EntityFsm = new BasicEnemyFSM(this);
-	    }
         
-        public void flash()
+        public void Flash()
         {
             StartCoroutine("FlashCorroutine");
         }
@@ -64,5 +58,8 @@ namespace Entities
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
+        
+        // Useless functions
+        protected override void SetFsm() { }
     }
 }

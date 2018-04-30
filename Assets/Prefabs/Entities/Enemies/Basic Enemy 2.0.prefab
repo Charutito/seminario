@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1073435639785220
 GameObject:
   m_ObjectHideFlags: 1
@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 114031464261252548}
   lineArea: {fileID: 0}
-  heavyAttackRadious: 5
+  IsCharacter: 0
   h_magn: 1
   h_rough: 1
   h_fadeIn: 0.1
@@ -2061,6 +2061,7 @@ MonoBehaviour:
     m_Bits: 256
   basicAttackSpirit: 5
   heavyAttackSpirit: 10
+  _entity: {fileID: 0}
 --- !u!114 &114172872499168354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2292,13 +2293,11 @@ MonoBehaviour:
   heavyAttackDamage: 25
   godMode: 0
   AttackRange: 2
-  hitsToGetStunned: 3
-  stunDuration: 0.5
+  HitsToGetStunned: 3
   DmgDispl: 0.7
   getHitDuration: 1
-  getHitBackDuration: 2
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
-  hitpos: {fileID: 4790944661825068}
+  Hitpos: {fileID: 0}
 --- !u!114 &114817859952300270
 MonoBehaviour:
   m_ObjectHideFlags: 1

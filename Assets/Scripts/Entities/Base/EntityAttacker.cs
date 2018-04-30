@@ -16,7 +16,7 @@ namespace Entities
         #region Local Vars
         public ColliderObserver attackArea;
         public LineOfAim lineArea;
-        public float heavyAttackRadious = 5f;
+        public bool IsCharacter;
 
         [Header("Heavy Attack")]
         [SerializeField] private float h_magn = 1;
@@ -29,7 +29,9 @@ namespace Entities
         [SerializeField] private int heavyAttackSpirit = 10;
 
         private Entity _entity;
+        private CharacterEntity _character;
         #endregion
+        
         
         #region Light Attack
         public void OnLighDashEnd()
@@ -75,91 +77,29 @@ namespace Entities
 
         public void LightAttack_Hit()
         {
-            attackArea.TriggerEnter += LightAttack_Damage;
-            attackArea.gameObject.SetActive(true);
-            var character = this.GetComponent<CharacterEntity>();
-            if (character != null)
-                character.AtkDdisp();
-
-            FrameUtil.AfterFrames(4, () => 
+            if (IsCharacter)
             {
-                attackArea.TriggerEnter -= LightAttack_Damage;
-                attackArea.gameObject.SetActive(false);
-            });
-        }
-
-        private void LightAttack_Damage(Collider other)
-        {
-            var damageable = other.GetComponent<IDamageable>();
-            var Character = other.GetComponent<CharacterEntity>();
-            var Bullet = other.GetComponent<BulletMove>();
-            var destructible = other.GetComponent<Destructible>();
-            if (destructible != null)
-            {
-                destructible.destroy();
+                _character.AtkDdisp();
             }
-            if (Character!=null)
-            {
-                Character.DmgDdisp(transform.forward);
-            }
-
-            if (Bullet != null)
-            {
-                Bullet.ChangeDir();
-            }
-
-            if (damageable != null)
-            {
-                _entity.Stats.Spirit.Current += basicAttackSpirit;
-                damageable.TakeDamage(_entity.AttackDamage, DamageType.Attack);
-            }
+            
+            AttackAreaLogic(_entity.AttackDamage);
         }
         #endregion
 
+        
         #region Third Attack
         public void ThirdAttack_Hit()
         {
-            attackArea.TriggerEnter += ThirdAttack_Damage;
-            attackArea.gameObject.SetActive(true);
-            var character = this.GetComponent<CharacterEntity>();
-            if (character != null)
-                character.AtkDdisp();
-
-            FrameUtil.AfterFrames(4, () =>
+            if (IsCharacter)
             {
-                attackArea.TriggerEnter -= ThirdAttack_Damage;
-                attackArea.gameObject.SetActive(false);
-            });
-        }
-
-        private void ThirdAttack_Damage(Collider other)
-        {
-            var damageable = other.GetComponent<IDamageable>();
-            var Character = other.GetComponent<CharacterEntity>();
-            var Bullet = other.GetComponent<BulletMove>();
-            var destructible = other.GetComponent<Destructible>();
-            if (destructible != null)
-            {
-                destructible.destroy();
-            }
-            if (Character != null)
-            {
-                Character.DmgDdisp(transform.forward);
-            }
-           
-            if (Bullet != null)
-            {
-                Bullet.ChangeDir();
+                _character.AtkDdisp();
             }
 
-            if (damageable != null)
-            {
-                _entity.Stats.Spirit.Current += basicAttackSpirit;
-                damageable.TakeDamage(_entity.AttackDamage, DamageType.ThirdAttack);
-            }
+            AttackAreaLogic(_entity.HeavyAttackDamage, DamageType.ThirdAttack);
         }
         #endregion
 
+        
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
@@ -168,44 +108,55 @@ namespace Entities
 
         public void HeavyAttack_Hit()
         {
-            CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
+            // Temporary Broken
+            //CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
             InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
             
-			attackArea.TriggerEnter += HeavyAttack_Damage;
-			attackArea.gameObject.SetActive(true);
-
-			FrameUtil.AfterFrames(3, () => 
-			{
-				attackArea.TriggerEnter -= HeavyAttack_Damage;
-				attackArea.gameObject.SetActive(false);
-			});
-        }
-
-		private void HeavyAttack_Damage(Collider other)
-        {
-            //var colliders = Physics.OverlapSphere(attackArea.transform.position, heavyAttackRadious, hitLayers);
-            var damageable = other.GetComponent<IDamageable>();
-            var Bullet = other.GetComponent<BulletMove>();
-            var destructible = other.GetComponent<Destructible>();
-            if (destructible != null)
-            {
-                destructible.destroy();
-            }
-            if (damageable != null)
-            {
-                _entity.Stats.Spirit.Current += heavyAttackSpirit;
-                damageable.TakeDamage(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
-            }
-            if (Bullet != null)
-            {
-                Bullet.ChangeDir();
-            }
+            AttackAreaLogic(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
         }
         #endregion
+        
+        
+        private void AttackAreaLogic(int damage, DamageType damageType = DamageType.Attack)
+        {
+            var targets = Physics.BoxCastAll(attackArea.transform.position, attackArea.transform.localScale/2, transform.forward, attackArea.transform.rotation, 1, hitLayers);
+            
+            foreach (var target in targets)
+            {
+                var damageable = target.collider.GetComponent<IDamageable>();
+                var character = target.collider.GetComponent<CharacterEntity>();
+                var bullet = target.collider.GetComponent<BulletMove>();
+            
+                if (character != null)
+                {
+                    character.DmgDdisp(transform.forward);
+                }
+
+                if (bullet != null)
+                {
+                    bullet.ChangeDir();
+                }
+
+                if (damageable != null)
+                {
+                    _entity.Stats.Spirit.Current += (damageType == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
+                    damageable.TakeDamage(damage, damageType);
+                }
+            }
+        }
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
+            _character = GameManager.Instance.Character;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            
+            Gizmos.DrawRay(attackArea.transform.position, attackArea.transform.forward);
+            Gizmos.DrawWireCube(attackArea.transform.position, attackArea.transform.localScale);
         }
     }
 }

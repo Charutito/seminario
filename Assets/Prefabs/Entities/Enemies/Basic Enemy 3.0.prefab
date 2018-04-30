@@ -38,9 +38,9 @@ GameObject:
   - component: {fileID: 54434628810983874}
   - component: {fileID: 136074737743571880}
   - component: {fileID: 195243762595079824}
+  - component: {fileID: 114321216910754070}
   - component: {fileID: 114669908954544446}
   - component: {fileID: 114492648941852760}
-  - component: {fileID: 114321216910754070}
   - component: {fileID: 114403751233692756}
   m_Layer: 11
   m_Name: Basic Enemy 3.0
@@ -1612,7 +1612,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032691269069724}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000029653306}
-  m_LocalPosition: {x: -7.4, y: 0.17000002, z: -7}
+  m_LocalPosition: {x: -14.22, y: 0.17000002, z: -3.4}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_Children:
   - {fileID: 4260987227067240}
@@ -2636,13 +2636,11 @@ MonoBehaviour:
   heavyAttackDamage: 25
   godMode: 0
   AttackRange: 2
-  hitsToGetStunned: 3
-  stunDuration: 0.5
+  HitsToGetStunned: 3
   DmgDispl: 0.7
   getHitDuration: 1
-  getHitBackDuration: 2
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
-  hitpos: {fileID: 4452403582651476}
+  Hitpos: {fileID: 4452403582651476}
 --- !u!114 &114374554697687326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2756,7 +2754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 114584716022595400}
   lineArea: {fileID: 0}
-  heavyAttackRadious: 5
+  IsCharacter: 0
   h_magn: 1
   h_rough: 1
   h_fadeIn: 0.1
@@ -2783,7 +2781,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923117793213752}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 516cd6b0d5adc4d48870afeb4e635fb3, type: 3}
   m_Name: 
