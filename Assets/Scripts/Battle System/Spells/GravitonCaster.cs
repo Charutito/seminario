@@ -6,20 +6,22 @@ namespace BattleSystem.Spells
 {
 	public class GravitonCaster : MonoBehaviour
 	{
-		public SpellDefinition PositiveGraviton;
-		public SpellDefinition NegativeGraviton;
-
-		private void Update()
+		public GameObject PositiveGraviton;
+		public GameObject NegativeGraviton;
+        public bool type;
+        public void cast()
 		{
-			if (InputManager.Instance.FirstAbility)
+			if (!type)
 			{
-				SpellDefinition.Cast(NegativeGraviton, transform);
-				Destroy(gameObject);
+                var spell = Instantiate(NegativeGraviton, transform);
+                Destroy(spell.gameObject,3);
+                Destroy(gameObject);
 			}
-			else if (InputManager.Instance.SecondAbility)
-			{
-				SpellDefinition.Cast(PositiveGraviton, transform);
-				Destroy(gameObject);
+			else if (type)
+            {
+                var spell = Instantiate(PositiveGraviton, transform);
+                Destroy(spell.gameObject, 3);
+                Destroy(gameObject);
 			}
 		}
 	}

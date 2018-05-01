@@ -29,8 +29,9 @@ namespace Entities
 	    
 	    [Tooltip("Cast with Circle")]
 	    public SpellDefinition gravitonSpell;
-	    
-	    [Header("Fireball")]
+        public SpellDefinition graviton2Spell;
+
+        [Header("Fireball")]
 	    public SpellDefinition fireballSpell;
 	    public SpellDefinition chargedFireballSpell;
 	    public float minChargeTime = 0.5f;
@@ -117,12 +118,17 @@ namespace Entities
 			    OnSpellAiming();
 		    }
 
-		    if (InputManager.Instance.CastGratiton)
+		    if (InputManager.Instance.FirstAbility)
 		    {
 			    SpellDefinition.Cast(gravitonSpell, transform);
 		    }
 
-		    if (currentDashCharges < maxDashCharges)
+            if (InputManager.Instance.SecondAbility)
+            {
+                SpellDefinition.Cast(graviton2Spell, transform);
+            }
+
+            if (currentDashCharges < maxDashCharges)
 		    {
 			    if (currentDashCooldown <= 0)
 			    {

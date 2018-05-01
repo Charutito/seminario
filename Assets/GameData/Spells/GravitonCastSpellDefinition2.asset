@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b8cf16342efb841ae1febe83ddb033, type: 3}
-  m_Name: GravitonPositiveSpellDefinition
+  m_Name: GravitonCastSpellDefinition2
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Graviton
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 1920472291433352, guid: c069583d88b38c84aa26f02f6a3558fc, type: 2}
+  Prefab: {fileID: 1139641328366502, guid: a1c56cfa7103b8c4996dca7f36af148d, type: 2}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
   Cooldown: 1
@@ -25,9 +25,9 @@ MonoBehaviour:
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
   Speed: 0
-  DestroyAfterTime: 1
-  DestroyOnCollision: 0
-  EffectRadius: 5
+  DestroyAfterTime: 3
+  DestroyOnCollision: 1
+  EffectRadius: 1
   EffectLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
