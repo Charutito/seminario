@@ -6,21 +6,17 @@ namespace BattleSystem.Spells
 {
 	public class GravitonCaster : MonoBehaviour
 	{
-		public SpellDefinition PositiveGraviton;
-		public SpellDefinition NegativeGraviton;
+		private SpellBehaviour _behaviour;
 
-		private void Update()
+		private void Awake()
 		{
-			if (InputManager.Instance.FirstAbility)
-			{
-				SpellDefinition.Cast(NegativeGraviton, transform);
-				Destroy(gameObject);
-			}
-			else if (InputManager.Instance.SecondAbility)
-			{
-				SpellDefinition.Cast(PositiveGraviton, transform);
-				Destroy(gameObject);
-			}
+			_behaviour = GetComponent<SpellBehaviour>();
+		}
+
+		public void Cast()
+		{
+			SpellDefinition.CastChild(_behaviour.Definition, transform, transform.rotation);
+			Destroy(gameObject);
 		}
 	}
 }

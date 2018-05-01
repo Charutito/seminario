@@ -13,6 +13,7 @@ namespace BattleSystem
         
         [Header("Cast")]
         public GameObject Prefab;
+        public GameObject SubCast;
         public GameObject HitEffect;
         public GameObject DeathEffect;
         public float Cooldown = 1f;
@@ -52,6 +53,18 @@ namespace BattleSystem
         public static void Cast(SpellDefinition definition, Transform origin)
         {
             Cast(definition, origin, origin.rotation);
+        }
+
+        public static void CastChild(SpellDefinition definition, Transform origin, Quaternion rotation)
+        {
+            var newSpell = Instantiate(definition.SubCast, origin.position, rotation);
+
+            var spellComponent = newSpell.GetComponent<SpellBehaviour>();
+            
+            if (spellComponent != null)
+            {
+                spellComponent.Definition = definition;
+            }
         }
     }
 }

@@ -357,23 +357,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1331786808390748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4062725120147076}
-  - component: {fileID: 33434267151554486}
-  - component: {fileID: 23778361420514874}
-  m_Layer: 0
-  m_Name: VFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1338767396637912
 GameObject:
   m_ObjectHideFlags: 1
@@ -473,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226456398330066}
   - component: {fileID: 95862470122038216}
-  - component: {fileID: 114766703435320184}
+  - component: {fileID: 114168310317552252}
   m_Layer: 0
   m_Name: GravitonBody
   m_TagString: Untagged
@@ -629,7 +612,7 @@ GameObject:
   - component: {fileID: 114678565430535816}
   - component: {fileID: 114596882466020064}
   - component: {fileID: 114681284165226304}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GravitonCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,19 +1076,6 @@ Transform:
   m_Father: {fileID: 4687865318904014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4062725120147076
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1331786808390748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4790775258784258}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4138819829470592
 Transform:
   m_ObjectHideFlags: 1
@@ -1201,7 +1171,7 @@ Transform:
   - {fileID: 4431422925907706}
   - {fileID: 4758771492458636}
   m_Father: {fileID: 4790775258784258}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 20.441002, z: 0}
 --- !u!4 &4233164809644562
 Transform:
@@ -1753,10 +1723,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652481407855950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.56163025, y: 1.076, z: 14.04}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4062725120147076}
   - {fileID: 4226456398330066}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1893,40 +1862,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23778361420514874
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1331786808390748}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &33088133772866764
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1934,13 +1869,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1505411397297026}
   m_Mesh: {fileID: 4300000, guid: 0afb5643326a73c46bf78af4b14cbf4f, type: 3}
---- !u!33 &33434267151554486
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1331786808390748}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!95 &95862470122038216
 Animator:
   serializedVersion: 3
@@ -1958,6 +1886,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114168310317552252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466330591899564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a84148626bb47438b2925859759c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handlers:
+  - name: HitGroundStart
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114681284165226304}
+          m_MethodName: Cast
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!114 &114596882466020064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1992,38 +1949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8824819daaf935a479252f6fd286569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositiveGraviton: {fileID: 11400000, guid: 81d9b5b30a4948749be9a06ca1003d5c, type: 2}
-  NegativeGraviton: {fileID: 11400000, guid: 0fa4195ebf542314f990aa37d530cdb8, type: 2}
---- !u!114 &114766703435320184
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1466330591899564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a84148626bb47438b2925859759c58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handlers:
-  - name: HitGroundStart
-    action:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1652481407855950, guid: 194f14ee234d54a4ea0b5e5b3cac77c5,
-            type: 2}
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
 --- !u!137 &137536550563382184
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
