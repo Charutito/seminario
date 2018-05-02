@@ -548,7 +548,6 @@ GameObject:
   - component: {fileID: 4270206091224638}
   - component: {fileID: 198140476408184886}
   - component: {fileID: 199968669345437778}
-  - component: {fileID: 82916856941389390}
   m_Layer: 0
   m_Name: Electric
   m_TagString: Untagged
@@ -1113,6 +1112,7 @@ GameObject:
   - component: {fileID: 114076040279892102}
   - component: {fileID: 114899200458184096}
   - component: {fileID: 114964503056142208}
+  - component: {fileID: 114712300213734732}
   m_Layer: 11
   m_Name: FSM
   m_TagString: Untagged
@@ -2401,86 +2401,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!82 &82916856941389390
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480733086889688}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b6e7bea0623796447bde85ea84038fc8, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.04
-  m_Pitch: 1.05
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 50
-  DopplerLevel: 1
-  MinDistance: 1.639502
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95380331435629440
 Animator:
   serializedVersion: 3
@@ -2678,8 +2598,7 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114037439731424662, guid: 0457118b02b24714392c803d9ae94d5d,
-            type: 2}
+        - m_Target: {fileID: 114492648941852760}
           m_MethodName: LightAttack_Hit
           m_Mode: 1
           m_Arguments:
@@ -2696,27 +2615,8 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114037439731424662, guid: 0457118b02b24714392c803d9ae94d5d,
-            type: 2}
-          m_MethodName: LightAttack_Hit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - name: Flash
-    action:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 114739231034376042, guid: 0457118b02b24714392c803d9ae94d5d,
-            type: 2}
-          m_MethodName: flash
+        - m_Target: {fileID: 114492648941852760}
+          m_MethodName: HeavyAttack_Hit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2846,6 +2746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982fabe798253cf4db8ed5c3f03bc081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Displacement: 0.7
 --- !u!114 &114669908954544446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2855,6 +2756,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c54b527c6c3af8e42998dbd07ef2de43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114712300213734732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1923117793213752}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521c3895704c3f1479dc893fe37e9fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114860934230329552

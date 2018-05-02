@@ -9,35 +9,6 @@ namespace AnimatorFSM
 
         private void Start()
         {
-            Entity.OnDeath += entity =>
-            {
-                SetState("Death", true);
-            };
-
-            Entity.OnTakeDamage += (amount, type) =>
-            {
-                _currentHitsToStun++;
-                Entity.HitFeedback();
-
-                if (type == DamageType.Block || _currentHitsToStun >= Entity.HitsToGetStunned)
-                {
-                    SetState("Stun");
-                    _currentHitsToStun = 0;
-                }
-                else if (type == DamageType.ThirdAttack)
-                {
-                    SetState("KnockBack", true);
-                }
-                else if (type == DamageType.FlyUp)
-                {
-                    SetState("FlyUp");
-                }
-                else 
-                {
-                    SetState("GetHit");
-                }
-            };
-
             Entity.OnSetAction += (newAction, lastAction) =>
             {
                 switch (newAction)

@@ -31,13 +31,17 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.Stun, typeof(StunnedState));
 			AvailableStates.Add(EnemyState.KnockBack, typeof(KnockBackState));
 			AvailableStates.Add(EnemyState.FlyUp, typeof(FlyUpState));
+			AvailableStates.Add(EnemyState.Graviton, typeof(GravitonState));
 		}
 
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			_currentState = _currentState ?? (animator.GetComponentInChildren(AvailableStates[changeTo], true) as MonoBehaviour);
 		
-			if(_currentState != null) _currentState.enabled = true;
+			if(_currentState != null)
+				_currentState.enabled = true;
+			else
+				Debug.LogWarning(string.Format( "The state [{0}] is not attached to the entity [{1}]",  changeTo, animator.transform.parent.name));
 		}
 
 		override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -64,5 +68,6 @@ namespace AnimatorFSM
 		Stun = 22,
 		KnockBack = 23,
 		FlyUp = 24,
+		Graviton = 25
 	}
 }

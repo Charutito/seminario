@@ -4,6 +4,7 @@ using AnimatorFSM;
 using AnimatorFSM.States;
 using BattleSystem;
 using Entities;
+using Entities.Base;
 using UnityEngine;
 
 public class FlyUpState : BaseState
@@ -21,7 +22,7 @@ public class FlyUpState : BaseState
 		{
 			_stateManager.Entity.Agent.enabled = false;
 			_stateManager.StateLocked = true;
-			_stateManager.Entity.Animator.SetTrigger("FlyUp");
+			_stateManager.Entity.Animator.SetTrigger(EntityAnimations.FlyUp);
 		};
 		
 		OnExit += () =>

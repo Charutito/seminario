@@ -14,6 +14,7 @@
         public const string Countered      = "Countered";
         public const string GetHit         = "GetHit";
         public const string GettingHitBack = "GetHitBack";
+        public const string FlyUp          = "FlyUp";
         
         public const string Move           = "Velocity Z";
     }

@@ -26,15 +26,9 @@ namespace Entities
 		[SerializeField] public Transform Hitpos;
         #endregion
 
-        public void DmgDisp()
-        {
-            this.EntityMove.SmoothMoveTransform(transform.position -transform.forward * DmgDispl, 0.1f);
-        }
-
         public void HitFeedback()
         {
             var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
-            DmgDisp();
             Destroy(part, 1);
         }
         
