@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b8cf16342efb841ae1febe83ddb033, type: 3}
+  m_Name: SpiritGauntletSpellDefinition
+  m_EditorClassIdentifier: 
+  Name: Gauntlet
+  Description: 
+  Icon: {fileID: 0}
+  Prefab: {fileID: 1652481407855950, guid: 194f14ee234d54a4ea0b5e5b3cac77c5, type: 2}
+  SubCast: {fileID: 100010, guid: 32c66a5aaf5ac1b4d96b21ad01e89d03, type: 2}
+  HitEffect: {fileID: 0}
+  DeathEffect: {fileID: 0}
+  Cooldown: 1
+  SpiritCost: 0
+  Damage: 5
+  DamageMultiplier: 0
+  DamageType: 9
+  CastSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  Speed: 0
+  DestroyAfterTime: 5
+  DestroyOnCollision: 1
+  EffectRadius: 5
+  EffectLayer:
+    serializedVersion: 2
+    m_Bits: 2048

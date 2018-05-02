@@ -38,9 +38,9 @@ namespace BattleSystem
         public LayerMask EffectLayer;
         
         
-        public static void Cast(SpellDefinition definition, Transform origin, Quaternion rotation)
+        public static void Cast(SpellDefinition definition, Vector3 position, Quaternion rotation)
         {
-            var newSpell = Instantiate(definition.Prefab, origin.position, rotation);
+            var newSpell = Instantiate(definition.Prefab, position, rotation);
 
             var spellComponent = newSpell.GetComponent<SpellBehaviour>();
             
@@ -52,12 +52,12 @@ namespace BattleSystem
         
         public static void Cast(SpellDefinition definition, Transform origin)
         {
-            Cast(definition, origin, origin.rotation);
+            Cast(definition, origin.position, origin.rotation);
         }
 
-        public static void CastChild(SpellDefinition definition, Transform origin, Quaternion rotation)
+        public static void CastChild(SpellDefinition definition, Vector3 position, Quaternion rotation, Transform parent = null)
         {
-            var newSpell = Instantiate(definition.SubCast, origin.position, rotation);
+            var newSpell = Instantiate(definition.SubCast, position, rotation, parent);
 
             var spellComponent = newSpell.GetComponent<SpellBehaviour>();
             

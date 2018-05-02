@@ -26,7 +26,8 @@ namespace Entities
 	    [Header("Spells")]
 	    public AudioSource noSpiritSound;
         public Transform castPosition;
-	    public SpellDefinition gravitonSpell;
+	    public SpellDefinition firstAbility;
+	    public SpellDefinition secondAbilityAbility;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -106,7 +107,12 @@ namespace Entities
 
 		    if (InputManager.Instance.FirstAbility)
 		    {
-			    SpellDefinition.Cast(gravitonSpell, transform);
+			    SpellDefinition.Cast(firstAbility, transform);
+		    }
+		    
+		    if (InputManager.Instance.SecondAbility)
+		    {
+			    SpellDefinition.Cast(secondAbilityAbility, transform);
 		    }
 
             if (currentDashCharges < maxDashCharges)
