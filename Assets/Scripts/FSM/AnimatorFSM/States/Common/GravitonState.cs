@@ -18,12 +18,15 @@ namespace AnimatorFSM.States
         {
             OnEnter += () =>
             {
+                _stateManager.Entity.Agent.ResetPath();
+                _stateManager.Entity.Agent.enabled = false;
                 _stateManager.StateLocked = true;
                 _stateManager.Entity.Animator.SetTrigger(EntityAnimations.Countered);
             };
 		
             OnExit += () =>
             {
+                _stateManager.Entity.Agent.enabled = true;
                 _stateManager.StateLocked = false;
                 _stateManager.Entity.CurrentAction = GroupAction.Stalking;
             };

@@ -31,7 +31,6 @@ namespace BattleSystem.Spells
 
 				if (entity != null)
 				{
-					entity.Agent.ResetPath();
 					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMove);
 					entity.TakeDamage(_behaviour.Definition.Damage, _behaviour.Definition.DamageType);
 				}

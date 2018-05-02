@@ -20,6 +20,7 @@ public class FlyUpState : BaseState
 	{
 		OnEnter += () =>
 		{
+			_stateManager.Entity.Agent.ResetPath();
 			_stateManager.Entity.Agent.enabled = false;
 			_stateManager.StateLocked = true;
 			_stateManager.Entity.Animator.SetTrigger(EntityAnimations.FlyUp);
