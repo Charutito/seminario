@@ -8,9 +8,18 @@ public class WolfSpiritController : MonoBehaviour {
     
     public Material newMaterialRef;
     public Shader dissolve;
-    private float shininess = 0.7f;
+
+    private float shininess;
+
+    bool start;
+    bool end;
+
+    public Transform initialPos;
+    public GameObject parent;
 
     void Start () {
+
+
         if (rend != null)
             rend = GetComponent<Renderer>();
 
@@ -19,7 +28,49 @@ public class WolfSpiritController : MonoBehaviour {
     }	
 	
 	void Update () {
-        shininess = Mathf.PingPong(Time.time, 1);
-        rend.materials[1].SetFloat("_TotalOpacity", shininess);
+
+        parent.transform.position += new Vector3(0, 0.5f, 0) * Time.deltaTime;
+
+        if(start && !end)
+        {
+            if(shininess <= 1)
+            {
+                shininess += 0.3f;
+                rend.materials[1].SetFloat("_TotalOpacity", shininess);
+            }
+        }
+        else if(!start && end)
+        {
+            if (shininess >= 0.05f)
+            {
+                shininess -= 0.3f;
+                rend.materials[1].SetFloat("_TotalOpacity", shininess);
+            }
+        }
+    }
+
+    public void OnAppear()
+    {
+        start = true;
+        end = false;
+    }
+
+    public void OnDisappear()
+    {
+        start = false;
+        end = true;
+    }
+
+    public void OnReposition()
+    {
+        shininess = 0;
+        parent.transform.position = initialPos.position;
+        StartCoroutine(SetOff(.1f));
+    }
+
+    IEnumerator SetOff(float time)
+    {
+        yield return new WaitForSeconds(time);
+        parent.SetActive(false);
     }
 }
