@@ -8,7 +8,7 @@ public class Destructible : MonoBehaviour, IDamageable
     public GameObject drop;
     public GameObject particles;
 
-    public void TakeDamage(int damage, DamageType type = DamageType.Unknown)
+    public void TakeDamage(Damage damage)
     {
         var parts = Instantiate(particles);
         parts.transform.position = transform.position;

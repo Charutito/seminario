@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace BattleSystem.Spells
 				if (entity != null)
 				{
 					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMove);
-					entity.TakeDamage(_behaviour.Definition.Damage, _behaviour.Definition.DamageType);
+					DoDamage(entity);
 				}
 			}
 		}
@@ -52,10 +53,25 @@ namespace BattleSystem.Spells
 
 			    if (entity != null)
 			    {
-				    entity.EntityMove.SmoothMoveTransform(transform.position - (entity.transform.forward * _behaviour.Definition.EffectRadius), TimeToMove, () => SpellDefinition.CastChild(_behaviour.Definition, entity.transform.position + entity.transform.up * 3, Quaternion.identity, entity.transform));
-				    entity.TakeDamage(_behaviour.Definition.Damage, _behaviour.Definition.DamageType);
+				    var effectRadious = Vector3.Distance(entity.transform.position, transform.position) - _behaviour.Definition.EffectRadius;
+				    var movement = Vector3.MoveTowards(entity.transform.position, transform.position, effectRadious);
+				    Action onMoveEnd = () => SpellDefinition.CastChild(_behaviour.Definition,
+					    entity.transform.position + entity.transform.up * 3, Quaternion.identity, entity.transform);
+				    
+				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMove, onMoveEnd);
+				    DoDamage(entity);
 			    }
 		    }
+	    }
+
+	    private void DoDamage(IDamageable damageable)
+	    {
+		    damageable.TakeDamage(new Damage
+		    {
+			    amount = _behaviour.Definition.Damage,
+			    type = _behaviour.Definition.DamageType,
+			    origin = transform
+		    });
 	    }
     }
 }

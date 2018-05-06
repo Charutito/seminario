@@ -1,7 +1,9 @@
-﻿namespace BattleSystem
+﻿using UnityEngine;
+
+namespace BattleSystem
 {
     public interface IDamageable
     {
-        void TakeDamage(int damage, DamageType type = DamageType.Unknown);
+        void TakeDamage(Damage damage);
     }
 }

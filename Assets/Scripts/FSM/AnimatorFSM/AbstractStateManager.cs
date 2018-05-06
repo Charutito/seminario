@@ -8,23 +8,24 @@ namespace AnimatorFSM
 	public class AbstractStateManager : MonoBehaviour
 	{
 		public bool StateLocked { get; set; }
+		public Damage LastDamage;
 		
 		public BasicEnemy Entity { get; private set; }
 		public Animator FSM { get; private set; }
 		
 		protected int CurrentHitsToStun;
 
-		protected virtual void OnEntityDamage(int amount, DamageType type)
-		{ 
-			
+		protected virtual void OnEntityDamage(Damage damage)
+		{
 			Entity.HitFeedback();
+			LastDamage = damage;
 
 			if (CurrentHitsToStun >= Entity.HitsToGetStunned)
 			{
-				type = DamageType.Block;
+				damage.type = DamageType.Block;
 			}
 			
-			switch (type)
+			switch (damage.type)
 			{
 				case DamageType.Block:
 					SetState("Stun");

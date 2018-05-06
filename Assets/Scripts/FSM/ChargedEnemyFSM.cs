@@ -245,11 +245,10 @@ namespace FSM
             entity.CurrentAction = GroupAction.Stalking;
         }
 
-        private void OnTakingDamage(int damage, DamageType type)
+        private void OnTakingDamage(Damage damage)
         {   
             if (entity.EntityFsm.Current.name == "Recovering" || entity.EntityFsm.Current.name == "Stalking" || entity.EntityFsm.Current.name == "Idling")
             {
-
                 entity.HitFeedback();
                 Feed(Trigger.GetHit);
             }

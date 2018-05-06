@@ -25,8 +25,14 @@ namespace Entities
         [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private LayerMask hitLayers;
 
+        [Header("Spirit Recovery")]
         [SerializeField] private int basicAttackSpirit = 5;
         [SerializeField] private int heavyAttackSpirit = 10;
+        
+        [Header("Displacement")]
+        [SerializeField] private float basicDisplacement = 0.7f;
+        [SerializeField] private float heavyDisplacement = 1f;
+        [SerializeField] private float thirdDisplacement = 2f;
 
         private Entity _entity;
         private CharacterEntity _character;
@@ -82,7 +88,12 @@ namespace Entities
                 _character.AtkDdisp();
             }
             
-            AttackAreaLogic(_entity.AttackDamage);
+            AttackAreaLogic(new Damage
+            {
+                amount = _entity.AttackDamage,
+                type = DamageType.Attack,
+                Displacement = basicDisplacement
+            });
         }
         #endregion
 
@@ -94,8 +105,13 @@ namespace Entities
             {
                 _character.AtkDdisp();
             }
-
-            AttackAreaLogic(_entity.HeavyAttackDamage, DamageType.ThirdAttack);
+            
+            AttackAreaLogic(new Damage
+            {
+                amount = _entity.HeavyAttackDamage,
+                type = DamageType.ThirdAttack,
+                Displacement = thirdDisplacement
+            });
         }
         #endregion
 
@@ -112,14 +128,22 @@ namespace Entities
             //CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
             InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
             
-            AttackAreaLogic(_entity.HeavyAttackDamage, DamageType.SpecialAttack);
+            AttackAreaLogic(new Damage
+            {
+                amount = _entity.HeavyAttackDamage,
+                type = DamageType.SpecialAttack,
+                Displacement = heavyDisplacement
+            });
         }
         #endregion
         
         
-        private void AttackAreaLogic(int damage, DamageType damageType = DamageType.Attack)
+        private void AttackAreaLogic(Damage damage)
         {
             var targets = Physics.BoxCastAll(attackArea.transform.position, attackArea.transform.localScale/2, transform.forward, attackArea.transform.rotation, 1, hitLayers);
+            
+            damage.origin = transform;
+            damage.originator = _entity;
             
             foreach (var target in targets)
             {
@@ -139,8 +163,8 @@ namespace Entities
 
                 if (damageable != null)
                 {
-                    _entity.Stats.Spirit.Current += (damageType == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
-                    damageable.TakeDamage(damage, damageType);
+                    _entity.Stats.Spirit.Current += (damage.type == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
+                    damageable.TakeDamage(damage);
                 }
             }
         }

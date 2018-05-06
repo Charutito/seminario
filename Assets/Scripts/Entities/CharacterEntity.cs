@@ -54,37 +54,37 @@ namespace Entities
         }
         public void AtkDdisp()
         {
-            this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
+            EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
         }
 
         public void SecondAbility()
         {
             SpellDefinition.Cast(secondAbilityAbility, transform);
-
         }
 
-        public override void TakeDamage(int damage, DamageType type)
+        public override void TakeDamage(Damage damage)
 	    {
             OnShowDamage();
 
-            if (type == DamageType.ThirdAttack)
+            if (damage.type == DamageType.ThirdAttack)
             {
                 OnGettingHitBack();
-            }else
+            }
+            else
             {
                 OnGetHit();
             }
 
-            if (type == DamageType.SpecialAttack)
+            if (damage.type == DamageType.SpecialAttack)
 		    {
 			    OnStun();
 
 			    if (IsSpecialAttacking)
 			    {
-				    damage = 0;
+				    damage.amount = 0;
 			    }
 		    }
-            base.TakeDamage(damage, type);
+            base.TakeDamage(damage);
 	    }
 
 	    protected override void SetFsm()

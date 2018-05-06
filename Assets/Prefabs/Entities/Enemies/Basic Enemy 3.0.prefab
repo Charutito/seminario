@@ -1612,7 +1612,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032691269069724}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000029653306}
-  m_LocalPosition: {x: -14.22, y: 0.17000002, z: -3.4}
+  m_LocalPosition: {x: -18.76, y: 0.17000002, z: 0.9399996}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_Children:
   - {fileID: 4260987227067240}
@@ -2557,7 +2557,7 @@ MonoBehaviour:
   godMode: 0
   AttackRange: 2
   HitsToGetStunned: 3
-  DmgDispl: 0.7
+  DmgDispl: 1
   getHitDuration: 1
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
   Hitpos: {fileID: 4452403582651476}
@@ -2664,6 +2664,9 @@ MonoBehaviour:
     m_Bits: 256
   basicAttackSpirit: 5
   heavyAttackSpirit: 10
+  basicDisplacement: 0.7
+  heavyDisplacement: 1
+  thirdDisplacement: 2
 --- !u!114 &114536457224216722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2746,7 +2749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982fabe798253cf4db8ed5c3f03bc081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Displacement: 0.7
+  DisplacementMultiplier: 1
+  DisplacementTime: 0.1
 --- !u!114 &114669908954544446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2780,6 +2784,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d13bbcbbd7cc44fb5c2ca4b8d55887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastDamage:
+    amount: 0
+    type: 1
+    origin: {fileID: 0}
+    originator: {fileID: 0}
+    Displacement: 0
 --- !u!114 &114899200458184096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2829,6 +2839,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bccae3d04eba194bae70eb35ac46df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisplacementMultiplier: 1
+  DisplacementTime: 0.3
 --- !u!136 &136074737743571880
 CapsuleCollider:
   m_ObjectHideFlags: 1

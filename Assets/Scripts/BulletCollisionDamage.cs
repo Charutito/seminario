@@ -7,16 +7,23 @@ using Util;
 using System.Collections;
 using BattleSystem;
 
-public class BulletCollisionDamage : MonoBehaviour {
-
-    public int damage;
+public class BulletCollisionDamage : MonoBehaviour
+{
+    public int Damage;
 
     private void OnTriggerEnter(Collider col)
     {
         var damageable = col.gameObject.GetComponent<IDamageable>();
+        
         if (damageable != null)
         {
-            damageable.TakeDamage(damage , DamageType.Attack);
+            damageable.TakeDamage(new Damage
+            {
+                amount = Damage,
+                type = DamageType.Attack,
+                origin = transform
+            });
+            
             Destroy(this.gameObject);
         }
     }

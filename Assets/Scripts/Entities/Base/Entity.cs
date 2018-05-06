@@ -35,7 +35,7 @@ namespace Entities
         #region Events
         public event Action OnAttackRecovering = delegate { };
         public event Action OnAttackRecovered = delegate { };
-        public event Action<int, DamageType> OnTakeDamage = delegate { };
+        public event Action<Damage> OnTakeDamage = delegate { };
         public event Action<Entity> OnDeath = delegate { };
         public UnityEvent OnEntityDie;
         public UnityEvent OnEntityDamage;
@@ -70,13 +70,15 @@ namespace Entities
 
 
         #region IDamageable
-        public virtual void TakeDamage(int damage, DamageType type)
+        public virtual void TakeDamage(Damage damage)
         {
+            Debug.Log(JsonUtility.ToJson(damage));
+            
             if (IsDead) return;
 
             if (!IsGod)
             {
-                Stats.Health.Current -= damage;
+                Stats.Health.Current -= damage.amount;
             }
 
             if (IsDead && OnDeath != null)
@@ -87,7 +89,7 @@ namespace Entities
 
             if (OnTakeDamage != null)
             {
-                OnTakeDamage(damage, type);
+                OnTakeDamage(damage);
                 OnEntityDamage.Invoke();
             }
         }
@@ -120,7 +122,5 @@ namespace Entities
             EntityAttacker = GetComponent<EntityAttacker>();
             EntityMove = GetComponent<EntityMove>();
         }
-        
-        // Animator.SetFloat("Velocity Z", Vector3.Project(agent.desiredVelocity, transform.forward).magnitude)
     }
 }

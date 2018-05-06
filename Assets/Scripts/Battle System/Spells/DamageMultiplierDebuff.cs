@@ -16,10 +16,10 @@ public class DamageMultiplierDebuff : MonoBehaviour
         _entity.OnTakeDamage += OnEntityDamage;
     }
 
-    private void OnEntityDamage(int damage, DamageType type)
+    private void OnEntityDamage(Damage damage)
     {
         _entity.OnTakeDamage -= OnEntityDamage;
-        _entity.TakeDamage(damage, DamageType.Spell);
+        _entity.TakeDamage(damage);
         Destroy(this);
     }
 }

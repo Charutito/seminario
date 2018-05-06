@@ -12,27 +12,27 @@ namespace Entities
 
 		private LineOfSight lineOfSight;
 		
-		public override void TakeDamage(int damage, DamageType type)
+		public override void TakeDamage(Damage damage)
 		{
 			if (IsBlocking && lineOfSight.TargetInSight)
 			{
-				type = DamageType.Block;
-				currentShieldHealth -= damage;
-				damage = 0;
+				damage.type = DamageType.Block;
+				currentShieldHealth -= damage.amount;
+				damage.amount = 0;
 			}
 			else
 			{
 				if (!lineOfSight.TargetInSight)
 				{
-					damage *= 2;
+					damage.amount *= 2;
 					Animator.SetTrigger("BackHit");
-					type = DamageType.Back;
+					damage.type = DamageType.Back;
 				}
 				
 				HitFeedback();
 			}
 
-			base.TakeDamage(damage, type);
+			base.TakeDamage(damage);
 		}
 
 		protected override void SetFsm()

@@ -23,7 +23,12 @@ namespace BattleSystem.Spells
 
             if (damageable != null)
             {
-                damageable.TakeDamage(_damage, _behaviour.Definition.DamageType);
+                damageable.TakeDamage(new Damage
+                {
+                    amount = _damage,
+                    type = _behaviour.Definition.DamageType,
+                    origin = transform
+                });
                 
                 if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);
 

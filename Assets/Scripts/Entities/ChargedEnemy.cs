@@ -20,8 +20,6 @@ namespace Entities
 
         public List<GameObject> chargeParticle;
 
-        private Entity _entity;
-
         public Entity fakeCharacter;
 
         protected override void Start()
@@ -53,22 +51,25 @@ namespace Entities
 
         private void ChargeAttack_Damage(Collider other)
         {
-            var character = other.GetComponent<CharacterEntity>();
+            var damageable = other.GetComponent<IDamageable>();
             
-            if (character != null)
+            if (damageable != null)
             {
-                _entity = GetComponent<Entity>();
-                character.DmgDdisp(transform.forward);
-                character.TakeDamage(_entity.AttackDamage, DamageType.Attack);
+                damageable.TakeDamage(new Damage
+                {
+                    amount = AttackDamage,
+                    type = DamageType.Attack,
+                    origin = transform,
+                    originator = this
+                });
             }
         }
 
-        public override void TakeDamage(int damage, DamageType type)
+        public override void TakeDamage(Damage damage)
         {
-
             if (!IsGod && (EntityFsm.Current.name ==  "Recovering" || EntityFsm.Current.name == "Stalking" || EntityFsm.Current.name == "Idling"))
             {
-                base.TakeDamage(damage, type);
+                base.TakeDamage(damage);
             }
         }
 
@@ -78,8 +79,6 @@ namespace Entities
             {
                 OnAttack();
             }
-        }       
-
+        }
     }
-    
 }

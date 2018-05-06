@@ -200,9 +200,9 @@ namespace FSM
             });
         }
 
-        private void OnTakingDamage(int damage, DamageType type)
+        private void OnTakingDamage(Damage damage)
         {
-            if (type == DamageType.Block && entity.CurrentAction != GroupAction.OutOfControl)
+            if (damage.type == DamageType.Block && entity.CurrentAction != GroupAction.OutOfControl)
             {
                 if (entity.currentShieldHealth > 0)
                 {
@@ -214,7 +214,7 @@ namespace FSM
                     entity.CurrentAction = GroupAction.OutOfControl;
                 }
             }
-            else if(type == DamageType.Back)
+            else if(damage.type == DamageType.Back)
             {
                 weakPointHit = true;
             }
