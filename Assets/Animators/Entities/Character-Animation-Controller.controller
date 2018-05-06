@@ -564,9 +564,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.06491159
   m_TransitionOffset: 0
-  m_ExitTime: 0.06250018
+  m_ExitTime: 0.7517724
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1280,6 +1280,27 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &1101608738366146702
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102323599431101074}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &1101614621453971380
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1290,7 +1311,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102348454065579062}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.25
@@ -1908,7 +1929,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armed-Cast-L-AOE2_start
-  m_Speed: 0.15
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101491117786185470}
@@ -1985,10 +2006,11 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armed-Cast-L-AOE2_hit
-  m_Speed: 0.6
+  m_Speed: 1.1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101614621453971380}
+  - {fileID: 1101608738366146702}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -2254,7 +2276,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armed-Cast-L-AOE2_end
-  m_Speed: 1
+  m_Speed: 0.9
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101241750482339714}
@@ -2466,7 +2488,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armed-Cast-L-AOE2_momentum
-  m_Speed: 0.07
+  m_Speed: 0.7
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101792019078208636}
@@ -2973,7 +2995,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107358379753175810}
-    m_Position: {x: 84, y: 192, z: 0}
+    m_Position: {x: 48, y: 192, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107652666240701154}
     m_Position: {x: 540, y: 192, z: 0}
@@ -3172,7 +3194,7 @@ AnimatorStateMachine:
     m_Position: {x: 372, y: 312, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102348454065579062}
-    m_Position: {x: 372, y: 228, z: 0}
+    m_Position: {x: 132, y: 228, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102001581649178556}
     m_Position: {x: 372, y: 0, z: 0}

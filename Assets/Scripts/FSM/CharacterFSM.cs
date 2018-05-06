@@ -21,6 +21,7 @@ namespace FSM
             public static int None = 5;
             public static int Die = 6;
             public static int GetHit = 7;
+            public static int SpiritPunch = 8;
             public static int GettingHitBack = 9;
         }
 
@@ -41,6 +42,7 @@ namespace FSM
             State<int> Dead  = new State<int>("Dead");
             State<int> GetHit = new State<int>("GetHit");
             State<int> GettingHitBack = new State<int>("Getting Hit Back");
+            State<int> SpiritPunch = new State<int>("SpiritPunch");
 
             SetInitialState(Idle);
 
@@ -52,7 +54,9 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
+
 
             StateConfigurer.Create(Moving)
                 .SetTransition(Trigger.Attack, Attacking)
@@ -62,6 +66,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Attacking)
@@ -72,6 +77,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(SpecialAttack)
@@ -80,6 +86,7 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(ChargedAttack)
@@ -87,6 +94,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Stunned)
@@ -100,9 +108,20 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(GettingHitBack)
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
+
+            StateConfigurer.Create(SpiritPunch)
                 .SetTransition(Trigger.Attack, Attacking)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.Move, Moving)
@@ -120,6 +139,7 @@ namespace FSM
             entity.OnMove += FeedMove;
             entity.OnGetHit += FeedGetHit;
             entity.OnGettingHitBack += FeedGettingHitBack;
+            entity.OnSpiritPunch += FeedSpiritPunch;
 
 
             entity.OnAttackRecovering += () => {
@@ -225,6 +245,22 @@ namespace FSM
             };
             #endregion
 
+            #region Spirit Punch Spell
+            SpiritPunch.OnEnter += () =>
+            {
+                entity.OnMove -= FeedMove;
+                entity.OnDash -= DoDash;
+                entity.Animator.SetTrigger("SpiritPunch");
+            };
+
+            SpiritPunch.OnExit += () =>
+            {
+                entity.OnMove += FeedMove;
+                entity.OnDash += DoDash;
+            };
+
+            #endregion
+
             #region Dead State
             Dead.OnEnter += () =>
             {
@@ -277,6 +313,14 @@ namespace FSM
 			{
 				Feed(Trigger.Attack);
 			}
+        }
+
+        private void FeedSpiritPunch()
+        {
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking)
+            {
+                Feed(Trigger.SpiritPunch);
+            }
         }
 
         private void FeedSpecialAttack()

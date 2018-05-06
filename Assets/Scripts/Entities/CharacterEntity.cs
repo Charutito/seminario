@@ -37,6 +37,7 @@ namespace Entities
         public event Action OnShowDamage = delegate { };
         public event Action OnGettingHitBack = delegate { };
         public event Action OnGetHit = delegate { };
+        public event Action OnSpiritPunch = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -54,6 +55,12 @@ namespace Entities
         public void AtkDdisp()
         {
             this.EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
+        }
+
+        public void SecondAbility()
+        {
+            SpellDefinition.Cast(secondAbilityAbility, transform);
+
         }
 
         public override void TakeDamage(int damage, DamageType type)
@@ -112,7 +119,7 @@ namespace Entities
 		    
 		    if (InputManager.Instance.SecondAbility)
 		    {
-			    SpellDefinition.Cast(secondAbilityAbility, transform);
+                OnSpiritPunch();
 		    }
 
             if (currentDashCharges < maxDashCharges)
