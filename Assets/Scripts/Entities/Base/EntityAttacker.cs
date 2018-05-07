@@ -120,7 +120,24 @@ namespace Entities
         }
         #endregion
 
-        
+        #region Fly Up Attack
+        public void FlyUpAttack_Hit()
+        {
+            if (IsCharacter)
+            {
+                _character.AtkDdisp();
+            }
+
+            AttackAreaLogic(new Damage
+            {
+                amount = _entity.HeavyAttackDamage,
+                type = DamageType.FlyUp,
+                Displacement = basicDisplacement
+            });
+        }
+        #endregion
+
+
         #region Heavy Attack
         public void HeavyAttack_Start()
         {
