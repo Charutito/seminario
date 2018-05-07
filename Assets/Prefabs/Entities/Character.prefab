@@ -5710,7 +5710,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114546486413364574}
-          m_MethodName: SecondAbility
+          m_MethodName: SecondAbilityHit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5781,11 +5781,9 @@ MonoBehaviour:
   noSpiritSound: {fileID: 82052011159961566}
   castPosition: {fileID: 4007300918899862}
   FirstAbility: {fileID: 11400000, guid: c31e7d6a684e07c4b8cd13dbf2c26bc1, type: 2}
-  SecondAbilityAbility: {fileID: 11400000, guid: ee8a60e597f204546b0633dbc3035117,
-    type: 2}
-  ThirdAbilityAbility: {fileID: 11400000, guid: 3119342994fbc6a418d01f920b4df40a,
-    type: 2}
-  FourthAbilityAbility: {fileID: 0}
+  SecondAbility: {fileID: 11400000, guid: ee8a60e597f204546b0633dbc3035117, type: 2}
+  ThirdAbility: {fileID: 11400000, guid: 3119342994fbc6a418d01f920b4df40a, type: 2}
+  FourthAbility: {fileID: 0}
   CurrentFirstAbilityCooldown: 0
   CurrentSecondAbilityCooldown: 0
   CurrentThirdAbilityCooldown: 0

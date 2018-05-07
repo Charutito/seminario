@@ -18,8 +18,8 @@ MonoBehaviour:
   SubCast: {fileID: 100010, guid: 32c66a5aaf5ac1b4d96b21ad01e89d03, type: 2}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
-  Cooldown: 1
-  SpiritCost: 0
+  Cooldown: 2
+  SpiritCost: 20
   Damage: 5
   DamageMultiplier: 0
   DamageType: 9
@@ -29,6 +29,8 @@ MonoBehaviour:
   DestroyAfterTime: 5
   DestroyOnCollision: 1
   EffectRadius: 5
+  MaxAffected: 5
+  WaitTime: 0.1
   EffectLayer:
     serializedVersion: 2
     m_Bits: 2048

@@ -27,9 +27,9 @@ namespace Entities
 	    public AudioSource noSpiritSound;
         public Transform castPosition;
 	    public SpellDefinition FirstAbility;
-	    public SpellDefinition SecondAbilityAbility;
-	    public SpellDefinition ThirdAbilityAbility;
-	    public SpellDefinition FourthAbilityAbility;
+	    public SpellDefinition SecondAbility;
+	    public SpellDefinition ThirdAbility;
+	    public SpellDefinition FourthAbility;
 	    
 	    [Header("Cooldowns (Debug)")]
 	    public float CurrentFirstAbilityCooldown;
@@ -66,9 +66,11 @@ namespace Entities
             EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
         }
 
-        public void SecondAbility()
+        public void SecondAbilityHit()
         {
-            SpellDefinition.Cast(SecondAbilityAbility, transform);
+	        Stats.Spirit.Current -= SecondAbility.SpiritCost;
+	        CurrentSecondAbilityCooldown = SecondAbility.Cooldown;
+            SpellDefinition.Cast(SecondAbility, transform);
         }
 
         public override void TakeDamage(Damage damage)
@@ -122,25 +124,24 @@ namespace Entities
 		    {
 			    OnSpecialAttack();
 		    }
-
-		    if (InputManager.Instance.FirstAbility && CurrentFirstAbilityCooldown <= 0 && !IsDead)
+		    
+		    if (InputManager.Instance.FirstAbility && Stats.Spirit.Current >= FirstAbility.SpiritCost && CurrentFirstAbilityCooldown <= 0 && !IsDead)
 		    {
 			    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
 			    Stats.Spirit.Current -= FirstAbility.SpiritCost;
 			    SpellDefinition.Cast(FirstAbility, transform);
 		    }
-		    if (InputManager.Instance.SecondAbility && CurrentSecondAbilityCooldown <= 0)
+		    if (InputManager.Instance.SecondAbility && Stats.Spirit.Current >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0)
 		    {
                 OnSpiritPunch();
 		    }
-		    if (InputManager.Instance.ThirdAbility && CurrentThirdAbilityCooldown <= 0)
+		    if (InputManager.Instance.ThirdAbility && Stats.Spirit.Current >= ThirdAbility.SpiritCost && CurrentThirdAbilityCooldown <= 0)
 		    {
 			    OnDancingBlades();
 		    }
-		    
-		    if (InputManager.Instance.FourthAbility && CurrentFourthAbilityCooldown <= 0)
+		    if (InputManager.Instance.FourthAbility && Stats.Spirit.Current >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0)
 		    {
-			    SpellDefinition.Cast(FourthAbilityAbility, transform);
+			    SpellDefinition.Cast(FourthAbility, transform);
 		    }
 
 		    UpdateCooldowns();

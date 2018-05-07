@@ -3,7 +3,9 @@ using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using BattleSystem;
+using BattleSystem.Spells;
 using UnityEngine;
 using Util;
 
@@ -23,6 +25,7 @@ namespace FSM
             public static int GetHit = 7;
             public static int SpiritPunch = 8;
             public static int GettingHitBack = 9;
+            public static int DancingBlades = 10;
         }
 
         private CharacterEntity entity;
@@ -32,17 +35,18 @@ namespace FSM
             this.debugName = "CharacterFSM";
             this.entity = entity;
             
-            State<int> Idle = new State<int>("Idle");
-            State<int> Moving = new State<int>("Moving");
-            State<int> Dashing = new State<int>("Dash");
-			State<int> Attacking = new State<int>("Light Attacking");
-			State<int> SpecialAttack = new State<int>("Special Attacking");
-			State<int> ChargedAttack = new State<int>("Charged Attacking");
-            State<int> Stunned  = new State<int>("Stunned");
-            State<int> Dead  = new State<int>("Dead");
-            State<int> GetHit = new State<int>("GetHit");
-            State<int> GettingHitBack = new State<int>("Getting Hit Back");
-            State<int> SpiritPunch = new State<int>("SpiritPunch");
+            var Idle = new State<int>("Idle");
+            var Moving = new State<int>("Moving");
+            var Dashing = new State<int>("Dash");
+            var Attacking = new State<int>("Light Attacking");
+			var SpecialAttack = new State<int>("Special Attacking");
+            var ChargedAttack = new State<int>("Charged Attacking");
+            var Stunned  = new State<int>("Stunned");
+            var Dead  = new State<int>("Dead");
+            var GetHit = new State<int>("GetHit");
+            var GettingHitBack = new State<int>("Getting Hit Back");
+            var SpiritPunch = new State<int>("SpiritPunch");
+            var DancingBlades = new State<int>("DancingBlades");
 
             SetInitialState(Idle);
 
@@ -55,6 +59,7 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
 
@@ -67,6 +72,7 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Attacking)
@@ -78,6 +84,7 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(SpecialAttack)
@@ -87,6 +94,7 @@ namespace FSM
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(ChargedAttack)
@@ -95,6 +103,7 @@ namespace FSM
                 .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(Stunned)
@@ -109,6 +118,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(GettingHitBack)
@@ -119,6 +129,7 @@ namespace FSM
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle)
                 .SetTransition(Trigger.SpiritPunch, SpiritPunch)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
             StateConfigurer.Create(SpiritPunch)
@@ -128,6 +139,17 @@ namespace FSM
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.DancingBlades, DancingBlades)
+                .SetTransition(Trigger.GettingHitBack, GettingHitBack);
+            
+            StateConfigurer.Create(DancingBlades)
+                .SetTransition(Trigger.Attack, Attacking)
+                .SetTransition(Trigger.SpecialAttack, SpecialAttack)
+                .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.Stun, Stunned)
+                .SetTransition(Trigger.Die, Dead)
+                .SetTransition(Trigger.None, Idle)
+                .SetTransition(Trigger.SpiritPunch, SpiritPunch)
                 .SetTransition(Trigger.GettingHitBack, GettingHitBack);
 
 
@@ -140,6 +162,7 @@ namespace FSM
             entity.OnGetHit += FeedGetHit;
             entity.OnGettingHitBack += FeedGettingHitBack;
             entity.OnSpiritPunch += FeedSpiritPunch;
+            entity.OnDancingBlades += FeedDancingBlades;
 
 
             entity.OnAttackRecovering += () => {
@@ -160,6 +183,8 @@ namespace FSM
                 entity.OnGetHit -= FeedGetHit;
                 entity.OnMove -= FeedMove;
                 entity.OnGettingHitBack -= FeedGettingHitBack;
+                entity.OnSpiritPunch -= FeedSpiritPunch;
+                entity.OnDancingBlades -= FeedDancingBlades;
                 Feed(Trigger.Die);
             };
             #endregion
@@ -260,6 +285,22 @@ namespace FSM
             };
 
             #endregion
+            
+            #region Dancing Blades Spell
+            DancingBlades.OnEnter += () =>
+            {
+                entity.OnMove -= FeedMove;
+                entity.CurrentThirdAbilityCooldown = entity.ThirdAbility.Cooldown;
+                entity.Stats.Spirit.Current -= entity.ThirdAbility.SpiritCost;
+                SpellDefinition.Cast(entity.ThirdAbility, entity.transform, true);
+            };
+
+            DancingBlades.OnExit += () =>
+            {
+                entity.OnMove += FeedMove;
+            };
+
+            #endregion
 
             #region Dead State
             Dead.OnEnter += () =>
@@ -338,6 +379,14 @@ namespace FSM
             if (!entity.IsAttacking && !entity.IsSpecialAttacking)
             {
                 Feed(Trigger.SpecialAttack);
+            }
+        }
+        
+        private void FeedDancingBlades()
+        {
+            if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.EntityAttacker.lineArea.GetEnemiesInSight().Any())
+            {
+                Feed(Trigger.DancingBlades);
             }
         }
         #endregion

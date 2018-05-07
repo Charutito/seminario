@@ -20,6 +20,12 @@ public class DamageMultiplierDebuff : MonoBehaviour
     {
         _entity.OnTakeDamage -= OnEntityDamage;
         _entity.TakeDamage(damage);
+        
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _entity.OnTakeDamage -= OnEntityDamage;
     }
 }

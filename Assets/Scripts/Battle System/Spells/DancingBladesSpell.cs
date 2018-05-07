@@ -69,6 +69,7 @@ namespace BattleSystem.Spells
             }
             
             Time.timeScale = 1f;
+            _character.AttackRecovered();
             Destroy(gameObject);
         }
 
