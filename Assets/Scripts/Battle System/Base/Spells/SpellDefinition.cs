@@ -35,6 +35,8 @@ namespace BattleSystem
 
         [Header("AoE")]
         public float EffectRadius = 1f;
+        public int MaxAffected = 5;
+        public float WaitTime = 0.1f;
         public LayerMask EffectLayer;
         
         

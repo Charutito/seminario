@@ -170,7 +170,6 @@ namespace FSM
             {
                 entity.Stats.MoveSpeed.Current = entity.Stats.MoveSpeed.Max;
                 entity.Animator.SetFloat("Velocity Z", 1);
-                entity.OnDash += DoDash;
             };
 
             Moving.OnUpdate += () =>
@@ -188,7 +187,6 @@ namespace FSM
             Moving.OnExit += () =>
             {
                 entity.Animator.SetFloat("Velocity Z", 0);
-                entity.OnDash -= DoDash;
             };
             #endregion
 
@@ -234,6 +232,8 @@ namespace FSM
             Stunned.OnEnter += () =>
             {
                 entity.Animator.SetTrigger("Countered");
+                entity.IsAttacking = false;
+                entity.IsSpecialAttacking = false;
             };
             #endregion
 
@@ -242,6 +242,8 @@ namespace FSM
             {
                 entity.Animator.SetTrigger("GetHit");
                 entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
+                entity.IsAttacking = false;
+                entity.IsSpecialAttacking = false;
             };
             #endregion
 
@@ -249,14 +251,12 @@ namespace FSM
             SpiritPunch.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
-                entity.OnDash -= DoDash;
                 entity.Animator.SetTrigger("SpiritPunch");
             };
 
             SpiritPunch.OnExit += () =>
             {
                 entity.OnMove += FeedMove;
-                entity.OnDash += DoDash;
             };
 
             #endregion
@@ -272,15 +272,25 @@ namespace FSM
 
         private void DoDash()
         {
-            if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.currentDashCharges > 0)
+            // Prevents character dash outside moving or idle state. (Current is the current FSM state)
+            if (!string.Equals(Current.name, "Moving") && !string.Equals(Current.name, "Idle")) return;
+
+            var dashLength = entity.dashLenght;
+
+            if (entity.currentDashCharges <= 0)
             {
-                var dashPosition = entity.transform.position +
-                                   entity.EntityAttacker.lineArea.transform.forward * entity.dashLenght;
-                
-                entity.currentDashCharges--;
-                entity.EntityMove.RotateInstant(dashPosition);
-                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
+                dashLength = 1;
             }
+            else
+            {
+                entity.currentDashCharges--;
+            }
+
+            var dashPosition = entity.transform.position +
+                               entity.EntityAttacker.lineArea.transform.forward * dashLength;
+            
+            entity.EntityMove.RotateInstant(dashPosition);
+            entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
         }
 
         #region Feed Functions

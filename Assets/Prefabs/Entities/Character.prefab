@@ -1408,7 +1408,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4405832875573498}
   - component: {fileID: 65867797543242432}
-  - component: {fileID: 114834045257584748}
   m_Layer: 12
   m_Name: Collider
   m_TagString: Untagged
@@ -3199,8 +3198,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1521859523685064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 4}
+  m_LocalScale: {x: 3, y: 2, z: 8}
   m_Children: []
   m_Father: {fileID: 4680096211468686}
   m_RootOrder: 0
@@ -4755,10 +4754,10 @@ BoxCollider:
   m_GameObject: {fileID: 1521859523685064}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 3.4607353}
-  m_Center: {x: -9.711254e-11, y: 1, z: 1.7303622}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82052011159961566
 AudioSource:
   m_ObjectHideFlags: 1
@@ -5290,6 +5289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb1f72402aa064e86f3420a5f5c1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  _hitCollider: {fileID: 65867797543242432}
 --- !u!114 &114142617092991746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5766,7 +5769,7 @@ MonoBehaviour:
       _Max: 45
   attackDamage: 10
   heavyAttackDamage: 25
-  godMode: 0
+  godMode: 1
   dashLenght: 2
   maxDashCharges: 3
   currentDashCharges: 3
@@ -5777,9 +5780,16 @@ MonoBehaviour:
   DmgDispl: 0.5
   noSpiritSound: {fileID: 82052011159961566}
   castPosition: {fileID: 4007300918899862}
-  firstAbility: {fileID: 11400000, guid: c31e7d6a684e07c4b8cd13dbf2c26bc1, type: 2}
-  secondAbilityAbility: {fileID: 11400000, guid: ee8a60e597f204546b0633dbc3035117,
+  FirstAbility: {fileID: 11400000, guid: c31e7d6a684e07c4b8cd13dbf2c26bc1, type: 2}
+  SecondAbilityAbility: {fileID: 11400000, guid: ee8a60e597f204546b0633dbc3035117,
     type: 2}
+  ThirdAbilityAbility: {fileID: 11400000, guid: 3119342994fbc6a418d01f920b4df40a,
+    type: 2}
+  FourthAbilityAbility: {fileID: 0}
+  CurrentFirstAbilityCooldown: 0
+  CurrentSecondAbilityCooldown: 0
+  CurrentThirdAbilityCooldown: 0
+  CurrentFourthAbilityCooldown: 0
 --- !u!114 &114610570282533904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5885,17 +5895,6 @@ MonoBehaviour:
   dissolve: {fileID: 4800000, guid: 5a5af61c77a491a4c96fc33790f4ff3e, type: 3}
   initialPos: {fileID: 4309684532598212}
   parent: {fileID: 1288936863078358}
---- !u!114 &114834045257584748
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1521859523685064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad3428022fc0844bb0cd65f410893dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114958416480748104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5920,7 +5919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 114958416480748104}
   lineArea: {fileID: 114023290422945666}
-  IsCharacter: 0
+  IsCharacter: 1
   h_magn: 1
   h_rough: 1.2
   h_fadeIn: 0.1
@@ -5930,6 +5929,9 @@ MonoBehaviour:
     m_Bits: 2048
   basicAttackSpirit: 5
   heavyAttackSpirit: 10
+  basicDisplacement: 0.7
+  heavyDisplacement: 1
+  thirdDisplacement: 2
 --- !u!136 &136363932930809266
 CapsuleCollider:
   m_ObjectHideFlags: 1

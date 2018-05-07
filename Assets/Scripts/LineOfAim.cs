@@ -2,47 +2,31 @@
 using Managers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Entities;
 using UnityEngine;
 using Util;
 
 public class LineOfAim : MonoBehaviour
 {
-    private List<GameObject> lastEnemiesInSight;
+    [SerializeField] private LayerMask _hitLayers;
+    [SerializeField] private Collider _hitCollider;
 
-    private ColliderObserver hitCollider;
-
-    public void GetEnemiesInSight(Action<List<GameObject>> callback)
+    public IEnumerable<Entity> GetEnemiesInSight()
     {
-        lastEnemiesInSight.Clear();
-        hitCollider.gameObject.SetActive(true);
+        var targets = Physics.BoxCastAll(_hitCollider.transform.position, _hitCollider.transform.localScale/2, transform.forward, _hitCollider.transform.rotation, 1, _hitLayers);
 
-        FrameUtil.OnNextFrame(()=>
-        {
-            hitCollider.gameObject.SetActive(false);
-            callback(lastEnemiesInSight);
-        });
+        return targets.Select(target => target.collider.GetComponent<Entity>()).Where(entity => entity != null).ToList();
     }
 
-    private void HitCollider_TriggerEnter(Collider obj)
-    {
-        lastEnemiesInSight.Add(obj.gameObject);
-    }
-
-    public void RotateInstant(Vector3 target)
+    private void RotateInstant(Vector3 target)
     {
         transform.LookAt(new Vector3(target.x, transform.position.y, target.z), Vector3.up);
     }
 
-    private void Awake()
-    {
-        hitCollider = GetComponentInChildren<ColliderObserver>();
-    }
-
     private void Start()
     {
-        lastEnemiesInSight = new List<GameObject>();
-        hitCollider.TriggerEnter += HitCollider_TriggerEnter;
-        hitCollider.gameObject.SetActive(false);
+        _hitCollider = _hitCollider ?? GetComponentInChildren<Collider>();
     }
 
     private void Update()
@@ -52,4 +36,12 @@ public class LineOfAim : MonoBehaviour
              RotateInstant(new Vector3(transform.position.x + InputManager.Instance.AxisHorizontal, transform.position.y, transform.position.z + InputManager.Instance.AxisVertical));
         }
 	}
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+            
+        Gizmos.DrawRay(_hitCollider.transform.position, _hitCollider.transform.forward);
+        Gizmos.DrawWireCube(_hitCollider.transform.position, _hitCollider.transform.localScale);
+    }
 }

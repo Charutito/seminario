@@ -9,26 +9,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b8cf16342efb841ae1febe83ddb033, type: 3}
-  m_Name: GravitonCastSpellDefinition
+  m_Name: DancingBladesSpellDefinition
   m_EditorClassIdentifier: 
-  Name: Graviton
+  Name: DancingBlades
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 1652481407855950, guid: 7706c5e963e506f4d85ae10beea4c3d8, type: 2}
-  SubCast: {fileID: 1652481407855950, guid: 7580d52e84170f245af90c037f72f559, type: 2}
+  Prefab: {fileID: 100010, guid: 20927401eeaaafe4282ad92b0ef25bc3, type: 2}
+  SubCast: {fileID: 0}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
   Cooldown: 1
   SpiritCost: 0
-  Damage: 0
+  Damage: 20
   DamageMultiplier: 0
-  DamageType: 11
+  DamageType: 8
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
   Speed: 0
-  DestroyAfterTime: 3
+  DestroyAfterTime: 0
   DestroyOnCollision: 1
-  EffectRadius: 5
+  EffectRadius: 0
+  MaxAffected: 10
+  WaitTime: 0.1
   EffectLayer:
     serializedVersion: 2
     m_Bits: 2048

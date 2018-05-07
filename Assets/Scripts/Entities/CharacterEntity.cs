@@ -26,8 +26,16 @@ namespace Entities
 	    [Header("Spells")]
 	    public AudioSource noSpiritSound;
         public Transform castPosition;
-	    public SpellDefinition firstAbility;
-	    public SpellDefinition secondAbilityAbility;
+	    public SpellDefinition FirstAbility;
+	    public SpellDefinition SecondAbilityAbility;
+	    public SpellDefinition ThirdAbilityAbility;
+	    public SpellDefinition FourthAbilityAbility;
+	    
+	    [Header("Cooldowns (Debug)")]
+	    public float CurrentFirstAbilityCooldown;
+	    public float CurrentSecondAbilityCooldown;
+	    public float CurrentThirdAbilityCooldown;
+	    public float CurrentFourthAbilityCooldown;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -38,6 +46,7 @@ namespace Entities
         public event Action OnGettingHitBack = delegate { };
         public event Action OnGetHit = delegate { };
         public event Action OnSpiritPunch = delegate { };
+        public event Action OnDancingBlades = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -59,11 +68,13 @@ namespace Entities
 
         public void SecondAbility()
         {
-            SpellDefinition.Cast(secondAbilityAbility, transform);
+            SpellDefinition.Cast(SecondAbilityAbility, transform);
         }
 
         public override void TakeDamage(Damage damage)
-	    {
+        {
+	        if (IsInvulnerable) return;
+	        
             OnShowDamage();
 
             if (damage.type == DamageType.ThirdAttack)
@@ -95,34 +106,51 @@ namespace Entities
 
 	    protected override void Update()
 	    {
-		    if (InputManager.Instance.AxisMoving && OnMove != null)
+		    if (InputManager.Instance.AxisMoving)
 		    {
 			    OnMove();
 		    }
-		    if (InputManager.Instance.Attack && OnAttack != null)
+		    if (InputManager.Instance.Attack)
 		    {
 			    OnAttack();
 		    }
-		    if (InputManager.Instance.Dash && OnDash != null)
+		    if (InputManager.Instance.Dash)
 		    {
 			    OnDash();
 		    }
-		    if (InputManager.Instance.SpecialAttack && OnSpecialAttack != null)
+		    if (InputManager.Instance.SpecialAttack)
 		    {
 			    OnSpecialAttack();
 		    }
 
-		    if (InputManager.Instance.FirstAbility)
+		    if (InputManager.Instance.FirstAbility && CurrentFirstAbilityCooldown <= 0 && !IsDead)
 		    {
-			    SpellDefinition.Cast(firstAbility, transform);
+			    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
+			    Stats.Spirit.Current -= FirstAbility.SpiritCost;
+			    SpellDefinition.Cast(FirstAbility, transform);
 		    }
-		    
-		    if (InputManager.Instance.SecondAbility)
+		    if (InputManager.Instance.SecondAbility && CurrentSecondAbilityCooldown <= 0)
 		    {
                 OnSpiritPunch();
 		    }
+		    if (InputManager.Instance.ThirdAbility && CurrentThirdAbilityCooldown <= 0)
+		    {
+			    OnDancingBlades();
+		    }
+		    
+		    if (InputManager.Instance.FourthAbility && CurrentFourthAbilityCooldown <= 0)
+		    {
+			    SpellDefinition.Cast(FourthAbilityAbility, transform);
+		    }
 
-            if (currentDashCharges < maxDashCharges)
+		    UpdateCooldowns();
+
+		    base.Update();
+	    }
+
+	    private void UpdateCooldowns()
+	    {
+		    if (currentDashCharges < maxDashCharges)
 		    {
 			    if (currentDashCooldown <= 0)
 			    {
@@ -137,8 +165,23 @@ namespace Entities
 		    {
 			    currentDashCooldown = dashChargesCooldown;
 		    }
-
-		    base.Update();
+		    
+		    if (CurrentFirstAbilityCooldown > 0)
+		    {
+			    CurrentFirstAbilityCooldown -= Time.deltaTime;
+		    }
+		    if (CurrentSecondAbilityCooldown > 0)
+		    {
+			    CurrentSecondAbilityCooldown -= Time.deltaTime;
+		    }
+		    if (CurrentThirdAbilityCooldown > 0)
+		    {
+			    CurrentThirdAbilityCooldown -= Time.deltaTime;
+		    }
+		    if (CurrentFourthAbilityCooldown > 0)
+		    {
+			    CurrentFourthAbilityCooldown -= Time.deltaTime;
+		    }
 	    }
     }
 }

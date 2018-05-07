@@ -49,7 +49,7 @@ namespace Entities
 
         public void LightAttack_Start()
         {
-            if (lineArea != null)
+            /*if (lineArea != null)
             {
                 lineArea.GetEnemiesInSight((enemies) =>
                 {
@@ -78,6 +78,11 @@ namespace Entities
                         _entity.Animator.SetTrigger("Attack");
                     }
                 });
+            }*/
+
+            if (IsCharacter)
+            {
+                _entity.Animator.SetTrigger("Attack");
             }
         }
 

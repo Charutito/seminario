@@ -26,6 +26,7 @@ namespace Entities
         public bool IsBlocking { get; set; }
         public bool IsDead { get { return stats.Health.Current <= stats.Health.Min; } }
         public bool IsGod { get { return godMode; } }
+        public bool IsInvulnerable { get; set; }
         public EntityStats Stats { get { return stats; } }
         public int AttackDamage { get { return attackDamage; } }
         public int HeavyAttackDamage { get { return heavyAttackDamage; } }
@@ -72,9 +73,7 @@ namespace Entities
         #region IDamageable
         public virtual void TakeDamage(Damage damage)
         {
-            Debug.Log(JsonUtility.ToJson(damage));
-            
-            if (IsDead) return;
+            if (IsDead || IsInvulnerable) return;
 
             if (!IsGod)
             {
