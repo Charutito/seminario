@@ -292,6 +292,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.28654143
+        functionName: TriggerEvent
+        data: AttackRecovering
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.32478362
         functionName: TriggerEvent
         data: LeftAttackStart
@@ -309,13 +316,6 @@ ModelImporter:
       - time: 0.57879657
         functionName: TriggerEvent
         data: LeftAttackEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.6758972
-        functionName: TriggerEvent
-        data: AttackRecovering
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
