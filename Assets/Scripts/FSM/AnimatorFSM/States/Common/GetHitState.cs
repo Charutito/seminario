@@ -19,7 +19,7 @@ namespace AnimatorFSM.States
         {
             OnEnter += () =>
             {
-                _stateManager.Entity.Agent.ResetPath();
+                if(_stateManager.Entity.Agent.enabled) _stateManager.Entity.Agent.ResetPath();
                 _stateManager.Entity.Animator.SetTrigger(EntityAnimations.GetHit);
                 
                 _stateManager.Entity.EntityMove.SmoothMoveTransform(

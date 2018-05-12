@@ -73,9 +73,9 @@ namespace Entities
         #region IDamageable
         public virtual void TakeDamage(Damage damage)
         {
-            if (IsDead || IsInvulnerable) return;
+            if (IsDead || (IsInvulnerable && !damage.Absolute)) return;
 
-            if (!IsGod)
+            if (!IsGod || damage.Absolute)
             {
                 Stats.Health.Current -= damage.amount;
             }

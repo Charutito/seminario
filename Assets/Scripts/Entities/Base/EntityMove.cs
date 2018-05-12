@@ -64,6 +64,24 @@ namespace Entities
 
             return false;
         }
+
+        public bool IsAgentOnNavMesh()
+        {
+            const float onMeshThreshold = 3;
+            var agentPosition = _entity.transform.position;
+            NavMeshHit hit;
+
+            if (NavMesh.SamplePosition(agentPosition, out hit, onMeshThreshold, NavMesh.AllAreas))
+            {
+                if (Mathf.Approximately(agentPosition.x, hit.position.x)
+                    && Mathf.Approximately(agentPosition.z, hit.position.z))
+                {
+                    return agentPosition.y >= hit.position.y;
+                }
+            }
+
+            return false;
+        }
         #endregion
 
 

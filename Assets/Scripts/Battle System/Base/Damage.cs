@@ -13,5 +13,6 @@ namespace BattleSystem
 		[SerializeField] public Transform origin;
 		[SerializeField] public Entity originator;
 		[SerializeField] public float Displacement;
+		[SerializeField] public bool Absolute;
 	}
 }
