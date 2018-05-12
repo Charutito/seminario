@@ -28,7 +28,7 @@ namespace AnimatorFSM.States
 				if (_stateManager.LastDamage.Displacement > 0f)
 				{
 					_stateManager.Entity.EntityMove.SmoothMoveTransform(
-						Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement * DisplacementMultiplier), DisplacementTime);
+						Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)), DisplacementTime);
 				}
 				
 				if (_stateManager.Entity.EntityAttacker != null) _stateManager.Entity.EntityAttacker.attackArea.enabled = false;

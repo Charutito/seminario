@@ -14,12 +14,14 @@ namespace BattleSystem.Spells
         private SpellBehaviour _behaviour;
         private bool _previousStatus;
         private CharacterEntity _character;
+        private List<GameObject> _mesh;
+        private GameObject _white;
         
         private void Start()
         {
             _behaviour = GetComponent<SpellBehaviour>();
             _character = GameManager.Instance.Character;
-            
+            _mesh = GameObject.FindGameObjectsWithTag("Body").ToList();
             Cast();
         }
 
@@ -27,6 +29,11 @@ namespace BattleSystem.Spells
         {
             _previousStatus = _character.IsInvulnerable;
             _character.IsInvulnerable = true;
+
+            foreach (var meshito in _mesh)
+            {
+                meshito.SetActive(false);
+            }
             
             if (_character.EntityAttacker.lineArea != null)
             {
@@ -51,7 +58,9 @@ namespace BattleSystem.Spells
                 casted = true;
                 _character.EntityMove.RotateInstant(enemy.transform.position);
                 _character.EntityMove.SmoothMoveTransform(enemy.transform.position - transform.forward, halfWait);
-                
+
+                GameManager.Instance.Combo++;
+
                 enemy.TakeDamage(new Damage
                 {
                     amount = _behaviour.Definition.Damage,
@@ -67,15 +76,19 @@ namespace BattleSystem.Spells
             {
                 _character.EntityMove.SmoothMoveTransform(_character.transform.position + _character.transform.forward * 2, halfWait);
             }
-            
-            Time.timeScale = 1f;
+
             _character.AttackRecovered();
             Destroy(gameObject);
         }
 
         private void OnDestroy()
         {
+            Time.timeScale = 1f;
             _character.IsInvulnerable = _previousStatus;
+            foreach (var meshito in _mesh)
+            {
+                meshito.SetActive(true);
+            }
         }
     }
 }

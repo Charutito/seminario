@@ -23,6 +23,7 @@ namespace Entities
         [SerializeField] private float h_rough = 1;
         [SerializeField] private float h_fadeIn = 0.1f;
         [SerializeField] private float h_fadeOut = 2f;
+        [SerializeField] private float heavyaoe = 2f;
         [SerializeField] private LayerMask hitLayers;
 
         [Header("Spirit Recovery")]
@@ -116,7 +117,7 @@ namespace Entities
                 amount = _entity.HeavyAttackDamage,
                 type = DamageType.ThirdAttack,
                 Displacement = thirdDisplacement
-            });
+            }, true);
         }
         #endregion
 
@@ -160,18 +161,32 @@ namespace Entities
         #endregion
         
         
-        private void AttackAreaLogic(Damage damage)
+        private void AttackAreaLogic(Damage damage, bool aoe = false)
         {
-            var targets = Physics.BoxCastAll(attackArea.transform.position, attackArea.transform.localScale/2, transform.forward, attackArea.transform.rotation, 1, hitLayers);
+            List<Collider> targets = new List<Collider>();
+
+            if (aoe)
+            {
+                targets = Physics.OverlapSphere(attackArea.transform.position, heavyaoe, hitLayers).ToList();
+            }
+            else
+            {
+                var tarjetas = Physics.BoxCastAll(attackArea.transform.position, attackArea.transform.localScale / 2, transform.forward, attackArea.transform.rotation, 1, hitLayers);
+
+                foreach (var target in tarjetas)
+                {
+                    targets.Add(target.collider);
+                }
+            }
             
             damage.origin = transform;
             damage.originator = _entity;
             
             foreach (var target in targets)
             {
-                var damageable = target.collider.GetComponent<IDamageable>();
-                var character = target.collider.GetComponent<CharacterEntity>();
-                var bullet = target.collider.GetComponent<BulletMove>();
+                var damageable = target.GetComponent<IDamageable>();
+                var character = target.GetComponent<CharacterEntity>();
+                var bullet = target.GetComponent<BulletMove>();
             
                 if (character != null)
                 {
@@ -185,6 +200,10 @@ namespace Entities
 
                 if (damageable != null)
                 {
+                    if (IsCharacter)
+                    {
+                        GameManager.Instance.Combo++;
+                    }
                     _entity.Stats.Spirit.Current += (damage.type == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
                     damageable.TakeDamage(damage);
                 }

@@ -8,6 +8,7 @@ using BattleSystem;
 using BattleSystem.Spells;
 using UnityEngine;
 using Util;
+using GameUtils;
 
 namespace FSM
 {
@@ -220,13 +221,13 @@ namespace FSM
             {
 				entity.IsAttacking = true;
 
-                entity.OnMove -= FeedMove;
+               // entity.OnMove -= FeedMove;
                 entity.EntityAttacker.LightAttack_Start();
             };
 
             Attacking.OnExit += () =>
             {
-                entity.OnMove += FeedMove;
+                //entity.OnMove += FeedMove;
             };
             #endregion
 
@@ -290,9 +291,7 @@ namespace FSM
             DancingBlades.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
-                entity.CurrentThirdAbilityCooldown = entity.ThirdAbility.Cooldown;
-                entity.Stats.Spirit.Current -= entity.ThirdAbility.SpiritCost;
-                SpellDefinition.Cast(entity.ThirdAbility, entity.transform, true);
+                entity.Animator.SetTrigger("ChargedAttack");
             };
 
             DancingBlades.OnExit += () =>
@@ -314,7 +313,9 @@ namespace FSM
         private void DoDash()
         {
             // Prevents character dash outside moving or idle state. (Current is the current FSM state)
-            if (!string.Equals(Current.name, "Moving") && !string.Equals(Current.name, "Idle")) return;
+            if (!string.Equals(Current.name, "Moving") &&
+                !string.Equals(Current.name, "Light Attacking") &&
+                !string.Equals(Current.name, "Idle")) return;
 
             var dashLength = entity.dashLenght;
 
