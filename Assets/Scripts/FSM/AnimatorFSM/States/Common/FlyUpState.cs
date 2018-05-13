@@ -24,6 +24,12 @@ public class FlyUpState : BaseState
 			_stateManager.Entity.Agent.enabled = false;
 			_stateManager.StateLocked = true;
 			_stateManager.Entity.Animator.SetTrigger(EntityAnimations.FlyUp);
+			
+			if (_stateManager.LastDamage.Displacement > 0f)
+			{
+				_stateManager.Entity.EntityMove.SmoothMoveTransform(
+					Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement), 0.1f);
+			}
 		};
 		
 		OnExit += () =>

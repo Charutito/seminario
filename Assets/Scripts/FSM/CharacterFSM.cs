@@ -278,6 +278,7 @@ namespace FSM
             {
                 entity.OnMove -= FeedMove;
                 entity.Animator.SetTrigger("SpiritPunch");
+                entity.SecondAbilityHit();
             };
 
             SpiritPunch.OnExit += () =>

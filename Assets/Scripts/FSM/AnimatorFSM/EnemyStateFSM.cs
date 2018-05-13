@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AnimatorFSM.States;
 using UnityEngine;
+using Util;
 
 namespace AnimatorFSM
 {
@@ -37,11 +38,21 @@ namespace AnimatorFSM
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			_currentState = _currentState ?? (animator.GetComponentInChildren(AvailableStates[changeTo], true) as MonoBehaviour);
-		
-			if(_currentState != null)
-				_currentState.enabled = true;
+
+			if (_currentState != null)
+			{
+				_currentState.enabled = false;
+				
+				FrameUtil.OnNextFrame(() =>
+				{
+					_currentState.enabled = true;
+				});
+				
+			}
 			else
+			{
 				Debug.LogWarning(string.Format( "The state [{0}] is not attached to the entity [{1}]",  changeTo, animator.transform.parent.name));
+			}
 		}
 
 		override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

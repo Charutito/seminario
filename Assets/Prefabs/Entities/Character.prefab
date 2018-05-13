@@ -3741,7 +3741,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198296666948224}
-  m_LocalRotation: {x: -0, y: -0.002173692, z: -0, w: 0.9999977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5293,6 +5293,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _hitCollider: {fileID: 65867797543242432}
+  _move: 1
 --- !u!114 &114142617092991746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5831,7 +5832,7 @@ MonoBehaviour:
   noSpiritSound: {fileID: 82052011159961566}
   castPosition: {fileID: 4007300918899862}
   FirstAbility: {fileID: 11400000, guid: c31e7d6a684e07c4b8cd13dbf2c26bc1, type: 2}
-  SecondAbility: {fileID: 11400000, guid: ee8a60e597f204546b0633dbc3035117, type: 2}
+  SecondAbility: {fileID: 11400000, guid: 5d5a1ef4997be494ba3abb89a5a77fc9, type: 2}
   ThirdAbility: {fileID: 11400000, guid: 3119342994fbc6a418d01f920b4df40a, type: 2}
   FourthAbility: {fileID: 0}
   CurrentFirstAbilityCooldown: 0

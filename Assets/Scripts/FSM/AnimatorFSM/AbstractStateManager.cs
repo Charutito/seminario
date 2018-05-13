@@ -35,7 +35,7 @@ namespace AnimatorFSM
 					SetState("KnockBack", true);
 					break;
 				case DamageType.FlyUp:
-					SetState("FlyUp");
+					SetState("FlyUp", true);
 					break;
 				case DamageType.Graviton:
 					SetState("Graviton", true);
@@ -49,6 +49,8 @@ namespace AnimatorFSM
 
 		protected virtual void OnEntityDeath(Entity entity)
 		{
+			Entity.OnTakeDamage -= OnEntityDamage;
+			Entity.OnDeath -= OnEntityDeath;
 			SetState("Death", true);
 		}
 
