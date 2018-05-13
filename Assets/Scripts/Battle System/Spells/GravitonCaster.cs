@@ -15,7 +15,7 @@ namespace BattleSystem.Spells
 
 		public void Cast()
 		{
-			SpellDefinition.CastChild(_behaviour.Definition, transform.position, transform.rotation);
+			SpellDefinition.CastChild(_behaviour.Definition, transform.position, transform.rotation, transform);
 			Destroy(gameObject);
 		}
 	}
