@@ -368,7 +368,8 @@ namespace FSM
             BackFlip.OnEnter += () =>
             {
                 entity.OnMove -= FeedMove;
-                //entity.Animator.SetTrigger("ChargedAttack");
+                entity.Animator.SetTrigger("BackFlip");
+                entity.FourthAbilityHit();
             };
 
             BackFlip.OnExit += () =>

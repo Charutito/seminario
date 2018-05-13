@@ -82,12 +82,19 @@ namespace Entities
             SpellDefinition.Cast(SecondAbility, transform);
         }
 
-        public void DancingBladesStart()
-        {
-            Stats.Spirit.Current -= ThirdAbility.SpiritCost;
-            CurrentThirdAbilityCooldown = ThirdAbility.Cooldown;
-            SpellDefinition.Cast(ThirdAbility, transform, true);
-        }
+	    public void DancingBladesStart()
+	    {
+		    Stats.Spirit.Current -= ThirdAbility.SpiritCost;
+		    CurrentThirdAbilityCooldown = ThirdAbility.Cooldown;
+		    SpellDefinition.Cast(ThirdAbility, transform, true);
+	    }
+	    
+	    public void FourthAbilityHit()
+	    {
+		    Stats.Spirit.Current -= FourthAbility.SpiritCost;
+		    CurrentFourthAbilityCooldown = FourthAbility.Cooldown;
+		    SpellDefinition.Cast(FourthAbility, transform, true);
+	    }
 
         public override void TakeDamage(Damage damage)
         {
@@ -155,7 +162,7 @@ namespace Entities
 		    }
 		    if (InputManager.Instance.FourthAbility && Stats.Spirit.Current >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0  && !IsDead)
 		    {
-			    //OnBackflipCast();
+			    OnBackflipCast();
 		    }
 
 		    UpdateCooldowns();
