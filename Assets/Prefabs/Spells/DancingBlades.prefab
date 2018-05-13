@@ -27,6 +27,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4380589107822394}
   - {fileID: 4864761567621650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,6 +43,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100010}
   m_IsPrefabParent: 1
+--- !u!1 &1300599443863236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4380589107822394}
+  - component: {fileID: 114862329881600568}
+  m_Layer: 0
+  m_Name: LineOfAim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1397833754518048
 GameObject:
   m_ObjectHideFlags: 1
@@ -54,6 +71,22 @@ GameObject:
   - component: {fileID: 199902941838602594}
   m_Layer: 0
   m_Name: iceStars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1568761275390812
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4446095686916900}
+  - component: {fileID: 65463171547982052}
+  m_Layer: 12
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,6 +143,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4380589107822394
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300599443863236}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4446095686916900}
+  m_Father: {fileID: 400010}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4446095686916900
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568761275390812}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 4}
+  m_LocalScale: {x: 3, y: 2, z: 8}
+  m_Children: []
+  m_Father: {fileID: 4380589107822394}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4605331018376504
 Transform:
   m_ObjectHideFlags: 1
@@ -163,8 +223,20 @@ Transform:
   - {fileID: 4605331018376504}
   - {fileID: 4720259552209764}
   m_Father: {fileID: 400010}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65463171547982052
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568761275390812}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &96788363086396796
 TrailRenderer:
   serializedVersion: 2
@@ -284,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a160f7c88aade24fb616f71b7fda1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeltaSlow: 0.3
+  DeltaSlow: 0.4
 --- !u!114 &114478300894812936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -297,6 +369,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Definition: {fileID: 0}
+--- !u!114 &114862329881600568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300599443863236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2bb1f72402aa064e86f3420a5f5c1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  _hitCollider: {fileID: 65463171547982052}
+  _move: 0
 --- !u!198 &198061841664252160
 ParticleSystem:
   m_ObjectHideFlags: 1

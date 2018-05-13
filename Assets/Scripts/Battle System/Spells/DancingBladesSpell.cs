@@ -16,11 +16,13 @@ namespace BattleSystem.Spells
         private CharacterEntity _character;
         private List<GameObject> _mesh;
         private GameObject _white;
+        private LineOfAim _lineOfAim;
         
         private void Start()
         {
             _behaviour = GetComponent<SpellBehaviour>();
             _character = GameManager.Instance.Character;
+            _lineOfAim = GetComponentInChildren<LineOfAim>();
             _mesh = GameObject.FindGameObjectsWithTag("Body").ToList();
             Cast();
         }
@@ -37,8 +39,9 @@ namespace BattleSystem.Spells
             
             if (_character.EntityAttacker.lineArea != null)
             {
-                var enemies = _character.EntityAttacker.lineArea.GetEnemiesInSight()
+                var enemies = _lineOfAim.GetEnemiesInSight()
                     .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
+                    .Where(e => _character.EntityMove.CanReachPosition(e.transform.position))
                     .Take(_behaviour.Definition.MaxAffected)
                     .ToList();
                 

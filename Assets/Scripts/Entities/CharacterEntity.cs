@@ -47,6 +47,8 @@ namespace Entities
         public event Action OnGetHit = delegate { };
         public event Action OnSpiritPunch = delegate { };
         public event Action OnDancingBlades = delegate { };
+        public event Action OnGravitonCast = delegate { };
+        public event Action OnBackflipCast = delegate { };
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -65,6 +67,13 @@ namespace Entities
         {
             EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
         }
+	    
+	    public void FirstAbilityHit()
+	    {
+		    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
+		    Stats.Spirit.Current -= FirstAbility.SpiritCost;
+		    SpellDefinition.Cast(FirstAbility, transform);
+	    }
 
         public void SecondAbilityHit()
         {
@@ -134,22 +143,20 @@ namespace Entities
 		    
 		    if (InputManager.Instance.FirstAbility && Stats.Spirit.Current >= FirstAbility.SpiritCost && CurrentFirstAbilityCooldown <= 0 && !IsDead)
 		    {
-			    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
-			    Stats.Spirit.Current -= FirstAbility.SpiritCost;
-			    SpellDefinition.Cast(FirstAbility, transform);
+			    OnGravitonCast();
 		    }
-		    if (InputManager.Instance.SecondAbility && Stats.Spirit.Current >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0)
+		    if (InputManager.Instance.SecondAbility && Stats.Spirit.Current >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0 && !IsDead)
 		    {
                 OnSpiritPunch();
 		    }
-		    if (InputManager.Instance.ThirdAbility && Stats.Spirit.Current >= ThirdAbility.SpiritCost && CurrentThirdAbilityCooldown <= 0)
+		    if (InputManager.Instance.ThirdAbility && Stats.Spirit.Current >= ThirdAbility.SpiritCost && CurrentThirdAbilityCooldown <= 0 && !IsDead)
 		    {
 			    OnDancingBlades();
 		    }
-		    /*if (InputManager.Instance.FourthAbility && Stats.Spirit.Current >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0)
+		    if (InputManager.Instance.FourthAbility && Stats.Spirit.Current >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0  && !IsDead)
 		    {
-			    SpellDefinition.Cast(FourthAbility, transform);
-		    }*/
+			    //OnBackflipCast();
+		    }
 
 		    UpdateCooldowns();
 
