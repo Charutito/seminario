@@ -355,12 +355,14 @@ namespace FSM
             {
                 entity.OnMove -= FeedMove;
                 entity.FirstAbilityHit();
-                //entity.Animator.SetTrigger("ChargedAttack");
+                entity.Animator.SetTrigger("Graviton");
+                entity.IsInvulnerable = true;
             };
 
             Graviton.OnExit += () =>
             {
                 entity.OnMove += FeedMove;
+                entity.IsInvulnerable = false;
             };
             #endregion
             

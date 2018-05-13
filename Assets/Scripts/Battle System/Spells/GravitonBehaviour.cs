@@ -10,9 +10,11 @@ namespace BattleSystem.Spells
     [RequireComponent(typeof(SpellBehaviour))]
 	public class GravitonBehaviour : MonoBehaviour
     {
-        public float TimeToMove = 0.5f;
+        public float TimeToMovePositive = 0.5f;
+        public float TimeToMoveNegative = 0.5f;
         public float Delay = 0.8f;
-	    public bool IsNegative;
+        public float StartDelay = 0.8f;
+        public bool IsNegative;
 	    public float Displacement;
 		
 	    private Entity[] entidades;
@@ -25,11 +27,16 @@ namespace BattleSystem.Spells
 	        transform.localScale = new Vector3(_behaviour.Definition.EffectRadius, _behaviour.Definition.EffectRadius, _behaviour.Definition.EffectRadius);
 		    
 		    var colliders = Physics.OverlapSphere(transform.position, _behaviour.Definition.EffectRadius, _behaviour.Definition.EffectLayer);
+
+            FrameUtil.AfterDelay(StartDelay, () =>
+            {
+                if (IsNegative)
+                    CastNegative(colliders);
+                else
+                    CastPositive(colliders);
+            });
+
 		    
-		    if(IsNegative)
-			    CastNegative(colliders);
-		    else
-			    CastPositive(colliders);
 	    }
 		
 		private void CastPositive(IEnumerable<Collider> colliders)
@@ -40,7 +47,7 @@ namespace BattleSystem.Spells
 
 				if (entity != null)
 				{
-					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMove);
+					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMovePositive);
 					DoDamage(entity, _behaviour.Definition.DamageType);
 				}
 			}
@@ -59,7 +66,7 @@ namespace BattleSystem.Spells
 				    var effectRadious = Vector3.Distance(entity.transform.position, transform.position) - _behaviour.Definition.EffectRadius;
 				    var movement = Vector3.MoveTowards(entity.transform.position, transform.position, effectRadious);
 				    
-				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMove);
+				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMoveNegative);
 				    DoDamage(entity, DamageType.ThirdAttack);
 			    }
 		    }
