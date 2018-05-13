@@ -35,7 +35,7 @@ namespace AnimatorFSM
 					SetState("KnockBack", true);
 					break;
 				case DamageType.FlyUp:
-					SetState("FlyUp");
+					SetState("FlyUp", true);
 					break;
 				case DamageType.Graviton:
 					SetState("Graviton", true);

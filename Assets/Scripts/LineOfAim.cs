@@ -11,6 +11,7 @@ public class LineOfAim : MonoBehaviour
 {
     [SerializeField] private LayerMask _hitLayers;
     [SerializeField] private Collider _hitCollider;
+    [SerializeField] private bool _move = true;
 
     public IEnumerable<Entity> GetEnemiesInSight()
     {
@@ -31,7 +32,7 @@ public class LineOfAim : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.Instance.AxisMoving)
+        if (_move && InputManager.Instance.AxisMoving)
         {
              RotateInstant(new Vector3(transform.position.x + InputManager.Instance.AxisHorizontal, transform.position.y, transform.position.z + InputManager.Instance.AxisVertical));
         }
