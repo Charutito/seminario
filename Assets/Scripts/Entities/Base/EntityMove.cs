@@ -82,6 +82,19 @@ namespace Entities
 
             return false;
         }
+
+        public bool CanReachPosition(Vector3 position)
+        {
+            var path = new NavMeshPath();
+            
+            if (NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, path))
+            {
+                return path.status != NavMeshPathStatus.PathPartial;
+            }
+
+            return false;
+        }
+
         #endregion
 
 
