@@ -30,7 +30,7 @@ namespace AnimatorFSM.States
 				{
 					_stateManager.Entity.EntityMove.SmoothMoveTransform(
 						Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
-						DisplacementTime, CheckIfCanGoDown);
+						DisplacementTime, () => CheckIfCanGoDown());
 				}
 				
 				if (_stateManager.Entity.EntityAttacker != null) _stateManager.Entity.EntityAttacker.attackArea.enabled = false;
@@ -39,13 +39,15 @@ namespace AnimatorFSM.States
 			OnExit += () =>
 			{
 				_stateManager.Entity.CurrentAction = GroupAction.Stalking;
-				
-				if(!_stateManager.Entity.IsDead)
-				_stateManager.Entity.Agent.enabled = true;
+
+				if (!_stateManager.Entity.IsDead && !CheckIfCanGoDown())
+				{
+					_stateManager.Entity.Agent.enabled = true;
+				}
 			};
 		}
 
-		private void CheckIfCanGoDown()
+		private bool CheckIfCanGoDown()
 		{
 			if (!_stateManager.Entity.EntityMove.IsAgentOnNavMesh())
 			{
@@ -60,7 +62,10 @@ namespace AnimatorFSM.States
 					origin = _stateManager.Entity.transform,
 					Absolute = true
 				});
+				return true;
 			}
+
+			return false;
 		}
 	}
 }
