@@ -32,9 +32,17 @@ public class LineOfAim : MonoBehaviour
 
     private void Update()
     {
-        if (_move && InputManager.Instance.AxisMoving)
+        if (_move)
         {
-             RotateInstant(new Vector3(transform.position.x + InputManager.Instance.AxisHorizontal, transform.position.y, transform.position.z + InputManager.Instance.AxisVertical));
+            if (InputManager.Instance.AxisMoving)
+            {
+                RotateInstant(new Vector3(transform.position.x + InputManager.Instance.AxisHorizontal, transform.position.y, transform.position.z + InputManager.Instance.AxisVertical));
+            }
+            else
+            {
+                var characterPos = GameManager.Instance.Character.transform;
+                RotateInstant(characterPos.position + characterPos.forward);
+            }
         }
 	}
     

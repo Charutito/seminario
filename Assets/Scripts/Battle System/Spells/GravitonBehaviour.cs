@@ -11,6 +11,7 @@ namespace BattleSystem.Spells
 	public class GravitonBehaviour : MonoBehaviour
     {
         public float TimeToMove = 0.5f;
+        public float Delay = 0.8f;
 	    public bool IsNegative;
 	    public float Displacement;
 		
@@ -40,9 +41,11 @@ namespace BattleSystem.Spells
 				if (entity != null)
 				{
 					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMove);
-					DoDamage(entity);
+					DoDamage(entity, _behaviour.Definition.DamageType);
 				}
 			}
+			
+			FrameUtil.AfterDelay(Delay, () => SpellDefinition.CastChild(_behaviour.Definition, transform.position, transform.rotation));
 		}
 	    
 	    private void CastNegative(IEnumerable<Collider> colliders)
@@ -55,21 +58,19 @@ namespace BattleSystem.Spells
 			    {
 				    var effectRadious = Vector3.Distance(entity.transform.position, transform.position) - _behaviour.Definition.EffectRadius;
 				    var movement = Vector3.MoveTowards(entity.transform.position, transform.position, effectRadious);
-				    Action onMoveEnd = () => SpellDefinition.CastChild(_behaviour.Definition,
-					    entity.transform.position + entity.transform.up * 3, Quaternion.identity, entity.transform);
 				    
-				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMove, onMoveEnd);
-				    DoDamage(entity);
+				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMove);
+				    DoDamage(entity, DamageType.ThirdAttack);
 			    }
 		    }
 	    }
 
-	    private void DoDamage(IDamageable damageable)
+	    private void DoDamage(IDamageable damageable, DamageType damageType)
 	    {
 		    damageable.TakeDamage(new Damage
 		    {
 			    amount = _behaviour.Definition.Damage,
-			    type = _behaviour.Definition.DamageType,
+			    type = damageType,
 			    origin = transform
 		    });
 	    }
