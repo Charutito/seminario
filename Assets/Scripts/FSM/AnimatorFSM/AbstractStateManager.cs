@@ -49,6 +49,8 @@ namespace AnimatorFSM
 
 		protected virtual void OnEntityDeath(Entity entity)
 		{
+			Entity.OnTakeDamage -= OnEntityDamage;
+			Entity.OnDeath -= OnEntityDeath;
 			SetState("Death", true);
 		}
 
