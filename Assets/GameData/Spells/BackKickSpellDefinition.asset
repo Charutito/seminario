@@ -9,20 +9,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b8cf16342efb841ae1febe83ddb033, type: 3}
-  m_Name: GravitonSpellDefinition
+  m_Name: BackKickSpellDefinition
   m_EditorClassIdentifier: 
   Name: Graviton
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 1652481407855950, guid: 7580d52e84170f245af90c037f72f559, type: 2}
-  SubCast: {fileID: 1652481407855950, guid: 194f14ee234d54a4ea0b5e5b3cac77c5, type: 2}
+  Prefab: {fileID: 100010, guid: be4f05917ab514d4b9b2eaa0abb6776e, type: 2}
+  SubCast: {fileID: 0}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 0}
   Cooldown: 2
   SpiritCost: 0
   Damage: 0
   DamageMultiplier: 0
-  DamageType: 11
+  DamageType: 9
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
   Speed: 0

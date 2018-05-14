@@ -29,6 +29,7 @@ namespace AnimatorFSM.States
 			
 			OnExit += () =>
 			{
+				if(_entity != null)
 				_entity.Animator.SetFloat(EntityAnimations.Move, 0);
 			};
 		}

@@ -326,6 +326,7 @@ namespace FSM
             #region Spirit Punch Spell
             SpiritPunch.OnEnter += () =>
             {
+                entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
                 entity.Animator.SetTrigger("SpiritPunch");
                 entity.SecondAbilityHit();
@@ -340,6 +341,7 @@ namespace FSM
             #region Dancing Blades Spell
             DancingBlades.OnEnter += () =>
             {
+                entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
                 entity.Animator.SetTrigger("ChargedAttack");
             };
@@ -353,6 +355,7 @@ namespace FSM
             #region Graviton Spell
             Graviton.OnEnter += () =>
             {
+                entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
                 entity.FirstAbilityHit();
                 entity.Animator.SetTrigger("Graviton");
@@ -369,6 +372,7 @@ namespace FSM
             #region Backflip Spell
             BackFlip.OnEnter += () =>
             {
+                entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
                 entity.Animator.SetTrigger("BackFlip");
                 entity.FourthAbilityHit();
