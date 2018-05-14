@@ -35,8 +35,6 @@ namespace BattleSystem.Spells
                 else
                     CastPositive(colliders);
             });
-
-		    
 	    }
 		
 		private void CastPositive(IEnumerable<Collider> colliders)
@@ -47,7 +45,7 @@ namespace BattleSystem.Spells
 
 				if (entity != null)
 				{
-					entity.EntityMove.SmoothMoveTransform(transform.position, TimeToMovePositive);
+					entity.EntityMove.SmoothMoveTransform(transform.position - entity.transform.forward, TimeToMovePositive);
 					DoDamage(entity, _behaviour.Definition.DamageType);
 				}
 			}
