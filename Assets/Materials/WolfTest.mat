@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: WolfTest
-  m_Shader: {fileID: 4800000, guid: 5a5af61c77a491a4c96fc33790f4ff3e, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -22,8 +22,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _2312v2:
+        m_Texture: {fileID: 2800000, guid: 88f365b1603b8fb49b25dfbedde73528, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AO:
         m_Texture: {fileID: 2800000, guid: 799a2a6f788098b44b9e0eeaea06405b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlpphaMask:
@@ -62,12 +70,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: e0f922c44762291498cc62e0917609be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Heightmap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Lut:
         m_Texture: {fileID: 2800000, guid: 0594647550371ff45ba07b55f1573a49, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7e2a41a51a4383e4bb2c307cb3530064, type: 3}
+        m_Texture: {fileID: 2800000, guid: 88f365b1603b8fb49b25dfbedde73528, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -75,6 +87,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalDist:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -169,8 +185,13 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 0
+    - _Imbecibilidad: 0.7
+    - _Intencity: 1
+    - _InvFade: 3
+    - _LightStrengt: 0.4089456
     - _MaskClipValue: 0.5
     - _MaxFogIntencity: 0
+    - _MaxIntencity: 0.686
     - _Metallic: 0
     - _Mode: 2
     - _OcclusionStrength: 1
@@ -178,6 +199,7 @@ Material:
     - _OpacityGeneral: 0.61
     - _OpacityLevel: 0
     - _Parallax: 0.02
+    - _REfAmount: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 0
     - _SrcBlend: 5
@@ -195,6 +217,8 @@ Material:
     - _WorldChange: 0.696
     - _ZWrite: 0
     - __dirty: 0
+    - _fresnelPower: 0.5
+    - _fresnelbias: 0.942
     - _fresnelbiasss: 0.488
     - _fresnelscale: 2
     - _invicibility: 1.38
@@ -206,7 +230,9 @@ Material:
     - _Color: {r: 0.74264705, g: 0.30033523, b: 0.30033523, a: 1}
     - _Color0: {r: 0.27376205, g: 0.14792383, b: 0.35294113, a: 0}
     - _Color1: {r: 1, g: 0, b: 0, a: 0}
+    - _Color2: {r: 0.4705882, g: 1, b: 0.9561865, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0, g: 1, b: 0.5034484, a: 0}
     - _Glowcolor: {r: 1, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TintColor: {r: 0.3897059, g: 0.41916826, b: 1, a: 0.5}
