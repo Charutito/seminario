@@ -9,7 +9,7 @@ namespace AnimatorFSM
     {
         private void Update()
         {
-            FSM.SetBool("TargetInAttackRange", Vector3.Distance(Entity.transform.position, Entity.Target.transform.position) <= Entity.AttackRange);
+            FSM.SetBool("TargetInAttackRange", !Entity.Target.IsDead && Vector3.Distance(Entity.transform.position, Entity.Target.transform.position) <= Entity.AttackRange);
         }
     }
 }
