@@ -12,16 +12,17 @@ namespace Util
             var u = Mathf.Cos(phi);
             return new Vector3(Mathf.Sqrt(1 - u * u) * Mathf.Cos(theta), Mathf.Sqrt(1 - u * u) * Mathf.Sin(theta), u);
         }
-        public static Vector3 GetMaxDistancePosition(this Transform trans, float distance = float.MaxValue)
+        
+        public static Vector3 GetMaxDistancePosition(this Transform trans, Vector3 forward, float distance = float.MaxValue)
         {
-            var targetPos = trans.position + trans.forward * distance;
+            var targetPos = trans.position + forward * distance;
             NavMeshHit hit;
             return NavMesh.Raycast(trans.position, targetPos, out hit, NavMesh.AllAreas) ? hit.position : targetPos;
         }
 
-        public static float GetMaxDistance(this Transform trans, float distance=float.MaxValue)
+        public static float GetMaxDistance(this Transform trans, Vector3 forward, float distance = float.MaxValue)
         {
-            var targetPos = trans.position + trans.forward * distance;
+            var targetPos = trans.position + forward * distance;
             NavMeshHit hit;
             return NavMesh.Raycast(trans.position, targetPos, out hit, NavMesh.AllAreas) ? hit.distance : distance;
         }

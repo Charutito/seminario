@@ -154,7 +154,7 @@ namespace FSM
             {
                 entity.posToCharge = entity.Target.transform;
                 entity.dashpos = entity.posToCharge.position +
-                                   entity.transform.forward * entity.transform.GetMaxDistance();
+                                   entity.transform.forward * entity.transform.GetMaxDistance(entity.transform.forward);
                 entity.EntityMove.RotateInstant(entity.dashpos);
             };
             #endregion

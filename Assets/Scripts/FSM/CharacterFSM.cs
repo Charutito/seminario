@@ -40,7 +40,6 @@ namespace FSM
             
             var Idle = new State<int>("Idle");
             var Moving = new State<int>("Moving");
-            var Dashing = new State<int>("Dash");
             var Attacking = new State<int>("Light Attacking");
 			var SpecialAttack = new State<int>("Special Attacking");
             var ChargedAttack = new State<int>("Charged Attacking");
@@ -410,9 +409,9 @@ namespace FSM
             {
                 entity.currentDashCharges--;
             }
-
-            var dashPosition = entity.transform.position +
-                               entity.EntityAttacker.lineArea.transform.forward * dashLength;
+            
+            var dashPosition =  entity.transform.position +
+                               entity.EntityAttacker.lineArea.transform.forward * entity.transform.GetMaxDistance(entity.EntityAttacker.lineArea.transform.forward, dashLength);
             
             entity.EntityMove.RotateInstant(dashPosition);
             entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
