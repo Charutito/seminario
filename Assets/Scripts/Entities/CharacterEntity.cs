@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Remoting.Messaging;
 using BattleSystem;
 using UnityEngine;
+using Util;
 
 namespace Entities
 {
@@ -66,7 +67,7 @@ namespace Entities
         }
         public void AtkDdisp()
         {
-            EntityMove.SmoothMoveTransform(transform.position + transform.forward * DmgDispl, 0.1f);
+            EntityMove.SmoothMoveTransform(transform.position + transform.forward * transform.GetMaxDistance(DmgDispl), 0.1f);
         }
 	    
 	    public void FirstAbilityHit()
