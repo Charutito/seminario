@@ -269,14 +269,14 @@ namespace FSM
             Attacking.OnEnter += () =>
             {
 				entity.IsAttacking = true;
-
-               // entity.OnMove -= FeedMove;
+                
+                entity.OnMove -= FeedMove;
                 entity.EntityAttacker.LightAttack_Start();
             };
 
             Attacking.OnExit += () =>
             {
-                //entity.OnMove += FeedMove;
+                entity.OnMove += FeedMove;
             };
             #endregion
 

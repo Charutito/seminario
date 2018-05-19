@@ -84,6 +84,7 @@ namespace Entities
             if (IsCharacter)
             {
                 _entity.Animator.SetTrigger("Attack");
+                _entity.EntityMove.RotateInstant(_entity.transform.position + new Vector3(InputManager.Instance.AxisHorizontal, 0, InputManager.Instance.AxisVertical));
             }
         }
 
