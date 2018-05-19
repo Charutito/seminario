@@ -49,7 +49,7 @@ namespace AnimatorFSM.States
 
 		private bool CheckIfCanGoDown()
 		{
-			if (!_stateManager.Entity.EntityMove.IsAgentOnNavMesh())
+			if (!_stateManager.Entity.EntityMove.CanReachPosition(_stateManager.Entity.transform.position))
 			{
 				var rb = _stateManager.Entity.gameObject.GetComponent<Rigidbody>();
 				rb.isKinematic = false;
