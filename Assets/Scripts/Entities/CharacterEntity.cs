@@ -24,6 +24,8 @@ namespace Entities
         [Range(0, 1)]
         public float DmgDispl = 0.5f;
 
+	    public VfxManager vfxManager;
+
 	    [Header("Spells")]
 	    public AudioSource noSpiritSound;
         public Transform castPosition;
