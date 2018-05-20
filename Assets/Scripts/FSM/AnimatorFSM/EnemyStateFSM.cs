@@ -26,6 +26,8 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.Attack, typeof(AttackState));
 			AvailableStates.Add(EnemyState.RangedAttack, typeof(RangedAttackState));
 			AvailableStates.Add(EnemyState.Aim, typeof(AimTargetState));
+			AvailableStates.Add(EnemyState.BomberAttack, typeof(BomberAttackState));
+			AvailableStates.Add(EnemyState.Shield, typeof(ShieldState));
 		
 			AvailableStates.Add(EnemyState.Death, typeof(DeathState));
 			AvailableStates.Add(EnemyState.GetHit, typeof(GetHitState));
@@ -73,6 +75,8 @@ namespace AnimatorFSM
 		Attack = 10,
 		RangedAttack = 11,
 		Aim = 12,
+		BomberAttack = 13,
+		Shield = 14,
     
 		Death = 20,
 		GetHit = 21,

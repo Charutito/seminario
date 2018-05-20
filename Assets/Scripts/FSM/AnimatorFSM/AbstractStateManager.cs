@@ -8,6 +8,7 @@ namespace AnimatorFSM
 	public class AbstractStateManager : MonoBehaviour
 	{
 		public bool StateLocked { get; set; }
+		[HideInInspector]
 		public Damage LastDamage;
 		
 		public BasicEnemy Entity { get; private set; }
