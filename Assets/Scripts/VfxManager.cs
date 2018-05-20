@@ -10,30 +10,31 @@ namespace Entities
         public CharacterEntity Character;
         public GameObject dashPArts;
         // Use this for initialization
-        void Start()
+        private Coroutine _dashToggle;
+
+        private void Start()
         {
             Character.OnDash += Dash;
         }
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-        private void OnDestroy()
-        {
-
-        }
+        
         private void Dash()
         {
+            if (_dashToggle != null)
+            {
+                StopCoroutine(_dashToggle);
+                dashPArts.SetActive(false);
+            }
+            
             dashPArts.SetActive(true);
-            StartCoroutine("DeactivatePArts");
+
+            _dashToggle = StartCoroutine("DeactivatePArts");
         }
-         IEnumerator DeactivatePArts()
+        
+        private IEnumerator DeactivatePArts()
         {
             yield return new WaitForSeconds(0.5f);
             dashPArts.SetActive(false);
-
-
+            _dashToggle = null;
         }
 
     }

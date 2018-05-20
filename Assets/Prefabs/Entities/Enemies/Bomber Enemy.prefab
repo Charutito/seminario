@@ -73,7 +73,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1060557877479432
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -81,9 +81,8 @@ GameObject:
   - component: {fileID: 4264958533375798}
   - component: {fileID: 33309806618536736}
   - component: {fileID: 23735871235880798}
-  - component: {fileID: 208126727234340540}
   m_Layer: 11
-  m_Name: Forcefield
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,6 +479,22 @@ GameObject:
   - component: {fileID: 4411860919530974}
   m_Layer: 0
   m_Name: CATRigSpine2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1403083616516810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4070405571326026}
+  - component: {fileID: 208548288601967870}
+  m_Layer: 11
+  m_Name: Forcefield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1185,6 +1200,20 @@ Transform:
   m_Father: {fileID: 4516421411120426}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4070405571326026
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403083616516810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4264958533375798}
+  m_Father: {fileID: 4073239728101100}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4073239728101100
 Transform:
   m_ObjectHideFlags: 1
@@ -1196,7 +1225,7 @@ Transform:
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_Children:
   - {fileID: 4464013577662724}
-  - {fileID: 4264958533375798}
+  - {fileID: 4070405571326026}
   - {fileID: 4445821257318580}
   - {fileID: 4978021198094538}
   - {fileID: 4372371210179798}
@@ -1364,12 +1393,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1060557877479432}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4073239728101100}
-  m_RootOrder: 1
+  m_Father: {fileID: 4070405571326026}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4305003089083858
 Transform:
@@ -2313,7 +2342,7 @@ Animator:
   m_GameObject: {fileID: 1350155055160574}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cdef865ec879cc3478acc15450d14c1e, type: 3}
-  m_Controller: {fileID: 9100000, guid: c8e83b2a905e0f247babc6bc1220e89a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 81d94e9ddeac6694d82f463938d09cde, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2373,9 +2402,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShieldRange:
     minValue: 0
-    maxValue: 0
-  RangeExpandTime: 0
-  Shield: {fileID: 1060557877479432}
+    maxValue: 6.0900025
+  RangeExpandTime: 0.3
+  Shield: {fileID: 1403083616516810}
 --- !u!114 &114192868638522558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2473,7 +2502,7 @@ MonoBehaviour:
     originator: {fileID: 0}
     Displacement: 0
     Absolute: 0
-  StartingBullets: 4
+  StartingBullets: 7
   CurrentBullets: 0
   EnemyCloserRange: 4
 --- !u!114 &114564718193653720
@@ -2608,7 +2637,7 @@ MonoBehaviour:
     health:
       _Actual: 0
       _Min: 0
-      _Max: 20
+      _Max: 100
     movementSpeed:
       _Actual: 0
       _Min: 0
@@ -2811,19 +2840,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!208 &208126727234340540
+--- !u!208 &208548288601967870
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1060557877479432}
+  m_GameObject: {fileID: 1403083616516810}
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 3, y: 0.5, z: 3}
   m_MoveThreshold: 0.1
   m_Carve: 1
-  m_CarveOnlyStationary: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!222 &222343582166145938

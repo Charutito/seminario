@@ -1,23 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BombMove : MonoBehaviour
 {
     public float Speed = 10;
-    public AnimationCurve ElevationOverDistance;
-    public Vector3 TargetPosition;
-    private float _initialDistance;
+    public GameObject BombStandPrefab;
+    
+    private Vector3 _targetPosition;
 
-    private void Start()
+    public void SetTargetPosition(Vector3 targetPosition)
     {
-        _initialDistance = Vector3.Distance(transform.position, TargetPosition);
+        _targetPosition = targetPosition;
     }
 
     private void Update()
     {
-        transform.localPosition = transform.up * ElevationOverDistance.Evaluate(Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), TargetPosition) / _initialDistance);
-        Debug.Log(Vector3.Distance(transform.position, TargetPosition) / _initialDistance);
-        transform.localPosition += transform.forward  * Speed * Time.deltaTime;
+        if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f)
+        {
+            Instantiate(BombStandPrefab, transform.position, transform.rotation);
+            Destroy(gameObject);
+            return;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, Speed * Time.deltaTime);
+        //transform.localPosition += transform.forward  * Speed * Time.deltaTime;
     }
 }
