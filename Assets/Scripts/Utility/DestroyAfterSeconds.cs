@@ -15,7 +15,10 @@ namespace Utility
 
         private void OnDestroy()
         {
-            if (DeathEffect != null) Instantiate(DeathEffect, transform.position, transform.rotation);
+            if (DeathEffect != null){
+                var effect = Instantiate(DeathEffect, transform.position, transform.rotation);
+                Destroy(effect.gameObject,1);
+            }
         }
     }
 }
