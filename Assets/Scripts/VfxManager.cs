@@ -7,35 +7,13 @@ namespace Entities
 {
     public class VfxManager : MonoBehaviour
     {
-        public CharacterEntity Character;
         public GameObject dashPArts;
-        // Use this for initialization
-        void Start()
+        public Transform dashPosition;
+        
+        public void Dash()
         {
-            Character.OnDash += Dash;
+            Instantiate(dashPArts, dashPosition.position, dashPosition.rotation);
         }
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-        private void OnDestroy()
-        {
-
-        }
-        private void Dash()
-        {
-            dashPArts.SetActive(true);
-            StartCoroutine("DeactivatePArts");
-        }
-         IEnumerator DeactivatePArts()
-        {
-            yield return new WaitForSeconds(0.5f);
-            dashPArts.SetActive(false);
-
-
-        }
-
     }
 }
 

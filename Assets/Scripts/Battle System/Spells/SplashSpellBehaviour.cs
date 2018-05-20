@@ -70,7 +70,8 @@ namespace BattleSystem.Spells
                     type = _behaviour.Definition.DamageType,
                     origin = transform,
                     originator = _character,
-                    Displacement = 0.5f
+                    Displacement = 0.5f,
+                    Absolute = true
                 });
             }
         }

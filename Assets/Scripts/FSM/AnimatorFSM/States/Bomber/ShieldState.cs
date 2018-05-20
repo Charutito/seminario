@@ -15,10 +15,14 @@ namespace AnimatorFSM.States
 		public GameObject Shield;
 		
 		private BomberStateManager _stateManager;
+		private GameObject _shieldMesh;
+		private NavMeshObstacle _shieldObstacle;
 
 		protected override void Setup()
 		{
 			_stateManager = GetComponentInParent<BomberStateManager>();
+			_shieldMesh = Shield.transform.GetChild(0).gameObject;
+			_shieldObstacle = Shield.GetComponent<NavMeshObstacle>();
 		}
 
 		protected override void DefineState()
@@ -26,17 +30,23 @@ namespace AnimatorFSM.States
 			OnEnter += () =>
 			{
 				_stateManager.Entity.Agent.enabled = false;
-				Shield.GetComponent<NavMeshObstacle>().enabled = true;
+				_shieldObstacle.enabled = true;
 				
 				_stateManager.Entity.IsInvulnerable = true;
-				_stateManager.CurrentBullets = _stateManager.StartingBullets;
+				
+				iTween.ScaleTo(_shieldMesh, iTween.Hash("scale", new Vector3(ShieldRange.maxValue, ShieldRange.maxValue, ShieldRange.maxValue), "time", RangeExpandTime, "easeType", iTween.EaseType.easeInSine));
 			};
 			
 			OnExit += () =>
 			{
+				_stateManager.CurrentBullets = _stateManager.StartingBullets;
+				
+				_shieldObstacle.enabled = false;
 				_stateManager.Entity.IsInvulnerable = false;
-				Shield.GetComponent<NavMeshObstacle>().enabled = false;
-				FrameUtil.OnNextFrame(() => _stateManager.Entity.Agent.enabled = true);
+				
+				FrameUtil.AfterDelay(0.5f, () => _stateManager.Entity.Agent.enabled = true);
+				
+				iTween.ScaleTo(_shieldMesh, iTween.Hash("scale", new Vector3(ShieldRange.minValue, ShieldRange.minValue, ShieldRange.minValue), "time", RangeExpandTime, "easeType", iTween.EaseType.easeInSine));
 			};
 		}
 	}

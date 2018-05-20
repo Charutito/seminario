@@ -407,6 +407,7 @@ namespace FSM
             }
             else
             {
+                entity.vfxManager.Dash();
                 entity.currentDashCharges--;
             }
             
