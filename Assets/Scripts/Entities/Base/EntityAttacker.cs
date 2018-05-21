@@ -203,7 +203,12 @@ namespace Entities
                 {
                     if (IsCharacter)
                     {
-                        GameManager.Instance.Combo++;
+                        var targetEntity = target.GetComponent<Entity>();
+                        
+                        if (targetEntity != null && !targetEntity.IsInvulnerable)
+                        {
+                            GameManager.Instance.Combo++;
+                        }
                     }
                     _entity.Stats.Spirit.Current += (damage.type == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
                     damageable.TakeDamage(damage);

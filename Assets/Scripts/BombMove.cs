@@ -22,6 +22,5 @@ public class BombMove : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, Speed * Time.deltaTime);
-        //transform.localPosition += transform.forward  * Speed * Time.deltaTime;
     }
 }
