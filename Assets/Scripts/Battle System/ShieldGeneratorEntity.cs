@@ -40,7 +40,10 @@ namespace Entities
             _active = false;
             foreach (var activeShield in _activeShields)
             {
-                Destroy(activeShield.gameObject);
+                if (activeShield != null)
+                {
+                    Destroy(activeShield.gameObject);
+                }
             }
             Destroy(gameObject, 1f);
         }
