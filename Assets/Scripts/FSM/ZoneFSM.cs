@@ -56,17 +56,7 @@ namespace FSM
             #endregion
 
             #region Attacking State
-            Attacking.OnEnter += () =>
-            {
-                zone.ExecuteAttack();
-            };
-            #endregion
-
-            #region Clearing State
-            Clearing.OnEnter += () =>
-            {
-                
-            };
+            Attacking.OnEnter += zone.ExecuteAttack;
             #endregion
         }
 

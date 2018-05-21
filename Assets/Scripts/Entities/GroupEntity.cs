@@ -11,7 +11,9 @@ namespace Entities
         public event Action<GroupAction, GroupAction> OnSetAction = delegate { };
         #endregion
 
-        #region Properties 
+        #region Properties
+        public ZoneController CurrentZone { get; set; }
+
         public Entity Target
         {
             get { return currentTarget; }

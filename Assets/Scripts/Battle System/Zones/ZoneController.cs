@@ -38,7 +38,7 @@ namespace BattleSystem
         public int maxEntitiesToAttack = 2;
         
         [SerializeField] private List<BehaviourWeight> entityActions;
-        [SerializeField] private List<GroupEntity> entities;
+        public List<GroupEntity> entities;
         [SerializeField] private List<GameObject> doors;
 
         private ZoneFSM fsm;
@@ -62,6 +62,7 @@ namespace BattleSystem
             foreach (var entity in entities)
             {
                 entity.CurrentAction = GroupAction.Stalking;
+                entity.CurrentZone = this;
                 if (entity.Target == null) entity.Target = GameManager.Instance.Character;
                 entity.OnDeath += OnEntityDie;
             }
