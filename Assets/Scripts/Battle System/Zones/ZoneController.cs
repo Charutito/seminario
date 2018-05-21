@@ -79,7 +79,10 @@ namespace BattleSystem
         {
             foreach (var door in doors)
             {
-                door.SetActive(state);
+                if (door != null)
+                {
+                    door.SetActive(state);
+                }
             }
         }
 
