@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using BattleSystem;
 using Entities;
 using GameUtils;
 using Metadata;

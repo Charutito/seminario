@@ -722,7 +722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1519761037317444
 GameObject:
   m_ObjectHideFlags: 1
@@ -1003,6 +1003,7 @@ GameObject:
   - component: {fileID: 114979555464429802}
   - component: {fileID: 114142617092991746}
   - component: {fileID: 195402188659011008}
+  - component: {fileID: 114345791346567970}
   - component: {fileID: 114470487424743876}
   m_Layer: 8
   m_Name: Character
@@ -2654,7 +2655,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723195614099692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.26, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593626326013340}
@@ -3509,6 +3510,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashPArts: {fileID: 1907153863568708, guid: a7ea0635327c3634dacd6e1631eb103e, type: 2}
   dashPosition: {fileID: 4178682406111732}
+--- !u!114 &114345791346567970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723195614099692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42e48686777b344dbba2aa66ed9a8d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effects:
+  - Clip: {fileID: 11400000, guid: fb1590e73f43dbc45af043af7f8b2aa8, type: 2}
+    EffectName: Attack
+  - Clip: {fileID: 11400000, guid: 0e99c68df1471794daedf006d5f40dfa, type: 2}
+    EffectName: SpecialAttack
 --- !u!114 &114470487424743876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3545,6 +3562,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 114345791346567970}
+          m_MethodName: PlayEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Attack
             m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -3590,6 +3618,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 114345791346567970}
+          m_MethodName: PlayEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Attack
             m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -3652,6 +3691,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 114345791346567970}
+          m_MethodName: PlayEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SpecialAttack
             m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,

@@ -17,6 +17,7 @@ namespace Entities
         public Collider Collider { get; private set; }
         public EntityAttacker EntityAttacker { get; private set; }
         public EntityMove EntityMove { get; private set; }
+        public EntitySounds EntitySounds { get; private set; }
         public EventFSM<int> EntityFsm { get; protected set; }
         #endregion
         
@@ -120,6 +121,7 @@ namespace Entities
             Collider = GetComponent<Collider>();
             EntityAttacker = GetComponent<EntityAttacker>();
             EntityMove = GetComponent<EntityMove>();
+            EntitySounds = GetComponent<EntitySounds>();
         }
     }
 }
