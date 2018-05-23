@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0209dfe60a7ce2544a1134f185e2a686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToDestroy: 3
+  TimeToDestroy: 5
   DeathEffect: {fileID: 1416124372127224, guid: 609335115b94ad24e9db122858b646d8,
     type: 2}
 --- !u!114 &114539170839339988
@@ -186,7 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8576f84d54c7aec45a3c5bf423848bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 15
+  SpeedBoostMultiplier: 2
 --- !u!136 &136835082385265416
 CapsuleCollider:
   m_ObjectHideFlags: 1
