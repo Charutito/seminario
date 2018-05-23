@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4403139265038182}
   - component: {fileID: 114401014854368874}
+  - component: {fileID: 114543241758657016}
   m_Layer: 0
   m_Name: Game Camera Look Ahead
   m_TagString: Untagged
@@ -83,15 +84,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730665959898904}
-  m_LocalRotation: {x: 0.42415535, y: 0, z: 0, w: 0.90558946}
-  m_LocalPosition: {x: -24.97, y: 6.9671044, z: 109.708534}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4057542814752650}
   - {fileID: 4929288410904140}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!4 &4929288410904140
 Transform:
   m_ObjectHideFlags: 1
@@ -222,6 +223,19 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 100
+--- !u!114 &114543241758657016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730665959898904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158583809a38246cb8fc92b11c6aaa41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetFollow: 1
+  SetLookAt: 0
 --- !u!114 &114795124388300392
 MonoBehaviour:
   m_ObjectHideFlags: 1

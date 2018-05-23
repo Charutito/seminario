@@ -15,19 +15,12 @@ namespace Managers.Mappings
         [Header("Combat")]
         [SerializeField] public KeyCode Attack           = KeyCode.Mouse0;
         [SerializeField] public KeyCode SpecialAttack    = KeyCode.Mouse1;
-        [SerializeField] public KeyCode Graviton    = KeyCode.LeftControl;
         
         [Header("Spells")]
         [SerializeField] public KeyCode FirstAbility     = KeyCode.Alpha1;
         [SerializeField] public KeyCode SecondAbility    = KeyCode.Alpha2;
-
-        [Header("Inventory")]
-        [SerializeField] public KeyCode SelectWeapon1    = KeyCode.None;
-        [SerializeField] public KeyCode SelectWeapon2    = KeyCode.None;
-        [SerializeField] public KeyCode SelectWeapon3    = KeyCode.None;
-        [SerializeField] public KeyCode SelectWeapon4    = KeyCode.None;
-        [SerializeField] public KeyCode LastWeapon       = KeyCode.Q;
-        [SerializeField] public KeyCode NextWeapon       = KeyCode.E;
+        [SerializeField] public KeyCode ThirdAbility    = KeyCode.Alpha3;
+        [SerializeField] public KeyCode FourthAbility    = KeyCode.Alpha4;
 
         [Header("Movement")]
         public KeyCode Dash = KeyCode.Space;

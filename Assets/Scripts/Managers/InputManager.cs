@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using GameUtils;
 using Managers.Mappings;
 using UnityEngine;
-using Util;
 using XInputDotNetPure;
 
 namespace Managers
@@ -25,7 +22,6 @@ namespace Managers
         
         public bool Attack { get { return Input.GetKeyDown(keyboard.Attack) || Input.GetKeyDown(joystick.Attack); } }
         public bool SpecialAttack { get { return Input.GetKeyDown(keyboard.SpecialAttack) || Input.GetKeyDown(joystick.SpecialAttack); } }
-        public bool CastGratiton { get { return Input.GetKeyDown(keyboard.Graviton) || Input.GetKeyDown(joystick.Graviton); } }
         
         public bool FirstAbility { get { return Input.GetKeyDown(keyboard.FirstAbility) || Input.GetKeyDown(joystick.FirstAbility); } }
         public bool SecondAbility { get { return Input.GetKeyDown(keyboard.SecondAbility) || Input.GetKeyDown(joystick.SecondAbility); } }
