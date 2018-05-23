@@ -7,15 +7,28 @@ namespace Metadata
 {
     public static class Tags
     {
-        public const string COLLIDER = "Collider";
-        public const string PLAYER = "Player";
+        public static readonly string COLLIDER = "Collider";
+        public static readonly string PLAYER = "Player";
     }
     
     public static class GameEvents
     {
-        public const string UPDATE = "Collider";
+        public static readonly string UPDATE = "Collider";
     }
-    
+
+    public static class SaveKeys
+    {
+        public static readonly string Zones = "zone_{0}";
+        public static readonly string LastSave = "LastSave";
+        public static readonly string UsedSave = "save_{0}";
+        public static readonly string CharacterStats = "LastSave";
+    }
+
+    public static class FormatedLog
+    {
+        public static readonly string Save = "[SAVE] - {0}";
+    }
+
     public enum Layers
     {
         Default = 1 << 0,

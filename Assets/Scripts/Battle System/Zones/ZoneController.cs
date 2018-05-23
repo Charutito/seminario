@@ -72,6 +72,7 @@ namespace BattleSystem
         {
             Cleared = true;
             ToggleDoors(false);
+            PlayerPrefs.SetString(string.Format(SaveKeys.Zones, GetInstanceID()), "Cleared");
             Destroy(gameObject, 5);
         }
 
@@ -99,6 +100,11 @@ namespace BattleSystem
 
         private void Awake()
         {
+            if (PlayerPrefs.HasKey(string.Format(SaveKeys.Zones, GetInstanceID())))
+            {
+                Destroy(gameObject);
+            }
+
             fsm = new ZoneFSM(this);
 
             ToggleDoors(false);

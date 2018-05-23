@@ -1,5 +1,6 @@
 ﻿
 using Managers;
+using Metadata;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,9 +11,15 @@ namespace Utility
 {
     public class DebugShortcuts : MonoBehaviour
     {
+        [Header("Editor")]
         [SerializeField] private KeyCode _editorPauseKey = KeyCode.F12;
+        
+        [Header("Stats")]
         [SerializeField] private KeyCode _recoverHealthCharacter = KeyCode.F1;
         [SerializeField] private KeyCode _recoverSpiritCharacter = KeyCode.F2;
+        
+        [Header("Save System")]
+        [SerializeField] private KeyCode _clearSaveData = KeyCode.F5;
 
 
         public void RecoverHealthCharacter()
@@ -49,6 +56,12 @@ namespace Utility
             if (Input.GetKeyDown(_recoverSpiritCharacter))
             {
                 RecoverSpiritCharacter();
+            }
+            
+            if (Input.GetKeyDown(_clearSaveData))
+            {
+                PlayerPrefs.DeleteAll();
+                Debug.Log(string.Format(FormatedLog.Save, "Data deleted :( Hope you know what are you doing, bitch..."));
             }
         }
     }
