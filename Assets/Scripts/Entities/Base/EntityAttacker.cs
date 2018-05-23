@@ -19,10 +19,6 @@ namespace Entities
         public bool IsCharacter;
 
         [Header("Heavy Attack")]
-        [SerializeField] private float h_magn = 1;
-        [SerializeField] private float h_rough = 1;
-        [SerializeField] private float h_fadeIn = 0.1f;
-        [SerializeField] private float h_fadeOut = 2f;
         [SerializeField] private float heavyaoe = 2f;
         [SerializeField] private LayerMask hitLayers;
 
@@ -148,8 +144,6 @@ namespace Entities
 
         public void HeavyAttack_Hit()
         {
-            // Temporary Broken
-            //CameraShaker.Instance.ShakeOnce(h_magn, h_rough, h_fadeIn, h_fadeOut);
             InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
             
             AttackAreaLogic(new Damage
