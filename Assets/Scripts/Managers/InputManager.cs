@@ -2,7 +2,9 @@
 using GameUtils;
 using Managers.Mappings;
 using UnityEngine;
+#if !UNITY_STANDALONE_OSX
 using XInputDotNetPure;
+#endif
 
 namespace Managers
 {
@@ -35,7 +37,7 @@ namespace Managers
 
         public void Vibrate(float left, float right, float duration = 0.1f)
         {
-            GamePad.SetVibration(0, left, right);
+            SetPadVibration(left, right);
 
             if (_stopCoroutine != null)
             {
@@ -45,16 +47,27 @@ namespace Managers
             _stopCoroutine = StartCoroutine(StopVibration(duration));
         }
         
-        private IEnumerator StopVibration(float duration)
+        private static IEnumerator StopVibration(float duration)
         {
             yield return new WaitForSeconds(duration);
-            
-            GamePad.SetVibration(0, 0, 0);
+            SetPadVibration(0, 0);
+        }
+
+        private static void SetPadVibration(float left, float right)
+        {
+            #if !UNITY_STANDALONE_OSX
+            GamePad.SetVibration(0, left, right);
+            #endif
         }
 
         private void OnDestroy()
         {
-            GamePad.SetVibration(0, 0, 0);
+            if (_stopCoroutine != null)
+            {
+                StopCoroutine(_stopCoroutine);
+            }
+            
+            SetPadVibration(0, 0);
         }
     }
 }
