@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 33633453520010292}
   - component: {fileID: 65004695423985636}
   - component: {fileID: 23790365295335776}
-  - component: {fileID: 114986409489825144}
+  - component: {fileID: 114797339217488042}
+  - component: {fileID: 114849305807960948}
   m_Layer: 14
   m_Name: SavePoint
   m_TagString: Untagged
@@ -96,7 +97,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114986409489825144
+--- !u!114 &114797339217488042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1809649974144394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectId: 8426999
+--- !u!114 &114849305807960948
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

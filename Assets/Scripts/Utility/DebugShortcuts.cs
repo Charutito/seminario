@@ -1,11 +1,9 @@
-﻿
-using Managers;
+﻿using Managers;
 using Metadata;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Utility
 {

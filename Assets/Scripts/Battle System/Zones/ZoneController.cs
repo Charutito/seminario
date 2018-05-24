@@ -6,11 +6,13 @@ using Metadata;
 using System.Collections.Generic;
 using System.Linq;
 using GameUtils;
+using SaveSystem;
 using UnityEngine;
 
 namespace BattleSystem
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(SaveGUID))]
     public class ZoneController : MonoBehaviour
     {
         [Serializable]
@@ -20,8 +22,6 @@ namespace BattleSystem
             [SerializeField] public GroupAction targetAction = GroupAction.None;
             [SerializeField] public int weight;
         }
-
-        
 
         public bool Initialized { get; set; }
         public bool Cleared { get; set; }
@@ -41,7 +41,9 @@ namespace BattleSystem
         public List<GroupEntity> entities;
         [SerializeField] private List<GameObject> doors;
 
-        private ZoneFSM fsm;
+        private ZoneFSM _fsm;
+
+        private SaveGUID _uniqueId;
 
         // Deberia tener un random para ver si pega uno o otro
         public void ExecuteAttack()
@@ -72,7 +74,7 @@ namespace BattleSystem
         {
             Cleared = true;
             ToggleDoors(false);
-            PlayerPrefs.SetString(string.Format(SaveKeys.Zones, GetInstanceID()), "Cleared");
+            PlayerPrefs.SetString(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId), "Cleared");
             Destroy(gameObject, 5);
         }
 
@@ -100,12 +102,14 @@ namespace BattleSystem
 
         private void Awake()
         {
-            if (PlayerPrefs.HasKey(string.Format(SaveKeys.Zones, GetInstanceID())))
+            _uniqueId = GetComponent<SaveGUID>();
+            
+            if (PlayerPrefs.HasKey(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId)))
             {
                 Destroy(gameObject);
             }
 
-            fsm = new ZoneFSM(this);
+            _fsm = new ZoneFSM(this);
 
             ToggleDoors(false);
         }
@@ -117,7 +121,7 @@ namespace BattleSystem
 
         private void Update()
         {
-            fsm.Update();
+            _fsm.Update();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -126,7 +130,7 @@ namespace BattleSystem
             {
                 if(audio != null) audio.Play();
                 ToggleDoors(true);
-                fsm.PlayerEnter();
+                _fsm.PlayerEnter();
             }
         }
     }

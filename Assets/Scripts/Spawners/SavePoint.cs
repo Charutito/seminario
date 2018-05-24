@@ -1,52 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Managers;
+﻿using Managers;
 using Metadata;
 using UnityEngine;
 
-public class SavePoint : MonoBehaviour
+namespace SaveSystem
 {
-    private bool _isLoading;
-    
-    private void LoadData()
+    [RequireComponent(typeof(SaveGUID))]
+    public class SavePoint : MonoBehaviour
     {
-        _isLoading = true;
+        private bool _isLoading;
+        private SaveGUID _uniqueId;
+    
+        private void LoadData()
+        {
+            _isLoading = true;
         
-        GameManager.Instance.Character.transform.position = transform.position;
-        Log("Game Loaded!");
-        Destroy(gameObject);
-    }
-    
-    private void SaveData()
-    {
-        PlayerPrefs.SetInt(SaveKeys.LastSave, GetInstanceID());
-        Log("Game Saved!");
-        Destroy(gameObject);
-    }
-
-    private void Log(string message)
-    {
-    #if DEBUG
-        Debug.Log(string.Format(FormatedLog.Save, message));
-    #endif
-    }
-
-    private void Start()
-    {
-        if (PlayerPrefs.GetInt(SaveKeys.LastSave) == GetInstanceID())
-        {
-            LoadData();
-        }
-        else if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, GetInstanceID())))
-        {
+            GameManager.Instance.Character.transform.position = transform.position;
+            Log("Game Loaded!");
             Destroy(gameObject);
         }
-    }
+    
+        private void SaveData()
+        {
+            PlayerPrefs.SetInt(SaveKeys.LastSave, _uniqueId.GameObjectId);
+            Log("Game Saved!");
+            Destroy(gameObject);
+        }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_isLoading) return;
+        private void Awake()
+        {
+            _uniqueId = GetComponent<SaveGUID>();
+        }
+
+        private void Start()
+        {
+            if (PlayerPrefs.GetInt(SaveKeys.LastSave) == _uniqueId.GameObjectId)
+            {
+                LoadData();
+            }
+            else if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_isLoading) return;
         
-        SaveData();
+            SaveData();
+        }
+        
+        private static void Log(string message)
+        {
+#if DEBUG
+            Debug.Log(string.Format(FormatedLog.Save, message));
+#endif
+        }
     }
 }
