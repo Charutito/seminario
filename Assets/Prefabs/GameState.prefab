@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 223466065350974536}
   - component: {fileID: 114592150132673928}
   - component: {fileID: 114502674214480184}
+  - component: {fileID: 114482451297952476}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -3315,6 +3316,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114482451297952476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1238962890265644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee473156512a954fb8818a87bad78ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameCanvas: {fileID: 95415566876683600}
+  _loadingCanvas: {fileID: 95200222437500234}
 --- !u!114 &114492063347302814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3328,6 +3342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ComboText: {fileID: 114834365914405866}
   TimeToReset: 2
+  TimeToRestartGame: 1.5
 --- !u!114 &114502674214480184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5140,7 +5155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -120.100006}
+  m_AnchoredPosition: {x: 0, y: -120.1001}
   m_SizeDelta: {x: -20, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224051226918438748
@@ -5684,7 +5699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -59.599976}
+  m_AnchoredPosition: {x: 0, y: -59.600098}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224473894783501352
@@ -6354,7 +6369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -59.599976}
+  m_AnchoredPosition: {x: 0, y: -59.600098}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224808533352814398
