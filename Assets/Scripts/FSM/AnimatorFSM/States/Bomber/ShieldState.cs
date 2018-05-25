@@ -11,8 +11,11 @@ namespace AnimatorFSM.States
 		[MinMaxRange(0, 10)]
 		public RangedFloat ShieldRange;
 		public float RangeExpandTime;
-		
 		public GameObject Shield;
+
+		[Header("SFX")]
+		public SimpleAudioEvent ShieldActivate;
+		public SimpleAudioEvent ShieldDeactivate;
 		
 		private BomberStateManager _stateManager;
 		private GameObject _shieldMesh;
@@ -29,6 +32,7 @@ namespace AnimatorFSM.States
 		{
 			OnEnter += () =>
 			{
+				ShieldActivate.Play();
 				_stateManager.Entity.Agent.enabled = false;
 				_shieldObstacle.enabled = true;
 				
@@ -39,6 +43,7 @@ namespace AnimatorFSM.States
 			
 			OnExit += () =>
 			{
+				ShieldDeactivate.Play();
 				_stateManager.CurrentBullets = _stateManager.StartingBullets;
 				
 				_shieldObstacle.enabled = false;

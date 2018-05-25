@@ -3528,6 +3528,8 @@ MonoBehaviour:
     EffectName: SpecialAttack
   - Clip: {fileID: 11400000, guid: b48dd4471b473ed4a865ebfcbdfc2798, type: 2}
     EffectName: GetHit
+  - Clip: {fileID: 11400000, guid: 484393f71581f3341a00a749dc3a5672, type: 2}
+    EffectName: Death
 --- !u!114 &114470487424743876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3869,15 +3871,15 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 82848906204408276}
-          m_MethodName: Play
-          m_Mode: 1
+        - m_Target: {fileID: 114345791346567970}
+          m_MethodName: PlayEffect
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: GetHit
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -4043,22 +4045,6 @@ MonoBehaviour:
   OnEntityDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 82585984230547038}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnEntityDamage:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 114345791346567970}
         m_MethodName: PlayEffect
         m_Mode: 5
@@ -4067,9 +4053,14 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GetHit
+          m_StringArgument: Death
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnEntityDamage:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   stats:
@@ -4170,10 +4161,6 @@ MonoBehaviour:
   attackArea: {fileID: 114706393507915136}
   lineArea: {fileID: 114023290422945666}
   IsCharacter: 1
-  h_magn: 1
-  h_rough: 1.2
-  h_fadeIn: 0.1
-  h_fadeOut: 2
   heavyaoe: 2
   hitLayers:
     serializedVersion: 2
