@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SaveSystem
 {
+    [Serializable]
     public class SaveGUID : MonoBehaviour
     {
-        public int GameObjectId = 0;
+        public string GameObjectId = "";
     }
 }

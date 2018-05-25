@@ -3,30 +3,43 @@ using UnityEditor;
 using System;
 using System.Linq;
 using SaveSystem;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(SaveGUID))]
 public class SaveGUIDInspector : Editor
 {
 	private SaveGUID _id;
-	
-	private void OnEnable()
+
+	private string GetGUID()
 	{
-		_id = (SaveGUID)target;
-		
-		if (_id.GameObjectId == 0)
-		{
-			_id.GameObjectId = new System.Random().Next(1000000, 9999999);
-		}
-		else
-		{
-			var objects = Array.ConvertAll(GameObject.FindObjectsOfType(typeof(SaveGUID)), x => x as SaveGUID);
-			var idCount = objects.Count(t => _id.GameObjectId == t.GameObjectId);
-			if (idCount > 1) _id.GameObjectId = new System.Random().Next(1000000, 9999999);
-		}
+		var guid = Guid.NewGuid();
+		return guid.ToString();
 	}
 
 	public override void OnInspectorGUI()
 	{
-		EditorGUILayout.LabelField("Unique Id:", _id.GameObjectId.ToString());
+		_id = (SaveGUID)target;
+
+		if (_id.GameObjectId == "")
+		{
+			_id.GameObjectId = GetGUID();
+		}
+
+		EditorGUILayout.LabelField("Unique Id:", _id.GameObjectId);
+
+		if (GUILayout.Button("Refresh"))
+		{
+			_id.GameObjectId = GetGUID();
+		}
+		
+		var idCount = Array.ConvertAll(GameObject.FindObjectsOfType(typeof(SaveGUID)), x => x as SaveGUID).Count(t => _id.GameObjectId == t.GameObjectId);
+			
+		if (idCount > 1)
+		{
+			EditorGUILayout.HelpBox("Warning Duplicate GUID Detected in Scene", MessageType.Warning);
+		}
+		
+		EditorUtility.SetDirty(_id);
+		if(!Application.isPlaying) EditorSceneManager.MarkSceneDirty(_id.gameObject.scene);
 	}
 }
