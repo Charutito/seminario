@@ -32,7 +32,7 @@ namespace AnimatorFSM.States
 		{
 			OnEnter += () =>
 			{
-				ShieldActivate.Play();
+				ShieldActivate.Play(transform.position);
 				_stateManager.Entity.Agent.enabled = false;
 				_shieldObstacle.enabled = true;
 				
@@ -43,7 +43,7 @@ namespace AnimatorFSM.States
 			
 			OnExit += () =>
 			{
-				ShieldDeactivate.Play();
+				ShieldDeactivate.Play(transform.position);
 				_stateManager.CurrentBullets = _stateManager.StartingBullets;
 				
 				_shieldObstacle.enabled = false;

@@ -27,5 +27,15 @@ namespace Entities
                 audioEvent.Clip.Play();
             }
         }
+        
+        public void PlayEffect(string effectName, Vector3 position)
+        {
+            var audioEvent = Effects.FirstOrDefault(x => x.EffectName == effectName);
+
+            if (audioEvent != null)
+            {
+                audioEvent.Clip.Play(position);
+            }
+        }
     }
 }

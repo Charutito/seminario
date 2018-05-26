@@ -31,7 +31,7 @@ namespace Entities
                 var newObject = Instantiate(ShieldPrefab, entity.transform.position, Quaternion.identity, entity.transform);
                 
                 _activeShields.Add(newObject.GetComponent<EnemyShield>());
-                EntitySounds.PlayEffect("Cast");
+                EntitySounds.PlayEffect("Cast", entity.transform.position);
             }
 
             _currentTimeToCast = CastDelay.GetRandom;
