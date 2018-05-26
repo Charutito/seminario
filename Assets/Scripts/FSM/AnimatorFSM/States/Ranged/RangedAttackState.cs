@@ -22,6 +22,7 @@ namespace AnimatorFSM.States
 				_stateManager.Entity.EntityMove.RotateInstant(_stateManager.Entity.Target.transform.position);
 				_stateManager.Entity.Animator.SetTrigger(EntityAnimations.Attack);
 				Instantiate(Bullet, BulletSpawnPos.position, _stateManager.Entity.transform.rotation);
+				_stateManager.Entity.EntitySounds.PlayEffect("Shoot", transform.position);
 			};
 		}
 	}

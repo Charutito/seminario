@@ -28,6 +28,8 @@ namespace Entities
 
         public void HitFeedback()
         {
+            EntitySounds.PlayEffect("Hit", transform.position);
+            
             var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
             Destroy(part, 1);
         }

@@ -2444,10 +2444,6 @@ MonoBehaviour:
   attackArea: {fileID: 114584716022595400}
   lineArea: {fileID: 0}
   IsCharacter: 0
-  h_magn: 1
-  h_rough: 1
-  h_fadeIn: 0.1
-  h_fadeOut: 2
   heavyaoe: 2
   hitLayers:
     serializedVersion: 2
@@ -2574,7 +2570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42e48686777b344dbba2aa66ed9a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effects: []
+  Effects:
+  - Clip: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
+    EffectName: Hit
 --- !u!114 &114860934230329552
 MonoBehaviour:
   m_ObjectHideFlags: 1

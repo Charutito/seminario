@@ -25,8 +25,8 @@ namespace BattleSystem
         public DamageType DamageType = DamageType.Spell;
         
         [Header("Sounds")]
-        public AudioClip CastSound;
-        public AudioClip DeathSound;
+        public AudioEvent CastSound;
+        public AudioEvent DeathSound;
         
         [Header("Projectile")]
         public float Speed = 0f;
@@ -49,6 +49,11 @@ namespace BattleSystem
             if (spellComponent != null)
             {
                 spellComponent.Definition = definition;
+
+                if (definition.CastSound != null)
+                {
+                    definition.CastSound.PlayAtPoint(position);
+                }
             }
         }
 
