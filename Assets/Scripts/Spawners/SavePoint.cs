@@ -21,7 +21,9 @@ namespace SaveSystem
     
         private void SaveData()
         {
-            PlayerPrefs.SetInt(SaveKeys.LastSave, _uniqueId.GameObjectId);
+            PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
+            PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), "Used");
+            
             Log("Game Saved!");
             Destroy(gameObject);
         }
@@ -33,7 +35,7 @@ namespace SaveSystem
 
         private void Start()
         {
-            if (PlayerPrefs.GetInt(SaveKeys.LastSave) == _uniqueId.GameObjectId)
+            if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
             {
                 LoadData();
             }

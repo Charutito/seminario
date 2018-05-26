@@ -28,8 +28,8 @@ namespace Managers
         public bool FirstAbility { get { return Input.GetKeyDown(keyboard.FirstAbility) || Input.GetKeyDown(joystick.FirstAbility); } }
         public bool SecondAbility { get { return Input.GetKeyDown(keyboard.SecondAbility) || Input.GetKeyDown(joystick.SecondAbility); } }
 
-        public bool ThirdAbility { get { return Mathf.Abs(Input.GetAxis("SpellAim")) > 0; } }
-        public bool FourthAbility { get { return Mathf.Abs(Input.GetAxis("SpellCast")) > 0; } }
+        public bool ThirdAbility { get { return Mathf.Abs(Input.GetAxis("SpellAim")) > 0 || Input.GetKeyDown(joystick.ThirdAbility); } }
+        public bool FourthAbility { get { return Mathf.Abs(Input.GetAxis("SpellCast")) > 0 || Input.GetKeyDown(joystick.FourthAbility); } }
         
         public bool Dash { get { return Input.GetKeyDown(keyboard.Dash) || Input.GetKeyDown(joystick.Dash); } }
         

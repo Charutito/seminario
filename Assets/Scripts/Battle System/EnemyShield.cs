@@ -10,7 +10,7 @@ public class EnemyShield : MonoBehaviour
     
     public GameObject Shield;
         
-    private Entity _entity;
+    public Entity Entity;
 
     public void Deactivate(float delay = 0.5f)
     {
@@ -19,9 +19,9 @@ public class EnemyShield : MonoBehaviour
     
     public void Activate(float delay = 0.5f)
     {
-        if (_entity != null)
+        if (Entity != null)
         {
-            _entity.IsInvulnerable = true;
+            Entity.IsInvulnerable = true;
         }
         
         iTween.ScaleTo(Shield, iTween.Hash("scale", new Vector3(ShieldRange.maxValue, ShieldRange.maxValue, ShieldRange.maxValue), "time", delay, "easeType", iTween.EaseType.easeInSine));
@@ -29,7 +29,7 @@ public class EnemyShield : MonoBehaviour
 
     private void Awake()
     {
-        _entity = GetComponentInParent<Entity>();
+        Entity = Entity ?? GetComponentInParent<Entity>();
     }
 
     private void Start()
@@ -39,9 +39,9 @@ public class EnemyShield : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_entity != null)
+        if (Entity != null)
         {
-            _entity.IsInvulnerable = false;
+            Entity.IsInvulnerable = false;
         }
     }
 }

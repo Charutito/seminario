@@ -4,7 +4,9 @@ using GameUtils;
 using Metadata;
 using Spawners;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Util;
 
 namespace Managers
 {
@@ -24,13 +26,13 @@ namespace Managers
         public Text ComboText;
         public float TimeToReset = 2f;
         
+        [Header("Game End")]
+        public float TimeToRestartGame = 1.5f;
+
+        private ScreenFadeController _fadeController;
+        
         private float _currentTimeToReset;
         private int _combo;
-
-        public Coroutine RunCoroutine(IEnumerator enumerator)
-        {
-            return (this == Instance) ? StartCoroutine(enumerator) : null;
-        }
         
         public void ResetCombo()
         {
@@ -45,10 +47,18 @@ namespace Managers
             #endif
         }
 
+        private void RestartAfterDeath()
+        {
+            _fadeController.FadeOut();
+            
+            FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+        }
+
         private void Awake()
         {
+            _fadeController = GetComponentInChildren<ScreenFadeController>();
+                
             var characterSpawner = FindObjectOfType<CharacterSpawner>();
-
             
             #if UNITY_EDITOR
             if (characterSpawner == null)
@@ -71,7 +81,13 @@ namespace Managers
             //var characterObject = GameObject.FindGameObjectWithTag(Tags.PLAYER);
             Character = characterObject.GetComponent<CharacterEntity>();
         }
+
+        private void Start()
+        {
+            Character.OnDeath += (entity) => FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
+        }
         
+
         private void Update()
         {
             if (TimeToReset <= _currentTimeToReset)

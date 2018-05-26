@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoxSpawner : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class BoxSpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject _lastSpawn;
+    
+    [SerializeField]
+    private Image _cooldownImage;
 
     private float _currentTimeToSpawn;
     
@@ -28,6 +32,8 @@ public class BoxSpawner : MonoBehaviour
         if (_lastSpawn == null)
         {
             _currentTimeToSpawn -= Time.deltaTime;
+
+            _cooldownImage.fillAmount = 1 - _currentTimeToSpawn / SpawnDelay;
 
             if (_currentTimeToSpawn <= 0)
             {

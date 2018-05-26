@@ -21,8 +21,9 @@ namespace Entities
         private void SetupShield()
         {
             var entity = CurrentZone.entities
-                                        .Where(x => x != this)
-                                        .OrderBy(x => Random.value)
+                                        .Where(e => e != this)
+                                        .Where(e => _activeShields.All(activeEntity => activeEntity.Entity != e))
+                                        .OrderBy(e => Random.value)
                                         .FirstOrDefault();
 
             if (entity != null)
@@ -30,6 +31,7 @@ namespace Entities
                 var newObject = Instantiate(ShieldPrefab, entity.transform.position, Quaternion.identity, entity.transform);
                 
                 _activeShields.Add(newObject.GetComponent<EnemyShield>());
+                EntitySounds.PlayEffect("Cast", entity.transform.position);
             }
 
             _currentTimeToCast = CastDelay.GetRandom;
@@ -37,6 +39,7 @@ namespace Entities
 
         private void HandleDeath(Entity obj)
         {
+            EntitySounds.PlayEffect("Destroy");
             _active = false;
             foreach (var activeShield in _activeShields)
             {

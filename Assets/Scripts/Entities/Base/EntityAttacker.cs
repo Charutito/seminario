@@ -202,6 +202,8 @@ namespace Entities
                         if (targetEntity != null && !targetEntity.IsInvulnerable)
                         {
                             GameManager.Instance.Combo++;
+                            
+                            if(damage.type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
                         }
                     }
                     _entity.Stats.Spirit.Current += (damage.type == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
