@@ -7,9 +7,7 @@ using UnityEngine.UI;
 
 public class DashUIDebug : MonoBehaviour
 {
-	//public Image fill;
-	//public Text text;
-    public List<GameObject> charges;
+    public List<Image> Charges;
 	
 	private CharacterEntity _character;
 	
@@ -20,16 +18,22 @@ public class DashUIDebug : MonoBehaviour
 
 	private void Update()
 	{
-        for (int i = 0; i < _character.currentDashCharges; i++)
+        for (var i = 0; i < Charges.Count; i++)
         {
-            charges[i].SetActive(true);
+	        var currentChange = _character.currentDashCharges;
+	        
+	        if (currentChange == i)
+	        {
+		        Charges[i].fillAmount = 1 - _character.currentDashCooldown / _character.dashChargesCooldown;
+	        }
+	        if (currentChange > i)
+	        {
+		        Charges[i].fillAmount = 1;
+	        }
+	        if (currentChange < i)
+	        {
+		        Charges[i].fillAmount = 0;
+	        }
         }
-
-        for (int o = _character.currentDashCharges; o < charges.Count; o++)
-        {
-            charges[o].SetActive(false);
-        }
-
-		//fill.fillAmount = 1 - _character.currentDashCooldown / _character.dashChargesCooldown;
 	}
 }

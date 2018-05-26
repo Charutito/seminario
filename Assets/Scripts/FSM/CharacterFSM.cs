@@ -404,6 +404,7 @@ namespace FSM
             if (entity.currentDashCharges <= 0)
             {
                 dashLength = 1;
+                entity.currentDashCooldown = entity.dashChargesCooldown;
             }
             else
             {

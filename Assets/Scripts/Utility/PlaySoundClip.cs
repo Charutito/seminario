@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class PlaySoundClip : MonoBehaviour
 {
-    [SerializeField] private AudioSource source;
+    private AudioSource _source;
 
-    [SerializeField] private bool testSound;
-
-    public void PlayClip()
+    private void Start()
     {
-        if (source != null)
-        {
-            source.Play();
-        }
-    }
-
-    private void Update()
-    {
-        if (testSound)
-        {
-            testSound = false;
-            PlayClip();
-        }
+        _source = GetComponent<AudioSource>();
+        
+        Destroy(gameObject, _source.clip.length);
     }
 }
