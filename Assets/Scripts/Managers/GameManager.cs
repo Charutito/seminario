@@ -33,11 +33,6 @@ namespace Managers
         
         private float _currentTimeToReset;
         private int _combo;
-
-        public Coroutine RunCoroutine(IEnumerator enumerator)
-        {
-            return (this == Instance) ? StartCoroutine(enumerator) : null;
-        }
         
         public void ResetCombo()
         {

@@ -27,7 +27,7 @@ namespace AnimatorFSM.States
                 _stateManager.Entity.Collider.enabled = false;
                 _stateManager.FSM.enabled = false;
 
-                FrameUtil.AfterDelay(1f, () => GameManager.Instance.RunCoroutine(DisolveCorroutine()));
+                FrameUtil.AfterDelay(1f, () => CoroutineManager.Instance.RunCoroutine(DisolveCorroutine()));
                 Destroy(_stateManager.Entity.gameObject, 3f);
             };
         }

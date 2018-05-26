@@ -9,22 +9,22 @@ namespace Util
     {
         static public void AtEndOfFrame(Action action)
         {
-            GameManager.Instance.RunCoroutine(RunAtEndOfFrame(action));
+            CoroutineManager.Instance.RunCoroutine(RunAtEndOfFrame(action));
         }
 
         static public void OnNextFrame(Action action)
         {
-            GameManager.Instance.RunCoroutine(RunOnNextFrame(action));
+            CoroutineManager.Instance.RunCoroutine(RunOnNextFrame(action));
         }
 
         static public void AfterFrames(int frames, Action action)
         {
-            GameManager.Instance.RunCoroutine(RunAfterFrames(frames, action));
+            CoroutineManager.Instance.RunCoroutine(RunAfterFrames(frames, action));
         }
 
         static public void AfterDelay(float delayInSeconds, Action action)
         {
-            GameManager.Instance.RunCoroutine(RunAfterDelay(delayInSeconds, action));
+            CoroutineManager.Instance.RunCoroutine(RunAfterDelay(delayInSeconds, action));
         }
 
         static private IEnumerator RunAtEndOfFrame(Action action)
