@@ -17,9 +17,9 @@ namespace Managers.Mappings
         [SerializeField] public KeyCode SpecialAttack    = KeyCode.Mouse1;
         
         [Header("Spells")]
-        [SerializeField] public KeyCode FirstAbility     = KeyCode.Alpha1;
-        [SerializeField] public KeyCode SecondAbility    = KeyCode.Alpha2;
-        [SerializeField] public KeyCode ThirdAbility    = KeyCode.Alpha3;
+        [SerializeField] public KeyCode FirstAbility     = KeyCode.Alpha2;
+        [SerializeField] public KeyCode SecondAbility    = KeyCode.Alpha3;
+        [SerializeField] public KeyCode ThirdAbility    = KeyCode.Alpha1;
         [SerializeField] public KeyCode FourthAbility    = KeyCode.Alpha4;
 
         [Header("Movement")]

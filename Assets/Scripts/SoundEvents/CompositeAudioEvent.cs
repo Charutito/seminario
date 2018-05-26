@@ -33,24 +33,4 @@ public class CompositeAudioEvent : AudioEvent
 			return;
 		}
 	}
-
-	public override void Play(Vector3 position)
-	{
-		float totalWeight = 0;
-		for (var i = 0; i < Entries.Length; ++i)
-			totalWeight += Entries[i].Weight;
-
-		var pick = Random.Range(0, totalWeight);
-		for (var i = 0; i < Entries.Length; ++i)
-		{
-			if (pick > Entries[i].Weight)
-			{
-				pick -= Entries[i].Weight;
-				continue;
-			}
-
-			Entries[i].Event.Play(position);
-			return;
-		}
-	}
 }

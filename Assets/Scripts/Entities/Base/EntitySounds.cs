@@ -34,7 +34,7 @@ namespace Entities
 
             if (audioEvent != null)
             {
-                audioEvent.Clip.Play(position);
+                audioEvent.Clip.PlayAtPoint(position);
             }
         }
     }

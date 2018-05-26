@@ -4,10 +4,14 @@ using UnityEngine;
 public abstract class AudioEvent : ScriptableObject
 {
 	public abstract void Play(AudioSource source);
-	public abstract void Play(Vector3 position);
 
 	public void Play()
 	{
 		SoundManager.Instance.Play(this);
+	}
+	
+	public void PlayAtPoint(Vector3 position)
+	{
+		SoundManager.Instance.PlayAtPoint(this, position);
 	}
 }

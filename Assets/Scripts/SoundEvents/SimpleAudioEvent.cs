@@ -21,15 +21,4 @@ public class SimpleAudioEvent : AudioEvent
 		source.pitch = Random.Range(pitch.minValue, pitch.maxValue);
 		source.Play();
 	}
-
-	public override void Play(Vector3 position)
-	{
-		if (clips.Length == 0) return;
-
-		var clip = clips[Random.Range(0, clips.Length)];
-
-		var clipVolume = Random.Range(volume.minValue, volume.maxValue);
-		
-		AudioSource.PlayClipAtPoint(clip, position, clipVolume);
-	}
 }

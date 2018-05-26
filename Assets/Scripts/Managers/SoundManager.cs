@@ -8,6 +8,8 @@ namespace Managers
 {
     public class SoundManager : SingletonObject<SoundManager>
     {
+        public GameObject PointSoundPrefab;
+            
         private AudioSource[] _sources;
 
         private void Awake()
@@ -27,6 +29,17 @@ namespace Managers
                     break;
                 }
             }
+        }
+
+        public void PlayAtPoint(AudioEvent evt, Vector3 position)
+        {
+            if (evt == null) return;
+
+            var newSound = Instantiate(PointSoundPrefab, position, Quaternion.identity);
+
+            var audioSource = newSound.GetComponent<AudioSource>();
+            
+            evt.Play(audioSource);
         }
     }
 }
