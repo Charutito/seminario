@@ -9,13 +9,14 @@ using Util;
 
 public class LineOfAim : MonoBehaviour
 {
+    public Collider HitCollider;
+    
     [SerializeField] private LayerMask _hitLayers;
-    [SerializeField] private Collider _hitCollider;
     [SerializeField] private bool _move = true;
 
     public IEnumerable<Entity> GetEnemiesInSight()
     {
-        var targets = Physics.BoxCastAll(_hitCollider.transform.position, _hitCollider.transform.localScale/2, transform.forward, _hitCollider.transform.rotation, 1, _hitLayers);
+        var targets = Physics.BoxCastAll(HitCollider.transform.position, HitCollider.transform.localScale/2, transform.forward, HitCollider.transform.rotation, 1, _hitLayers);
 
         return targets.Select(target => target.collider.GetComponent<Entity>()).Where(entity => entity != null).ToList();
     }
@@ -27,7 +28,7 @@ public class LineOfAim : MonoBehaviour
 
     private void Start()
     {
-        _hitCollider = _hitCollider ?? GetComponentInChildren<Collider>();
+        HitCollider = HitCollider ?? GetComponentInChildren<Collider>();
     }
 
     private void Update()
@@ -50,7 +51,7 @@ public class LineOfAim : MonoBehaviour
     {
         Gizmos.color = Color.red;
             
-        Gizmos.DrawRay(_hitCollider.transform.position, _hitCollider.transform.forward);
-        Gizmos.DrawWireCube(_hitCollider.transform.position, _hitCollider.transform.localScale);
+        Gizmos.DrawRay(HitCollider.transform.position, HitCollider.transform.forward);
+        Gizmos.DrawWireCube(HitCollider.transform.position, HitCollider.transform.localScale);
     }
 }

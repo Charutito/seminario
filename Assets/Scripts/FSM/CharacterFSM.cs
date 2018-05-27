@@ -32,6 +32,7 @@ namespace FSM
         }
 
         private CharacterEntity entity;
+        private Vector3 lastLineOfAimPosition = Vector3.zero;
 
         public CharacterFSM(CharacterEntity entity)
         {
@@ -342,6 +343,7 @@ namespace FSM
             {
                 entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
+                entity.EntityMove.RotateInstant(entity.EntityAttacker.lineArea.HitCollider.transform.position);
                 entity.Animator.SetTrigger("ChargedAttack");
             };
 
@@ -471,6 +473,7 @@ namespace FSM
         {
             if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.EntityAttacker.lineArea.GetEnemiesInSight().Any())
             {
+                //lastLineOfAimPosition = entity.EntityAttacker.lineArea.HitCollider.transform.position;
                 Feed(Trigger.DancingBlades);
             }
         }
