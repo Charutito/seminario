@@ -34,6 +34,11 @@ namespace Entities
             Destroy(part, 1);
         }
         
+        public void DeathFeedback()
+        {
+            EntitySounds.PlayEffect("Death", transform.position);
+        }
+        
         public void Flash()
         {
             StartCoroutine("FlashCorroutine");

@@ -16,6 +16,7 @@ namespace AnimatorFSM.States
 		[Header("SFX")]
 		public SimpleAudioEvent ShieldActivate;
 		public SimpleAudioEvent ShieldDeactivate;
+		public SimpleAudioEvent ReloadEffect;
 		
 		private BomberStateManager _stateManager;
 		private GameObject _shieldMesh;
@@ -33,6 +34,9 @@ namespace AnimatorFSM.States
 			OnEnter += () =>
 			{
 				ShieldActivate.PlayAtPoint(transform.position);
+				
+				FrameUtil.AfterDelay(1f, () => ReloadEffect.PlayAtPoint(transform.position));
+				
 				_stateManager.Entity.Agent.enabled = false;
 				_shieldObstacle.enabled = true;
 				

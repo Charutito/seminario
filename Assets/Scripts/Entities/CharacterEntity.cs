@@ -60,10 +60,12 @@ namespace Entities
         }
         public void Heal(float amount)
         {
+	        InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
             Stats.Health.Current += amount;
         }
         public void HealEnergy(float amount)
         {
+	        InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
             Stats.Spirit.Current += amount;
         }
         public void AtkDdisp()
