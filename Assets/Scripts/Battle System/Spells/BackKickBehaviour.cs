@@ -26,16 +26,24 @@ namespace BattleSystem.Spells
             
             Cast();
         }
-
+        private void DmgCast(Transform pos)
+        {
+            var part = Instantiate(_behaviour.Definition.HitEffect);
+            var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
+            part.transform.position = partpos;
+            Destroy(part, 1.5f);
+        }
+        
         private void Cast()
         {
             var enemies = _lineOfAim.GetEnemiesInSight().ToList();
-            
+            var part = Instantiate(_behaviour.Definition.SubCast);
+            part.transform.position = transform.position;
             foreach (var enemy in enemies)
             {
                 GameManager.Instance.Combo++;
                 _character.Heal(LifeRecover);
-
+                DmgCast(enemy.transform);
                 enemy.TakeDamage(new Damage
                 {
                     amount = _behaviour.Definition.Damage,
