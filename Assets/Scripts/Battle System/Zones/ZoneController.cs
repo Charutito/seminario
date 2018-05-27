@@ -27,7 +27,7 @@ namespace BattleSystem
         public bool Cleared { get; set; }
         public CharacterEntity Target { get; protected set; }
         public int EnemiesLeft { get { return entities.Count; } }
-        public AudioSource audio;
+        public AudioEvent AudioEvent;
     
         [Header("Attack Delay")]
         public float minAttackDelay = 2f;
@@ -128,7 +128,7 @@ namespace BattleSystem
         {
             if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
-                if(audio != null) audio.Play();
+                if(AudioEvent != null) AudioEvent.PlayAtPoint(transform.position);
                 ToggleDoors(true);
                 _fsm.PlayerEnter();
             }
