@@ -9,19 +9,18 @@ public abstract class Collectable : MonoBehaviour
 
     protected abstract void Collect();
 
-    protected virtual void SelfDestruct()
+    protected virtual void SelfDestruct(Transform other)
     {
         CollectSound.PlayAtPoint(transform.position);
             
-        var parts = Instantiate(particle);
-        parts.transform.position = transform.position;
-        Destroy(parts, 1);
+        var parts = Instantiate(particle, other.position, Quaternion.identity, other);
+        Destroy(parts, 1.5f);
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Collect();
-        SelfDestruct();
+        SelfDestruct(other.transform);
     }
 }
