@@ -55,19 +55,19 @@ namespace BattleSystem.Spells
             var halfWait = _behaviour.Definition.WaitTime / 2;
 
             var casted = false;
-            
+
             foreach (var enemy in targets)
             {
                 casted = true;
                 _character.EntityMove.RotateInstant(enemy.transform.position);
                 _character.EntityMove.SmoothMoveTransform(enemy.transform.position - transform.forward, halfWait);
-
+                
                 GameManager.Instance.Combo++;
-
+                DmgCast(enemy.transform);
                 enemy.TakeDamage(new Damage
                 {
                     amount = _behaviour.Definition.Damage,
-                    type = _behaviour.Definition.DamageType,
+                    type = _behaviour.Definition.DamageType,                    
                     origin = transform,
                     originator = _character
                 });
@@ -82,6 +82,13 @@ namespace BattleSystem.Spells
 
             _character.AttackRecovered();
             Destroy(gameObject);
+        }
+        private void DmgCast(Transform pos)
+        {
+            var part = Instantiate(_behaviour.Definition.SubCast);
+            var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
+            part.transform.position = partpos;
+            Destroy(part, 1.5f);
         }
 
         private void OnDestroy()
