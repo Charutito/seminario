@@ -23,7 +23,7 @@ namespace BattleSystem.Spells
             _behaviour = GetComponent<SpellBehaviour>();
             _character = GameManager.Instance.Character;
             _lineOfAim = GetComponentInChildren<LineOfAim>();
-            
+         
             Cast();
         }
         private void DmgCast(Transform pos)
@@ -39,6 +39,7 @@ namespace BattleSystem.Spells
             var enemies = _lineOfAim.GetEnemiesInSight().ToList();
             var part = Instantiate(_behaviour.Definition.SubCast);
             part.transform.position = transform.position;
+            part.transform.forward = GameManager.Instance.Character.transform.forward;
             foreach (var enemy in enemies)
             {
                 GameManager.Instance.Combo++;

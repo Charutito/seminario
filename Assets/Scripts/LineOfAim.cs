@@ -28,7 +28,11 @@ public class LineOfAim : MonoBehaviour
 
     private void Start()
     {
-        HitCollider = HitCollider ?? GetComponentInChildren<Collider>();
+        //if (!HitCollider)
+        //{
+        //    HitCollider = GetComponentInChildren<Collider>();
+        //}
+
     }
 
     private void Update()
