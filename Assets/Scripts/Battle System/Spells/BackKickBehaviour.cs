@@ -14,6 +14,8 @@ namespace BattleSystem.Spells
     {
         public float Displacement = 1f;
         public float LifeRecover = 2f;
+        public GameObject Effect;
+            
         private SpellBehaviour _behaviour;
         private CharacterEntity _character;
         private LineOfAim _lineOfAim;
@@ -26,24 +28,23 @@ namespace BattleSystem.Spells
             
             Cast();
         }
-        private void DmgCast(Transform pos)
+        private void DmgCast(Transform target)
         {
-            var part = Instantiate(_behaviour.Definition.HitEffect);
-            var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
-            part.transform.position = partpos;
+            var part = Instantiate(_behaviour.Definition.HitEffect,  target.position + Vector3.up, Quaternion.identity, target);
             Destroy(part, 1.5f);
         }
         
         private void Cast()
         {
             var enemies = _lineOfAim.GetEnemiesInSight().ToList();
-            var part = Instantiate(_behaviour.Definition.SubCast);
-            part.transform.position = transform.position;
+            Instantiate(Effect, transform.position, Quaternion.identity, transform);
+            
             foreach (var enemy in enemies)
             {
                 GameManager.Instance.Combo++;
                 _character.Heal(LifeRecover);
                 DmgCast(enemy.transform);
+                
                 enemy.TakeDamage(new Damage
                 {
                     amount = _behaviour.Definition.Damage,
