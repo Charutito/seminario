@@ -22,6 +22,7 @@ namespace Metadata
         public static readonly string LastSave = "LastSave";
         public static readonly string UsedSave = "save_{0}";
         public static readonly string CharacterStats = "LastSave";
+        public static readonly string ConsoleSave = "console_{0}";
     }
 
     public static class FormatedLog

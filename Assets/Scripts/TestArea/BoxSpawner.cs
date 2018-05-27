@@ -15,7 +15,15 @@ public class BoxSpawner : MonoBehaviour
     private Image _cooldownImage;
 
     private float _currentTimeToSpawn;
-    
+
+    public void RemoveLastSpawn()
+    {
+        if(_lastSpawn != null)
+        {
+            Destroy(_lastSpawn);
+        }
+    }
+
     private void Spawn()
     {
         _lastSpawn = Instantiate(SpawnPrefab, transform.position + Vector3.up, transform.rotation);
