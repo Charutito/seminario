@@ -128,7 +128,7 @@ public class ConsoleBehaviour : MonoBehaviour
             UpdateSlider();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             Validate();
         }
