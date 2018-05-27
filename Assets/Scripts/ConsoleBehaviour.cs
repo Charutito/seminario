@@ -85,28 +85,45 @@ public class ConsoleBehaviour : MonoBehaviour
         }
     }
 
+    private bool _resetHorizontal = true;
+    private bool _resetVertical = true;
+
     private void Update()
     {
         if (!_active || _resolved) return;
-        
-        if (Input.GetKeyDown(KeyCode.I))
+
+        if (Math.Abs(Input.GetAxis("DpadHorizontal")) < 0.1f)
         {
+            _resetHorizontal = true;
+        }
+        
+        if (Math.Abs(Input.GetAxis("DpadVertical")) < 0.1f)
+        {
+            _resetVertical = true;
+        }
+
+        if (_resetVertical && Input.GetAxis("DpadVertical") > 0)
+        {
+            _resetVertical = false;
             _currentSliderValue += 1;
             UpdateSliderValue();
         }
-        else if (Input.GetKeyDown(KeyCode.K))
+        else if (_resetVertical && Input.GetAxis("DpadVertical") < 0)
         {
+            _resetVertical = false;
             _currentSliderValue -= 1;
             UpdateSliderValue();
         }
         
-        if (Input.GetKeyDown(KeyCode.L))
+        if (_resetHorizontal && Input.GetAxis("DpadHorizontal") > 0)
         {
+            _resetHorizontal = false;
             _currentSlider += 1;
             UpdateSlider();
         }
-        else if (Input.GetKeyDown(KeyCode.J))
+        else if (_resetHorizontal && Input.GetAxis("DpadHorizontal") < 0)
         {
+            _resetHorizontal = false;
             _currentSlider -= 1;
             UpdateSlider();
         }
