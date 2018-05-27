@@ -28,7 +28,6 @@ namespace Entities
 
 	    [Header("Spells")]
 	    public AudioSource noSpiritSound;
-        public Transform castPosition;
 	    public SpellDefinition FirstAbility;
 	    public SpellDefinition SecondAbility;
 	    public SpellDefinition ThirdAbility;
