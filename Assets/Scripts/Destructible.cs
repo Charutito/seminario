@@ -7,15 +7,15 @@ public class Destructible : MonoBehaviour, IDamageable
 {
     public GameObject drop;
     public GameObject particles;
+    public AudioEvent DestroyAudio;
 
     public void TakeDamage(Damage damage)
     {
-        var parts = Instantiate(particles);
-        parts.transform.position = transform.position;
-        Destroy(parts, 1);
+        Instantiate(drop, transform.position + Vector3.up, Quaternion.identity);
+        DestroyAudio.PlayAtPoint(transform.position);
         
-        var toDrop = Instantiate(drop);
-        toDrop.transform.position = transform.position;
+        var parts = Instantiate(particles, transform.position, Quaternion.identity);
+        Destroy(parts, 1);
         Destroy(gameObject);
     }
 }
