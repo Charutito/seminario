@@ -15,7 +15,7 @@ namespace AnimatorFSM
                 {
                     case GroupAction.Attacking:
                     case GroupAction.SpecialAttack:
-                        SetState("Attack");
+                        SetState("Attack", true);
                         break;
                     case GroupAction.Stalking:
                         FSM.SetBool("Activated", true);
