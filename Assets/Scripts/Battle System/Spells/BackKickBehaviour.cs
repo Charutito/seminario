@@ -31,15 +31,14 @@ namespace BattleSystem.Spells
             var part = Instantiate(_behaviour.Definition.HitEffect);
             var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
             part.transform.position = partpos;
-            Destroy(part, 1.5f);
         }
         
         private void Cast()
         {
-            var enemies = _lineOfAim.GetEnemiesInSight().ToList();
             var part = Instantiate(_behaviour.Definition.SubCast);
             part.transform.position = transform.position;
             part.transform.forward = GameManager.Instance.Character.transform.forward;
+            var enemies = _lineOfAim.GetEnemiesInSight().ToList();
             foreach (var enemy in enemies)
             {
                 GameManager.Instance.Combo++;
