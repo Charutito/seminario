@@ -18,6 +18,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AO:
+        m_Texture: {fileID: 2800000, guid: 799a2a6f788098b44b9e0eeaea06405b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlpphaMask:
         m_Texture: {fileID: 2800000, guid: 5438a263bf8967d4d803d7776324fb06, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -46,6 +50,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Displacementheightmap:
+        m_Texture: {fileID: 2800000, guid: b6360e920b289c040ab78497612a967d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -70,6 +78,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 3a351a7cbf6f05f4bbcd60bb13926bca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ToonRamp:
         m_Texture: {fileID: 2800000, guid: dd67df6ac74921a47b34bf1bc312b89c, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -83,6 +95,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissionStrenght: 1.579565
     - _FresnelPower: -0.9841692
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -90,6 +103,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0
     - _Parallax: 0.018
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
