@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using Metadata;
 using UnityEngine;
 
@@ -7,6 +8,12 @@ namespace SaveSystem
     [RequireComponent(typeof(SaveGUID))]
     public class SavePoint : MonoBehaviour
     {
+        [Serializable]
+        public class SavePointData
+        {
+            public Vector3 Position;
+        }
+
         private bool _isLoading;
         private SaveGUID _uniqueId;
     
@@ -21,8 +28,9 @@ namespace SaveSystem
     
         private void SaveData()
         {
+            var dataToSave = new SavePointData { Position = transform.position };
             PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
-            PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), "Used");
+            PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
             
             Log("Game Saved!");
             Destroy(gameObject);
@@ -35,11 +43,11 @@ namespace SaveSystem
 
         private void Start()
         {
-            if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
+            /*if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
             {
                 LoadData();
-            }
-            else if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
+            }*/
+            if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
             {
                 Destroy(gameObject);
             }
