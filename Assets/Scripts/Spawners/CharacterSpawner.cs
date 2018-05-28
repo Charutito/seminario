@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Metadata;
+using SaveSystem;
 using UnityEngine;
 
 namespace Spawners
@@ -11,6 +13,16 @@ namespace Spawners
 
         public GameObject SpawnCharacter()
         {
+            if (PlayerPrefs.HasKey(SaveKeys.LastSave))
+            {
+                var serializedPosition = PlayerPrefs.GetString(string.Format(SaveKeys.UsedSave, PlayerPrefs.GetString(SaveKeys.LastSave)));
+
+                transform.position = JsonUtility.FromJson<SavePoint.SavePointData>(serializedPosition).Position;
+            }
+            
+            var mainCamera = GameObject.FindGameObjectWithTag("GameCamera");
+            mainCamera.transform.position = transform.position;
+
             return Instantiate(CharacterPrefab, transform.position, transform.rotation);
         }
     }

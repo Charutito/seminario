@@ -1,31 +1,54 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using Metadata;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SaveSystem
 {
     [RequireComponent(typeof(SaveGUID))]
     public class SavePoint : MonoBehaviour
     {
-        private bool _isLoading;
+        [Serializable]
+        public class SavePointData
+        {
+            public Vector3 Position;
+        }
+
+        public UnityEvent OnSaveEvent;
+        public UnityEvent OnLoadEvent;
+
+        private bool _isUsed;
         private SaveGUID _uniqueId;
-    
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
+
         private void LoadData()
         {
-            _isLoading = true;
+            _isUsed = true;
         
-            GameManager.Instance.Character.transform.position = transform.position;
+            //GameManager.Instance.Character.transform.position = transform.position;
+            
+            OnLoadEvent.Invoke();
+            
             Log("Game Loaded!");
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     
         private void SaveData()
         {
-            PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
-            PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), "Used");
+            _isUsed = true;
             
+            var dataToSave = new SavePointData { Position = transform.position };
+            PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
+            PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
+            
+            OnSaveEvent.Invoke();
             Log("Game Saved!");
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
 
         private void Awake()
@@ -47,7 +70,7 @@ namespace SaveSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_isLoading) return;
+            if (_isUsed) return;
         
             SaveData();
         }
