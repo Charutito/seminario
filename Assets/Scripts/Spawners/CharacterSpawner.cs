@@ -19,6 +19,9 @@ namespace Spawners
 
                 transform.position = JsonUtility.FromJson<SavePoint.SavePointData>(serializedPosition).Position;
             }
+            
+            var mainCamera = GameObject.FindGameObjectWithTag("GameCamera");
+            mainCamera.transform.position = transform.position;
 
             return Instantiate(CharacterPrefab, transform.position, transform.rotation);
         }
