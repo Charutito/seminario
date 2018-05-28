@@ -2,6 +2,7 @@
 using Managers;
 using Metadata;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SaveSystem
 {
@@ -14,26 +15,40 @@ namespace SaveSystem
             public Vector3 Position;
         }
 
-        private bool _isLoading;
+        public UnityEvent OnSaveEvent;
+        public UnityEvent OnLoadEvent;
+
+        private bool _isUsed;
         private SaveGUID _uniqueId;
-    
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
+
         private void LoadData()
         {
-            _isLoading = true;
+            _isUsed = true;
         
-            GameManager.Instance.Character.transform.position = transform.position;
+            //GameManager.Instance.Character.transform.position = transform.position;
+            
+            OnLoadEvent.Invoke();
+            
             Log("Game Loaded!");
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     
         private void SaveData()
         {
+            _isUsed = true;
+            
             var dataToSave = new SavePointData { Position = transform.position };
             PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
             PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
             
+            OnSaveEvent.Invoke();
             Log("Game Saved!");
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
 
         private void Awake()
@@ -43,11 +58,11 @@ namespace SaveSystem
 
         private void Start()
         {
-            /*if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
+            if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
             {
                 LoadData();
-            }*/
-            if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
+            }
+            else if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
             {
                 Destroy(gameObject);
             }
@@ -55,7 +70,7 @@ namespace SaveSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_isLoading) return;
+            if (_isUsed) return;
         
             SaveData();
         }
