@@ -2338,7 +2338,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OnEntityDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114321216910754070}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   stats:
@@ -2359,8 +2370,6 @@ MonoBehaviour:
   godMode: 0
   AttackRange: 2
   HitsToGetStunned: 3
-  DmgDispl: 1
-  getHitDuration: 1
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
   Hitpos: {fileID: 4452403582651476}
 --- !u!114 &114374554697687326
@@ -2573,6 +2582,10 @@ MonoBehaviour:
   Effects:
   - Clip: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
     EffectName: Hit
+  - Clip: {fileID: 11400000, guid: 5e3a04b78b554ed46b464b520f9474e6, type: 2}
+    EffectName: Death
+  - Clip: {fileID: 11400000, guid: 5b27712171fe67e4eb7cf257f2d4a89d, type: 2}
+    EffectName: Fall
 --- !u!114 &114860934230329552
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -15,16 +15,9 @@ namespace Entities
         [Header("Stun")]
         public int HitsToGetStunned = 3;
         
-        [Range(0, 1)]
-        public float DmgDispl = 0.7f;
-        
         [Header("GetHit")]
-        public int getHitDuration = 1;
-
-        #region Local Vars
-        [SerializeField] public GameObject Hitpart;
-		[SerializeField] public Transform Hitpos;
-        #endregion
+        public GameObject Hitpart;
+		public Transform Hitpos;
 
         public void HitFeedback()
         {
@@ -36,7 +29,16 @@ namespace Entities
         
         public void DeathFeedback()
         {
-            EntitySounds.PlayEffect("Death", transform.position);
+            if (LastDamage.type == DamageType.Environment)
+            {
+                EntitySounds.PlayEffect("Fall", transform.position);
+            }
+            else
+            {
+                var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
+                Destroy(part, 1);
+                EntitySounds.PlayEffect("Death", transform.position);
+            }
         }
         
         public void Flash()

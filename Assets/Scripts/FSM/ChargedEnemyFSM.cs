@@ -198,7 +198,7 @@ namespace FSM
                 entity.Animator.SetTrigger(Animations.GetHit);
                 entity.GetComponent<EntityAttacker>().attackArea.enabled = false;
 
-                FrameUtil.AfterDelay(entity.getHitDuration, () =>
+                FrameUtil.AfterDelay(1, () =>
                 {
                     Feed(Trigger.Recover);
                 });
