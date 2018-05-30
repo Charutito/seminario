@@ -31,6 +31,7 @@ namespace Entities
         public EntityStats Stats { get { return stats; } }
         public int AttackDamage { get { return attackDamage; } }
         public int HeavyAttackDamage { get { return heavyAttackDamage; } }
+        public Damage LastDamage { get; private set; }
         #endregion
 
 
@@ -75,6 +76,8 @@ namespace Entities
         public virtual void TakeDamage(Damage damage)
         {
             if (IsDead || (IsInvulnerable && !damage.Absolute)) return;
+            
+            LastDamage = damage;
 
             if (!IsGod || damage.Absolute)
             {
