@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using GameUtils;
 using SaveSystem;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BattleSystem
 {
@@ -16,71 +18,118 @@ namespace BattleSystem
     public class ZoneController : MonoBehaviour
     {
         [Serializable]
-        private class BehaviourWeight : IWeighted
+        public class BehaviourWeight : IWeighted
         {
             public int Weight { get { return weight; } }
-            [SerializeField] public GroupAction targetAction = GroupAction.None;
-            [SerializeField] public int weight;
+            public GroupAction targetAction = GroupAction.None;
+            public int weight = 10;
         }
-
-        public bool Initialized { get; set; }
-        public bool Cleared { get; set; }
-        public CharacterEntity Target { get; protected set; }
-        public int EnemiesLeft { get { return entities.Count; } }
-        public AudioEvent AudioEvent;
-    
-        [Header("Attack Delay")]
-        public float minAttackDelay = 2f;
-        public float maxAttackDelay = 5f;
-
-        [Header("Entities To pick")]
-        public int minEntitiesToAttack = 1;
-        public int maxEntitiesToAttack = 2;
         
-        [SerializeField] private List<BehaviourWeight> entityActions;
-        public List<GroupEntity> entities;
-        [SerializeField] private List<GameObject> doors;
+        #region Properties
+        public bool Initialized { get; set; }
+        #endregion
 
+        #region Configuration
+        [Header("Configuration")]
+        [Tooltip("Audio Event to play at zone initialization")]
+        public AudioEvent InitSound;
+        
+        [Tooltip("Random delay between waves")]
+        [MinMaxRange(0, 5)]
+        public RangedFloat ActionDelay;
+
+        [Tooltip("Max entities to action every wave")]
+        [MinMaxRange(1, 20)]
+        public RangedFloat EntitiesToAttack;
+        
+        [Tooltip("Weighted behaviour list to define zone actions in waves.")]
+        public List<BehaviourWeight> EntityActions;
+        
+        [Tooltip("Door GameObjects to show once zone is active.")]
+        public List<GameObject> Doors;
+        #endregion
+
+        #region Events
+
+        [Header("Events")]
+        [Tooltip("This executes once player enters the zone")]
+        public UnityEvent OnZoneActivate;
+        
+        [Tooltip("This executes once the zone is cleared")]
+        public UnityEvent OnZoneCleared;
+        #endregion
+        
+        [HideInInspector]
+        public readonly List<GroupEntity> Entities = new List<GroupEntity>();
+        
+        private CharacterEntity _target;
+        private SaveGUID _uniqueId;
         private ZoneFSM _fsm;
 
-        private SaveGUID _uniqueId;
+        public void AddEntity(GroupEntity entity, GroupAction startingAction = GroupAction.None)
+        {
+            entity.CurrentAction = startingAction;
+            entity.CurrentZone = this;
 
-        // Deberia tener un random para ver si pega uno o otro
+            if (entity.Target == null)
+            {
+                entity.Target = GameManager.Instance.Character;
+            }
+
+            entity.OnDeath += OnEntityDie;
+
+            if (!Entities.Contains(entity))
+            {
+                Entities.Add(entity);
+            }
+        }
+
         public void ExecuteAttack()
         {
-            var entitiesToAttack = entities
+            var entitiesToAttack = Entities
                                     .Where(e => e.CurrentAction == GroupAction.Stalking)
-                                    .OrderBy(e => Vector3.Distance(Target.transform.position, e.transform.position))
-                                    .Take(UnityEngine.Random.Range(minEntitiesToAttack, maxEntitiesToAttack));
+                                    .OrderBy(e => Vector3.Distance(_target.transform.position, e.transform.position))
+                                    .Take(EntitiesToAttack.GetRandomInt);
 
-            foreach (var entityToAttack in entitiesToAttack)
+            if (EntityActions.Count > 0)
             {
-                entityToAttack.CurrentAction = RandomHelper.Select(entityActions).targetAction;
+                foreach (var entityToAttack in entitiesToAttack)
+                {
+                    var result = RandomHelper.Select(EntityActions);
+                    
+                    if (result != null)
+                    {
+                        entityToAttack.CurrentAction = result.targetAction;
+                    }
+                    else
+                    {
+                    #if DEBUG
+                        Debug.LogWarning("The zone " + gameObject.name + " has a null EntityAction. Please, check the Target Action and Weight.", this);
+                    #endif
+                    }
+                }
+            }
+            else
+            {
+            #if DEBUG
+                Debug.LogWarning("The zone " + gameObject.name + " has no EntityActions. The entities are frozen.", this);
+            #endif
             }
         }
-
-        public void PrepareEntities()
+        
+        private void ClearZone()
         {
-            foreach (var entity in entities)
-            {
-                entity.CurrentAction = GroupAction.Stalking;
-                entity.CurrentZone = this;
-                if (entity.Target == null) entity.Target = GameManager.Instance.Character;
-                entity.OnDeath += OnEntityDie;
-            }
-        }
-
-        public void ClearZone()
-        {
-            Cleared = true;
+            OnZoneCleared.Invoke();
+            
             ToggleDoors(false);
+            
             PlayerPrefs.SetString(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId), "Cleared");
             Destroy(gameObject, 5);
         }
 
         private void ToggleDoors(bool state)
         {
-            foreach (var door in doors)
+            foreach (var door in Doors)
             {
                 if (door != null)
                 {
@@ -91,10 +140,15 @@ namespace BattleSystem
 
         private void OnEntityDie(Entity entity)
         {
-            entities.Remove((GroupEntity)entity);
+            var groupEntity = (GroupEntity)entity;
+            if (Entities.Contains(groupEntity))
+            {
+                Entities.Remove(groupEntity);
+            }
+            
             entity.OnDeath -= OnEntityDie;
             
-            if (entities.Count <= 0)
+            if (Entities.Count <= 0)
             {
                 ClearZone();
             }
@@ -107,16 +161,28 @@ namespace BattleSystem
             if (PlayerPrefs.HasKey(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId)))
             {
                 Destroy(gameObject);
+                return;
             }
 
-            _fsm = new ZoneFSM(this);
-
             ToggleDoors(false);
+            
+            _fsm = new ZoneFSM(this);
         }
+        
 
         private void Start()
         {
-            Target = GameManager.Instance.Character;
+            _target = GameManager.Instance.Character;
+            
+            foreach (Transform child in transform)
+            {
+                var entity = child.GetComponent<GroupEntity>();
+                
+                if (entity != null)
+                {
+                    AddEntity(entity);
+                }
+            }
         }
 
         private void Update()
@@ -128,10 +194,54 @@ namespace BattleSystem
         {
             if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
-                if(AudioEvent != null) AudioEvent.PlayAtPoint(transform.position);
+                if (InitSound != null)
+                {
+                    InitSound.PlayAtPoint(transform.position);
+                }
+                OnZoneActivate.Invoke();
                 ToggleDoors(true);
-                _fsm.PlayerEnter();
             }
         }
     }
+
+#if UNITY_EDITOR
+    public static class ZoneCreator
+    {
+        [MenuItem("Akane/Entities/New zone", false)]
+        public static void CreateCustomGameObject(MenuCommand menuCommand)
+        {
+            const string ZONE_SOUND_PATH = "Assets/GameData/SoundEvents/Environment/ZoneAlert.asset";
+            
+            var go = new GameObject("New Zone");
+            go.AddComponent<SaveGUID>();
+            
+            var zoneCollider = go.AddComponent<BoxCollider>();
+            zoneCollider.isTrigger = true;
+            
+            var zoneController = go.AddComponent<ZoneController>();
+            
+            zoneController.ActionDelay.minValue = 1;
+            zoneController.ActionDelay.maxValue = 1;
+            zoneController.EntitiesToAttack.minValue = 1;
+            zoneController.EntitiesToAttack.maxValue = 1;
+                
+            var audioEvent = AssetDatabase.LoadAssetAtPath<SimpleAudioEvent>(ZONE_SOUND_PATH);
+
+            if (audioEvent != null)
+            {
+                zoneController.InitSound = audioEvent;
+            }
+            else
+            {
+                Debug.LogWarning("Can't reference Zone sound at : " + ZONE_SOUND_PATH);
+            }
+
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+            
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+    }
+#endif
 }

@@ -8,27 +8,29 @@ namespace FSM
     {
         private class Trigger
         {
-            public static int None = 0;
-            public static int PlayerEnter = 1;
-            public static int AttackTime = 2;
-            public static int ZoneCleared = 3;
+            public const int None = 0;
+            public const int PlayerEnter = 1;
+            public const int AttackTime = 2;
+            public const int ZoneCleared = 3;
         }
 
         #region Local Vars
-        private ZoneController zone;
-        private float currentTimeToAttack = 0f;
+        private ZoneController _zone;
+        private float _currentTimeToAction;
         #endregion
 
         public ZoneFSM(ZoneController zone)
         {
             this.debugName = "ZoneFSM";
-            this.zone = zone;
+            _zone = zone;
+            
+            _zone.OnZoneActivate.AddListener(PlayerEnter);
 
             #region States Definitions
-            State<int> Idle = new State<int>("Idle");
-            State<int> Spawning = new State<int>("Spawning");
-            State<int> Attacking = new State<int>("Attacking");
-            State<int> Clearing = new State<int>("Clearing");
+            var Idle = new State<int>("Idle");
+            var Spawning = new State<int>("Spawning");
+            var Attacking = new State<int>("Attacking");
+            var Clearing = new State<int>("Clearing");
             #endregion
 
             #region States Configuration
@@ -49,9 +51,9 @@ namespace FSM
             #region Spawning State
             Spawning.OnEnter += () =>
             {
-                zone.PrepareEntities();
+                zone.Entities.ForEach((entity) => entity.CurrentAction = GroupAction.Stalking);
                 zone.Initialized = true;
-                currentTimeToAttack = Random.Range(zone.minAttackDelay, zone.maxAttackDelay);
+                _currentTimeToAction = _zone.ActionDelay.GetRandom;
             };
             #endregion
 
@@ -62,15 +64,15 @@ namespace FSM
 
         public override void Update()
         {
-            if (zone.Initialized && !GameManager.Instance.Character.IsDead)
+            if (_zone.Initialized && !GameManager.Instance.Character.IsDead)
             {
-                if (currentTimeToAttack <= 0)
+                if (_currentTimeToAction <= 0)
                 {
                     Feed(Trigger.AttackTime);
-                    currentTimeToAttack = Random.Range(zone.minAttackDelay, zone.maxAttackDelay);
+                    _currentTimeToAction = _zone.ActionDelay.GetRandom;
                 }
 
-                currentTimeToAttack -= Time.deltaTime;
+                _currentTimeToAction -= Time.deltaTime;
             }
 
             base.Update();
@@ -79,6 +81,7 @@ namespace FSM
         #region Zone Triggers
         public void PlayerEnter()
         {
+            _zone.OnZoneActivate.RemoveListener(PlayerEnter);
             Feed(Trigger.PlayerEnter);
         }
         #endregion

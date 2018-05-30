@@ -46,7 +46,7 @@ namespace Entities
         
         private void SetupShield()
         {
-            var entity = CurrentZone.entities
+            var entity = CurrentZone.Entities
                 .Where(e => e != this)
                 .Where(e => _activeShields.All(activeEntity => activeEntity.Entity != e))
                 .OrderBy(e => Random.value)
