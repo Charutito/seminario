@@ -7,6 +7,8 @@ namespace AnimatorFSM.States
 {
 	public class FleeToPositionState : BaseState
 	{
+		public float FleeRange = 10f;
+		public float DistanceToFee = 8f;
 		public List<Transform> FleePoints;
 		
 		private Transform _lastPoint;
@@ -22,15 +24,23 @@ namespace AnimatorFSM.States
 		{
 			OnEnter += () =>
 			{
-				var newPoint = FleePoints
-								.OrderByDescending(x => Vector3.Distance(x.position, _stateManager.Entity.Target.transform.position))
-								.FirstOrDefault();
-
-				if (newPoint != _lastPoint)
+				var characterDistance = Vector3.Distance(_stateManager.Entity.transform.position,
+					_stateManager.Entity.Target.transform.position);
+				
+				if (DistanceToFee > characterDistance || _stateManager.Entity.AttackRange < characterDistance)
 				{
-					_lastPoint = newPoint;
-					_stateManager.Entity.Animator.SetFloat(EntityAnimations.Move, 1);
-					_stateManager.Entity.EntityMove.MoveAgent(newPoint.position);
+					var newPoint = FleePoints
+						.Where(x => Vector3.Distance(x.position, _stateManager.Entity.transform.position) < FleeRange) // Max distance to flee
+						.Where(x => Vector3.Distance(x.position, _stateManager.Entity.Target.transform.position) < _stateManager.Entity.AttackRange) // Where the character its inside attack range too
+						.OrderByDescending(x => Vector3.Distance(x.position, _stateManager.Entity.Target.transform.position))
+						.FirstOrDefault();
+
+					if (newPoint != _lastPoint)
+					{
+						_lastPoint = newPoint;
+						_stateManager.Entity.Animator.SetFloat(EntityAnimations.Move, 1);
+						if (newPoint != null) _stateManager.Entity.EntityMove.MoveAgent(newPoint.position);
+					}
 				}
 			};
 
@@ -57,6 +67,12 @@ namespace AnimatorFSM.States
 				Gizmos.color = Color.cyan;
 				Gizmos.DrawWireSphere(_lastPoint.position, 1);
 			}
+			
+			Gizmos.color = Color.blue;
+			Gizmos.DrawWireSphere(transform.position, FleeRange);
+			
+			Gizmos.color = Color.magenta;
+			Gizmos.DrawWireSphere(transform.position, DistanceToFee);
 		}
 	}
 }

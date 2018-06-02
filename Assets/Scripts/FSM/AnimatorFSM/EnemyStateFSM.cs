@@ -22,6 +22,7 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.Target, typeof(TargetLostState));
 			AvailableStates.Add(EnemyState.Stalk, typeof(StalkingState));
 			AvailableStates.Add(EnemyState.Flee, typeof(FleeToPositionState));
+			AvailableStates.Add(EnemyState.RangedStalk, typeof(RangedStalkingState));
 		
 			AvailableStates.Add(EnemyState.Attack, typeof(AttackState));
 			AvailableStates.Add(EnemyState.RangedAttack, typeof(RangedAttackState));
@@ -71,6 +72,7 @@ namespace AnimatorFSM
 		Target = 3,
 		Stalk = 4,
 		Flee = 5,
+		RangedStalk = 6,
 	
 		Attack = 10,
 		RangedAttack = 11,
@@ -83,6 +85,6 @@ namespace AnimatorFSM
 		Stun = 22,
 		KnockBack = 23,
 		FlyUp = 24,
-		Graviton = 25
+		Graviton = 25,
 	}
 }
