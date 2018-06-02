@@ -3340,21 +3340,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  stats:
-    health:
-      _Actual: 100
-      _Min: 0
-      _Max: 100
-    movementSpeed:
-      _Actual: 2
-      _Min: 2
-      _Max: 2
-    spirit:
-      _Actual: 50
-      _Min: 0
-      _Max: 50
-  attackDamage: 10
-  heavyAttackDamage: 15
+  Stats: {fileID: 0}
+  Definition: {fileID: 11400000, guid: 11600b109ccdde5488def9f16f8d5b3f, type: 2}
   godMode: 0
   dashLenght: 2
   maxDashCharges: 3
@@ -3365,7 +3352,6 @@ MonoBehaviour:
   AtkDispl: 0.5
   DmgDispl: 0.5
   vfxManager: {fileID: 114294847653439722}
-  noSpiritSound: {fileID: 0}
   FirstAbility: {fileID: 11400000, guid: c31e7d6a684e07c4b8cd13dbf2c26bc1, type: 2}
   SecondAbility: {fileID: 11400000, guid: 5d5a1ef4997be494ba3abb89a5a77fc9, type: 2}
   ThirdAbility: {fileID: 11400000, guid: 3119342994fbc6a418d01f920b4df40a, type: 2}

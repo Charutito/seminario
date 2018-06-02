@@ -22,20 +22,18 @@ public class LifeUIDebug : MonoBehaviour {
 
     private void Update()
     {
-        fill.fillAmount = _entity.Stats.Health.Current / _entity.Stats.Health.Max;    
+        fill.fillAmount = (float)_entity.Stats.CurrentHealth / _entity.Stats.MaxHealth;    
     }
 
     private void ShowRedScreen()
     {
         redScreen.SetTrigger("Show");
-        //redScreen.SetActive(true);
-        StartCoroutine(Show(timeToDisplay));
+        StartCoroutine(Show());
     }
 
-    private IEnumerator Show(float timeToDisplay)
+    private IEnumerator Show()
     {
         yield return new WaitForSeconds(timeToDisplay);
-        //redScreen.SetActive(false);
         redScreen.SetTrigger("Hide");
     }
 }

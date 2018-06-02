@@ -21,10 +21,6 @@ namespace Entities
         [Header("Heavy Attack")]
         [SerializeField] private float heavyaoe = 2f;
         [SerializeField] private LayerMask hitLayers;
-
-        [Header("Spirit Recovery")]
-        [SerializeField] private int basicAttackSpirit = 5;
-        [SerializeField] private int heavyAttackSpirit = 10;
         
         [Header("Displacement")]
         [SerializeField] private float basicDisplacement = 0.7f;
@@ -93,7 +89,7 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.AttackDamage,
+                amount = _entity.Stats.LightAttackDamage,
                 type = DamageType.Attack,
                 Displacement = basicDisplacement
             });
@@ -111,7 +107,7 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.HeavyAttackDamage,
+                amount = _entity.Stats.SpecialAttackDamage,
                 type = DamageType.ThirdAttack,
                 Displacement = thirdDisplacement
             }, true);
@@ -128,7 +124,7 @@ namespace Entities
 
             AttackAreaLogic(new Damage
             {
-                amount = _entity.HeavyAttackDamage,
+                amount = _entity.Stats.SpecialAttackDamage,
                 type = DamageType.FlyUp,
                 Displacement = basicDisplacement
             });
@@ -148,7 +144,7 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.HeavyAttackDamage,
+                amount = _entity.Stats.SpecialAttackDamage,
                 type = DamageType.SpecialAttack,
                 Displacement = heavyDisplacement
             });
@@ -158,7 +154,7 @@ namespace Entities
         
         private void AttackAreaLogic(Damage damage, bool aoe = false)
         {
-            List<Collider> targets = new List<Collider>();
+            var targets = new List<Collider>();
 
             if (aoe)
             {
@@ -168,10 +164,7 @@ namespace Entities
             {
                 var tarjetas = Physics.BoxCastAll(attackArea.transform.position, attackArea.transform.localScale / 2, transform.forward, attackArea.transform.rotation, 1, hitLayers);
 
-                foreach (var target in tarjetas)
-                {
-                    targets.Add(target.collider);
-                }
+                targets.AddRange(tarjetas.Select(target => target.collider));
             }
             
             damage.origin = transform;
@@ -206,7 +199,7 @@ namespace Entities
                             if(damage.type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
                         }
                     }
-                    _entity.Stats.Spirit.Current += (damage.type == DamageType.SpecialAttack) ? heavyAttackSpirit : basicAttackSpirit;
+                    _entity.Stats.CurrentSpirit += (damage.type == DamageType.SpecialAttack) ? _entity.Stats.SpecialAttackDamage : _entity.Stats.LightRecovery;
                     damageable.TakeDamage(damage);
                 }
             }

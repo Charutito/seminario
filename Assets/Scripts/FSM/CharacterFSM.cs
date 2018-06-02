@@ -129,6 +129,7 @@ namespace FSM
                 .SetTransition(Trigger.Attack, Attacking)
                 .SetTransition(Trigger.SpecialAttack, SpecialAttack)
                 .SetTransition(Trigger.Move, Moving)
+                .SetTransition(Trigger.GetHit, GetHit)
                 .SetTransition(Trigger.Stun, Stunned)
                 .SetTransition(Trigger.Die, Dead)
                 .SetTransition(Trigger.None, Idle)
@@ -244,7 +245,6 @@ namespace FSM
             #region Moving
             Moving.OnEnter += () =>
             {
-                entity.Stats.MoveSpeed.Current = entity.Stats.MoveSpeed.Max;
                 entity.Animator.SetFloat("Velocity Z", 1);
             };
 
@@ -473,7 +473,6 @@ namespace FSM
         {
             if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.EntityAttacker.lineArea.GetEnemiesInSight().Any())
             {
-                //lastLineOfAimPosition = entity.EntityAttacker.lineArea.HitCollider.transform.position;
                 Feed(Trigger.DancingBlades);
             }
         }

@@ -1,6 +1,5 @@
 ﻿using BattleSystem;
 using UnityEngine;
-using Stats;
 using System;
 using FSM;
 using UnityEngine.AI;
@@ -24,13 +23,9 @@ namespace Entities
         #region Stats
         public bool IsAttacking { get; set; }
         public bool IsSpecialAttacking { get; set; }
-        public bool IsBlocking { get; set; }
-        public bool IsDead { get { return stats.Health.Current <= stats.Health.Min; } }
+        public bool IsDead { get { return Stats.CurrentHealth <= 0; } }
         public bool IsGod { get { return godMode; } }
         public bool IsInvulnerable { get; set; }
-        public EntityStats Stats { get { return stats; } }
-        public int AttackDamage { get { return attackDamage; } }
-        public int HeavyAttackDamage { get { return heavyAttackDamage; } }
         public Damage LastDamage { get; private set; }
         #endregion
 
@@ -46,9 +41,8 @@ namespace Entities
 
 
         #region Local Vars
-        [SerializeField] private EntityStats stats;
-        [SerializeField] private int attackDamage = 10;
-        [SerializeField] private int heavyAttackDamage = 25;
+        [HideInInspector] public EntityDefinition Stats;
+        [SerializeField] public EntityDefinition Definition;
         [SerializeField] private bool godMode = false;
         #endregion 
         
@@ -81,7 +75,7 @@ namespace Entities
 
             if (!IsGod || damage.Absolute)
             {
-                Stats.Health.Current -= damage.amount;
+                Stats.CurrentHealth -= damage.amount;
             }
 
             if (IsDead && OnDeath != null)
@@ -97,14 +91,33 @@ namespace Entities
             }
         }
         #endregion
+        
+        public virtual void Heal(int amount)
+        {
+            Stats.CurrentHealth += amount;
+        }
+        public virtual void HealEnergy(int amount)
+        {
+            Stats.CurrentSpirit += amount;
+        }
 
         protected abstract void SetFsm();
 
         protected virtual void Awake()
         {
-            Stats.Health.Current = stats.Health.Max;
-            
             TryGetComponents();
+            
+            if (Definition != null)
+            {
+                Stats = Definition.CreateInstance();
+                Agent.speed = Stats.MovementSpeed;
+            }
+            else
+            {
+            #if DEBUG
+                Debug.LogWarning("Entity " + gameObject.name + " has no definition attached to it.");
+            #endif
+            }
 
             SetFsm();
         }

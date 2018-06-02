@@ -16,7 +16,7 @@ namespace Entities
         #region Movement
         public void MoveTransform(float x, float z, bool rotate = true)
         {
-            var newPosition = transform.position + (new Vector3(x, 0, z).normalized * _entity.Stats.MoveSpeed.Current * Time.deltaTime);
+            var newPosition = transform.position + (new Vector3(x, 0, z).normalized * _entity.Stats.MovementSpeed * Time.deltaTime);
 
             if (rotate)
             {
@@ -83,7 +83,7 @@ namespace Entities
         #region Rotation
         public void RotateTowards(Vector3 target, float rotationSpeed = 10f)
         {
-            Vector3 direction = (target - transform.position).normalized;
+            var direction = (target - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
         }

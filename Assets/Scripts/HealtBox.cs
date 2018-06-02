@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HealtBox : Collectable
 {
-    public float HealingPow;
+    public int HealingPow;
 
     protected override void Collect()
     {

@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using BattleSystem;
+using Entities;
 using UnityEngine;
 
 namespace AnimatorFSM.States
@@ -15,6 +16,7 @@ namespace AnimatorFSM.States
 
         protected override void DefineState()
         {
+            OnEnter += () => _entity.CurrentAction = GroupAction.Stalking;
             OnUpdate += () => _entity.EntityMove.RotateInstant(_entity.Target.transform.position);
         }
     }

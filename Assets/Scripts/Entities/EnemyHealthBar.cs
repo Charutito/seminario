@@ -7,29 +7,26 @@ namespace Entities
 	{
 		[SerializeField] private Image fillBar;
 		
-		private Entity entity;
+		private Entity _entity;
 		
-		protected virtual void OnActualChange(float old, float current)
+		protected virtual void OnActualChange(int old, int current)
 		{
-			fillBar.fillAmount = current/entity.Stats.Health.Max;
+			fillBar.fillAmount = (float)_entity.Stats.CurrentHealth / _entity.Stats.MaxHealth;
 		}
 
 		protected virtual void OnDeath(Entity e)
 		{
+			_entity.Stats.OnHealthChange -= OnActualChange;
+			_entity.OnDeath -= OnDeath;
 			Destroy(gameObject);
 		}
 
-		private void Awake()
+		private void Start()
 		{
-			entity = GetComponentInParent<Entity>();
+			_entity = GetComponentInParent<Entity>();
 			
-			entity.Stats.Health.OnActualChange += OnActualChange;
-			entity.OnDeath += OnDeath;
-		}
-
-		private void OnDestroy()
-		{
-			entity.OnDeath -= OnDeath;
+			_entity.Stats.OnHealthChange += OnActualChange;
+			_entity.OnDeath += OnDeath;
 		}
 	}
 }

@@ -17,6 +17,6 @@ public class SpiritUIDebug : MonoBehaviour
 
     private void Update()
     {
-        fill.fillAmount = _entity.Stats.Spirit.Current / _entity.Stats.Spirit.Max;
+        fill.fillAmount = (float)_entity.Stats.CurrentSpirit / _entity.Stats.MaxSpirit;
     }
 }

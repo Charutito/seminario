@@ -10,6 +10,7 @@ using BattleSystem;
 public class BulletCollisionDamage : MonoBehaviour
 {
     public int Damage;
+    
     private void OnTriggerEnter(Collider col)
     {
         var damageable = col.gameObject.GetComponent<IDamageable>();        
