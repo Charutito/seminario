@@ -55,13 +55,13 @@ namespace Entities
             
             if (damageable != null)
             {
-                damageable.TakeDamage(new Damage
+                /*damageable.TakeDamage(new Damage
                 {
                     amount = AttackDamage,
                     type = DamageType.Attack,
                     origin = transform,
                     originator = this
-                });
+                });*/
             }
         }
 

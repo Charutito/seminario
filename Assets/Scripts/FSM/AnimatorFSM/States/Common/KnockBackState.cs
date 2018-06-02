@@ -57,7 +57,7 @@ namespace AnimatorFSM.States
 				
 				_stateManager.Entity.TakeDamage(new Damage
 				{
-					amount = (int)_stateManager.Entity.Stats.Health.Max,
+					amount = _stateManager.Entity.Stats.MaxHealth,
 					type = DamageType.Environment,
 					origin = _stateManager.Entity.transform,
 					Absolute = true

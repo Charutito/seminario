@@ -61,6 +61,7 @@ namespace BattleSystem
         
         [HideInInspector]
         public readonly List<GroupEntity> Entities = new List<GroupEntity>();
+        public readonly List<EntitySpawner> Spawners = new List<EntitySpawner>();
         
         private CharacterEntity _target;
         private SaveGUID _uniqueId;
@@ -68,26 +69,26 @@ namespace BattleSystem
 
         public void AddEntity(GroupEntity entity, GroupAction startingAction = GroupAction.None)
         {
-            entity.CurrentAction = startingAction;
-            entity.CurrentZone = this;
-
-            if (entity.Target == null)
-            {
-                entity.Target = GameManager.Instance.Character;
-            }
-
-            entity.OnDeath += OnEntityDie;
-
             if (!Entities.Contains(entity))
             {
                 Entities.Add(entity);
+                
+                if (entity.Target == null)
+                {
+                    entity.Target = GameManager.Instance.Character;
+                }
+            
+                entity.CurrentZone = this;
+                entity.CurrentAction = startingAction;
+
+                entity.OnDeath += OnEntityDie;
             }
         }
 
         public void ExecuteAttack()
         {
             var entitiesToAttack = Entities
-                                    .Where(e => e.CurrentAction == GroupAction.Stalking)
+                                    .Where(e => e.CurrentAction == GroupAction.Stalking || e.CurrentAction == GroupAction.None)
                                     .OrderBy(e => Vector3.Distance(_target.transform.position, e.transform.position))
                                     .Take(EntitiesToAttack.GetRandomInt);
 
@@ -138,6 +139,14 @@ namespace BattleSystem
             }
         }
 
+        private void CheckIfCleared()
+        {
+            if (Entities.Count <= 0 && Spawners.Count <= 0)
+            {
+                ClearZone();
+            }
+        }
+
         private void OnEntityDie(Entity entity)
         {
             var groupEntity = (GroupEntity)entity;
@@ -148,10 +157,43 @@ namespace BattleSystem
             
             entity.OnDeath -= OnEntityDie;
             
-            if (Entities.Count <= 0)
+            CheckIfCleared();
+        }
+
+        private void OnSpawnerCleared(EntitySpawner spawner)
+        {
+            if (Spawners.Contains(spawner))
             {
-                ClearZone();
+                Spawners.Remove(spawner);
             }
+
+            spawner.OnComplete -= OnSpawnerCleared;
+            
+            CheckIfCleared();
+        }
+
+        private void InitializeZone()
+        {
+            foreach (Transform child in transform)
+            {
+                var entity = child.GetComponent<GroupEntity>();
+                
+                if (entity != null)
+                {
+                    AddEntity(entity);
+                    continue;
+                }
+
+                var spawner = child.GetComponent<EntitySpawner>();
+                
+                if (spawner != null)
+                {
+                    spawner.OnComplete += OnSpawnerCleared;
+                    Spawners.Add(spawner);
+                    continue;
+                }
+            }
+            
         }
 
         private void Awake()
@@ -174,15 +216,7 @@ namespace BattleSystem
         {
             _target = GameManager.Instance.Character;
             
-            foreach (Transform child in transform)
-            {
-                var entity = child.GetComponent<GroupEntity>();
-                
-                if (entity != null)
-                {
-                    AddEntity(entity);
-                }
-            }
+            InitializeZone();
         }
 
         private void Update()
@@ -207,7 +241,7 @@ namespace BattleSystem
 #if UNITY_EDITOR
     public static class ZoneCreator
     {
-        [MenuItem("Akane/Entities/New zone", false)]
+        [MenuItem("Akane/Entities/Zone", false)]
         public static void CreateCustomGameObject(MenuCommand menuCommand)
         {
             const string ZONE_SOUND_PATH = "Assets/GameData/SoundEvents/Environment/ZoneAlert.asset";

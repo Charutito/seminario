@@ -35,13 +35,13 @@ namespace Utility
         public void RecoverHealthCharacter()
         {
             var character = GameManager.Instance.Character;
-            character.Heal(character.Stats.Health.Max);
+            character.Heal(character.Stats.MaxHealth);
         }
         
         public void RecoverSpiritCharacter()
         {
             var character = GameManager.Instance.Character;
-            character.HealEnergy(character.Stats.Spirit.Max);
+            character.HealEnergy(character.Stats.MaxSpirit);
         }
         
         public void ToggleCharacterNoClip()

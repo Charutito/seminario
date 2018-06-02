@@ -17,12 +17,12 @@ namespace AnimatorFSM.States
 
 		private void Awake()
 		{
-			DefineState();
+			Setup();
 		}
 
 		private void Start()
 		{
-			Setup();
+			DefineState();
 			_isFirstRun = false;
 			FrameUtil.OnNextFrame(OnEnable);
 		}

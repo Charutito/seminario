@@ -24,7 +24,7 @@ namespace AnimatorFSM.States
 			{
 				var newPoint = FleePoints
 								.OrderByDescending(x => Vector3.Distance(x.position, _stateManager.Entity.Target.transform.position))
-								.First();
+								.FirstOrDefault();
 
 				if (newPoint != _lastPoint)
 				{

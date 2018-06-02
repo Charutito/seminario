@@ -27,17 +27,15 @@ namespace Entities
 	    public VfxManager vfxManager;
 
 	    [Header("Spells")]
-	    public AudioSource noSpiritSound;
 	    public SpellDefinition FirstAbility;
 	    public SpellDefinition SecondAbility;
 	    public SpellDefinition ThirdAbility;
 	    public SpellDefinition FourthAbility;
 	    
-	    [Header("Cooldowns (Debug)")]
-	    public float CurrentFirstAbilityCooldown;
-	    public float CurrentSecondAbilityCooldown;
-	    public float CurrentThirdAbilityCooldown;
-	    public float CurrentFourthAbilityCooldown;
+	    [HideInInspector] public float CurrentFirstAbilityCooldown;
+	    [HideInInspector] public float CurrentSecondAbilityCooldown;
+	    [HideInInspector] public float CurrentThirdAbilityCooldown;
+	    [HideInInspector] public float CurrentFourthAbilityCooldown;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -58,45 +56,47 @@ namespace Entities
             this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             this.EntityMove.RotateInstant(direction);
         }
-        public void Heal(float amount)
-        {
-	        InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
-            Stats.Health.Current += amount;
-        }
-        public void HealEnergy(float amount)
-        {
-	        InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
-            Stats.Spirit.Current += amount;
-        }
+        
         public void AtkDdisp()
         {
             EntityMove.SmoothMoveTransform(transform.position + transform.forward * transform.GetMaxDistance(DmgDispl), 0.1f);
         }
 	    
+	    public override void Heal(int amount)
+	    {
+		    InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
+		    base.Heal(amount);
+	    }
+	    public override void HealEnergy(int amount)
+	    {
+		    InputManager.Instance.Vibrate(0, 0.3f, 0.15f);
+		    base.HealEnergy(amount);
+	    }
+	    
 	    public void FirstAbilityHit()
 	    {
 		    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
-		    Stats.Spirit.Current -= FirstAbility.SpiritCost;
+		    Stats.CurrentSpirit -= FirstAbility.SpiritCost;
 		    SpellDefinition.Cast(FirstAbility, transform);
 	    }
 
         public void SecondAbilityHit()
         {
-	        Stats.Spirit.Current -= SecondAbility.SpiritCost;
+	        Stats.CurrentSpirit -= SecondAbility.SpiritCost;
 	        CurrentSecondAbilityCooldown = SecondAbility.Cooldown;
             SpellDefinition.Cast(SecondAbility, transform);
         }
 
 	    public void DancingBladesStart()
 	    {
-		    Stats.Spirit.Current -= ThirdAbility.SpiritCost;
+		    Stats.CurrentSpirit -= ThirdAbility.SpiritCost;
 		    CurrentThirdAbilityCooldown = ThirdAbility.Cooldown;
 		    SpellDefinition.Cast(ThirdAbility, transform, true);
 	    }
 	    
 	    public void FourthAbilityHit()
 	    {
-		    Stats.Spirit.Current -= FourthAbility.SpiritCost;
+		    Stats.CurrentSpirit -= FourthAbility.SpiritCost;
 		    CurrentFourthAbilityCooldown = FourthAbility.Cooldown;
 		    SpellDefinition.Cast(FourthAbility, transform, true);
 	    }
@@ -153,19 +153,19 @@ namespace Entities
 			    OnSpecialAttack();
 		    }
 		    
-		    if (InputManager.Instance.FirstAbility && Stats.Spirit.Current >= FirstAbility.SpiritCost && CurrentFirstAbilityCooldown <= 0 && !IsDead)
+		    if (InputManager.Instance.FirstAbility && Stats.CurrentSpirit >= FirstAbility.SpiritCost && CurrentFirstAbilityCooldown <= 0 && !IsDead)
 		    {
 			    OnGravitonCast();
 		    }
-		    if (InputManager.Instance.SecondAbility && Stats.Spirit.Current >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0 && !IsDead)
+		    if (InputManager.Instance.SecondAbility && Stats.CurrentSpirit >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0 && !IsDead)
 		    {
                 OnSpiritPunch();
 		    }
-		    if (InputManager.Instance.ThirdAbility && Stats.Spirit.Current >= ThirdAbility.SpiritCost && CurrentThirdAbilityCooldown <= 0 && !IsDead)
+		    if (InputManager.Instance.ThirdAbility && Stats.CurrentSpirit >= ThirdAbility.SpiritCost && CurrentThirdAbilityCooldown <= 0 && !IsDead)
 		    {
 			    OnDancingBlades();
 		    }
-		    if (InputManager.Instance.FourthAbility && Stats.Spirit.Current >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0  && !IsDead)
+		    if (InputManager.Instance.FourthAbility && Stats.CurrentSpirit >= FourthAbility.SpiritCost && CurrentFourthAbilityCooldown <= 0  && !IsDead)
 		    {
 			    OnBackflipCast();
 		    }

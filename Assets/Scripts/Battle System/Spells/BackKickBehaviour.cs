@@ -13,7 +13,7 @@ namespace BattleSystem.Spells
     public class BackKickBehaviour : MonoBehaviour
     {
         public float Displacement = 1f;
-        public float LifeRecover = 2f;
+        public int LifeRecover = 2;
         private SpellBehaviour _behaviour;
         private CharacterEntity _character;
         private LineOfAim _lineOfAim;
