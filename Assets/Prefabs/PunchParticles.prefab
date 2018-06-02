@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812027673477736}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.807055, y: 2.015933, z: 0.44971442}
+  m_LocalPosition: {x: -3.44, y: 2.42, z: 0.44971442}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591516111517310}
@@ -163,7 +163,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1723708240
+  randomSeed: -1991769867
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -253,7 +253,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.75735295, b: 0.98326576, a: 1}
+      maxColor: {r: 0.75735295, g: 0.78914803, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3569,7 +3569,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 332732204
+  randomSeed: 1850011476
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3659,7 +3659,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.927992, g: 0.47794116, b: 1, a: 1}
+      maxColor: {r: 0.8839757, g: 0.83823526, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6981,7 +6981,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2127366152
+  randomSeed: -1403942631
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7071,7 +7071,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.44827604, g: 0, b: 1, a: 1}
+      maxColor: {r: 0.92292094, g: 0.8602941, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10402,8 +10402,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a855d50a613d306439adaab782ee2f22, type: 2}
+  - {fileID: 2100000, guid: a855d50a613d306439adaab782ee2f22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
