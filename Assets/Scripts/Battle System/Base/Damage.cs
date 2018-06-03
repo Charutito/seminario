@@ -8,11 +8,11 @@ namespace BattleSystem
 	[Serializable]
 	sealed public class Damage
 	{
-		[SerializeField] public int amount;
-		[SerializeField] public DamageType type = DamageType.Unknown;
-		[SerializeField] public Transform origin;
-		[SerializeField] public Entity originator;
-		[SerializeField] public float Displacement;
-		[SerializeField] public bool Absolute;
+		public int Amount;
+		public DamageType Type = DamageType.Unknown;
+		public Transform Origin;
+		public Entity Originator;
+		public float Displacement;
+		public bool Absolute;
 	}
 }

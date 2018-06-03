@@ -66,10 +66,10 @@ namespace BattleSystem.Spells
 
                 enemy.TakeDamage(new Damage
                 {
-                    amount = _behaviour.Definition.Damage,
-                    type = _behaviour.Definition.DamageType,
-                    origin = transform,
-                    originator = _character,
+                    Amount = _behaviour.Definition.Damage,
+                    Type = _behaviour.Definition.DamageType,
+                    Origin = transform,
+                    Originator = _character,
                     Displacement = 0.5f,
                     Absolute = true
                 });

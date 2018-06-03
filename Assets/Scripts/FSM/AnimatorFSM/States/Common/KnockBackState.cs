@@ -11,55 +11,51 @@ namespace AnimatorFSM.States
 	{
 		public float DisplacementMultiplier = 1f;
 		public float DisplacementTime = 0.3f;
-		private AbstractStateManager _stateManager;
 
-		protected override void Setup()
-		{
-			_stateManager = GetComponent<AbstractStateManager>();
-		}
+		protected override void Setup() { }
 
 		protected override void DefineState()
 		{
 			OnEnter += () =>
 			{
-				if(_stateManager.Entity.Agent.enabled) _stateManager.Entity.Agent.ResetPath();
-				_stateManager.Entity.Agent.enabled = false;
-				_stateManager.Entity.Animator.SetTrigger(EntityAnimations.GettingHitBack);
+				if(StateManager.Entity.Agent.enabled) StateManager.Entity.Agent.ResetPath();
+				StateManager.Entity.Agent.enabled = false;
+				StateManager.Entity.Animator.SetTrigger(EntityAnimations.GettingHitBack);
 
-				if (_stateManager.LastDamage.Displacement > 0f)
+				if (StateManager.LastDamage.Displacement > 0f)
 				{
-					_stateManager.Entity.EntityMove.SmoothMoveTransform(
-						Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
+					StateManager.Entity.EntityMove.SmoothMoveTransform(
+						Vector3.MoveTowards(transform.position, StateManager.LastDamage.Origin.position, -StateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
 						DisplacementTime, () => CheckIfCanGoDown());
 				}
 				
-				if (_stateManager.Entity.EntityAttacker != null) _stateManager.Entity.EntityAttacker.attackArea.enabled = false;
+				if (StateManager.Entity.EntityAttacker != null) StateManager.Entity.EntityAttacker.attackArea.enabled = false;
 			};
 			
 			OnExit += () =>
 			{
-				_stateManager.Entity.CurrentAction = GroupAction.Stalking;
+				StateManager.Entity.CurrentAction = GroupAction.Stalking;
 
-				if (!_stateManager.Entity.IsDead && !CheckIfCanGoDown())
+				if (!StateManager.Entity.IsDead && !CheckIfCanGoDown())
 				{
-					_stateManager.Entity.Agent.enabled = true;
+					StateManager.Entity.Agent.enabled = true;
 				}
 			};
 		}
 
 		private bool CheckIfCanGoDown()
 		{
-			if (!_stateManager.Entity.EntityMove.CanReachPosition(_stateManager.Entity.transform.position))
+			if (!StateManager.Entity.EntityMove.CanReachPosition(StateManager.Entity.transform.position))
 			{
-				var rb = _stateManager.Entity.gameObject.GetComponent<Rigidbody>();
+				var rb = StateManager.Entity.gameObject.GetComponent<Rigidbody>();
 				rb.isKinematic = false;
 				rb.useGravity = true;
 				
-				_stateManager.Entity.TakeDamage(new Damage
+				StateManager.Entity.TakeDamage(new Damage
 				{
-					amount = _stateManager.Entity.Stats.MaxHealth,
-					type = DamageType.Environment,
-					origin = _stateManager.Entity.transform,
+					Amount = StateManager.Entity.Stats.MaxHealth,
+					Type = DamageType.Environment,
+					Origin = StateManager.Entity.transform,
 					Absolute = true
 				});
 				return true;

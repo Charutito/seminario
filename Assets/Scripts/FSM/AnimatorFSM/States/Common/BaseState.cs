@@ -10,6 +10,8 @@ namespace AnimatorFSM.States
 		public event Action OnUpdate = delegate {};
 		public event Action OnExit = delegate {};
 		
+		protected AbstractStateManager StateManager;
+		
 		private bool _isFirstRun = true;
 		
 		protected abstract void	Setup();
@@ -17,6 +19,8 @@ namespace AnimatorFSM.States
 
 		private void Awake()
 		{
+			StateManager = GetComponent<AbstractStateManager>();
+			
 			Setup();
 		}
 

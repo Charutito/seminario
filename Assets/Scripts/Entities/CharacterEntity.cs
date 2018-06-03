@@ -107,7 +107,7 @@ namespace Entities
 	        
             OnShowDamage();
 
-            if (damage.type == DamageType.ThirdAttack)
+            if (damage.Type == DamageType.ThirdAttack)
             {
                 OnGettingHitBack();
             }
@@ -116,13 +116,13 @@ namespace Entities
                 OnGetHit();
             }
 
-            if (damage.type == DamageType.SpecialAttack)
+            if (damage.Type == DamageType.SpecialAttack)
 		    {
 			    OnStun();
 
 			    if (IsSpecialAttacking)
 			    {
-				    damage.amount = 0;
+				    damage.Amount = 0;
 			    }
 		    }
             base.TakeDamage(damage);

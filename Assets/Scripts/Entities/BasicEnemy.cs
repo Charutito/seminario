@@ -29,14 +29,18 @@ namespace Entities
         
         public void DeathFeedback()
         {
-            if (LastDamage.type == DamageType.Environment)
+            if (LastDamage != null && LastDamage.Type == DamageType.Environment)
             {
                 EntitySounds.PlayEffect("Fall", transform.position);
             }
             else
             {
-                var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
-                Destroy(part, 1);
+                if (Hitpart != null && Hitpos != null)
+                {
+                    var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
+                    Destroy(part, 1);
+                }
+                
                 EntitySounds.PlayEffect("Death", transform.position);
             }
         }

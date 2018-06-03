@@ -74,9 +74,9 @@ namespace BattleSystem.Spells
 	    {
 		    damageable.TakeDamage(new Damage
 		    {
-			    amount = _behaviour.Definition.Damage,
-			    type = damageType,
-			    origin = transform
+			    Amount = _behaviour.Definition.Damage,
+			    Type = damageType,
+			    Origin = transform
 		    });
 	    }
     }

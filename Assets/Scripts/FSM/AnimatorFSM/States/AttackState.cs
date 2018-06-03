@@ -8,19 +8,14 @@ namespace AnimatorFSM.States
 	[AddComponentMenu("State Machine/Stalking State")]
 	public class AttackState : BaseState
 	{
-		private BasicEnemy _entity;
-
-		protected override void Setup()
-		{
-			_entity = GetComponentInParent<BasicEnemy>();
-		}
+		protected override void Setup() { }
 
 		protected override void DefineState()
 		{
 			OnEnter += () =>
 			{
-				_entity.Animator.SetTrigger(EntityAnimations.Attack);
-				_entity.CurrentAction = GroupAction.Stalking;
+				StateManager.Entity.Animator.SetTrigger(EntityAnimations.Attack);
+				StateManager.Entity.CurrentAction = GroupAction.Stalking;
 			};
 		}
 	}

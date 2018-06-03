@@ -23,10 +23,10 @@ namespace AnimatorFSM
 
 			if (CurrentHitsToStun >= Entity.HitsToGetStunned)
 			{
-				damage.type = DamageType.Block;
+				damage.Type = DamageType.Block;
 			}
 			
-			switch (damage.type)
+			switch (damage.Type)
 			{
 				case DamageType.Block:
 					SetState("Stun");

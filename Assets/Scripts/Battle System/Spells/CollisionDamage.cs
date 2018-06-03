@@ -25,9 +25,9 @@ namespace BattleSystem.Spells
             {
                 damageable.TakeDamage(new Damage
                 {
-                    amount = _damage,
-                    type = _behaviour.Definition.DamageType,
-                    origin = transform
+                    Amount = _damage,
+                    Type = _behaviour.Definition.DamageType,
+                    Origin = transform
                 });
                 
                 if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);

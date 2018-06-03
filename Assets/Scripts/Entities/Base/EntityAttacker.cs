@@ -89,8 +89,8 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.Stats.LightAttackDamage,
-                type = DamageType.Attack,
+                Amount = _entity.Stats.LightAttackDamage,
+                Type = DamageType.Attack,
                 Displacement = basicDisplacement
             });
         }
@@ -107,8 +107,8 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.Stats.SpecialAttackDamage,
-                type = DamageType.ThirdAttack,
+                Amount = _entity.Stats.SpecialAttackDamage,
+                Type = DamageType.ThirdAttack,
                 Displacement = thirdDisplacement
             }, true);
         }
@@ -124,8 +124,8 @@ namespace Entities
 
             AttackAreaLogic(new Damage
             {
-                amount = _entity.Stats.SpecialAttackDamage,
-                type = DamageType.FlyUp,
+                Amount = _entity.Stats.SpecialAttackDamage,
+                Type = DamageType.FlyUp,
                 Displacement = basicDisplacement
             });
         }
@@ -144,8 +144,8 @@ namespace Entities
             
             AttackAreaLogic(new Damage
             {
-                amount = _entity.Stats.SpecialAttackDamage,
-                type = DamageType.SpecialAttack,
+                Amount = _entity.Stats.SpecialAttackDamage,
+                Type = DamageType.SpecialAttack,
                 Displacement = heavyDisplacement
             });
         }
@@ -167,8 +167,8 @@ namespace Entities
                 targets.AddRange(tarjetas.Select(target => target.collider));
             }
             
-            damage.origin = transform;
-            damage.originator = _entity;
+            damage.Origin = transform;
+            damage.Originator = _entity;
             
             foreach (var target in targets)
             {
@@ -196,10 +196,10 @@ namespace Entities
                         {
                             GameManager.Instance.Combo++;
                             
-                            if(damage.type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
+                            if(damage.Type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
                         }
                     }
-                    _entity.Stats.CurrentSpirit += (damage.type == DamageType.SpecialAttack) ? _entity.Stats.SpecialAttackDamage : _entity.Stats.LightRecovery;
+                    _entity.Stats.CurrentSpirit += (damage.Type == DamageType.SpecialAttack) ? _entity.Stats.SpecialAttackDamage : _entity.Stats.LightRecovery;
                     damageable.TakeDamage(damage);
                 }
             }

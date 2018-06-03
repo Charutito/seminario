@@ -8,24 +8,20 @@ namespace AnimatorFSM.States
     {
         public float DisplacementMultiplier = 1f;
         public float DisplacementTime = 0.1f;
-        private AbstractStateManager _stateManager;
 
-        protected override void Setup()
-        {
-            _stateManager = GetComponent<AbstractStateManager>();
-        }
+        protected override void Setup() { }
 
         protected override void DefineState()
         {
             OnEnter += () =>
             {
-                if(_stateManager.Entity.Agent.enabled) _stateManager.Entity.Agent.ResetPath();
-                _stateManager.Entity.Animator.SetTrigger(EntityAnimations.GetHit);
+                if(StateManager.Entity.Agent.enabled) StateManager.Entity.Agent.ResetPath();
+                StateManager.Entity.Animator.SetTrigger(EntityAnimations.GetHit);
                 
-                _stateManager.Entity.EntityMove.SmoothMoveTransform(
-                    Vector3.MoveTowards(transform.position, _stateManager.LastDamage.origin.position, -_stateManager.LastDamage.Displacement * DisplacementMultiplier), DisplacementTime);
+                StateManager.Entity.EntityMove.SmoothMoveTransform(
+                    Vector3.MoveTowards(transform.position, StateManager.LastDamage.Origin.position, -StateManager.LastDamage.Displacement * DisplacementMultiplier), DisplacementTime);
                 
-                if (_stateManager.Entity.EntityAttacker != null) _stateManager.Entity.EntityAttacker.attackArea.enabled = false;
+                if (StateManager.Entity.EntityAttacker != null) StateManager.Entity.EntityAttacker.attackArea.enabled = false;
             };
         }
     }

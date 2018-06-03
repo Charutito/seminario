@@ -75,7 +75,7 @@ namespace Entities
 
             if (!IsGod || damage.Absolute)
             {
-                Stats.CurrentHealth -= damage.amount;
+                Stats.CurrentHealth -= damage.Amount;
             }
 
             if (IsDead && OnDeath != null)
@@ -96,9 +96,16 @@ namespace Entities
         {
             Stats.CurrentHealth += amount;
         }
+        
         public virtual void HealEnergy(int amount)
         {
             Stats.CurrentSpirit += amount;
+        }
+
+        public virtual void SelfDestroy()
+        {
+            OnDeath(this);
+            OnEntityDie.Invoke();
         }
 
         protected abstract void SetFsm();

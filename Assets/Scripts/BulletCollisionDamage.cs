@@ -18,9 +18,9 @@ public class BulletCollisionDamage : MonoBehaviour
         {
             damageable.TakeDamage(new Damage
             {
-                amount = Damage,
-                type = DamageType.Attack,
-                origin = transform
+                Amount = Damage,
+                Type = DamageType.Attack,
+                Origin = transform
             });
             
             Destroy(this.gameObject);

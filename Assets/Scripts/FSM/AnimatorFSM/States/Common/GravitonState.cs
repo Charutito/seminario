@@ -7,26 +7,21 @@ namespace AnimatorFSM.States
 {
     public class GravitonState : BaseState
     {
-        private AbstractStateManager _stateManager;
-
-        protected override void Setup()
-        {
-            _stateManager = GetComponent<AbstractStateManager>();
-        }
+        protected override void Setup() { }
 
         protected override void DefineState()
         {
             OnEnter += () =>
             {
-                _stateManager.Entity.Agent.ResetPath();
-                _stateManager.StateLocked = true;
-                _stateManager.Entity.Animator.SetTrigger(EntityAnimations.Countered);
+                StateManager.Entity.Agent.ResetPath();
+                StateManager.StateLocked = true;
+                StateManager.Entity.Animator.SetTrigger(EntityAnimations.Countered);
             };
 		
             OnExit += () =>
             {
-                _stateManager.StateLocked = false;
-                _stateManager.Entity.CurrentAction = GroupAction.Stalking;
+                StateManager.StateLocked = false;
+                StateManager.Entity.CurrentAction = GroupAction.Stalking;
             };
         }
     }
