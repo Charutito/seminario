@@ -13,6 +13,13 @@ public class SaveGUIDInspector : Editor
 	private string GetGUID()
 	{
 		var guid = Guid.NewGuid();
+		
+		if (!Application.isPlaying)
+		{
+			EditorSceneManager.MarkSceneDirty(_id.gameObject.scene);
+			Undo.RecordObject(_id, "Changed Save GUID");
+		}
+		
 		return guid.ToString();
 	}
 
@@ -38,8 +45,5 @@ public class SaveGUIDInspector : Editor
 		{
 			EditorGUILayout.HelpBox("Warning Duplicate GUID Detected in Scene", MessageType.Warning);
 		}
-		
-		EditorUtility.SetDirty(_id);
-		if(!Application.isPlaying) EditorSceneManager.MarkSceneDirty(_id.gameObject.scene);
 	}
 }
