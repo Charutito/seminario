@@ -29,6 +29,7 @@ namespace AnimatorFSM
 			AvailableStates.Add(EnemyState.Aim, typeof(AimTargetState));
 			AvailableStates.Add(EnemyState.BomberAttack, typeof(BomberAttackState));
 			AvailableStates.Add(EnemyState.Shield, typeof(ShieldState));
+			AvailableStates.Add(EnemyState.MineDash, typeof(MineDashState));
 		
 			AvailableStates.Add(EnemyState.Death, typeof(DeathState));
 			AvailableStates.Add(EnemyState.GetHit, typeof(GetHitState));
@@ -73,6 +74,7 @@ namespace AnimatorFSM
 		Stalk = 4,
 		Flee = 5,
 		RangedStalk = 6,
+		MineDash = 7,
 	
 		Attack = 10,
 		RangedAttack = 11,
