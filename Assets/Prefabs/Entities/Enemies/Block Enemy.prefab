@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 114221094945401012}
   - component: {fileID: 114421976812929712}
   - component: {fileID: 114678434340310042}
-  - component: {fileID: 114198021669275708}
   - component: {fileID: 114542530356566222}
   m_Layer: 11
   m_Name: Block Enemy
@@ -1875,36 +1874,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114198021669275708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1010212131238868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccacf5b850fa4bc4fbc2a7d54e15ada1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats:
-    health:
-      _Actual: 0
-      _Min: 0
-      _Max: 200
-    movementSpeed:
-      _Actual: 0
-      _Min: 0
-      _Max: 0
-  attackDamage: 10
-  heavyAttackDamage: 25
-  godMode: 0
-  AttackRange: 2
-  hitsToGetStunned: 3
-  stunDuration: 0.5
-  Hitpart: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
-  hitpos: {fileID: 4239301918628538}
-  shieldHealth: 100
-  currentShieldHealth: 0
 --- !u!114 &114221094945401012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1941,14 +1910,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 114703413618950828}
   lineArea: {fileID: 0}
-  heavyAttackRadious: 5
-  h_magn: 1
-  h_rough: 1
-  h_fadeIn: 0.1
-  h_fadeOut: 2
+  IsCharacter: 0
+  heavyaoe: 2
   hitLayers:
     serializedVersion: 2
     m_Bits: 256
+  basicDisplacement: 0.7
+  heavyDisplacement: 1
+  thirdDisplacement: 2
 --- !u!114 &114430031397129818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2078,7 +2047,7 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114198021669275708}
+        - m_Target: {fileID: 0}
           m_MethodName: AttackRecovered
           m_Mode: 1
           m_Arguments:
