@@ -1,24 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Managers;
-using Metadata;
+﻿using Managers;
 using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
     public float Speed = 10;
     public float SpeedBoostMultiplier = 1.5f;
-    private int _direction = 1;
+    
+    protected Vector3 Direction;
 
-    private void Update()
+    protected void Start()
     {
-        transform.localPosition += transform.forward * _direction * Speed * Time.deltaTime;
+        Direction = transform.forward;
     }
 
-    public void ChangeDir()
+    protected void Update()
+    {
+        transform.localPosition += Direction * Speed * Time.deltaTime;
+    }
+
+    public virtual void TakeDamage()
     {
         gameObject.layer = GameManager.Instance.Character.gameObject.layer;
         Speed *= SpeedBoostMultiplier;
-        _direction = -_direction;
+        Direction = -Direction;
     }
 }

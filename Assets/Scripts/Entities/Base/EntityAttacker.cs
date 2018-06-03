@@ -183,7 +183,7 @@ namespace Entities
 
                 if (bullet != null)
                 {
-                    bullet.ChangeDir();
+                    bullet.TakeDamage();
                 }
 
                 if (damageable != null)

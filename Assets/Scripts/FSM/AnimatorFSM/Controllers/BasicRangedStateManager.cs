@@ -1,6 +1,4 @@
-﻿using System;
-using BattleSystem;
-using Entities;
+﻿using BattleSystem;
 using UnityEngine;
 
 namespace AnimatorFSM
