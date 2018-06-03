@@ -22,18 +22,11 @@ namespace AnimatorFSM.States
 			OnEnter += () =>
 			{
 				_stateManager.Entity.EntityMove.RotateInstant(_stateManager.Entity.Target.transform.position);
-				
-				_stateManager.Entity.EntityMove.MoveAgent(_stateManager.Entity.transform.GetMaxDistancePosition(_stateManager.Entity.transform.forward));
-				Debug.Log(_stateManager.Entity.transform.GetMaxDistancePosition(_stateManager.Entity.transform.forward));
 			};
 
 			OnUpdate += () =>
 			{
-				if (!_hasArrived && _stateManager.Entity.EntityMove.HasAgentArrived())
-				{
-					_hasArrived = true;
-					//_stateManager.FSM.SetTrigger("Arrived");
-				}
+				_stateManager.Entity.EntityMove.MoveAgent(_stateManager.Entity.Target.transform.position);
 			};
 			
 			OnExit += () =>
