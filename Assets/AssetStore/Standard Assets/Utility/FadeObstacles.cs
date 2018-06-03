@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FadeObstacles : MonoBehaviour {
-    public GameObject target;
-    public GameObject current;
+    public GameObject cam;
 
    
 
@@ -14,20 +13,15 @@ public class FadeObstacles : MonoBehaviour {
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
 
-            if (hit.collider.gameObject.tag == "Ambient" && hit.collider.gameObject!= current)
+            if (hit.collider.gameObject.tag == "Player" )
             {
-                current = hit.collider.gameObject;
-                var c = current.GetComponent<Renderer>().material.color;
-                c.a = 0.5f;
-                current.GetComponent<MeshRenderer>().material.color = c;
+                cam.SetActive(false);
             }
-            else if (hit.collider.gameObject.tag != "Ambient" && current != null)
+            else if (hit.collider.gameObject.tag != "Player")
             {
-                var c2 = current.GetComponent<Renderer>().material.color;
-                c2.a = 1f;
-                current.GetComponent<MeshRenderer>().material.color = c2;
-                current = null;
-            }           
+                cam.SetActive(true);
+
+            }
         }
       
 	}
