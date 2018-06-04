@@ -22,9 +22,6 @@ namespace Utility
         
         [Header("Scenes")]
         [SerializeField] private KeyCode _reloadScene = KeyCode.F5;
-        [SerializeField] private KeyCode _loadMenu = KeyCode.F6;
-        [SerializeField] private KeyCode _loadGame = KeyCode.F7;
-        [SerializeField] private KeyCode _loadTest = KeyCode.F8;
         
         [Header("Save System")]
         [SerializeField] private KeyCode _clearSaveData = KeyCode.F9;
@@ -88,18 +85,6 @@ namespace Utility
             if (Input.GetKeyDown(_reloadScene))
             {
                 _loadScene.ReloadScene();
-            }
-            if (Input.GetKeyDown(_loadMenu))
-            {
-                _loadScene.LoadByIndex(0);
-            }
-            if (Input.GetKeyDown(_loadGame))
-            {
-                _loadScene.LoadByIndex(1);
-            }
-            if (Input.GetKeyDown(_loadTest))
-            {
-                _loadScene.LoadByIndex(2);
             }
 
             // Save System
