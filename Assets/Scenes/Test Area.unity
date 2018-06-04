@@ -2288,40 +2288,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 20963781655719132, guid: 22ea2de7a4f812845920c8657925d387,
-        type: 2}
-      propertyPath: far clip plane
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 20963781655719132, guid: 22ea2de7a4f812845920c8657925d387,
-        type: 2}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 4929288410904140, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4929288410904140, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4929288410904140, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4929288410904140, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4929288410904140, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1730665959898904, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22ea2de7a4f812845920c8657925d387, type: 2}
   m_IsPrefabParent: 0
@@ -2800,6 +2766,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1428726633}
     m_Modifications:
+    - target: {fileID: 114288369623324360, guid: fa95f8598d24f444397a5633a3a6069f,
+        type: 2}
+      propertyPath: FleePoints.Array.size
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 4386984515370186, guid: fa95f8598d24f444397a5633a3a6069f, type: 2}
       propertyPath: m_LocalPosition.x
       value: -9.089991
@@ -2917,6 +2888,11 @@ Prefab:
       propertyPath: AttackRange
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114836162762630578, guid: fa95f8598d24f444397a5633a3a6069f,
+        type: 2}
+      propertyPath: Bullet
+      value: 
+      objectReference: {fileID: 122648, guid: c981c024aea71df41ab59b3b6cbe0c25, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa95f8598d24f444397a5633a3a6069f, type: 2}
   m_IsPrefabParent: 0
@@ -7366,7 +7342,9 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 1
     maxValue: 1
-  EntityActions: []
+  EntityActions:
+  - targetAction: 10
+    weight: 1
   Doors:
   - {fileID: 1037349068}
   OnZoneActivate:
