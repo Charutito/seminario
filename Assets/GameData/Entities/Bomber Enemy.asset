@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c486f36ad762a204d8b9865347295ea3, type: 3}
+  m_Name: Bomber Enemy
+  m_EditorClassIdentifier: 
+  Name: Basic Enemy
+  MaxHealth: 50
+  MaxSpirit: 0
+  MovementSpeed: 4
+  RotationSpeed: 0
+  LightAttackDamage: 10
+  SpecialAttackDamage: 0
+  LightRecovery: 0
+  HeavyRecovery: 0
+  Prefab: {fileID: 1350155055160574, guid: 778192649775632448b2ff18f3752836, type: 2}

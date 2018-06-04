@@ -1,7 +1,11 @@
-﻿using BattleSystem;
+﻿using System;
+using System.Globalization;
+using System.Timers;
+using BattleSystem;
 using Entities;
 using Entities.Base;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 
 namespace AnimatorFSM.States
@@ -11,13 +15,20 @@ namespace AnimatorFSM.States
 	{
 		public LayerMask HitLayers;
 		public float ExplosionRange = 4f;
-		
+		public float ExplosionDisplacement = 2f;
+
+		[Header("Timer")]
+		public float TimeToExplode = 10f;
+		public Text TimerText;
+
+		private float _currentTimeToExplode;
 		private Vector3 _lastPosition;
 		private AbstractStateManager _stateManager;
 
 		protected override void Setup()
 		{
 			_stateManager = GetComponentInParent<AbstractStateManager>();
+			_currentTimeToExplode = TimeToExplode;
 		}
 
 		protected override void DefineState()
@@ -33,7 +44,10 @@ namespace AnimatorFSM.States
 					
 				_stateManager.Entity.EntityMove.MoveAgent(characterPosition);
 
-				if (Vector3.Distance(_stateManager.Entity.transform.position, characterPosition) <= _stateManager.Entity.AttackRange)
+				_currentTimeToExplode -= Time.deltaTime;
+				TimerText.text = Math.Round(_currentTimeToExplode, 1).ToString(CultureInfo.InvariantCulture);
+
+				if (_currentTimeToExplode <= 0 || Vector3.Distance(_stateManager.Entity.transform.position, characterPosition) <= _stateManager.Entity.AttackRange)
 				{
 					var colliders = Physics.OverlapSphere(_stateManager.Entity.transform.position, ExplosionRange, HitLayers);
 
@@ -46,7 +60,7 @@ namespace AnimatorFSM.States
 							var damage = new Damage
 							{
 								Amount = _stateManager.Entity.Stats.LightAttackDamage,
-								Displacement = 3f,
+								Displacement = ExplosionDisplacement,
 								Origin = _stateManager.Entity.transform,
 								Type = DamageType.ThirdAttack
 							};
@@ -54,6 +68,8 @@ namespace AnimatorFSM.States
 							damageable.TakeDamage(damage);
 						}
 					}
+
+					TimerText.text = string.Empty;
 					_stateManager.Entity.SelfDestroy();
 				}
 			};
