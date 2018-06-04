@@ -1,7 +1,7 @@
-﻿using BattleSystem;
-using Managers;
-using SaveSystem;
+﻿using Managers;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Environment
