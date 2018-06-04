@@ -11,7 +11,7 @@ namespace Entities
 		
 		protected virtual void OnActualChange(int old, int current)
 		{
-			fillBar.fillAmount = (float)_entity.Stats.CurrentHealth / _entity.Stats.MaxHealth;
+			fillBar.fillAmount = (float)current / _entity.Stats.MaxHealth;
 		}
 
 		protected virtual void OnDeath(Entity e)
