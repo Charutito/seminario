@@ -62,7 +62,10 @@ namespace SaveSystem
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey(SaveKeys.LastSave) && JsonUtility.FromJson<SavePoint.SavePointData>(PlayerPrefs.GetString(SaveKeys.LastSave)).ObjectId == _uniqueId.GameObjectId)
+            var currentScene = SceneManager.GetActiveScene().name;
+            var saveKey = string.Format(SaveKeys.LastSaveScene, currentScene);
+            
+            if (PlayerPrefs.HasKey(saveKey) && JsonUtility.FromJson<SavePointData>(PlayerPrefs.GetString(saveKey)).ObjectId == _uniqueId.GameObjectId)
             {
                 LoadData();
             }
