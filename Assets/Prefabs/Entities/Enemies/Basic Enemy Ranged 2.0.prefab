@@ -1469,7 +1469,7 @@ Transform:
   m_GameObject: {fileID: 1411205188360522}
   m_LocalRotation: {x: -0, y: 0.86602545, z: -0, w: 0.49999994}
   m_LocalPosition: {x: -9.089991, y: 0, z: 4.91}
-  m_LocalScale: {x: 0.6, y: 0.59999996, z: 0.6}
+  m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_Children:
   - {fileID: 4939491563764908}
   - {fileID: 4858037059865584}
@@ -2113,21 +2113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FleeRange: 10
   DistanceToFee: 9
-  FleePoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  FleePoints: []
 --- !u!114 &114292322667513682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2267,10 +2253,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastDamage:
-    amount: 0
-    type: 1
-    origin: {fileID: 0}
-    originator: {fileID: 0}
+    Amount: 0
+    Type: 1
+    Origin: {fileID: 0}
+    Originator: {fileID: 0}
     Displacement: 0
     Absolute: 0
 --- !u!114 &114661520612955132
@@ -2408,7 +2394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cf1b72ed2f9dd42be9fa7cfdc5cba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 122648, guid: c981c024aea71df41ab59b3b6cbe0c25, type: 2}
+  Bullet: {fileID: 122648, guid: 091dbe502862caf49ae6eef3152f597b, type: 2}
   BulletSpawnPos: {fileID: 4369340161799474}
 --- !u!136 &136635000687280502
 CapsuleCollider:
