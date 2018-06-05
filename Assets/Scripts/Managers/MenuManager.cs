@@ -1,10 +1,8 @@
 ﻿using System;
 using Menu;
 using Metadata;
-using SaveSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Util;
 
@@ -19,6 +17,7 @@ namespace Managers
         public Animator LoadingAnimator;
     
         private bool _buttonSelected;
+        private LoadScene _loadScene;
 
         private bool CanContinue { get { return PlayerPrefs.HasKey(SaveKeys.LastSave); } }
 
@@ -33,21 +32,14 @@ namespace Managers
         {
             if (CanContinue)
             {
-                var saveData = PlayerPrefs.GetString(SaveKeys.LastSave);
-                var parsedData = JsonUtility.FromJson<SavePoint.SavePointData>(saveData);
-                LoadAfterFade(parsedData.SceneName);
+                LoadAfterFade(1);
             }
         }
 
         private void LoadAfterFade(int index, float delay = 1.5f)
         {
             LoadingAnimator.SetTrigger("FadeIn");
-            FrameUtil.AfterDelay(delay, () => SceneManager.LoadScene(index));
-        }
-        private void LoadAfterFade(string scene, float delay = 1.5f)
-        {
-            LoadingAnimator.SetTrigger("FadeIn");
-            FrameUtil.AfterDelay(delay, () => SceneManager.LoadScene(scene));
+            FrameUtil.AfterDelay(delay, () => _loadScene.LoadByIndex(index));
         }
 
         public void QuitGame()
@@ -81,6 +73,7 @@ namespace Managers
             }
 
             Cursor.lockState = CursorLockMode.Locked;
+            _loadScene = GetComponent<LoadScene>();
         }
 
         private void OnApplicationFocus(bool pauseStatus)

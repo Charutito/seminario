@@ -3,7 +3,6 @@ using Managers;
 using Metadata;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 namespace SaveSystem
 {
@@ -13,9 +12,7 @@ namespace SaveSystem
         [Serializable]
         public class SavePointData
         {
-            public string ObjectId;
             public Vector3 Position;
-            public string SceneName;
         }
 
         public UnityEvent OnSaveEvent;
@@ -32,27 +29,26 @@ namespace SaveSystem
         private void LoadData()
         {
             _isUsed = true;
+        
+            //GameManager.Instance.Character.transform.position = transform.position;
             
             OnLoadEvent.Invoke();
             
             Log("Game Loaded!");
+            //Destroy(gameObject);
         }
     
         private void SaveData()
         {
             _isUsed = true;
-
-            var currentScene = SceneManager.GetActiveScene().name;
             
-            var dataToSave = new SavePointData { Position = transform.position , SceneName = currentScene, ObjectId = _uniqueId.GameObjectId};
-            var serializedData = JsonUtility.ToJson(dataToSave);
-            
-            PlayerPrefs.SetString(SaveKeys.LastSave, serializedData);
-            PlayerPrefs.SetString(string.Format(SaveKeys.LastSaveScene, currentScene), JsonUtility.ToJson(dataToSave));
+            var dataToSave = new SavePointData { Position = transform.position };
+            PlayerPrefs.SetString(SaveKeys.LastSave, _uniqueId.GameObjectId);
             PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
             
             OnSaveEvent.Invoke();
             Log("Game Saved!");
+            // Destroy(gameObject);
         }
 
         private void Awake()
@@ -62,10 +58,7 @@ namespace SaveSystem
 
         private void Start()
         {
-            var currentScene = SceneManager.GetActiveScene().name;
-            var saveKey = string.Format(SaveKeys.LastSaveScene, currentScene);
-            
-            if (PlayerPrefs.HasKey(saveKey) && JsonUtility.FromJson<SavePointData>(PlayerPrefs.GetString(saveKey)).ObjectId == _uniqueId.GameObjectId)
+            if (PlayerPrefs.GetString(SaveKeys.LastSave) == _uniqueId.GameObjectId)
             {
                 LoadData();
             }

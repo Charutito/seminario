@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Metadata;
 using SaveSystem;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Spawners
 {
@@ -14,15 +13,12 @@ namespace Spawners
 
         public GameObject SpawnCharacter()
         {
-            var currentScene = SceneManager.GetActiveScene().name;
-            
-            if (PlayerPrefs.HasKey(string.Format(SaveKeys.LastSaveScene, currentScene)))
+            if (PlayerPrefs.HasKey(SaveKeys.LastSave))
             {
-                var serializedPosition = PlayerPrefs.GetString(string.Format(SaveKeys.LastSaveScene, currentScene));
+                var serializedPosition = PlayerPrefs.GetString(string.Format(SaveKeys.UsedSave, PlayerPrefs.GetString(SaveKeys.LastSave)));
 
                 transform.position = JsonUtility.FromJson<SavePoint.SavePointData>(serializedPosition).Position;
             }
-            
             var mainCamera = GameObject.FindGameObjectWithTag("GameCamera");
             mainCamera.transform.position = transform.position;
 
