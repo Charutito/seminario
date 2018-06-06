@@ -47,11 +47,23 @@ namespace Managers
             #endif
         }
 
-        private void RestartAfterDeath()
+        public void LoadScene(string sceneName)
         {
             _fadeController.FadeOut();
             
-            FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+            FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(sceneName));
+        }
+        
+        public void LoadScene(int sceneIndex)
+        {
+            _fadeController.FadeOut();
+            
+            FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(sceneIndex));
+        }
+
+        private void RestartAfterDeath()
+        {
+            LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void Awake()
