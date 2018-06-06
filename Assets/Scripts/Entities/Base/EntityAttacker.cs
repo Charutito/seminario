@@ -8,6 +8,7 @@ using BattleSystem.Spells;
 using System.Collections;
 using System.Linq;
 using Managers;
+using Utility;
 
 namespace Entities
 {
@@ -141,6 +142,7 @@ namespace Entities
         public void HeavyAttack_Hit()
         {
             InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
+            CinemachineShake.Instance.ShakeCamera(0.15f, 1.5f, 0.5f);
             
             AttackAreaLogic(new Damage
             {

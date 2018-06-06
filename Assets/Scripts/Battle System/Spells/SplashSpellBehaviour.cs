@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Entities;
 using Managers;
 using UnityEngine;
 using Util;
+using Utility;
 
 namespace BattleSystem.Spells
 {
@@ -50,6 +50,8 @@ namespace BattleSystem.Spells
         private void Cast(SplashValues value)
         {
             Time.timeScale = value.DeltaTime;
+            
+            CinemachineShake.Instance.ShakeCamera(0.25f, 1.5f, 0.75f);
             
             var enemies = _lineOfAim.GetEnemiesInSight()
                 .Where(e => Vector3.Distance(transform.position, e.transform.position) <= value.Range)

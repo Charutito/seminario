@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4230170615626946}
   - component: {fileID: 114120169357579230}
   - component: {fileID: 114873316767001522}
+  - component: {fileID: 114667233155285842}
   m_Layer: 0
   m_Name: 'Game Camera Look Ahead Perspective '
   m_TagString: GameCamera
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 4495307830378676}
   - component: {fileID: 114672773266951534}
   - component: {fileID: 114547616945332776}
+  - component: {fileID: 114975859331883780}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -116,8 +118,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1538262603118922}
-  m_LocalRotation: {x: -0.40821788, y: 0.23456968, z: -0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 172.61859, y: -79.13743, z: -62.840424}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4230170615626946}
@@ -189,10 +191,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  far clip plane: 250
+  field of view: 20
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -283,6 +285,20 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 100
+--- !u!114 &114667233155285842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221824917859890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2444c17f25ae6f845a509c68de1c3641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultShakeAmplitude: 1
+  DefaultShakeFrequency: 1
+  DefaultProfile: {fileID: 11400000, guid: dc4383ffe4b30fa4fa4b96b7abded6ed, type: 2}
 --- !u!114 &114672773266951534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,6 +353,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetFollow: 1
   SetLookAt: 0
+--- !u!114 &114975859331883780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350623925904506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
 --- !u!124 &124360709728540568
 Behaviour:
   m_ObjectHideFlags: 1
