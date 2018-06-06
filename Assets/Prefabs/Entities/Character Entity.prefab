@@ -929,6 +929,7 @@ GameObject:
   - component: {fileID: 195402188659011008}
   - component: {fileID: 114345791346567970}
   - component: {fileID: 114470487424743876}
+  - component: {fileID: 81079095537860830}
   m_Layer: 8
   m_Name: Character Entity
   m_TagString: Player
@@ -3017,6 +3018,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!81 &81079095537860830
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723195614099692}
+  m_Enabled: 1
 --- !u!95 &95179920222572374
 Animator:
   serializedVersion: 3

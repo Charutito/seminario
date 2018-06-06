@@ -8,12 +8,15 @@ public class Destructible : MonoBehaviour, IDamageable
     public GameObject[] drop;
        
     public GameObject particles;
-    
     public int maxHits;
-    int currentHits=0;
+    
+    private int _currentHits;
+    
     public AudioEvent DestroyAudio;
-    public void TakeDamage(Damage damage){
-        if (currentHits==maxHits)
+    
+    public void TakeDamage(Damage damage)
+    {
+        if (_currentHits == maxHits)
         {
             foreach (var item in drop)
             {
@@ -25,18 +28,19 @@ public class Destructible : MonoBehaviour, IDamageable
         {
             StartCoroutine("FlashCorroutine");
             DestroyAudio.PlayAtPoint(transform.position);
+            
             var parts = Instantiate(particles, transform.position, transform.rotation);
             Destroy(parts, 1);
-            currentHits++;
+            
+            _currentHits++;
         }
         
     }
-    IEnumerator FlashCorroutine()
+
+    private IEnumerator FlashCorroutine()
     {
-        Debug.Log("hit");
         for (int i = 0; i < 2; i++)
         {
-
             gameObject.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
             yield return new WaitForSeconds(0.01f);
             gameObject.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.white);
