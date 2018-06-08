@@ -611,20 +611,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6b83b3253cc644cb6bf1c3269880e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShakeNoise: {fileID: 11400000, guid: b241f91b9ccf8ff489abf204b30d3112, type: 2}
   Values:
   - Delay: 0.4
     Range: 4
     DeltaTime: 1
+    Sounds:
+    - {fileID: 11400000, guid: 0e99c68df1471794daedf006d5f40dfa, type: 2}
+    Shake:
+      Duration: 0.2
+      Amplitude: 0.5
+      Frequency: 1
     Objects:
     - {fileID: 1754911611762820}
   - Delay: 1
     Range: 6
     DeltaTime: 1
+    Sounds:
+    - {fileID: 11400000, guid: 0e99c68df1471794daedf006d5f40dfa, type: 2}
+    Shake:
+      Duration: 0.25
+      Amplitude: 0.5
+      Frequency: 1
     Objects:
     - {fileID: 1936041414841350}
+  - Delay: 1.48
+    Range: 0
+    DeltaTime: 0.2
+    Sounds:
+    - {fileID: 11400000, guid: 0e99c68df1471794daedf006d5f40dfa, type: 2}
+    Shake:
+      Duration: 0
+      Amplitude: 0
+      Frequency: 0
+    Objects: []
+  - Delay: 1.56
+    Range: 0
+    DeltaTime: 1.5
+    Sounds: []
+    Shake:
+      Duration: 0
+      Amplitude: 0
+      Frequency: 0
+    Objects: []
   - Delay: 1.7
     Range: 10
     DeltaTime: 1
+    Sounds:
+    - {fileID: 11400000, guid: 0e99c68df1471794daedf006d5f40dfa, type: 2}
+    Shake:
+      Duration: 0.25
+      Amplitude: 0.75
+      Frequency: 1.5
     Objects:
     - {fileID: 1207746985254350}
 --- !u!198 &198152073620160578
