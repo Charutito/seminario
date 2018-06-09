@@ -7,6 +7,7 @@ namespace Utility
         public float TimeToDestroy = 1f;
 
         public GameObject DeathEffect;
+        public AudioEvent DeathSound;
 
         private void Awake()
         {
@@ -15,9 +16,15 @@ namespace Utility
 
         private void OnDestroy()
         {
-            if (DeathEffect != null){
+            if (DeathEffect != null)
+            {
                 var effect = Instantiate(DeathEffect, transform.position, transform.rotation);
-                Destroy(effect.gameObject,1);
+                Destroy(effect.gameObject, 1);
+            }
+
+            if (DeathSound != null)
+            {
+                DeathSound.PlayAtPoint(transform.position);
             }
         }
     }

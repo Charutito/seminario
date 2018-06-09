@@ -13,7 +13,8 @@ public class BulletCollisionDamage : MonoBehaviour
     
     private void OnTriggerEnter(Collider col)
     {
-        var damageable = col.gameObject.GetComponent<IDamageable>();        
+        var damageable = col.gameObject.GetComponent<IDamageable>();
+        
         if (damageable != null)
         {
             damageable.TakeDamage(new Damage
