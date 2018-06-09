@@ -7,30 +7,28 @@ namespace AnimatorFSM.States
 	[AddComponentMenu("State Machine/Stalking State")]
 	public class ChaseState : BaseState
 	{
-		private BasicEnemy _entity;
-
-		protected override void Setup()
-		{
-			_entity = GetComponentInParent<BasicEnemy>();
-		}
+		protected override void Setup() { }
 
 		protected override void DefineState()
 		{
 			OnEnter += () =>
 			{
-				_entity.Animator.SetFloat(EntityAnimations.Move, 1);
+				StateManager.Entity.Animator.SetFloat(EntityAnimations.Move, 1);
+				StateManager.Entity.Animator.SetInteger(EntityAnimations.RandomRun, Random.Range(0, 2));
 			};
 
 			OnUpdate += () =>
 			{
-				_entity.EntityMove.RotateInstant(_entity.Target.transform.position);
-				_entity.EntityMove.MoveAgent(_entity.Target.transform.position);
+				StateManager.Entity.EntityMove.RotateInstant(StateManager.Entity.Target.transform.position);
+				StateManager.Entity.EntityMove.MoveAgent(StateManager.Entity.Target.transform.position);
 			};
 			
 			OnExit += () =>
 			{
-				if(_entity != null)
-				_entity.Animator.SetFloat(EntityAnimations.Move, 0);
+				if (StateManager.Entity != null)
+				{
+					StateManager.Entity.Animator.SetFloat(EntityAnimations.Move, 0);
+				}
 			};
 		}
 	}

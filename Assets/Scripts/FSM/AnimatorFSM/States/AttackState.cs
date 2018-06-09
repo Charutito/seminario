@@ -15,6 +15,7 @@ namespace AnimatorFSM.States
 			OnEnter += () =>
 			{
 				StateManager.Entity.Animator.SetTrigger(EntityAnimations.Attack);
+				StateManager.Entity.Animator.SetInteger(EntityAnimations.RandomAttack, Random.Range(0, 2));
 				StateManager.Entity.CurrentAction = GroupAction.Stalking;
 			};
 		}

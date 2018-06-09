@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Entities;
 using Managers;
 using UnityEngine;
@@ -18,8 +19,12 @@ namespace BattleSystem.Spells
             public float Delay = 0.5f;
             public float Range = 2f;
             public float DeltaTime = 0.7f;
+            public List<AudioEvent> Sounds;
+            public CinemachineShake.ShakeConfig Shake;
             public List<GameObject> Objects;
         }
+
+        public NoiseSettings ShakeNoise;
 
         public List<SplashValues> Values;
         
@@ -50,8 +55,16 @@ namespace BattleSystem.Spells
         private void Cast(SplashValues value)
         {
             Time.timeScale = value.DeltaTime;
-            
-            CinemachineShake.Instance.ShakeCamera(0.25f, 1.5f, 0.75f);
+
+            if (value.Shake != null)
+            {
+                CinemachineShake.Instance.ShakeCamera(value.Shake.Duration, value.Shake.Amplitude, value.Shake.Frequency, ShakeNoise);
+            }
+
+            foreach (var sound in value.Sounds)
+            {
+                sound.PlayAtPoint(transform.position);
+            }
             
             var enemies = _lineOfAim.GetEnemiesInSight()
                 .Where(e => Vector3.Distance(transform.position, e.transform.position) <= value.Range)

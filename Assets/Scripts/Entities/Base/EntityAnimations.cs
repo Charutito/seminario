@@ -9,7 +9,6 @@
         
         public const string Death          = "Death";
         public const string TriggerDeath   = "TriggerDeath";
-        public const string RandomDeath    = "RandomDeath";
         
         public const string Countered      = "Countered";
         public const string GetHit         = "GetHit";
@@ -17,5 +16,9 @@
         public const string FlyUp          = "FlyUp";
         
         public const string Move           = "Velocity Z";
+        
+        public const string RandomAttack   = "RandomAttack";
+        public const string RandomDeath    = "RandomDeath";
+        public const string RandomRun      = "RandomRun";
     }
 }
