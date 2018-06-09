@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 124843492644590906}
   - component: {fileID: 114692452649805382}
   - component: {fileID: 114000300768789628}
+  - component: {fileID: 114557456018690140}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -299,6 +300,18 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 100
+--- !u!114 &114557456018690140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538262603118922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 150898aae3457674996627d77b47d18f, type: 2}
 --- !u!114 &114667233155285842
 MonoBehaviour:
   m_ObjectHideFlags: 1
