@@ -82,7 +82,8 @@ namespace BattleSystem.Spells
                     Amount = _behaviour.Definition.Damage,
                     Type = _behaviour.Definition.DamageType,                    
                     Origin = transform,
-                    Originator = _character
+                    Originator = _character,
+                    Displacement = 1f
                 });
                 
                 yield return new WaitForSeconds(_behaviour.Definition.WaitTime);
@@ -96,11 +97,10 @@ namespace BattleSystem.Spells
             _character.AttackRecovered();
             Destroy(gameObject);
         }
+        
         private void DmgCast(Transform pos)
         {
-            var part = Instantiate(_behaviour.Definition.SubCast);
-            var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
-            part.transform.position = partpos;
+            var part = Instantiate(_behaviour.Definition.SubCast, pos.position + pos.up , pos.rotation);
             Destroy(part, 1.5f);
         }
 
