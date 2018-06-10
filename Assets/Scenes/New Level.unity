@@ -35816,8 +35816,10 @@ GameObject:
   - component: {fileID: 710684032}
   - component: {fileID: 710684031}
   - component: {fileID: 710684030}
+  - component: {fileID: 710684034}
+  - component: {fileID: 710684033}
   m_Layer: 0
-  m_Name: New Teleport
+  m_Name: Teleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35847,6 +35849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: FirstLevel
+  _active: 1
 --- !u!4 &710684032
 Transform:
   m_ObjectHideFlags: 0
@@ -35860,6 +35863,50 @@ Transform:
   m_Father: {fileID: 493477281}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &710684033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 710684029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20179beebe17a46d1b6ee9c52e864598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSaveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnLoadEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 710684031}
+        m_MethodName: set_IsActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &710684034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 710684029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectId: 942ede57-a314-43bd-a99b-4f1286894509
 --- !u!1 &711360915
 GameObject:
   m_ObjectHideFlags: 0
