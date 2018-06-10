@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 136013783136119562}
   - component: {fileID: 23484327792054718}
   - component: {fileID: 114479216561229370}
-  - component: {fileID: 114732358662894218}
   - component: {fileID: 114460654391926646}
+  - component: {fileID: 114991391227848028}
   m_Layer: 0
   m_Name: CAnnonBullet
   m_TagString: Untagged
@@ -100,6 +100,7 @@ MonoBehaviour:
   TimeToDestroy: 3
   DeathEffect: {fileID: 1794254668211322, guid: 609335115b94ad24e9db122858b646d8,
     type: 2}
+  DeathSound: {fileID: 0}
 --- !u!114 &114479216561229370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 25
   SpeedBoostMultiplier: 5
---- !u!114 &114732358662894218
+--- !u!114 &114991391227848028
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -121,10 +122,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1590135944676270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0cb9507d84ba42468648ab62443fa2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d5dc1a76c156084da0823d842dbf390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
+  Part: {fileID: 1399108368390022, guid: f08203b9ca0e91b439575c0a71ab2172, type: 2}
 --- !u!136 &136013783136119562
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using BattleSystem;
 public class CrossCollisiondmg : MonoBehaviour
 {
     public int Damage;
-    
+    public GameObject Part;
     private void OnTriggerEnter(Collider col)
     {
         var damageable = col.GetComponent<IDamageable>();
@@ -17,6 +17,9 @@ public class CrossCollisiondmg : MonoBehaviour
                 Type = DamageType.Attack,
                 Origin = transform
             });
+            var Fx = Instantiate(Part);
+            Fx.transform.position = col.transform.position;
+            Destroy(Fx, 1f);
         }
     }
 }
