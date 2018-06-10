@@ -1,19 +1,14 @@
-﻿using FSM;
-using Managers;
-using UnityEngine;
-using System;
-using GameUtils;
-using Util;
-using System.Collections;
+﻿using UnityEngine;
 using BattleSystem;
 
-public class CrossCollisiondmg : MonoBehaviour {
-
+public class CrossCollisiondmg : MonoBehaviour
+{
     public int Damage;
+    
     private void OnTriggerEnter(Collider col)
     {
-        var damageable = col.gameObject.GetComponent<IDamageable>();
-        Debug.Log("pegó");
+        var damageable = col.GetComponent<IDamageable>();
+        
         if (damageable != null)
         {
             damageable.TakeDamage(new Damage
