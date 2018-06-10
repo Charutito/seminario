@@ -19,6 +19,7 @@ public class EnemyShield : MonoBehaviour
 
     public void Deactivate(float delay = 0.5f)
     {
+        Connection.gameObject.SetActive(false);
         iTween.ScaleTo(Shield, iTween.Hash("scale", new Vector3(ShieldRange.minValue, ShieldRange.minValue, ShieldRange.minValue), "time", delay, "easeType", iTween.EaseType.easeInSine));
     }
     
@@ -29,12 +30,16 @@ public class EnemyShield : MonoBehaviour
             Entity.IsInvulnerable = true;
         }
         
+        Connection.gameObject.SetActive(true);
+        
         iTween.ScaleTo(Shield, iTween.Hash("scale", new Vector3(ShieldRange.maxValue, ShieldRange.maxValue, ShieldRange.maxValue), "time", delay, "easeType", iTween.EaseType.easeInSine));
     }
 
     private void Awake()
     {
         Entity = Entity ?? GetComponentInParent<Entity>();
+
+        Entity.OnDeath += HandleDestroy;
     }
 
     private void Start()
@@ -48,6 +53,11 @@ public class EnemyShield : MonoBehaviour
         
         Connection.SetPosition(0, transform.position + Vector3.up);
         Connection.SetPosition(1, Generator.transform.position + Vector3.up);
+    }
+
+    private void HandleDestroy(Entity entity)
+    {
+        Deactivate();
     }
 
     private void OnDestroy()
