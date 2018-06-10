@@ -45,7 +45,11 @@ namespace BattleSystem.Spells
 
 				if (entity != null && !entity.IsInvulnerable)
 				{
-					entity.EntityMove.SmoothMoveTransform(transform.position - entity.transform.forward, TimeToMovePositive);
+					if (entity.EntityMove != null)
+					{
+						entity.EntityMove.SmoothMoveTransform(transform.position - entity.transform.forward, TimeToMovePositive);
+					}
+					
 					DoDamage(entity, _behaviour.Definition.DamageType);
 				}
 			}
@@ -64,7 +68,11 @@ namespace BattleSystem.Spells
 				    var effectRadious = Vector3.Distance(entity.transform.position, transform.position) - _behaviour.Definition.EffectRadius;
 				    var movement = Vector3.MoveTowards(entity.transform.position, transform.position, effectRadious);
 				    
-				    entity.EntityMove.SmoothMoveTransform(movement, TimeToMoveNegative);
+				    if (entity.EntityMove != null)
+				    {
+					    entity.EntityMove.SmoothMoveTransform(movement, TimeToMoveNegative);
+				    }
+				    
 				    DoDamage(entity, DamageType.ThirdAttack);
 			    }
 		    }
