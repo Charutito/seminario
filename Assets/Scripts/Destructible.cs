@@ -10,7 +10,7 @@ public class Destructible : MonoBehaviour, IDamageable
     public GameObject particles;
     public int maxHits;
     
-    private int _currentHits;
+    private int _currentHits =1;
     
     public AudioEvent DestroyAudio;
     
@@ -30,8 +30,7 @@ public class Destructible : MonoBehaviour, IDamageable
             DestroyAudio.PlayAtPoint(transform.position);
             
             var parts = Instantiate(particles, transform.position, transform.rotation);
-            Destroy(parts, 1);
-            
+            Destroy(parts, 1);            
             _currentHits++;
         }
         
