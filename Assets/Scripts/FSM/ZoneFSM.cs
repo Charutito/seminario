@@ -51,9 +51,9 @@ namespace FSM
             #region Spawning State
             Spawning.OnEnter += () =>
             {
+                zone.Initialized = true;
                 zone.Entities.ForEach(entity => entity.CurrentAction = GroupAction.Stalking);
                 zone.Spawners.ForEach(spawner => spawner.Activate(zone));
-                zone.Initialized = true;
                 _currentTimeToAction = _zone.ActionDelay.GetRandom;
             };
             #endregion
