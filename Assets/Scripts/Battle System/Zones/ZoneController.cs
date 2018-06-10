@@ -69,6 +69,19 @@ namespace BattleSystem
         private SaveGUID _uniqueId;
         private ZoneFSM _fsm;
 
+        public void Initialize()
+        {
+            if (Initialized) return;
+            
+            if (InitSound != null)
+            {
+                InitSound.PlayAtPoint(transform.position);
+            }
+            
+            OnZoneActivate.Invoke();
+            ToggleDoors(true);
+        }
+
         public void AddEntity(GroupEntity entity, GroupAction startingAction = GroupAction.None)
         {
             if (!Entities.Contains(entity))
@@ -230,12 +243,7 @@ namespace BattleSystem
         {
             if (!Initialized && other.CompareTag(Tags.PLAYER))
             {
-                if (InitSound != null)
-                {
-                    InitSound.PlayAtPoint(transform.position);
-                }
-                OnZoneActivate.Invoke();
-                ToggleDoors(true);
+                Initialize();
             }
         }
     }

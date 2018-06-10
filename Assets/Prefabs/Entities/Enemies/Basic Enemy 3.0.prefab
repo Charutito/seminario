@@ -46,7 +46,7 @@ GameObject:
   m_Layer: 11
   m_Name: Basic Enemy 3.0
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -581,6 +581,22 @@ GameObject:
   - component: {fileID: 4407511098192084}
   m_Layer: 0
   m_Name: CATRigRLeg2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1526359345857268
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4205510037580404}
+  - component: {fileID: 108819054044967164}
+  m_Layer: 0
+  m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1289,6 +1305,19 @@ Transform:
   m_Father: {fileID: 4321599166244772}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4205510037580404
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1526359345857268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4536757467017982}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4206339805703510
 Transform:
   m_ObjectHideFlags: 1
@@ -1701,6 +1730,7 @@ Transform:
   m_LocalScale: {x: 0.09508599, y: 0.09508599, z: 0.09508599}
   m_Children:
   - {fileID: 4270206091224638}
+  - {fileID: 4205510037580404}
   m_Father: {fileID: 4703345118492898}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
@@ -2248,6 +2278,42 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!108 &108819054044967164
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1526359345857268}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0, g: 0.54509807, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 2.5
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114076040279892102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2338,18 +2404,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OnEntityDamage:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114321216910754070}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   Stats: {fileID: 11400000, guid: 2795246801a9b9c41889f1dd6749c26b, type: 2}
@@ -2571,6 +2626,8 @@ MonoBehaviour:
     EffectName: Death
   - Clip: {fileID: 11400000, guid: 5b27712171fe67e4eb7cf257f2d4a89d, type: 2}
     EffectName: Fall
+  - Clip: {fileID: 11400000, guid: e29d3a21d5715cd40919408697e602be, type: 2}
+    EffectName: Attack
 --- !u!114 &114860934230329552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2838,7 +2895,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1966109088
+  randomSeed: -2130179540
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6163,7 +6220,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1474624486
+  randomSeed: 1849620346
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9512,7 +9569,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -2012864158
+  randomSeed: 814243327
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12795,7 +12852,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1412251082
+  randomSeed: -1189587127
   InitialModule:
     serializedVersion: 3
     enabled: 1
