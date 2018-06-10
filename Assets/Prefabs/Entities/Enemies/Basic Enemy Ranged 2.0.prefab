@@ -1467,9 +1467,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1411205188360522}
-  m_LocalRotation: {x: -0, y: 0.86602545, z: -0, w: 0.49999994}
-  m_LocalPosition: {x: -9.089991, y: 0, z: 4.91}
-  m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
+  m_LocalRotation: {x: -0, y: 0.72843164, z: -0, w: -0.6851185}
+  m_LocalPosition: {x: 12.27, y: 0, z: -0.11}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4939491563764908}
   - {fileID: 4858037059865584}
@@ -1477,7 +1477,7 @@ Transform:
   - {fileID: 224620743128381748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 266.49, z: 0}
 --- !u!4 &4387077233011606
 Transform:
   m_ObjectHideFlags: 1
@@ -2002,7 +2002,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 480e112ccd2648546a15abc836c1e805, type: 2}
+  - {fileID: 2100000, guid: 181c0e5928e7ee84d8d05bcd304bd13b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2111,8 +2111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62099380c08c6849b321edd93a743e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FleeRange: 10
-  DistanceToFee: 9
+  FleeRange: 3.8
+  DistanceToFee: 2
   FleePoints: []
 --- !u!114 &114292322667513682
 MonoBehaviour:
@@ -2307,7 +2307,7 @@ MonoBehaviour:
   Stats: {fileID: 0}
   Definition: {fileID: 11400000, guid: 1ade05b7d716e824b99b35cae065a3e8, type: 2}
   godMode: 0
-  AttackRange: 15
+  AttackRange: 25
   HitsToGetStunned: 3
   Hitpart: {fileID: 100008, guid: f07c230b1d3c3b04fbebbd1183aec0c0, type: 2}
   Hitpos: {fileID: 4315692245635698}
