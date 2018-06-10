@@ -117,7 +117,11 @@ namespace Entities
             if (Definition != null)
             {
                 Stats = Definition.CreateInstance();
-                Agent.speed = Stats.MovementSpeed;
+
+                if (Agent != null)
+                {
+                    Agent.speed = Stats.MovementSpeed;
+                }
             }
             else
             {

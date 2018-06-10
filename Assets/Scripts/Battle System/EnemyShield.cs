@@ -9,8 +9,13 @@ public class EnemyShield : MonoBehaviour
     public RangedFloat ShieldRange;
     
     public GameObject Shield;
+    
+    public LineRenderer Connection;
         
     public Entity Entity;
+
+    [HideInInspector]
+    public ShieldGeneratorEntity Generator;
 
     public void Deactivate(float delay = 0.5f)
     {
@@ -35,6 +40,14 @@ public class EnemyShield : MonoBehaviour
     private void Start()
     {
         Activate();
+    }
+
+    private void LateUpdate()
+    {
+        if (Generator == null) return;
+        
+        Connection.SetPosition(0, transform.position + Vector3.up);
+        Connection.SetPosition(1, Generator.transform.position + Vector3.up);
     }
 
     private void OnDestroy()

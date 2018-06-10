@@ -55,8 +55,10 @@ namespace Entities
             if (entity != null)
             {
                 var newObject = Instantiate(ShieldPrefab, entity.transform.position, Quaternion.identity, entity.transform);
+                var objectShield = newObject.GetComponent<EnemyShield>();
+                objectShield.Generator = this;
                 
-                _activeShields.Add(newObject.GetComponent<EnemyShield>());
+                _activeShields.Add(objectShield);
                 EntitySounds.PlayEffect("Cast", entity.transform.position);
             }
 
@@ -75,7 +77,7 @@ namespace Entities
                     Destroy(activeShield.gameObject);
                 }
             }
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 2f);
         }
 
         private void OnOnTakeDamage(Damage damage)
