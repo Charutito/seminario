@@ -10,6 +10,8 @@ public class TimerLaser : MonoBehaviour {
     float nextOf;
     bool firing;
     public GameObject Laser;
+    public GameObject Marker;
+
 
 
 
@@ -28,11 +30,14 @@ public class TimerLaser : MonoBehaviour {
         if (firing)
         {
             Laser.SetActive(false);
+            Marker.SetActive(true);
             firing = false;
         }
         else
         {
             Laser.SetActive(true);
+            Marker.SetActive(false);
+
             firing = true;
         }
     }
