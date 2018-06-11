@@ -16553,6 +16553,11 @@ Prefab:
       propertyPath: m_Name
       value: Mine Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114375282043576786, guid: e29e784699bd4574a9651a0e627ca18b,
+        type: 2}
+      propertyPath: TimeToExplode
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
   m_IsPrefabParent: 0
@@ -34694,6 +34699,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114375282043576786, guid: e29e784699bd4574a9651a0e627ca18b,
+        type: 2}
+      propertyPath: TimeToExplode
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
   m_IsPrefabParent: 0
@@ -41805,6 +41815,11 @@ Prefab:
     - target: {fileID: 1598847329119108, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
       propertyPath: m_Name
       value: Mine Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375282043576786, guid: e29e784699bd4574a9651a0e627ca18b,
+        type: 2}
+      propertyPath: TimeToExplode
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
@@ -62661,7 +62676,7 @@ GameObject:
   - component: {fileID: 1067576313}
   - component: {fileID: 1067576312}
   m_Layer: 0
-  m_Name: New Teleport
+  m_Name: Teleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67161,7 +67176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4877588850596400, guid: ba83849cb9ed6a346be9cc91f34fca5a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 4877588850596400, guid: ba83849cb9ed6a346be9cc91f34fca5a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -67198,6 +67213,11 @@ Prefab:
     - target: {fileID: 4877588850596400, guid: ba83849cb9ed6a346be9cc91f34fca5a, type: 2}
       propertyPath: m_LocalScale.z
       value: 1.5294819
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499254463730162, guid: ba83849cb9ed6a346be9cc91f34fca5a,
+        type: 2}
+      propertyPath: RotationSpeed
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba83849cb9ed6a346be9cc91f34fca5a, type: 2}
@@ -80847,7 +80867,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4073239728101100, guid: 778192649775632448b2ff18f3752836, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.87
+      value: -6.29
       objectReference: {fileID: 0}
     - target: {fileID: 4073239728101100, guid: 778192649775632448b2ff18f3752836, type: 2}
       propertyPath: m_LocalPosition.y
@@ -80855,7 +80875,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4073239728101100, guid: 778192649775632448b2ff18f3752836, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -3.46
+      value: -7.22
       objectReference: {fileID: 0}
     - target: {fileID: 4073239728101100, guid: 778192649775632448b2ff18f3752836, type: 2}
       propertyPath: m_LocalRotation.x
@@ -80892,6 +80912,11 @@ Prefab:
     - target: {fileID: 4073239728101100, guid: 778192649775632448b2ff18f3752836, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 57.859
+      objectReference: {fileID: 0}
+    - target: {fileID: 114934496615687668, guid: 778192649775632448b2ff18f3752836,
+        type: 2}
+      propertyPath: AttackRange
+      value: 19.72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 778192649775632448b2ff18f3752836, type: 2}
@@ -83015,6 +83040,11 @@ Prefab:
     - target: {fileID: 4132686047620956, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375282043576786, guid: e29e784699bd4574a9651a0e627ca18b,
+        type: 2}
+      propertyPath: TimeToExplode
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e29e784699bd4574a9651a0e627ca18b, type: 2}
@@ -89950,8 +89980,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1647304395}
   m_LocalRotation: {x: -0, y: -0.7071065, z: -0, w: 0.7071071}
-  m_LocalPosition: {x: 235.58, y: -1.25, z: 53.489002}
-  m_LocalScale: {x: 21.932102, y: 27.4594, z: 5.1100597}
+  m_LocalPosition: {x: 235.58, y: -4.14, z: 50.15}
+  m_LocalScale: {x: 15.033655, y: 27.4594, z: 5.1100597}
   m_Children: []
   m_Father: {fileID: 624062485}
   m_RootOrder: 19
