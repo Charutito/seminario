@@ -16,7 +16,7 @@ public class Pendulum : MonoBehaviour {
     void Update () {
         if (Vector3.Distance(transform.position,current.position) <=0.1f)
         {
-            current = positions.Where(x => x != current).First();
+            current = positions.Where(x => x != current).Skip(Random.Range(0,positions.Count())).First();
         }
         transform.position = Vector3.Lerp(transform.position, current.position, Time);
 	}
