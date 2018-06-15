@@ -28,9 +28,9 @@ namespace BattleSystem.Spells
         }
         private void DmgCast(Transform pos)
         {
-            var part = Instantiate(_behaviour.Definition.HitEffect);
-            var partpos = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
-            part.transform.position = partpos;
+            var part = Instantiate(_behaviour.Definition.HitEffect,pos);
+            part.transform.position = new Vector3(pos.position.x,pos.position.y+1,pos.position.z);
+            part.transform.SetParent(pos);
         }
         
         private void Cast()

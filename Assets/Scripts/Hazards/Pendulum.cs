@@ -7,6 +7,7 @@ public class Pendulum : MonoBehaviour {
     Transform current;
     public float Time;
     public Transform[] positions;
+    public ParticleSystem fafafa;
 
     public void Start()
     {
@@ -18,6 +19,8 @@ public class Pendulum : MonoBehaviour {
         {
             current = positions.Where(x => x != current).Skip(Random.Range(0,positions.Count())).First();
         }
+
+        
         transform.position = Vector3.Lerp(transform.position, current.position, Time);
 	}
 }
