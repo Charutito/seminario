@@ -22,28 +22,24 @@ namespace BattleSystem.Spells
         {
             _behaviour = GetComponent<SpellBehaviour>();
             _character = GameManager.Instance.Character;
-            _lineOfAim = GetComponentInChildren<LineOfAim>();
-         
+            _lineOfAim = GetComponentInChildren<LineOfAim>();         
             Cast();
         }
         private void DmgCast(Transform pos)
         {
-            var part = Instantiate(_behaviour.Definition.HitEffect,pos);
+            var part = Instantiate(_behaviour.Definition.SubCast,pos);
             part.transform.position = new Vector3(pos.position.x,pos.position.y+1,pos.position.z);
             part.transform.SetParent(pos);
         }
         
         private void Cast()
-        {
-            var part = Instantiate(_behaviour.Definition.SubCast);
-            part.transform.position = transform.position;
-            part.transform.forward = GameManager.Instance.Character.transform.forward;
+        {            
             var enemies = _lineOfAim.GetEnemiesInSight().ToList();
             foreach (var enemy in enemies)
             {
+                DmgCast(enemy.transform);
                 GameManager.Instance.Combo++;
                 _character.Heal(LifeRecover);
-                DmgCast(enemy.transform);
                 enemy.TakeDamage(new Damage
                 {
                     Amount = _behaviour.Definition.Damage,
