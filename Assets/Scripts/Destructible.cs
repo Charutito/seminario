@@ -10,14 +10,19 @@ public class Destructible : MonoBehaviour, IDamageable
     public GameObject particles;
     public int maxHits;
     
-    private int _currentHits =1;
+    private int _currentHits =0;
     
     public AudioEvent DestroyAudio;
-    
+    public AudioEvent DmgAudio;
+
     public void TakeDamage(Damage damage)
     {
+        _currentHits++;
+        var parts = Instantiate(particles, transform.position, transform.rotation);
+        Destroy(parts, 1);
         if (_currentHits == maxHits)
         {
+            DestroyAudio.PlayAtPoint(transform.position);
             foreach (var item in drop)
             {
                 Instantiate(item, transform.position, Quaternion.identity);
@@ -27,11 +32,8 @@ public class Destructible : MonoBehaviour, IDamageable
         else
         {
             StartCoroutine("FlashCorroutine");
-            DestroyAudio.PlayAtPoint(transform.position);
-            
-            var parts = Instantiate(particles, transform.position, transform.rotation);
-            Destroy(parts, 1);            
-            _currentHits++;
+            DmgAudio.PlayAtPoint(transform.position);
+
         }
         
     }
