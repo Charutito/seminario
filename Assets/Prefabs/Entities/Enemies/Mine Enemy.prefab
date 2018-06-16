@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33591694555399140}
   - component: {fileID: 23099057614204038}
   - component: {fileID: 95359277152796432}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: mine 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,8 @@ GameObject:
   - component: {fileID: 114197373205079682}
   - component: {fileID: 114375282043576786}
   - component: {fileID: 114124161460989408}
-  m_Layer: 11
+  - component: {fileID: 135217468186605098}
+  m_Layer: 19
   m_Name: FSM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4002525737801354}
   - component: {fileID: 108998994755188146}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +77,7 @@ GameObject:
   - component: {fileID: 114238767013878110}
   - component: {fileID: 114807756793209862}
   - component: {fileID: 114825135305293618}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Countdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4727238103098648}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Plane Transform 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 224545013170180354}
   - component: {fileID: 222126363363970016}
   - component: {fileID: 114013147508932748}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +129,7 @@ GameObject:
   - component: {fileID: 114983817086710310}
   - component: {fileID: 114706353264291342}
   - component: {fileID: 114277916405035896}
-  m_Layer: 11
+  m_Layer: 19
   m_Name: Mine Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 4879066204746732}
   - component: {fileID: 198523162624251156}
   - component: {fileID: 199770689218952426}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,24 +162,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4156394297038724}
   - component: {fileID: 82667810467895604}
-  m_Layer: 11
+  m_Layer: 19
   m_Name: SFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1884758076428590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4035780393370356}
-  - component: {fileID: 135009819995201284}
-  m_Layer: 11
-  m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +180,7 @@ GameObject:
   - component: {fileID: 198947310188613962}
   - component: {fileID: 199799774208654266}
   - component: {fileID: 95492525557490850}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: ExplosionParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,30 +200,16 @@ Transform:
   m_Father: {fileID: 4294433350324334}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4035780393370356
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1884758076428590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4132686047620956
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1598847329119108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.1, y: 0, z: -9}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4035780393370356}
   - {fileID: 4294433350324334}
   - {fileID: 4182112642253406}
   - {fileID: 224343526555854158}
@@ -258,7 +229,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4182112642253406
 Transform:
@@ -271,7 +242,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4294433350324334
 Transform:
@@ -286,7 +257,7 @@ Transform:
   - {fileID: 4879066204746732}
   - {fileID: 4002525737801354}
   m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 1, y: 0, z: 0}
 --- !u!4 &4727238103098648
 Transform:
@@ -312,7 +283,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4879066204746732
 Transform:
@@ -686,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 1050880
   ExplosionRange: 4
   ExplosionDisplacement: 2
   TimeToExplode: 10
@@ -779,18 +750,18 @@ MonoBehaviour:
   HitsToGetStunned: 3
   Hitpart: {fileID: 0}
   Hitpos: {fileID: 0}
---- !u!135 &135009819995201284
+--- !u!135 &135217468186605098
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1884758076428590}
+  m_GameObject: {fileID: 1143173004485342}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!195 &195811138779236370
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -7770,7 +7741,7 @@ RectTransform:
   m_Children:
   - {fileID: 224545013170180354}
   m_Father: {fileID: 4132686047620956}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

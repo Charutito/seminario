@@ -74,5 +74,10 @@ namespace AnimatorFSM.States
 				}
 			};
 		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			_currentTimeToExplode = 0;
+		}
 	}
 }
