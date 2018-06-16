@@ -27,13 +27,16 @@ namespace BattleSystem.Spells
         }
         private void DmgCast(Transform pos)
         {
-            var part = Instantiate(_behaviour.Definition.SubCast,pos);
+            var part = Instantiate(_behaviour.Definition.HitEffect,pos);
             part.transform.position = new Vector3(pos.position.x,pos.position.y+1,pos.position.z);
             part.transform.SetParent(pos);
         }
         
         private void Cast()
-        {            
+        {
+            var part = Instantiate(_behaviour.Definition.SubCast);
+            part.transform.position = transform.position;
+            part.transform.forward = GameManager.Instance.Character.transform.forward;
             var enemies = _lineOfAim.GetEnemiesInSight().ToList();
             foreach (var enemy in enemies)
             {
