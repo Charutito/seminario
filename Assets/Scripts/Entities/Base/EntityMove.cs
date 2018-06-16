@@ -25,9 +25,19 @@ namespace Entities
 
             transform.position = newPosition;
         }
-        #region  circular move
         
-        #endregion
+        public void MoveTransform(float x, float z, float speed, bool rotate = true)
+        {
+            var newPosition = transform.position + (new Vector3(x, 0, z).normalized * speed * Time.deltaTime);
+
+            if (rotate)
+            {
+                RotateTowards(newPosition);
+            }
+
+            transform.position = newPosition;
+        }
+        
         public void SmoothMoveTransform(Vector3 position, float timeToMove, Action onFinish = null)
         {
             if (_moveCoroutine != null)

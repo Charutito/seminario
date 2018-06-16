@@ -27,6 +27,7 @@ namespace Entities
 	    public VfxManager vfxManager;
 
 	    [Header("Spells")]
+	    public GameObject CastPosition;
 	    public SpellDefinition FirstAbility;
 	    public SpellDefinition SecondAbility;
 	    public SpellDefinition ThirdAbility;
@@ -47,8 +48,10 @@ namespace Entities
         public event Action OnGetHit = delegate { };
         public event Action OnSpiritPunch = delegate { };
         public event Action OnDancingBlades = delegate { };
-        public event Action OnGravitonCast = delegate { };
+        public event Action OnFireballCast = delegate { };
         public event Action OnBackflipCast = delegate { };
+
+	    private bool _lastFirstCast = false;
 
         public void DmgDdisp(Vector3 direction)
         {
@@ -77,13 +80,15 @@ namespace Entities
 	    {
 		    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
 		    Stats.CurrentSpirit -= FirstAbility.SpiritCost;
-		    SpellDefinition.Cast(FirstAbility, transform);
+		    EntityMove.RotateInstant(EntityAttacker.lineArea.HitCollider.transform.position);
+		    SpellDefinition.Cast(FirstAbility, CastPosition.transform.position, transform.rotation);
 	    }
 
         public void SecondAbilityHit()
         {
 	        Stats.CurrentSpirit -= SecondAbility.SpiritCost;
 	        CurrentSecondAbilityCooldown = SecondAbility.Cooldown;
+	        EntityMove.RotateInstant(EntityAttacker.lineArea.HitCollider.transform.position);
             SpellDefinition.Cast(SecondAbility, transform);
         }
 
@@ -91,13 +96,14 @@ namespace Entities
 	    {
 		    Stats.CurrentSpirit -= ThirdAbility.SpiritCost;
 		    CurrentThirdAbilityCooldown = ThirdAbility.Cooldown;
-		    SpellDefinition.Cast(ThirdAbility, transform, true);
+		    SpellDefinition.Cast(FourthAbility, transform, true);
 	    }
 	    
 	    public void FourthAbilityHit()
 	    {
 		    Stats.CurrentSpirit -= FourthAbility.SpiritCost;
 		    CurrentFourthAbilityCooldown = FourthAbility.Cooldown;
+		    EntityMove.RotateInstant(EntityAttacker.lineArea.HitCollider.transform.position);
 		    SpellDefinition.Cast(FourthAbility, transform, true);
 	    }
 
@@ -155,8 +161,9 @@ namespace Entities
 		    
 		    if (InputManager.Instance.FirstAbility && Stats.CurrentSpirit >= FirstAbility.SpiritCost && CurrentFirstAbilityCooldown <= 0 && !IsDead)
 		    {
-			    OnGravitonCast();
+			    OnFireballCast();
 		    }
+
 		    if (InputManager.Instance.SecondAbility && Stats.CurrentSpirit >= SecondAbility.SpiritCost && CurrentSecondAbilityCooldown <= 0 && !IsDead)
 		    {
                 OnSpiritPunch();
