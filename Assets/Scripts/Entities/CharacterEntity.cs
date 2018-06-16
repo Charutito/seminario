@@ -51,8 +51,6 @@ namespace Entities
         public event Action OnFireballCast = delegate { };
         public event Action OnBackflipCast = delegate { };
 
-	    private bool _lastFirstCast = false;
-
         public void DmgDdisp(Vector3 direction)
         {
 	        if (IsInvulnerable) return;
@@ -96,7 +94,7 @@ namespace Entities
 	    {
 		    Stats.CurrentSpirit -= ThirdAbility.SpiritCost;
 		    CurrentThirdAbilityCooldown = ThirdAbility.Cooldown;
-		    SpellDefinition.Cast(FourthAbility, transform, true);
+		    SpellDefinition.Cast(ThirdAbility, transform, true);
 	    }
 	    
 	    public void FourthAbilityHit()
