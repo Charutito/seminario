@@ -18,7 +18,19 @@ public class LineOfAim : MonoBehaviour
     {
         var targets = Physics.BoxCastAll(HitCollider.transform.position, HitCollider.transform.localScale/2, transform.forward, HitCollider.transform.rotation, 1, _hitLayers);
 
-        return targets.Select(target => target.collider.GetComponent<Entity>()).Where(entity => entity != null).ToList();
+        return targets
+            .Select(target => target.collider.GetComponent<Entity>())
+            .Where(entity => entity != null)
+            .ToList();
+    }
+    
+    public Entity GetFirstEnemyInSight()
+    {
+        var targets = Physics.BoxCastAll(HitCollider.transform.position, HitCollider.transform.localScale/2, transform.forward, HitCollider.transform.rotation, 1, _hitLayers);
+
+        return targets
+            .Select(target => target.collider.GetComponent<Entity>())
+            .FirstOrDefault(entity => entity != null);
     }
 
     private void RotateInstant(Vector3 target)
@@ -28,7 +40,7 @@ public class LineOfAim : MonoBehaviour
 
     private void Start()
     {
-        HitCollider = HitCollider ?? GetComponentInChildren<Collider>();
+        HitCollider = HitCollider ? HitCollider : GetComponentInChildren<Collider>();
     }
 
     private void Update()
@@ -41,17 +53,17 @@ public class LineOfAim : MonoBehaviour
             }
             else
             {
-                var characterPos = GameManager.Instance.Character.transform;
-                RotateInstant(characterPos.position + characterPos.forward);
+                var entity = GetFirstEnemyInSight();
+                
+                if (entity != null)
+                {
+                    RotateInstant(entity.transform.position);
+                }
+                else
+                {
+                    transform.localRotation = Quaternion.identity;
+                }
             }
         }
 	}
-    
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-            
-        Gizmos.DrawRay(HitCollider.transform.position, HitCollider.transform.forward);
-        Gizmos.DrawWireCube(HitCollider.transform.position, HitCollider.transform.localScale);
-    }
 }

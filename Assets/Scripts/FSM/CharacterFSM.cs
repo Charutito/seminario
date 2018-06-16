@@ -212,7 +212,6 @@ namespace FSM
             entity.OnFireballCast += FeedFireball;
             entity.OnBackflipCast += FeedBackflip;
 
-
             entity.OnAttackRecovering += () => {
 				entity.IsAttacking = false;
 			    entity.IsSpecialAttacking = false;
@@ -238,7 +237,6 @@ namespace FSM
                 Feed(Trigger.Die);
             };
             #endregion
-
 
             #region Moving
             Moving.OnEnter += () =>
@@ -270,6 +268,7 @@ namespace FSM
 				entity.IsAttacking = true;
                 
                 entity.OnMove -= FeedMove;
+                entity.EntityMove.RotateInstant(entity.EntityAttacker.lineArea.HitCollider.transform.position);
                 entity.EntityAttacker.LightAttack_Start();
             };
 
@@ -291,8 +290,8 @@ namespace FSM
             SpecialAttack.OnEnter += () =>
             {
                 entity.IsSpecialAttacking = true;
-
                 entity.OnMove -= FeedMove;
+                entity.EntityMove.RotateInstant(entity.EntityAttacker.lineArea.HitCollider.transform.position);
                 entity.EntityAttacker.HeavyAttack_Start();
             };
 

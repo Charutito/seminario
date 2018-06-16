@@ -40,6 +40,7 @@ namespace BattleSystem.Spells
         {
             _previousStatus = _character.IsInvulnerable;
             _character.IsInvulnerable = true;
+            _character.Agent.enabled = false;
 
             foreach (var meshito in _mesh)
             {
@@ -111,6 +112,7 @@ namespace BattleSystem.Spells
             _camera.m_LookaheadSmoothing = _previousLookAheadSmooth;
             
             _character.IsInvulnerable = _previousStatus;
+            _character.Agent.enabled = true;
             
             foreach (var meshito in _mesh)
             {

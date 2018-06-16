@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4431643946549024}
   - component: {fileID: 33360445020337504}
-  - component: {fileID: 65126798741067836}
   - component: {fileID: 23654921786982674}
   - component: {fileID: 111145365901122304}
   - component: {fileID: 114604635951732200}
+  - component: {fileID: 135179970512725962}
   m_Layer: 13
   m_Name: HealtBox
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1114776153836566}
   m_LocalRotation: {x: 0.46193978, y: 0.19134173, z: 0.19134173, w: 0.84462327}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9099411, y: 0.7711366, z: 0.7711366}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,18 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1114776153836566}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65126798741067836
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1114776153836566}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &111145365901122304
 Animation:
   m_ObjectHideFlags: 1
@@ -125,4 +113,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 1054579230598788, guid: b2a58ed987eb70c4aa48dc71784e0925, type: 2}
   CollectSound: {fileID: 11400000, guid: 6dc639a0b6551cd49a5592ec6148e88b, type: 2}
-  HealingPow: 25
+  HealingPow: 40
+--- !u!135 &135179970512725962
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114776153836566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
