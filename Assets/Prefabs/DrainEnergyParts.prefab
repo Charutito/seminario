@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4685209096946224}
   - component: {fileID: 198403832848910498}
   - component: {fileID: 199885839711378102}
-  - component: {fileID: 114471294964292922}
   m_Layer: 0
   m_Name: DrainEnergyFlash
   m_TagString: Untagged
@@ -116,22 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0209dfe60a7ce2544a1134f185e2a686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToDestroy: 3
-  DeathEffect: {fileID: 1755192778135406, guid: ab040abf2934114489cedbaf9502a73d,
-    type: 2}
-  DeathSound: {fileID: 11400000, guid: d1acfd576b6238b4b8922d534cb2c652, type: 2}
---- !u!114 &114471294964292922
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1940817586015226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0209dfe60a7ce2544a1134f185e2a686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeToDestroy: 1
+  TimeToDestroy: 0
   DeathEffect: {fileID: 1755192778135406, guid: ab040abf2934114489cedbaf9502a73d,
     type: 2}
   DeathSound: {fileID: 11400000, guid: d1acfd576b6238b4b8922d534cb2c652, type: 2}
@@ -195,7 +179,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 992582429
+  randomSeed: 2003591045
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3556,7 +3540,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1030715071
+  randomSeed: -585846687
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6917,7 +6901,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -155918166
+  randomSeed: 729271043
   InitialModule:
     serializedVersion: 3
     enabled: 1
