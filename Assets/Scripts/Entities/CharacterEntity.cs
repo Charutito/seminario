@@ -37,6 +37,8 @@ namespace Entities
 	    [HideInInspector] public float CurrentSecondAbilityCooldown;
 	    [HideInInspector] public float CurrentThirdAbilityCooldown;
 	    [HideInInspector] public float CurrentFourthAbilityCooldown;
+	    
+	    [HideInInspector] public float CurrentTimeToCastFirstAbility;
 
         public event Action OnMove = delegate { };
         public event Action OnAttack = delegate { };
@@ -54,8 +56,8 @@ namespace Entities
         public void DmgDdisp(Vector3 direction)
         {
 	        if (IsInvulnerable) return;
-            this.EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
-            this.EntityMove.RotateInstant(direction);
+            EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
+            EntityMove.RotateInstant(direction);
         }
         
         public void AtkDdisp()
@@ -77,9 +79,18 @@ namespace Entities
 	    public void FirstAbilityHit()
 	    {
 		    CurrentFirstAbilityCooldown = FirstAbility.Cooldown;
-		    Stats.CurrentSpirit -= FirstAbility.SpiritCost;
 		    EntityMove.RotateInstant(EntityAttacker.lineArea.HitCollider.transform.position);
-		    SpellDefinition.Cast(FirstAbility, CastPosition.transform.position, transform.rotation);
+
+		    if (CurrentTimeToCastFirstAbility <= 0.5f)
+		    {
+			    Stats.CurrentSpirit -= FirstAbility.SpellVariation.SpiritCost;
+			    SpellDefinition.Cast(FirstAbility.SpellVariation, CastPosition.transform.position, transform.rotation);
+		    }
+		    else
+		    {
+			    Stats.CurrentSpirit -= FirstAbility.SpiritCost;
+			    SpellDefinition.Cast(FirstAbility, CastPosition.transform.position, transform.rotation);
+		    }
 	    }
 
         public void SecondAbilityHit()

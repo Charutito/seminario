@@ -9,30 +9,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b8cf16342efb841ae1febe83ddb033, type: 3}
-  m_Name: FireballSpellDefinition
+  m_Name: FireballBigSpellDefinition
   m_EditorClassIdentifier: 
-  Name: Fireball
+  Name: Fireball Charged
   Description: 
   Icon: {fileID: 0}
-  Prefab: {fileID: 100010, guid: 367a74e50844cfe4aa8f243f8429528a, type: 2}
+  Prefab: {fileID: 100010, guid: c4ca29faccb104d459876c499da41d65, type: 2}
   SubCast: {fileID: 0}
   HitEffect: {fileID: 0}
   DeathEffect: {fileID: 100014, guid: dc2085ede280df24cb05d19b91d0e545, type: 2}
-  SpellVariation: {fileID: 11400000, guid: 8806249c84bd8ee4dabd448d05bb0968, type: 2}
-  Cooldown: 0.1
+  SpellVariation: {fileID: 0}
+  Cooldown: 0
   AutoCastTime: 2
-  SpiritCost: 5
-  Damage: 10
+  SpiritCost: 15
+  Damage: 30
   DamageMultiplier: 0
-  DamageType: 8
+  DamageType: 9
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
-  Speed: 15
+  Speed: 20
   DestroyAfterTime: 3
-  DestroyOnCollision: 1
+  DestroyOnCollision: 0
   EffectRadius: 0
-  MaxAffected: 10
-  WaitTime: 0.05
+  MaxAffected: 0
+  WaitTime: 0
   EffectLayer:
     serializedVersion: 2
     m_Bits: 2048

@@ -352,8 +352,10 @@ namespace FSM
             #endregion
             
             #region FireballSpell
+            
             Fireball.OnEnter += () =>
             {
+                entity.CurrentTimeToCastFirstAbility = entity.FirstAbility.AutoCastTime;
                 entity.IsSpecialAttacking = true;
                 entity.OnMove -= FeedMove;
                 entity.Animator.SetBool("AimSpell", true);
@@ -361,7 +363,9 @@ namespace FSM
 
             Fireball.OnUpdate += () =>
             {
-                if (!InputManager.Instance.FirstAbility)
+                entity.CurrentTimeToCastFirstAbility -= Time.deltaTime;
+                
+                if (!InputManager.Instance.FirstAbility || entity.CurrentTimeToCastFirstAbility <= 0)
                 {
                     Feed(Trigger.None);
                     return;

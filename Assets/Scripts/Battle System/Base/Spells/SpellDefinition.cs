@@ -16,7 +16,9 @@ namespace BattleSystem
         public GameObject SubCast;
         public GameObject HitEffect;
         public GameObject DeathEffect;
+        public SpellDefinition SpellVariation;
         public float Cooldown = 1f;
+        public float AutoCastTime = 2f;
         public int SpiritCost;
         
         [Header("Damage")]
