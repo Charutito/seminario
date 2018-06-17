@@ -20,7 +20,7 @@ namespace SaveSystem
 
         public UnityEvent OnSaveEvent;
         public UnityEvent OnLoadEvent;
-
+        Animator anim;
         private bool _isUsed;
         private SaveGUID _uniqueId;
 
@@ -58,6 +58,8 @@ namespace SaveSystem
         private void Awake()
         {
             _uniqueId = GetComponent<SaveGUID>();
+            anim = GetComponent<Animator>();
+
         }
 
         private void Start()
@@ -78,10 +80,12 @@ namespace SaveSystem
         private void OnTriggerEnter(Collider other)
         {
             if (_isUsed) return;
-        
+            anim.SetTrigger("Start");        
             SaveData();
         }
-        
+
+
+
         private static void Log(string message)
         {
 #if DEBUG
