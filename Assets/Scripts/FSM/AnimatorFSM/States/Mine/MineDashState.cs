@@ -19,9 +19,14 @@ namespace AnimatorFSM.States
 
 		[Header("Timer")]
 		public float TimeToExplode = 10f;
-		public Text TimerText;
+		public Text IntTimerText;
+        public Text FloatTimerText;
+        private string _numStr;
+        private int _numEntero;
+        private int _numDecimal;
+        string[] parts;
 
-		private float _currentTimeToExplode;
+        private float _currentTimeToExplode;
 		private Vector3 _lastPosition;
 		private AbstractStateManager _stateManager;
 
@@ -29,7 +34,7 @@ namespace AnimatorFSM.States
 		{
 			_stateManager = GetComponentInParent<AbstractStateManager>();
 			_currentTimeToExplode = TimeToExplode;
-		}
+        }
 
 		protected override void DefineState()
 		{
@@ -45,9 +50,19 @@ namespace AnimatorFSM.States
 				_stateManager.Entity.EntityMove.MoveAgent(characterPosition);
 
 				_currentTimeToExplode -= Time.deltaTime;
-				TimerText.text = Math.Round(_currentTimeToExplode, 1).ToString(CultureInfo.InvariantCulture);
 
-				if (_currentTimeToExplode <= 0 || Vector3.Distance(_stateManager.Entity.transform.position, characterPosition) <= _stateManager.Entity.AttackRange)
+                _numStr = _currentTimeToExplode.ToString("0.000", CultureInfo.InvariantCulture);
+                parts = _numStr.Split('.');
+
+                _numEntero = int.Parse(parts[0]);
+                _numDecimal = int.Parse(parts[1]);
+
+                IntTimerText.text = _numEntero.ToString();
+                FloatTimerText.text = _numDecimal.ToString();
+
+                //Math.Round(_numDecimal, 1).ToString(CultureInfo.InvariantCulture);
+
+                if (_currentTimeToExplode <= 0 || Vector3.Distance(_stateManager.Entity.transform.position, characterPosition) <= _stateManager.Entity.AttackRange)
 				{
 					var colliders = Physics.OverlapSphere(_stateManager.Entity.transform.position, ExplosionRange, HitLayers);
 
@@ -69,8 +84,10 @@ namespace AnimatorFSM.States
 						}
 					}
 
-					TimerText.text = string.Empty;
-					_stateManager.Entity.SelfDestroy();
+                    IntTimerText.text = string.Empty;
+                    FloatTimerText.text = string.Empty;
+
+                    _stateManager.Entity.SelfDestroy();
 				}
 			};
 		}
