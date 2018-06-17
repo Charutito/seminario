@@ -9,6 +9,7 @@ using BattleSystem.Spells;
 using UnityEngine;
 using Util;
 using GameUtils;
+using InputManager = Managers.InputManager;
 
 namespace FSM
 {
@@ -354,8 +355,8 @@ namespace FSM
             Fireball.OnEnter += () =>
             {
                 entity.IsSpecialAttacking = true;
-                entity.Animator.SetFloat("Velocity Z", 0.5f);
                 entity.OnMove -= FeedMove;
+                entity.Animator.SetBool("AimSpell", true);
             };
 
             Fireball.OnUpdate += () =>
@@ -365,12 +366,16 @@ namespace FSM
                     Feed(Trigger.None);
                     return;
                 }
-                
-                entity.EntityMove.MoveTransform(InputManager.Instance.AxisHorizontal, InputManager.Instance.AxisVertical, 2);
+
+                if (InputManager.Instance.AxisMoving)
+                {
+                    entity.EntityMove.RotateTowards(entity.EntityAttacker.lineArea.HitCollider.transform.position);
+                }
             };
 
             Fireball.OnExit += () =>
             {
+                entity.Animator.SetBool("AimSpell", false);
                 entity.Animator.SetFloat("Velocity Z", 0f);
                 entity.IsSpecialAttacking = false;
                 entity.FirstAbilityHit();
