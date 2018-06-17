@@ -27,7 +27,8 @@ namespace BattleSystem.Spells
                 {
                     Amount = _damage,
                     Type = _behaviour.Definition.DamageType,
-                    Origin = transform
+                    OriginPosition = transform.position,
+                    OriginRotation = transform.rotation
                 });
                 
                 if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);

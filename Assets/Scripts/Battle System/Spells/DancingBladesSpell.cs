@@ -81,9 +81,9 @@ namespace BattleSystem.Spells
                 enemy.TakeDamage(new Damage
                 {
                     Amount = _behaviour.Definition.Damage,
-                    Type = _behaviour.Definition.DamageType,                    
-                    Origin = transform,
-                    Originator = _character,
+                    Type = _behaviour.Definition.DamageType,
+                    OriginPosition = transform.position,
+                    OriginRotation = transform.rotation,
                     Displacement = 1f
                 });
                 

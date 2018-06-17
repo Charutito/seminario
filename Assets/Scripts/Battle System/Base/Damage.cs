@@ -10,8 +10,8 @@ namespace BattleSystem
 	{
 		public int Amount;
 		public DamageType Type = DamageType.Unknown;
-		public Transform Origin;
-		public Entity Originator;
+		public Vector3 OriginPosition;
+		public Quaternion OriginRotation;
 		public float Displacement;
 		public bool Absolute;
 	}

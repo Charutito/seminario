@@ -22,9 +22,12 @@ namespace Entities
         public void HitFeedback()
         {
             EntitySounds.PlayEffect("Hit", transform.position);
-            
-            var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
-            Destroy(part, 1);
+
+            if (Hitpart != null && Hitpos != null)
+            {
+                var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
+                Destroy(part, 1);
+            }
         }
         
         public void DeathFeedback()
@@ -35,12 +38,6 @@ namespace Entities
             }
             else
             {
-                if (Hitpart != null && Hitpos != null)
-                {
-                    var part = Instantiate(Hitpart, Hitpos.position, Hitpos.rotation, Hitpos);
-                    Destroy(part, 1);
-                }
-                
                 EntitySounds.PlayEffect("Death", transform.position);
             }
         }

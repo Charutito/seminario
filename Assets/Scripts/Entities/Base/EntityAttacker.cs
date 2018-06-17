@@ -168,9 +168,9 @@ namespace Entities
 
                 targets.AddRange(tarjetas.Select(target => target.collider));
             }
-            
-            damage.Origin = transform;
-            damage.Originator = _entity;
+
+            damage.OriginPosition = transform.position;
+            damage.OriginRotation = transform.rotation;
             
             foreach (var target in targets)
             {
