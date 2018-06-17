@@ -431,6 +431,8 @@ namespace FSM
                 entity.currentDashCharges--;
             }
             
+            entity.Animator.SetTrigger("TriggerDash");
+            
             var dashPosition =  entity.transform.position +
                                entity.EntityAttacker.lineArea.transform.forward * entity.transform.GetMaxDistance(entity.EntityAttacker.lineArea.transform.forward, dashLength);
             
