@@ -297,16 +297,23 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.39020616
+      - time: 0.3085339
         functionName: TriggerEvent
-        data: HeavyHit
+        data: HeavyStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3085339
+      - time: 0.36980307
         functionName: TriggerEvent
-        data: HeavyStart
+        data: HeavyHit_2
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.39020616
+        functionName: TriggerEvent
+        data: HeavyHit
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -318,16 +325,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9781181
+      - time: 0.991943
         functionName: TriggerEvent
         data: HeavyRecovered
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.36980307
-        functionName: TriggerEvent
-        data: HeavyHit_2
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
