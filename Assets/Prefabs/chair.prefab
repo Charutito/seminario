@@ -107,6 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe9e9b1535b712419659b75957ad7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drop: {fileID: 1863354551836926, guid: 24b16b3351f09434aa358326b42b02e9, type: 2}
+  drop:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   particles: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
+  maxHits: 1
   DestroyAudio: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
+  DmgAudio: {fileID: 0}
