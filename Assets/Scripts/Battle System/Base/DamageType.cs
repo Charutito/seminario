@@ -12,6 +12,7 @@
         Spell = 8,
         ThirdAttack = 9,
         FlyUp = 10,
-        Graviton = 11
+        Graviton = 11,
+        Laser = 12
     }
 }

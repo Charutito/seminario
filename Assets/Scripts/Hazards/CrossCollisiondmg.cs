@@ -5,6 +5,8 @@ public class CrossCollisiondmg : MonoBehaviour
 {
     public int Damage;
     public GameObject Part;
+    public DamageType Type = DamageType.Laser;
+    
     private void OnTriggerEnter(Collider col)
     {
         var damageable = col.GetComponent<IDamageable>();
@@ -14,13 +16,14 @@ public class CrossCollisiondmg : MonoBehaviour
             damageable.TakeDamage(new Damage
             {
                 Amount = Damage,
-                Type = DamageType.Attack,
+                Type = DamageType.Laser,
                 OriginPosition = transform.position,
                 OriginRotation = transform.rotation
             });
-            var Fx = Instantiate(Part);
-            Fx.transform.position = col.transform.position;
-            Destroy(Fx, 1f);
+            
+            var fx = Instantiate(Part);
+            fx.transform.position = col.transform.position;
+            Destroy(fx, 1f);
         }
     }
 }
