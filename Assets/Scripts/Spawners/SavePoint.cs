@@ -17,10 +17,11 @@ namespace SaveSystem
             public Vector3 Position;
             public string SceneName;
         }
-
+        
         public UnityEvent OnSaveEvent;
         public UnityEvent OnLoadEvent;
         Animator anim;
+        public GameObject particles;
         private bool _isUsed;
         private SaveGUID _uniqueId;
 
@@ -34,7 +35,7 @@ namespace SaveSystem
             _isUsed = true;
             
             OnLoadEvent.Invoke();
-            
+            anim.SetBool("Start", true);
             Log("Game Loaded!");
         }
     
@@ -79,12 +80,17 @@ namespace SaveSystem
 
         private void OnTriggerEnter(Collider other)
         {
+            anim.SetBool("Start", true);
+            particles.SetActive(true);
             if (_isUsed) return;
-            anim.SetTrigger("Start");        
             SaveData();
         }
+        private void OnTriggerExit(Collider other)
+        {
+            anim.SetBool("Start", false);
+            particles.SetActive(false);
 
-
+        }
 
         private static void Log(string message)
         {

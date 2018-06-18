@@ -695,7 +695,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378924426361988}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: -0.116, z: 0}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4610237854773908}
@@ -747,8 +747,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1191713402010326}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -28.41, y: 1.57, z: 170.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4817699073809920}
@@ -1642,8 +1642,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5, y: 3.5023098, z: 5.5}
-  m_Center: {x: 0.021430016, y: 1.6564465, z: -0.0221138}
+  m_Size: {x: 5.5, y: 3.350204, z: 5.5}
+  m_Center: {x: 0.021430016, y: 1.7324994, z: -0.0221138}
 --- !u!95 &95608908808783554
 Animator:
   serializedVersion: 3
@@ -1675,17 +1675,6 @@ MonoBehaviour:
   OnSaveEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 95608908808783554}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Start
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1378924426361988}
         m_MethodName: SetActive
         m_Mode: 6
@@ -1702,19 +1691,20 @@ MonoBehaviour:
   OnLoadEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 95608908808783554}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 1378924426361988}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Start
-          m_BoolArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  particles: {fileID: 1378924426361988}
 --- !u!114 &114757640791967670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1741,7 +1731,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
@@ -1787,7 +1777,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -623266080
+  randomSeed: -589196993
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1877,7 +1867,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.20507628, g: 0.39705884, b: 0.19269031, a: 1}
-      maxColor: {r: 0.3602941, g: 1, b: 0.41335687, a: 0.084}
+      maxColor: {r: 0.3602941, g: 1, b: 0.41335687, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5114,7 +5104,7 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 1
+  autoRandomSeed: 0
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
@@ -5312,7 +5302,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6.28
+      scalar: 10.99
       minScalar: 1
       maxCurve:
         serializedVersion: 2
