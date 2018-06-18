@@ -69,7 +69,7 @@ namespace Entities
         #region IDamageable
         public virtual void TakeDamage(Damage damage)
         {
-            if (IsDead || (IsInvulnerable && !damage.Absolute)) return;
+            if (IsDead || (IsInvulnerable && !damage.Absolute) || damage.Type == Stats.Inmunity) return;
             
             LastDamage = damage;
 

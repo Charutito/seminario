@@ -201,7 +201,7 @@ namespace Entities
                             if(damage.Type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
                         }
                     }
-                    _entity.Stats.CurrentSpirit += (damage.Type == DamageType.SpecialAttack) ? _entity.Stats.SpecialAttackDamage : _entity.Stats.LightRecovery;
+                    _entity.Stats.CurrentSpirit += (damage.Type == DamageType.SpecialAttack) ? _entity.Stats.HeavyRecovery : _entity.Stats.LightRecovery;
                     damageable.TakeDamage(damage);
                 }
             }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Stats;
+using BattleSystem;
 using UnityEngine;
 
 namespace Entities
@@ -50,6 +48,7 @@ namespace Entities
         [Header("Stats")]
         public int MaxHealth = 100;
         public int MaxSpirit = 100;
+        public DamageType Inmunity;
         
         [Header("Movenment")]
         public float MovementSpeed = 10;
