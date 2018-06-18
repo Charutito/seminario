@@ -15,7 +15,8 @@ public class CrossCollisiondmg : MonoBehaviour
             {
                 Amount = Damage,
                 Type = DamageType.Attack,
-                Origin = transform
+                OriginPosition = transform.position,
+                OriginRotation = transform.rotation
             });
             var Fx = Instantiate(Part);
             Fx.transform.position = col.transform.position;

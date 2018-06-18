@@ -29,7 +29,8 @@ namespace Environment
                     {
                         Amount = entity.Definition.MaxHealth,
                         Type = DamageType.Unknown,
-                        Origin = transform,
+                        OriginPosition = transform.position,
+                        OriginRotation = transform.rotation,
                         Absolute = true
                     });
                 }

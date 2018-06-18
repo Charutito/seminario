@@ -25,7 +25,7 @@ namespace AnimatorFSM.States
 				if (StateManager.LastDamage.Displacement > 0f)
 				{
 					StateManager.Entity.EntityMove.SmoothMoveTransform(
-						Vector3.MoveTowards(transform.position, StateManager.LastDamage.Origin.position, -StateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
+						Vector3.MoveTowards(transform.position, StateManager.LastDamage.OriginPosition, -StateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
 						DisplacementTime, () => CheckIfCanGoDown());
 				}
 				
@@ -55,7 +55,8 @@ namespace AnimatorFSM.States
 				{
 					Amount = StateManager.Entity.Stats.MaxHealth,
 					Type = DamageType.Environment,
-					Origin = StateManager.Entity.transform,
+					OriginPosition = StateManager.Entity.transform.position,
+					OriginRotation = StateManager.Entity.transform.rotation,
 					Absolute = true
 				});
 				return true;

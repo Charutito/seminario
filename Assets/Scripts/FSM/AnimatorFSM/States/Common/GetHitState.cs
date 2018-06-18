@@ -19,7 +19,7 @@ namespace AnimatorFSM.States
                 StateManager.Entity.Animator.SetTrigger(EntityAnimations.GetHit);
                 
                 StateManager.Entity.EntityMove.SmoothMoveTransform(
-                    Vector3.MoveTowards(transform.position, StateManager.LastDamage.Origin.position, -StateManager.LastDamage.Displacement * DisplacementMultiplier), DisplacementTime);
+                    Vector3.MoveTowards(transform.position, StateManager.LastDamage.OriginPosition, -StateManager.LastDamage.Displacement * DisplacementMultiplier), DisplacementTime);
                 
                 if (StateManager.Entity.EntityAttacker != null) StateManager.Entity.EntityAttacker.attackArea.enabled = false;
             };

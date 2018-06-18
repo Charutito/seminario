@@ -23,7 +23,7 @@ public class FlyUpState : BaseState
 			if (StateManager.LastDamage.Displacement > 0f)
 			{
 				StateManager.Entity.EntityMove.SmoothMoveTransform(
-					Vector3.MoveTowards(transform.position, StateManager.LastDamage.Origin.position, -StateManager.LastDamage.Displacement), 0.1f);
+					Vector3.MoveTowards(transform.position, StateManager.LastDamage.OriginPosition, -StateManager.LastDamage.Displacement), 0.1f);
 			}
 		};
 		

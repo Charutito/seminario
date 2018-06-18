@@ -84,7 +84,8 @@ namespace BattleSystem.Spells
 		    {
 			    Amount = _behaviour.Definition.Damage,
 			    Type = damageType,
-			    Origin = transform
+			    OriginPosition = transform.position,
+			    OriginRotation = transform.rotation
 		    });
 	    }
     }

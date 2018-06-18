@@ -21,7 +21,8 @@ public class BulletCollisionDamage : MonoBehaviour
             {
                 Amount = Damage,
                 Type = DamageType.Attack,
-                Origin = transform
+                OriginPosition = transform.position,
+                OriginRotation = transform.rotation
             });
             
             Destroy(this.gameObject);
