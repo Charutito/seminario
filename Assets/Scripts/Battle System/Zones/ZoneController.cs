@@ -61,8 +61,11 @@ namespace BattleSystem
         public ZoneEvent OnZoneDeactivate;
         #endregion
         
+        [HideInInspector]
         public readonly List<GroupEntity> Entities = new List<GroupEntity>();
+        [HideInInspector]
         public readonly List<EntitySpawner> Spawners = new List<EntitySpawner>();
+        [HideInInspector]
         public readonly List<ZoneController> ChildZones = new List<ZoneController>();
         
         private CharacterEntity _target;
