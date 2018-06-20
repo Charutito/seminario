@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Managers.Mappings
 {
-    [CreateAssetMenu(menuName = "Game/Input/Mapping")]
+    [CreateAssetMenu(menuName = "Akane/Input/Mapping")]
     [Serializable]
     public class InputMapping : ScriptableObject
     {
