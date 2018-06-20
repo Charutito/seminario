@@ -50,6 +50,8 @@ namespace BattleSystem.Spells
             var enemies = _lineOfAim.GetEnemiesInSight()
                 .OrderBy(e => Vector3.Distance(transform.position, e.transform.position))
                 .Where(e => _character.EntityMove.CanReachPosition(e.transform.position))
+                .Where(e => !e.IsInvulnerable)
+                .Where(e => e.Stats.Inmunity != DamageType.Spell)
                 .Take(_behaviour.Definition.MaxAffected)
                 .ToList();
             

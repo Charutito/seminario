@@ -489,7 +489,12 @@ namespace FSM
         
         private void FeedDancingBlades()
         {
-            if (!entity.IsAttacking && !entity.IsSpecialAttacking && entity.EntityAttacker.lineArea.GetEnemiesInSight().Any())
+            if (!entity.IsAttacking &&
+                !entity.IsSpecialAttacking &&
+                entity.EntityAttacker.lineArea.GetEnemiesInSight()
+                    .Where(e => entity.EntityMove.CanReachPosition(e.transform.position))
+                    .Where(e => e.Stats.Inmunity != DamageType.Spell)
+                    .Any(x => !x.IsInvulnerable))
             {
                 Feed(Trigger.DancingBlades);
             }
