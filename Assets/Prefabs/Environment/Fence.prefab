@@ -21,12 +21,12 @@ GameObject:
   - component: {fileID: 4836708035234170}
   - component: {fileID: 33692748481871262}
   - component: {fileID: 23970466552412660}
-  m_Layer: 18
+  m_Layer: 20
   m_Name: hexBorderFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1969575551515778
 GameObject:
@@ -37,12 +37,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4354140147455020}
   - component: {fileID: 65259733761398060}
-  m_Layer: 18
+  - component: {fileID: 208361508156858972}
+  m_Layer: 20
   m_Name: Fence
   m_TagString: BulletBounce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4354140147455020
 Transform:
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1969575551515778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.389999, y: 0, z: 20.19}
+  m_LocalPosition: {x: 15.28, y: -1, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4836708035234170}
@@ -124,3 +125,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 3, z: 9}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!208 &208361508156858972
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969575551515778}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.5, z: 4.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.15, y: 1, z: 0}
+  m_TimeToStationary: 0.5
