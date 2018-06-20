@@ -1,6 +1,7 @@
 ﻿using BattleSystem;
 using Managers;
 using UnityEngine;
+using Util;
 
 namespace FSM
 {
@@ -30,7 +31,6 @@ namespace FSM
             var Idle = new State<int>("Idle");
             var Spawning = new State<int>("Spawning");
             var Attacking = new State<int>("Attacking");
-            var Clearing = new State<int>("Clearing");
             #endregion
 
             #region States Configuration
@@ -38,12 +38,7 @@ namespace FSM
                 .SetTransition(Trigger.PlayerEnter, Spawning);
 
             StateConfigurer.Create(Spawning)
-                .SetTransition(Trigger.AttackTime, Attacking)
-                .SetTransition(Trigger.ZoneCleared, Clearing);
-
-            StateConfigurer.Create(Attacking)
-                .SetTransition(Trigger.AttackTime, Attacking)
-                .SetTransition(Trigger.ZoneCleared, Clearing);
+                .SetTransition(Trigger.AttackTime, Attacking);
             #endregion
 
             SetInitialState(Idle);
@@ -54,35 +49,31 @@ namespace FSM
                 zone.Initialized = true;
                 zone.Entities.ForEach(entity => entity.CurrentAction = GroupAction.Stalking);
                 zone.Spawners.ForEach(spawner => spawner.Activate(zone));
-                _currentTimeToAction = _zone.ActionDelay.GetRandom;
+                
+                FrameUtil.OnNextFrame(() => Feed(Trigger.AttackTime));
             };
             #endregion
 
             #region Attacking State
-            Attacking.OnEnter += zone.ExecuteAttack;
+            Attacking.OnUpdate += () =>
+            {
+                if (GameManager.Instance.Character.IsDead) return;
+
+                _currentTimeToAction -= Time.deltaTime;
+                
+                if (_currentTimeToAction <= 0)
+                {
+                    zone.ExecuteAttack();
+                    _currentTimeToAction = _zone.ActionDelay.GetRandom;
+                }
+            };
             #endregion
         }
 
-        public override void Update()
-        {
-            if (_zone.Initialized && !GameManager.Instance.Character.IsDead)
-            {
-                if (_currentTimeToAction <= 0)
-                {
-                    Feed(Trigger.AttackTime);
-                    _currentTimeToAction = _zone.ActionDelay.GetRandom;
-                }
-
-                _currentTimeToAction -= Time.deltaTime;
-            }
-
-            base.Update();
-        }
-
         #region Zone Triggers
-        public void PlayerEnter()
+        public void PlayerEnter(ZoneController zone)
         {
-            _zone.OnZoneActivate.RemoveListener(PlayerEnter);
+            zone.OnZoneActivate.RemoveListener(PlayerEnter);
             Feed(Trigger.PlayerEnter);
         }
         #endregion

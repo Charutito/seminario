@@ -5,6 +5,7 @@ using Managers;
 using Metadata;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using GameUtils;
 using SaveSystem;
 using UnityEngine;
@@ -15,58 +16,56 @@ using UnityEngine.Events;
 
 namespace BattleSystem
 {
-    [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(SaveGUID))]
     public class ZoneController : MonoBehaviour
     {
-        [Serializable]
-        public class BehaviourWeight : IWeighted
-        {
-            public int Weight { get { return weight; } }
-            public GroupAction targetAction = GroupAction.None;
-            public int weight = 10;
-        }
         
         #region Properties
         public bool Initialized { get; set; }
         #endregion
 
         #region Configuration
-        [Header("Configuration")]
+        [Header("Sound")]
         [Tooltip("Audio Event to play at zone initialization")]
         public AudioEvent InitSound;
         
+        [Header("Attack")]
         [Tooltip("Random delay between waves")]
         [MinMaxRange(0, 5)]
         public RangedFloat ActionDelay;
-
+        
         [Tooltip("Max entities to action every wave")]
         [MinMaxRange(1, 20)]
         public RangedFloat EntitiesToAttack;
+
+        [Header("Zones")]
+        [Tooltip("If true on zone activation it will activate all child zones")]
+        public bool ActivateChildZones = false;
         
-        [Tooltip("Weighted behaviour list to define zone actions in waves.")]
-        public List<BehaviourWeight> EntityActions;
-        
-        [Tooltip("Door GameObjects to show once zone is active.")]
-        public List<GameObject> Doors;
+        [Tooltip("Delay before clear zone gameobject (includes all child gameobjects)")]
+        public float DestroyDelay = 5f;
         #endregion
 
         #region Events
 
-        [Header("Events")]
+        [Header("Events (in execution order)")]
+        [Tooltip("This is executed once zone is instantiated")]
+        public ZoneEvent OnZoneSetup;
+        
         [Tooltip("This executes once player enters the zone")]
-        public UnityEvent OnZoneActivate;
+        public ZoneEvent OnZoneActivate;
         
         [Tooltip("This executes once the zone is cleared")]
-        public UnityEvent OnZoneCleared;
+        public ZoneEvent OnZoneCleared;
+        
+        [Tooltip("This executes once current zone and all child zones are cleared")]
+        public ZoneEvent OnZoneDeactivate;
         #endregion
         
-        [HideInInspector]
         public readonly List<GroupEntity> Entities = new List<GroupEntity>();
         public readonly List<EntitySpawner> Spawners = new List<EntitySpawner>();
+        public readonly List<ZoneController> ChildZones = new List<ZoneController>();
         
         private CharacterEntity _target;
-        private SaveGUID _uniqueId;
         private ZoneFSM _fsm;
 
         public void Initialize()
@@ -78,8 +77,7 @@ namespace BattleSystem
                 InitSound.PlayAtPoint(transform.position);
             }
             
-            OnZoneActivate.Invoke();
-            ToggleDoors(true);
+            OnZoneActivate.Invoke(this);
         }
 
         public void AddEntity(GroupEntity entity, GroupAction startingAction = GroupAction.None)
@@ -100,6 +98,24 @@ namespace BattleSystem
             }
         }
 
+        public void AddSpawner(EntitySpawner spawner)
+        {
+            if (!Spawners.Contains(spawner))
+            {
+                Spawners.Add(spawner);
+                spawner.OnSpawnerCleared.AddListener(OnSpawnerCleared);
+            }
+        }
+
+        public void AddZone(ZoneController zone)
+        {
+            if (!ChildZones.Contains(zone))
+            {
+                ChildZones.Add(zone);
+                zone.OnZoneDeactivate.AddListener(OnChildZoneCleared);
+            }
+        }
+
         public void ExecuteAttack()
         {
             var entitiesToAttack = Entities
@@ -107,58 +123,29 @@ namespace BattleSystem
                                     .OrderBy(e => Vector3.Distance(_target.transform.position, e.transform.position))
                                     .Take(EntitiesToAttack.GetRandomInt);
 
-            if (EntityActions.Count > 0)
+            foreach (var entityToAttack in entitiesToAttack)
             {
-                foreach (var entityToAttack in entitiesToAttack)
-                {
-                    var result = RandomHelper.Select(EntityActions);
-                    
-                    if (result != null)
-                    {
-                        entityToAttack.CurrentAction = result.targetAction;
-                    }
-                    else
-                    {
-                    #if DEBUG
-                        Debug.LogWarning("The zone " + gameObject.name + " has a null EntityAction. Please, check the Target Action and Weight.", this);
-                    #endif
-                    }
-                }
-            }
-            else
-            {
-            #if DEBUG
-                Debug.LogWarning("The zone " + gameObject.name + " has no EntityActions. The entities are frozen.", this);
-            #endif
+                entityToAttack.CurrentAction = GroupAction.Attacking;
             }
         }
         
         private void ClearZone()
         {
-            OnZoneCleared.Invoke();
+            OnZoneDeactivate.Invoke(this);
             
-            ToggleDoors(false);
-            
-            PlayerPrefs.SetString(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId), "Cleared");
-            Destroy(gameObject, 5);
+            Destroy(gameObject, DestroyDelay);
         }
 
-        private void ToggleDoors(bool state)
-        {
-            foreach (var door in Doors)
-            {
-                if (door != null)
-                {
-                    door.SetActive(state);
-                }
-            }
-        }
-
-        private void CheckIfCleared()
+        private void CheckClearConditions()
         {
             if (Entities.Count <= 0 && Spawners.Count <= 0)
             {
-                ClearZone();
+                OnZoneCleared.Invoke(this);
+
+                if (ChildZones.Count <= 0)
+                {
+                    ClearZone();
+                }
             }
         }
 
@@ -172,7 +159,7 @@ namespace BattleSystem
             
             entity.OnDeath -= OnEntityDie;
             
-            CheckIfCleared();
+            CheckClearConditions();
         }
 
         private void OnSpawnerCleared(EntitySpawner spawner)
@@ -182,13 +169,27 @@ namespace BattleSystem
                 Spawners.Remove(spawner);
             }
 
-            spawner.OnComplete -= OnSpawnerCleared;
+            spawner.OnSpawnerCleared.RemoveListener(OnSpawnerCleared);
             
-            CheckIfCleared();
+            CheckClearConditions();
+        }
+        
+        private void OnChildZoneCleared(ZoneController zone)
+        {
+            if (ChildZones.Contains(zone))
+            {
+                ChildZones.Remove(zone);
+            }
+
+            zone.OnZoneDeactivate.RemoveListener(OnChildZoneCleared);
+            
+            CheckClearConditions();
         }
 
-        private void InitializeZone()
+        private void SetupZone()
         {
+            OnZoneSetup.Invoke(this);
+            
             foreach (Transform child in transform)
             {
                 var entity = child.GetComponent<GroupEntity>();
@@ -203,35 +204,27 @@ namespace BattleSystem
                 
                 if (spawner != null)
                 {
-                    spawner.OnComplete += OnSpawnerCleared;
-                    Spawners.Add(spawner);
+                    AddSpawner(spawner);
+                    continue;
+                }
+                
+                var zone = child.GetComponent<ZoneController>();
+                
+                if (zone != null)
+                {
+                    AddZone(zone);
                     continue;
                 }
             }
             
-        }
-
-        private void Awake()
-        {
-            _uniqueId = GetComponent<SaveGUID>();
-            
-            if (PlayerPrefs.HasKey(string.Format(SaveKeys.Zones, _uniqueId.GameObjectId)))
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            ToggleDoors(false);
-            
             _fsm = new ZoneFSM(this);
         }
-        
 
         private void Start()
         {
             _target = GameManager.Instance.Character;
             
-            InitializeZone();
+            SetupZone();
         }
 
         private void Update()
@@ -247,6 +240,9 @@ namespace BattleSystem
             }
         }
     }
+    
+    [Serializable]
+    public sealed class ZoneEvent : UnityEvent<ZoneController> {}
 
 #if UNITY_EDITOR
     public static class ZoneCreator
@@ -257,7 +253,6 @@ namespace BattleSystem
             const string ZONE_SOUND_PATH = "Assets/GameData/SoundEvents/Environment/ZoneAlert.asset";
             
             var go = new GameObject("New Zone");
-            go.AddComponent<SaveGUID>();
             
             var zoneCollider = go.AddComponent<BoxCollider>();
             zoneCollider.isTrigger = true;

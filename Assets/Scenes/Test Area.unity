@@ -859,11 +859,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 21.32
+      value: -8.479992
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -891,7 +891,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -1382,7 +1382,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -1462,11 +1462,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 146728666}
-  - component: {fileID: 146728669}
-  - component: {fileID: 146728668}
   - component: {fileID: 146728667}
   m_Layer: 0
-  m_Name: HiddenZone
+  m_Name: Hidden Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1479,13 +1477,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146728665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.24, y: 0, z: -29}
+  m_LocalPosition: {x: -13.2400055, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1766929391}
   - {fileID: 179907647}
-  m_Father: {fileID: 1650407368}
-  m_RootOrder: 7
+  m_Father: {fileID: 1601172064}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &146728667
 MonoBehaviour:
@@ -1505,44 +1503,28 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 7.8372216
     maxValue: 10.935337
-  EntityActions:
-  - targetAction: 10
-    weight: 1
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!65 &146728668
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 146728665}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &146728669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 146728665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: 2b500f19-3454-493d-b5f9-f0ee4da1d6f7
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1001 &147658124
 Prefab:
   m_ObjectHideFlags: 0
@@ -2070,11 +2052,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 29.04
+      value: -0.7599907
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2102,7 +2084,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -2789,11 +2771,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 36.2
+      value: 6.3999977
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2821,7 +2803,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -2972,11 +2954,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 24
+      value: -5.799999
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3004,7 +2986,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -3505,7 +3487,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
@@ -3691,11 +3673,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 32.3
+      value: 2.5000038
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3723,7 +3705,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -4356,11 +4338,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 29.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4388,7 +4370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -5937,11 +5919,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 910504923}
-  - component: {fileID: 910504926}
   - component: {fileID: 910504925}
   - component: {fileID: 910504924}
   m_Layer: 0
-  m_Name: Shield Enemy
+  m_Name: Shield Enemy Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5965,7 +5946,7 @@ Transform:
   - {fileID: 1818620109}
   - {fileID: 1249677639}
   m_Father: {fileID: 1650407368}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &910504924
 MonoBehaviour:
@@ -5985,20 +5966,28 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 4.569598
     maxValue: 8.031025
-  EntityActions:
-  - targetAction: 10
-    weight: 1
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &910504925
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6011,18 +6000,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 29, y: 1, z: 26}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &910504926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 910504922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: ef61f6d5-0b86-470e-8d1d-809f4a25e0f6
 --- !u!1001 &913114692
 Prefab:
   m_ObjectHideFlags: 0
@@ -6518,7 +6495,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1027917872}
-  - component: {fileID: 1027917875}
   - component: {fileID: 1027917874}
   - component: {fileID: 1027917873}
   m_Layer: 0
@@ -6571,20 +6547,28 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 8.610426
     maxValue: 13.197533
-  EntityActions:
-  - targetAction: 10
-    weight: 10
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &1027917874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6597,18 +6581,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 29, y: 1, z: 26}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1027917875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1027917871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: 7a36dea0-2b22-4881-bad1-f772c3a39043
 --- !u!1 &1037349068 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba,
@@ -6901,7 +6873,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -7692,6 +7664,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba,
     type: 2}
   m_PrefabInternal: {fileID: 1201696252}
+--- !u!114 &1206293873 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114139552878993580, guid: def26cc8d3371874faae17cabbeca9fa,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766929390}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1208690154
 GameObject:
   m_ObjectHideFlags: 0
@@ -8277,11 +8255,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19.97
+      value: -9.829998
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8309,7 +8287,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -8766,7 +8744,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -8943,7 +8921,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1428726633}
-  - component: {fileID: 1428726636}
   - component: {fileID: 1428726635}
   - component: {fileID: 1428726634}
   m_Layer: 0
@@ -8987,21 +8964,61 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 1
     maxValue: 1
-  EntityActions:
-  - targetAction: 10
-    weight: 1
-  Doors:
-  - {fileID: 1037349068}
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037349068}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+      m_Calls:
+      - m_Target: {fileID: 1037349068}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037349068}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &1428726635
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9014,18 +9031,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 28, y: 1, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1428726636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1428726632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: 58220fe8-0fa0-434c-83c3-912e3be97a49
 --- !u!1001 &1441467927
 Prefab:
   m_ObjectHideFlags: 0
@@ -9406,11 +9411,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: -4.799999
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -9438,7 +9443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -9798,7 +9803,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1601172064}
-  - component: {fileID: 1601172067}
   - component: {fileID: 1601172066}
   - component: {fileID: 1601172065}
   m_Layer: 0
@@ -9818,13 +9822,15 @@ Transform:
   m_LocalPosition: {x: -30, y: 0, z: -29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 146728666}
+  - {fileID: 1937798953}
   - {fileID: 741236563}
   - {fileID: 436363474}
   - {fileID: 207473438}
   - {fileID: 1456468543}
   - {fileID: 333948328}
   m_Father: {fileID: 1650407368}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1601172065
 MonoBehaviour:
@@ -9844,15 +9850,40 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 7.8372216
     maxValue: 10.935337
-  EntityActions:
-  - targetAction: 10
-    weight: 1
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1937798954}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+      m_Calls:
+      - m_Target: {fileID: 1937798954}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls:
@@ -9867,8 +9898,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1937798954}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &1601172066
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9881,18 +9928,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 29, y: 1, z: 26}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1601172067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1601172063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: e2a13dfe-3ea9-4c8e-80be-6ea65c254c3e
 --- !u!4 &1613671530 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd,
@@ -10114,23 +10149,14 @@ Transform:
   m_LocalPosition: {x: -200, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 173958583}
+  - {fileID: 260921322}
   - {fileID: 1821648564}
   - {fileID: 1027917872}
   - {fileID: 1428726633}
   - {fileID: 1912023899}
-  - {fileID: 260921322}
   - {fileID: 1601172064}
-  - {fileID: 146728666}
   - {fileID: 910504923}
-  - {fileID: 1613671530}
-  - {fileID: 1949571185}
-  - {fileID: 1293681703}
-  - {fileID: 1386386474}
-  - {fileID: 1348678595}
-  - {fileID: 1617226154}
-  - {fileID: 36709790}
-  - {fileID: 2076635899}
+  - {fileID: 1897179801}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10264,11 +10290,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1650407368}
+    m_TransformParent: {fileID: 1897179801}
     m_Modifications:
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 35.02
+      value: 5.220005
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -10682,7 +10708,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4767641810562218, guid: d52fb3b23c4a89245be1d74ec3cc8486, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d52fb3b23c4a89245be1d74ec3cc8486, type: 2}
@@ -10991,6 +11017,16 @@ Prefab:
       propertyPath: SpawnDelay.maxValue
       value: 3.3132405
       objectReference: {fileID: 0}
+    - target: {fileID: 1586193908735674, guid: def26cc8d3371874faae17cabbeca9fa, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 114574584404000776, guid: def26cc8d3371874faae17cabbeca9fa,
+        type: 2}
+      propertyPath: CooldownImage
+      value: 
+      objectReference: {fileID: 1206293873}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: def26cc8d3371874faae17cabbeca9fa, type: 2}
   m_IsPrefabParent: 0
@@ -11416,7 +11452,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1821648564}
-  - component: {fileID: 1821648567}
   - component: {fileID: 1821648566}
   - component: {fileID: 1821648565}
   m_Layer: 0
@@ -11467,20 +11502,28 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 4.857339
     maxValue: 8.089165
-  EntityActions:
-  - targetAction: 10
-    weight: 10
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &1821648566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11493,18 +11536,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 26, y: 1, z: 29}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1821648567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1821648563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: d99040a7-64f2-4315-8724-c7f4fd109711
 --- !u!1001 &1839750258
 Prefab:
   m_ObjectHideFlags: 0
@@ -11930,6 +11961,43 @@ Transform:
   m_Father: {fileID: 1428726633}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1897179800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1897179801}
+  m_Layer: 0
+  m_Name: No Zone Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1897179801
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1897179800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.8, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 173958583}
+  - {fileID: 1613671530}
+  - {fileID: 1949571185}
+  - {fileID: 1293681703}
+  - {fileID: 1386386474}
+  - {fileID: 1348678595}
+  - {fileID: 1617226154}
+  - {fileID: 36709790}
+  - {fileID: 2076635899}
+  m_Father: {fileID: 1650407368}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1912023898
 GameObject:
   m_ObjectHideFlags: 0
@@ -11938,7 +12006,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1912023899}
-  - component: {fileID: 1912023902}
   - component: {fileID: 1912023901}
   - component: {fileID: 1912023900}
   m_Layer: 0
@@ -11984,18 +12051,28 @@ MonoBehaviour:
   EntitiesToAttack:
     minValue: 1
     maxValue: 1
-  EntityActions: []
-  Doors: []
+  ActivateChildZones: 0
+  DestroyDelay: 5
+  OnZoneSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneActivate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   OnZoneCleared:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnZoneDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.ZoneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &1912023901
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12008,18 +12085,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 26, y: 1, z: 29}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1912023902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1912023898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80bc6118a2e5043139b9be6d397c72b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectId: edbd178b-d0b0-44bc-9f05-58c0086814a0
 --- !u!1 &1912076864
 GameObject:
   m_ObjectHideFlags: 0
@@ -12086,7 +12151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -12107,6 +12172,93 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f4d5b222ee241e488f5aac88504a3bd, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1937798952
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1601172064}
+    m_Modifications:
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 15.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_Name
+      value: Fence (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142205981371636, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+      propertyPath: m_TagString
+      value: BulletBounce
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1937798953 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4354140147455020, guid: 0e2b24d16bdad904fa16c107f452bcba,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937798952}
+--- !u!1 &1937798954 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937798952}
+--- !u!208 &1937798955
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937798954}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.5, z: 4.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.15, y: 1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &1949571185 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4365716812150050, guid: 6f4d5b222ee241e488f5aac88504a3bd,
@@ -12369,7 +12521,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1969575551515778, guid: 0e2b24d16bdad904fa16c107f452bcba, type: 2}
       propertyPath: m_TagString
