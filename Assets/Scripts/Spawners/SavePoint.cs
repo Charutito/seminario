@@ -17,9 +17,10 @@ namespace SaveSystem
             public Vector3 Position;
             public string SceneName;
         }
-
+        
         public UnityEvent OnSaveEvent;
         public UnityEvent OnLoadEvent;
+        public UnityEvent OnSaveUsedEvent;
 
         private bool _isUsed;
         private SaveGUID _uniqueId;
@@ -34,6 +35,7 @@ namespace SaveSystem
             _isUsed = true;
             
             OnLoadEvent.Invoke();
+            OnSaveUsedEvent.Invoke();
             
             Log("Game Loaded!");
         }
@@ -71,6 +73,7 @@ namespace SaveSystem
             }
             else if (PlayerPrefs.HasKey(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId)))
             {
+                OnSaveUsedEvent.Invoke();
                 Destroy(gameObject);
             }
         }
