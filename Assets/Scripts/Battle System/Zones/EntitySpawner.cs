@@ -61,29 +61,27 @@ namespace BattleSystem
             _lastSpawnDelay = SpawnDelay.GetRandom;
             _currentTimeToSpawn = _lastSpawnDelay;
             _currentSpawnedUnits++;
+
+            if (_currentSpawnedUnits > UnitsToSpawn)
+            {
+                Deactivate();
+            }
         }
 
         private void Update()
         {
             if (!_active) return;
             
-            if (_currentSpawnedUnits < UnitsToSpawn)
+            _currentTimeToSpawn -= Time.deltaTime;
+
+            if (_cooldownImage != null)
             {
-                _currentTimeToSpawn -= Time.deltaTime;
-
-                if (_cooldownImage != null)
-                {
-                    _cooldownImage.fillAmount = 1 - _currentTimeToSpawn / _lastSpawnDelay;
-                }
-
-                if (_currentTimeToSpawn <= 0)
-                {
-                    Spawn();
-                }
+                _cooldownImage.fillAmount = 1 - _currentTimeToSpawn / _lastSpawnDelay;
             }
-            else
+
+            if (_currentTimeToSpawn <= 0)
             {
-                Deactivate();
+                Spawn();
             }
         }
     }
