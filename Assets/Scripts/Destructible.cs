@@ -36,7 +36,10 @@ public class Destructible : MonoBehaviour, IDamageable
             
             foreach (var item in drop)
             {
-                Instantiate(item, transform.position, Quaternion.identity);
+                if (item != null)
+                {
+                    Instantiate(item, transform.position, Quaternion.identity);
+                }
             }
             
             Destroy(gameObject);
