@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SaveSystem;
 using UnityEditor.SceneManagement;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(SaveGUID))]
 public class SaveGUIDInspector : Editor
 {
-	private SaveGUID _id;
-
-	private string GetGUID()
+	private string GetGUID(SaveGUID id)
 	{
 		var guid = Guid.NewGuid();
 		
 		if (!Application.isPlaying)
 		{
-			EditorSceneManager.MarkSceneDirty(_id.gameObject.scene);
-			Undo.RecordObject(_id, "Changed Save GUID");
+			EditorSceneManager.MarkSceneDirty(id.gameObject.scene);
+			Undo.RecordObject(id, "Changed Save GUID");
 		}
 		
 		return guid.ToString();
@@ -25,25 +25,38 @@ public class SaveGUIDInspector : Editor
 
 	public override void OnInspectorGUI()
 	{
-		_id = (SaveGUID)target;
-
-		if (_id.GameObjectId == "")
+		var saves = new List<SaveGUID>();
+		
+		foreach (var current in targets)
 		{
-			_id.GameObjectId = GetGUID();
-		}
+			var id = (SaveGUID)current;
+			
+			if (!saves.Contains(id))
+			{
+				saves.Add(id);
+			}
 
-		EditorGUILayout.LabelField("Unique Id:", _id.GameObjectId);
+			if (id.GameObjectId == string.Empty)
+			{
+				id.GameObjectId = GetGUID(id);
+			}
 
-		if (GUILayout.Button("Refresh"))
-		{
-			_id.GameObjectId = GetGUID();
+			EditorGUILayout.LabelField("Unique Id:", id.GameObjectId);
+		
+			var idCount = Array.ConvertAll(FindObjectsOfType(typeof(SaveGUID)), x => x as SaveGUID).Count(t => id.GameObjectId == t.GameObjectId);
+			
+			if (idCount > 1)
+			{
+				EditorGUILayout.HelpBox("Warning Duplicate GUID Detected in Scene", MessageType.Warning);
+			}
 		}
 		
-		var idCount = Array.ConvertAll(GameObject.FindObjectsOfType(typeof(SaveGUID)), x => x as SaveGUID).Count(t => _id.GameObjectId == t.GameObjectId);
-			
-		if (idCount > 1)
+		if (GUILayout.Button("Re generate"))
 		{
-			EditorGUILayout.HelpBox("Warning Duplicate GUID Detected in Scene", MessageType.Warning);
+			foreach (var save in saves)
+			{
+				save.GameObjectId = GetGUID(save);
+			}
 		}
 	}
 }
