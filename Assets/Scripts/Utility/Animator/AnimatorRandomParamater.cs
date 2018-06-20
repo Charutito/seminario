@@ -9,20 +9,20 @@ namespace Utility
         [MinMaxRange(0, 10)]
         public RangedFloat Range;
         
-        public string TriggerName = string.Empty;
+        public string ParameterName = string.Empty;
         public bool IsFloat = false;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
         {
-            if (TriggerName == string.Empty) return;
+            if (ParameterName == string.Empty) return;
             
             if (IsFloat)
             {
-                animator.SetFloat(TriggerName, Range.GetRandom);
+                animator.SetFloat(ParameterName, Range.GetRandom);
             }
             else
             {
-                animator.SetInteger(TriggerName, Range.GetRandomInt);
+                animator.SetInteger(ParameterName, Range.GetRandomInt);
             }
         }
     }
