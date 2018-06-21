@@ -22,12 +22,9 @@ namespace Environment
 
                 if (entity != null && !entity.IsDead)
                 {
-                    entity.Agent.ResetPath();
-                    entity.Agent.enabled = false;
-                    
                     entity.TakeDamage(new Damage
                     {
-                        Amount = entity.Definition.MaxHealth,
+                        Amount = entity.Stats.MaxHealth,
                         Type = DamageType.Unknown,
                         OriginPosition = transform.position,
                         OriginRotation = transform.rotation,

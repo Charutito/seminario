@@ -212,13 +212,5 @@ namespace Entities
             _entity = GetComponent<Entity>();
             _character = GameManager.Instance.Character;
         }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            
-            Gizmos.DrawRay(attackArea.transform.position, attackArea.transform.forward);
-            Gizmos.DrawWireCube(attackArea.transform.position, attackArea.transform.localScale);
-        }
     }
 }

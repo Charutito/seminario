@@ -331,6 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4171191267910230}
   - component: {fileID: 95309223281880124}
+  - component: {fileID: 208170667199266140}
   m_Layer: 20
   m_Name: Fences
   m_TagString: Untagged
@@ -398,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4245504690844178}
   - component: {fileID: 33068089801506392}
-  - component: {fileID: 65135076324095574}
   - component: {fileID: 23008435294180616}
   m_Layer: 20
   m_Name: Borde
@@ -745,7 +745,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1595343464522882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 157.50455, y: -1.4, z: 120.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4223634652231480}
@@ -2462,18 +2462,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820813423775564}
   m_Mesh: {fileID: 4300000, guid: 943e502e0da81394c8ad89ec1899b13f, type: 3}
---- !u!65 &65135076324095574
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1642647539801446}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95309223281880124
 Animator:
   serializedVersion: 3
@@ -2491,3 +2479,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!208 &208170667199266140
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595343464522882}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 7.5, y: 1.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.9, y: 3.5, z: -2}
+  m_TimeToStationary: 0.5

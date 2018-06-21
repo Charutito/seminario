@@ -73,7 +73,7 @@ namespace Entities
             
             LastDamage = damage;
 
-            if (!IsGod || damage.Absolute)
+            if (!IsGod)
             {
                 Stats.CurrentHealth -= damage.Amount;
             }
