@@ -23,4 +23,9 @@ public class ScreenFadeController : MonoBehaviour
         _gameCanvas.SetTrigger(FADEOUT_KEY);
         _loadingCanvas.SetTrigger(FADEIN_KEY);
     }
+    
+    public void FadeOutCanvas()
+    {
+        _gameCanvas.SetTrigger(FADEOUT_KEY);
+    }
 }

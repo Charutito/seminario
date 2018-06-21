@@ -27,7 +27,7 @@ namespace Managers
         public float TimeToReset = 2f;
         
         [Header("Game End")]
-        public float TimeToRestartGame = 1.5f;
+        public float TimeToRestartGame = 1f;
 
         private ScreenFadeController _fadeController;
         
@@ -98,7 +98,11 @@ namespace Managers
 
         private void Start()
         {
-            Character.OnDeath += (entity) => FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
+            Character.OnDeath += (entity) =>
+            {
+                _fadeController.FadeOutCanvas();
+                FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
+            };
         }
         
 
