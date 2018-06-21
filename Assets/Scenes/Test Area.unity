@@ -4491,7 +4491,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: fad55469c0d338d419633c20e11e0a21, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2f29c0f82ed4e6a43a0af4b1909d9f58, type: 2}
 --- !u!114 &606968100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4519,7 +4519,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: a5ea670fb8da3d04f987bd53217458d4, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 37e1e6376daf5ca4993a74ab02fe8831, type: 2}
 --- !u!1 &620672928
 GameObject:
   m_ObjectHideFlags: 0
@@ -6980,48 +6980,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 20610414485798392, guid: 2973ad064d701824b918e2f5ca538384,
+    - target: {fileID: 114972022853244122, guid: 2973ad064d701824b918e2f5ca538384,
         type: 2}
-      propertyPath: far clip plane
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 20610414485798392, guid: 2973ad064d701824b918e2f5ca538384,
-        type: 2}
-      propertyPath: field of view
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 20610414485798392, guid: 2973ad064d701824b918e2f5ca538384,
-        type: 2}
-      propertyPath: orthographic size
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalRotation.w
+      propertyPath: DeathFadeTime
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431378892839630, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2973ad064d701824b918e2f5ca538384, type: 2}
@@ -10980,6 +10942,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4903479369325056, guid: 6b95ebf59a21a0f42a31d23101e9e8b3, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114492063347302814, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+        type: 2}
+      propertyPath: TimeToRestartGame
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

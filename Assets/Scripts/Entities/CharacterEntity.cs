@@ -55,7 +55,7 @@ namespace Entities
 
         public void DmgDdisp(Vector3 direction)
         {
-	        if (IsInvulnerable) return;
+	        if (IsInvulnerable || IsDead) return;
             EntityMove.SmoothMoveTransform(transform.position + direction * DmgDispl, 0.1f);
             EntityMove.RotateInstant(direction);
         }

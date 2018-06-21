@@ -68,6 +68,8 @@ namespace Managers
 
         private void Awake()
         {
+            Time.timeScale = 1;
+            
             _fadeController = GetComponentInChildren<ScreenFadeController>();
                 
             var characterSpawner = FindObjectOfType<CharacterSpawner>();
