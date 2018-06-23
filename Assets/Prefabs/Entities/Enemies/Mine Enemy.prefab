@@ -638,6 +638,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23a595ac74b51b44aed5e955ff0de14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitLayers:
+    serializedVersion: 2
+    m_Bits: 1050880
+  ExplosionRange: 4
+  ExplosionDisplacement: 2
 --- !u!114 &114197373205079682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -702,11 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212e8742360336d489796a62a2194455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitLayers:
-    serializedVersion: 2
-    m_Bits: 1050880
-  ExplosionRange: 4
-  ExplosionDisplacement: 2
   TimeToExplode: 4
   IntTimerText: {fileID: 114675308508447054}
   FloatTimerText: {fileID: 114013147508932748}
