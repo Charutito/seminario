@@ -9,9 +9,7 @@ public class Destructible : MonoBehaviour, IDamageable
        
     public GameObject particles;
     public int maxHits;
-    
-    private int _currentHits;
-    
+    public int currentHits;    
     public AudioEvent DestroyAudio;
     public AudioEvent DmgAudio;
 
@@ -19,7 +17,7 @@ public class Destructible : MonoBehaviour, IDamageable
 
     public void TakeDamage(Damage damage)
     {
-        _currentHits++;
+        currentHits++;
 
         if (particles != null)
         {
@@ -27,7 +25,7 @@ public class Destructible : MonoBehaviour, IDamageable
             Destroy(parts, 1);
         }
         
-        if (_currentHits >= maxHits)
+        if (currentHits >= maxHits)
         {
             if (DestroyAudio != null)
             {

@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531499461033514}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -52.75, y: 2.06, z: 205.3}
+  m_LocalPosition: {x: -26.84, y: 0.542, z: 54.814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drop: []
   particles: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
-  maxHits: 3
+  maxHits: 200
   DestroyAudio: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
-  DmgAudio: {fileID: 0}
+  DmgAudio: {fileID: 11400000, guid: 1a0fdd6a280de48498f28f4a50c5391e, type: 2}
 --- !u!208 &208925181725533394
 NavMeshObstacle:
   m_ObjectHideFlags: 1
