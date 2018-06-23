@@ -56,7 +56,7 @@ namespace BattleSystem
             var newEntity = go.GetComponent<Entity>();
             newEntity.Definition = EntityDefinition;
             
-            FrameUtil.OnNextFrame(() => _zone.AddEntity(newEntity as GroupEntity, GroupAction.Attacking));
+            _zone.AddEntity(newEntity as GroupEntity, GroupAction.Attacking);
             
             _lastSpawnDelay = SpawnDelay.GetRandom;
             _currentTimeToSpawn = _lastSpawnDelay;
