@@ -27,7 +27,7 @@ namespace Managers
         
         public bool ThirdAbility  { get { return Input.GetKey(keyboard.FirstAbility)  || Input.GetKey(joystick.FirstAbility);   } }
         public bool SecondAbility { get { return Input.GetKeyDown(keyboard.SecondAbility) || Input.GetKeyDown(joystick.SecondAbility);  } }
-        public bool FirstAbility  { get { return Input.GetKeyDown(keyboard.ThirdAbility)  || Mathf.Abs(Input.GetAxis("SpellAim")) > 0;  } }
+        public bool FirstAbility  { get { return Input.GetKey(keyboard.ThirdAbility)  || Mathf.Abs(Input.GetAxis("SpellAim")) > 0;  } }
         public bool FourthAbility { get { return Input.GetKeyDown(keyboard.FourthAbility) || Mathf.Abs(Input.GetAxis("SpellCast")) > 0; } }
         
         public bool Dash { get { return Input.GetKeyDown(keyboard.Dash) || Input.GetKeyDown(joystick.Dash); } }

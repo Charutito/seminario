@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using UnityEngine.Events;
+using Util;
 
 namespace BattleSystem
 {
@@ -93,9 +94,12 @@ namespace BattleSystem
                 {
                     entity.Target = GameManager.Instance.Character;
                 }
-            
-                entity.CurrentZone = this;
-                entity.CurrentAction = startingAction;
+                
+                FrameUtil.OnNextFrame(() =>
+                {
+                    entity.CurrentZone = this;
+                    entity.CurrentAction = startingAction;
+                });
 
                 entity.OnDeath += OnEntityDie;
             }

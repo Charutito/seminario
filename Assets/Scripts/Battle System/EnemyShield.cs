@@ -19,7 +19,11 @@ public class EnemyShield : MonoBehaviour
 
     public void Deactivate(float delay = 0.5f)
     {
-        Connection.gameObject.SetActive(false);
+        if (Connection != null)
+        {
+            Connection.gameObject.SetActive(false);
+        }
+        
         iTween.ScaleTo(Shield, iTween.Hash("scale", new Vector3(ShieldRange.minValue, ShieldRange.minValue, ShieldRange.minValue), "time", delay, "easeType", iTween.EaseType.easeInSine));
     }
     
@@ -31,7 +35,6 @@ public class EnemyShield : MonoBehaviour
         }
         
         Connection.gameObject.SetActive(true);
-        
         iTween.ScaleTo(Shield, iTween.Hash("scale", new Vector3(ShieldRange.maxValue, ShieldRange.maxValue, ShieldRange.maxValue), "time", delay, "easeType", iTween.EaseType.easeInSine));
     }
 
