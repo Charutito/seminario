@@ -10,7 +10,7 @@ GameObject:
   - component: {fileID: 413942}
   - component: {fileID: 3313942}
   - component: {fileID: 2313942}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Incubator_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,9 @@ GameObject:
   m_Component:
   - component: {fileID: 413944}
   - component: {fileID: 208807044368736666}
-  m_Layer: 0
+  - component: {fileID: 114394355450834262}
+  - component: {fileID: 65533560772427554}
+  m_Layer: 11
   m_Name: Incubator_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425906}
   - component: {fileID: 10825906}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,15 +70,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113944}
-  m_LocalRotation: {x: -0, y: -0.79680455, z: -0, w: 0.60423714}
-  m_LocalPosition: {x: 14.132, y: 1.102, z: 4.97}
-  m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.1, y: 1.1930008, z: 2.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 425906}
   - {fileID: 413942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -105.65201, z: 0}
+  m_LocalEulerAnglesHint: {x: 86.670006, y: -186.54799, z: -85.525}
 --- !u!4 &425906
 Transform:
   m_ObjectHideFlags: 1
@@ -178,6 +180,36 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113944}
   m_IsPrefabParent: 1
+--- !u!65 &65533560772427554
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113944}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.8700371, z: 1}
+  m_Center: {x: 0, y: 0.900465, z: 0}
+--- !u!114 &114394355450834262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe9e9b1535b712419659b75957ad7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop:
+  - {fileID: 1915068654621834, guid: 285ceb5bc5bac5a49b9ea41fa733fc86, type: 2}
+  - {fileID: 1755192778135406, guid: ab040abf2934114489cedbaf9502a73d, type: 2}
+  particles: {fileID: 0}
+  maxHits: 2
+  DestroyAudio: {fileID: 11400000, guid: 916ec9e585dcf72498e74feabd36ebd8, type: 2}
+  DmgAudio: {fileID: 11400000, guid: 1a0fdd6a280de48498f28f4a50c5391e, type: 2}
 --- !u!208 &208807044368736666
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -187,9 +219,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.61, y: 0.5, z: 0.555}
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.43, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
   m_TimeToStationary: 0.5
