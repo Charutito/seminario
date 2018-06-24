@@ -24,6 +24,7 @@ namespace BattleSystem
         [Header("Damage")]
         public int Damage;
         public int DamageMultiplier;
+        public float DamageDisplacement;
         public DamageType DamageType = DamageType.Spell;
         
         [Header("Sounds")]

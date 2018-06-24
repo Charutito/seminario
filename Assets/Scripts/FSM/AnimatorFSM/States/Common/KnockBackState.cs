@@ -4,6 +4,7 @@ using BattleSystem;
 using Entities;
 using Entities.Base;
 using UnityEngine;
+using Util;
 
 namespace AnimatorFSM.States
 {
@@ -24,12 +25,22 @@ namespace AnimatorFSM.States
 
 				if (StateManager.LastDamage.Displacement > 0f)
 				{
-					StateManager.Entity.EntityMove.SmoothMoveTransform(
-						Vector3.MoveTowards(transform.position, StateManager.LastDamage.OriginPosition, -StateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier)),
-						DisplacementTime, () => CheckIfCanGoDown());
+					var normalizedOrigin = new Vector3(
+												StateManager.LastDamage.OriginPosition.x,
+												transform.position.y,
+												StateManager.LastDamage.OriginPosition.z);
+					
+					var moveposition = Vector3.MoveTowards(transform.position, normalizedOrigin, -StateManager.LastDamage.Displacement * Random.Range(0.5f, DisplacementMultiplier));
+					
+					FrameUtil.AfterDelay(DisplacementTime, () => CheckIfCanGoDown());
+					
+					StateManager.Entity.EntityMove.SmoothMoveTransform(moveposition, DisplacementTime);
 				}
-				
-				if (StateManager.Entity.EntityAttacker != null) StateManager.Entity.EntityAttacker.attackArea.enabled = false;
+
+				if (StateManager.Entity.EntityAttacker != null)
+				{
+					StateManager.Entity.EntityAttacker.attackArea.enabled = false;
+				}
 			};
 			
 			OnExit += () =>
@@ -47,18 +58,12 @@ namespace AnimatorFSM.States
 		{
 			if (!StateManager.Entity.EntityMove.CanReachPosition(StateManager.Entity.transform.position))
 			{
+				StateManager.Entity.SelfDestroy(DamageType.Environment);
+				
 				var rb = StateManager.Entity.gameObject.GetComponent<Rigidbody>();
 				rb.isKinematic = false;
 				rb.useGravity = true;
 				
-				StateManager.Entity.TakeDamage(new Damage
-				{
-					Amount = StateManager.Entity.Stats.MaxHealth,
-					Type = DamageType.Environment,
-					OriginPosition = StateManager.Entity.transform.position,
-					OriginRotation = StateManager.Entity.transform.rotation,
-					Absolute = true
-				});
 				return true;
 			}
 

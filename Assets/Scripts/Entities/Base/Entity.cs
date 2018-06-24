@@ -102,8 +102,12 @@ namespace Entities
             Stats.CurrentSpirit += amount;
         }
 
-        public virtual void SelfDestroy()
+        public virtual void SelfDestroy(DamageType type = DamageType.Unknown)
         {
+            LastDamage = new Damage
+            {
+                Type = type
+            };
             OnDeath(this);
             OnEntityDie.Invoke();
         }
