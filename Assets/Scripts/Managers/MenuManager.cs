@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Menu;
 using Metadata;
 using SaveSystem;
@@ -17,10 +18,14 @@ namespace Managers
         public Text ContinueText;
 
         public Animator LoadingAnimator;
+        public Animator CharacterAnimator;
+        public AudioSource BGM;
     
         private bool _buttonSelected;
 
         private bool CanContinue { get { return PlayerPrefs.HasKey(SaveKeys.LastSave); } }
+
+        private Coroutine _musicCoroutine;
 
 
         public void NewGame()
@@ -39,15 +44,28 @@ namespace Managers
             }
         }
 
-        private void LoadAfterFade(int index, float delay = 1.5f)
+        private void LoadAfterFade(int index, float delay = 2f)
         {
+            _musicCoroutine = StartCoroutine(FadeMusic());
             LoadingAnimator.SetTrigger("FadeIn");
+            CharacterAnimator.SetTrigger("Stand");
             FrameUtil.AfterDelay(delay, () => SceneManager.LoadScene(index));
         }
-        private void LoadAfterFade(string scene, float delay = 1.5f)
+        private void LoadAfterFade(string scene, float delay = 2f)
         {
+            _musicCoroutine = StartCoroutine(FadeMusic());
             LoadingAnimator.SetTrigger("FadeIn");
+            CharacterAnimator.SetTrigger("Stand");
             FrameUtil.AfterDelay(delay, () => SceneManager.LoadScene(scene));
+        }
+
+        private IEnumerator FadeMusic()
+        {
+            while (true)
+            {
+                BGM.volume -= Time.deltaTime;
+                yield return new WaitForSeconds(0.03f);
+            }
         }
 
         public void QuitGame()
@@ -72,7 +90,15 @@ namespace Managers
         {
             _buttonSelected = false;
         }
-    
+
+        private void OnDestroy()
+        {
+            if (_musicCoroutine != null)
+            {
+                StopCoroutine(_musicCoroutine);
+            }
+        }
+
         private void Awake()
         {
             if (CanContinue)
