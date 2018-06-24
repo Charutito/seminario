@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BattleSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Destructible : MonoBehaviour, IDamageable
 {
@@ -12,6 +13,9 @@ public class Destructible : MonoBehaviour, IDamageable
     public int currentHits;    
     public AudioEvent DestroyAudio;
     public AudioEvent DmgAudio;
+
+    [Header("Events")]
+    public UnityEvent OnDestroyEvent;
 
     private Coroutine _flashCoroutine;
 
@@ -55,6 +59,8 @@ public class Destructible : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
+        OnDestroyEvent.Invoke();
+        
         if (_flashCoroutine != null)
         {
             StopCoroutine(_flashCoroutine);

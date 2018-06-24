@@ -84,6 +84,29 @@ namespace BattleSystem
             OnZoneActivate.Invoke(this);
         }
 
+        public void ForceClearZone()
+        {
+            // Prevents list modifications
+            var spawners = Spawners.ToList();
+            var entities = Entities.ToList();
+            var childZones = ChildZones.ToList();
+            
+            foreach (var spawner in spawners)
+            {
+                spawner.Deactivate();
+            }
+            
+            foreach (var entity in entities)
+            {
+                entity.SelfDestroy();
+            }
+            
+            foreach (var zone in childZones)
+            {
+                zone.ForceClearZone();
+            }
+        }
+
         public void AddEntity(GroupEntity entity)
         {
             AddEntity(entity, GroupAction.None);
