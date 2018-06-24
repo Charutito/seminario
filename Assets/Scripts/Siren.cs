@@ -4,20 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Siren : MonoBehaviour {
-    public Renderer blue;
+    public Light blue;
     public float blueLevel;
-    public Renderer red;
-    public float redLevel;
-
-    public void Start()
-    {
-        blue.material.SetFloat("_fresnelbiasss", blueLevel);
-        red.material.SetFloat("_fresnelbiasss", redLevel);
-    }
+    public Light red;
+    public float redLevel;  
     private void Update()
     {
-        blue.material.SetFloat("_fresnelbiasss", blueLevel);
-        red.material.SetFloat("_fresnelbiasss", redLevel);
+        
 
     }
 }

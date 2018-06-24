@@ -261,8 +261,6 @@ GameObject:
   - component: {fileID: 33556266811531878}
   - component: {fileID: 65858795766278806}
   - component: {fileID: 23190916168023554}
-  - component: {fileID: 114221880656921364}
-  - component: {fileID: 111593582692742232}
   m_Layer: 0
   m_Name: Sirena
   m_TagString: Untagged
@@ -1989,35 +1987,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!111 &111593582692742232
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1576011978844406}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 694f7b1142efa144590a0f20bb733b6a, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!114 &114221880656921364
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1576011978844406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fee8fa32cc60347b258b204ffd5599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blue: {fileID: 23662824834120502}
-  blueLevel: 1
-  red: {fileID: 23917114140007078}
-  redLevel: 0
 --- !u!208 &208833090201685072
 NavMeshObstacle:
   m_ObjectHideFlags: 1
