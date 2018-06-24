@@ -1145,7 +1145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602674397739980}
   - component: {fileID: 137641034500222952}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: bodyBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,8 +2351,8 @@ MonoBehaviour:
   LastDamage:
     Amount: 0
     Type: 1
-    Origin: {fileID: 0}
-    Originator: {fileID: 0}
+    OriginPosition: {x: 0, y: 0, z: 0}
+    OriginRotation: {x: 0, y: 0, z: 0, w: 0}
     Displacement: 0
     Absolute: 0
 --- !u!114 &114331719374239494
