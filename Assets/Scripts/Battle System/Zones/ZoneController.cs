@@ -84,7 +84,12 @@ namespace BattleSystem
             OnZoneActivate.Invoke(this);
         }
 
-        public void AddEntity(GroupEntity entity, GroupAction startingAction = GroupAction.None)
+        public void AddEntity(GroupEntity entity)
+        {
+            AddEntity(entity, GroupAction.None);
+        }
+
+        public void AddEntity(GroupEntity entity, GroupAction startingAction)
         {
             if (!Entities.Contains(entity))
             {
