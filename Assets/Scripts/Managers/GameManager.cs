@@ -1,9 +1,12 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Entities;
 using GameUtils;
 using Metadata;
 using Spawners;
+using UnityAnalyticsHeatmap;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Util;
@@ -22,7 +25,17 @@ namespace Managers
                 _currentTimeToReset = 0;
             }
         }
-        
+
+        public float CurrentLevelDuration
+        {
+            get { return Mathf.Round(Time.timeSinceLevelLoad); }
+        }
+
+        public float CurrentSessionTime
+        {
+            get { return Mathf.Round(Time.realtimeSinceStartup); }
+        }
+
         public Text ComboText;
         public float TimeToReset = 2f;
         
@@ -92,7 +105,6 @@ namespace Managers
             }
             #endif
             
-            //var characterObject = GameObject.FindGameObjectWithTag(Tags.PLAYER);
             Character = characterObject.GetComponent<CharacterEntity>();
         }
 
@@ -102,7 +114,29 @@ namespace Managers
             {
                 _fadeController.FadeOutCanvas();
                 FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
+                
+                var data = new Dictionary<string, object>
+                {
+                    {"character_spirit", Character.Stats.CurrentSpirit},
+                    {"level_duration", CurrentLevelDuration},
+                    {"current_session_time", CurrentSessionTime}
+                };
+                
+                AnalyticsEvent.LevelFail(SceneManager.GetActiveScene().name, data);
+
+                HeatmapEvent.Send("character_death", Character.transform, data);
             };
+        }
+
+        private void OnApplicationQuit()
+        {
+            var data = new Dictionary<string, object>
+            {
+                {"level_duration", CurrentLevelDuration},
+                {"current_session_time", CurrentSessionTime}
+            };
+            
+            AnalyticsEvent.LevelQuit(SceneManager.GetActiveScene().name, data);
         }
         
 
