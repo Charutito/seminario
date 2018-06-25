@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pendulum : MonoBehaviour
 {
-    public float Time;
+    public float LerpTime;
     public Transform[] positions;
 
     private Transform _current;
@@ -21,7 +21,21 @@ public class Pendulum : MonoBehaviour
         _currentIndex++;
         _current = positions[_currentIndex % positions.Length];
     }
+    IEnumerator LerpPosition(Vector3 StartPos, Vector3 EndPos, float LerpTime)
+    {
+        float StartTime = Time.time;
+        float EndTime = StartTime + LerpTime;
 
+        while (Time.time < EndTime)
+        {
+            float timeProgressed = (Time.time - StartTime) / LerpTime;  // this will be 0 at the beginning and 1 at the end.
+           // transform.position = Mathf.Lerp(StartPos, EndPos, timeProgressed);
+            transform.position = Vector3.Lerp(StartPos, _current.position, timeProgressed);
+
+            yield return new WaitForFixedUpdate();
+        }
+
+    }
     private void Update ()
     {
         if (_current != null)
@@ -30,8 +44,8 @@ public class Pendulum : MonoBehaviour
             {
                 GetCurrent();
             }
-            
-            transform.position = Vector3.Lerp(transform.position, _current.position, Time);
+
+            StartCoroutine(LerpPosition(transform.position, _current.position, LerpTime));
         }
         else if (positions.Length > 0)
         {
