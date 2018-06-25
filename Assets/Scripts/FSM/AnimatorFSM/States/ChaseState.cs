@@ -15,11 +15,11 @@ namespace AnimatorFSM.States
 			{
 				StateManager.Entity.Animator.SetFloat(EntityAnimations.Move, 1);
 				StateManager.Entity.Animator.SetInteger(EntityAnimations.RandomRun, Random.Range(0, 2));
+				StateManager.Entity.EntityMove.RotateInstant(StateManager.Entity.Target.transform.position);
 			};
 
 			OnUpdate += () =>
 			{
-				StateManager.Entity.EntityMove.RotateInstant(StateManager.Entity.Target.transform.position);
 				StateManager.Entity.EntityMove.MoveAgent(StateManager.Entity.Target.transform.position);
 			};
 			
