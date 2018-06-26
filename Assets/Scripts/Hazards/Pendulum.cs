@@ -1,60 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Entities;
 using UnityEngine;
+using Util;
 
-public class Pendulum : MonoBehaviour
+namespace Hazards
 {
-    public float LerpTime;
-    public Transform[] positions;
-
-    private Transform _current;
-    private int _currentIndex;
-
-    public void Start()
+    public class Pendulum : MonoBehaviour
     {
-        _current = positions.FirstOrDefault();      
-    }
+        public float LerpTime = 0.5f;
+        public float StopDelay = 0.5f;
+        public Transform[] positions;
+    
+        private int _currentIndex;
+        private Coroutine _moveCoroutine;
+        private float _currentTimeToMove;
 
-    private void GetCurrent()
-    {
-        _currentIndex++;
-        _current = positions[_currentIndex % positions.Length];
-    }
-    IEnumerator LerpPosition(Vector3 StartPos, Vector3 EndPos, float LerpTime)
-    {
-        float StartTime = Time.time;
-        float EndTime = StartTime + LerpTime;
-
-        while (Time.time < EndTime)
+        public void Start()
         {
-            float timeProgressed = (Time.time - StartTime) / LerpTime;  // this will be 0 at the beginning and 1 at the end.
-           // transform.position = Mathf.Lerp(StartPos, EndPos, timeProgressed);
-            transform.position = Vector3.Lerp(StartPos, _current.position, timeProgressed);
-
-            yield return new WaitForFixedUpdate();
+            MoveNext();
         }
 
-    }
-    private void Update ()
-    {
-        if (_current != null)
+        private void MoveNext()
         {
-            if (Vector3.Distance(transform.position, _current.position) <= 0.1f)
+            if (positions.Length <= 0) return;
+
+            if (_moveCoroutine != null)
             {
-                GetCurrent();
+                StopCoroutine(_moveCoroutine);
             }
 
-            StartCoroutine(LerpPosition(transform.position, _current.position, LerpTime));
+            var newPosition = positions[_currentIndex % positions.Length].position;
+            _moveCoroutine = StartCoroutine(EntityMove.MoveToPosition(transform, newPosition, LerpTime, MoveDelay));
+            _currentIndex++;
         }
-        else if (positions.Length > 0)
+
+        private void MoveDelay()
         {
-            GetCurrent();
-        }
-        else
-        {
-            Debug.LogWarning("This pendulum has no positions");
-            Destroy(gameObject);
+            FrameUtil.AfterDelay(StopDelay, MoveNext);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace Entities
             _entity = GetComponent<Entity>();
         }
         
-        private static IEnumerator MoveToPosition(Transform target, Vector3 position, float timeToMove, Action onFinish = null)
+        public static IEnumerator MoveToPosition(Transform target, Vector3 position, float timeToMove, Action onFinish = null)
         {
             var currentPos = target.position;
             var t = 0f;
