@@ -28,7 +28,6 @@ public class EndDoor : MonoBehaviour {
 
         if (lifes <= 0)
         {
-            Debug.LogError(lifes);
             collider.enabled = false;
         }
     }
