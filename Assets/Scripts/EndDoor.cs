@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class EndDoor : MonoBehaviour {
     public ControlConsole[] consoles;
     public GameObject[] lasers;
+    public NavMeshObstacle collider;
     int lifes;
 
 	void Awake () {
@@ -14,6 +17,7 @@ public class EndDoor : MonoBehaviour {
             item.OnConsoleDestroy += LifeLoss;
         }
 	}
+
     void LifeLoss()
     {
         if (lasers[lifes]!=null)
@@ -22,5 +26,10 @@ public class EndDoor : MonoBehaviour {
         }
         lifes--;
 
+        if (lifes <= 0)
+        {
+            Debug.LogError(lifes);
+            collider.enabled = false;
+        }
     }
 }
