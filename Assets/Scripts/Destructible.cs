@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Destructible : MonoBehaviour, IDamageable
 {
     public GameObject[] drop;
-       
+    public Transform DropPoint;   
     public GameObject particles;
     public int maxHits;
     public int currentHits;    
@@ -38,9 +38,9 @@ public class Destructible : MonoBehaviour, IDamageable
             
             foreach (var item in drop)
             {
-                if (item != null)
+                if (item != null&& DropPoint!=null)
                 {
-                    Instantiate(item, transform.position, Quaternion.identity);
+                    Instantiate(item, DropPoint.position, DropPoint.rotation);
                 }
             }
             

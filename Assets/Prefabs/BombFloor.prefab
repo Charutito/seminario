@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 114084665891114464}
   - component: {fileID: 135105740000603334}
   - component: {fileID: 114373727194941544}
+  - component: {fileID: 114688041960989238}
   m_Layer: 13
   m_Name: BombFloor
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.358, z: 0}
+  m_LocalPosition: {x: 12.163199, y: 2.1750226, z: 110.57864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4741889081882968}
@@ -90,7 +91,7 @@ GameObject:
   - component: {fileID: 64237810092004754}
   - component: {fileID: 23513526747618830}
   m_Layer: 13
-  m_Name: Quad
+  m_Name: Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,13 +103,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1485683060340216}
-  m_LocalRotation: {x: 0.7014557, y: 0.08921797, z: -0.08921799, w: 0.70145583}
-  m_LocalPosition: {x: 0.028, y: 0.047, z: 0.107}
-  m_LocalScale: {x: 2.543069, y: 2.5430694, z: 2.5430696}
+  m_LocalRotation: {x: 0.7070563, y: -0.008442445, z: 0.008442416, w: 0.7070565}
+  m_LocalPosition: {x: 0, y: 0.063, z: 0}
+  m_LocalScale: {x: 2.1529622, y: 2.1529622, z: 2.1529624}
   m_Children: []
   m_Father: {fileID: 436056}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: -14.497001}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 1.368}
 --- !u!4 &4741889081882968
 Transform:
   m_ObjectHideFlags: 1
@@ -261,6 +262,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 20
+--- !u!114 &114688041960989238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f013b5237d7140a2d85b70e3005c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Particles: {fileID: 1198274502010172, guid: 95b10fa35b023d64981bfd136dea9c7a, type: 2}
+  Decal: {fileID: 1658303529198572, guid: 0601a6d573caef54b9b2a8a7c72ee264, type: 2}
 --- !u!135 &135105740000603334
 SphereCollider:
   m_ObjectHideFlags: 1

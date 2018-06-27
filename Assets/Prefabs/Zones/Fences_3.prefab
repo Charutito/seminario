@@ -36,6 +36,8 @@ GameObject:
   - component: {fileID: 4359217347095798}
   - component: {fileID: 95707986962332152}
   - component: {fileID: 208323387335118240}
+  - component: {fileID: 65408252382054474}
+  - component: {fileID: 114116481638638962}
   m_Layer: 20
   m_Name: Fences_3
   m_TagString: Untagged
@@ -121,6 +123,21 @@ GameObject:
   m_Name: FencePanel (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1430715735830710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4345607095404756}
+  m_Layer: 20
+  m_Name: DropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -326,6 +343,19 @@ Transform:
   m_Father: {fileID: 4359217347095798}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4345607095404756
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430715735830710}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -6.73, y: 2.57, z: -2.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4359217347095798}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4359217347095798
 Transform:
   m_ObjectHideFlags: 1
@@ -340,6 +370,7 @@ Transform:
   - {fileID: 4114435306445602}
   - {fileID: 4366361924891260}
   - {fileID: 4669602301069324}
+  - {fileID: 4345607095404756}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
@@ -877,6 +908,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546503300980682}
   m_Mesh: {fileID: 4300002, guid: 943e502e0da81394c8ad89ec1899b13f, type: 3}
+--- !u!65 &65408252382054474
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083654814093284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.94, y: 2.24, z: 1}
+  m_Center: {x: -6.7, y: 3.06, z: -2}
 --- !u!95 &95707986962332152
 Animator:
   serializedVersion: 3
@@ -894,6 +937,41 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114116481638638962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083654814093284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe9e9b1535b712419659b75957ad7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop:
+  - {fileID: 1270707058521816, guid: 5cf5781ccd576184794a783e490e942a, type: 2}
+  DropPoint: {fileID: 4345607095404756}
+  particles: {fileID: 0}
+  maxHits: 0
+  currentHits: 0
+  DestroyAudio: {fileID: 0}
+  DmgAudio: {fileID: 0}
+  OnDestroyEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: Deactivate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!208 &208323387335118240
 NavMeshObstacle:
   m_ObjectHideFlags: 1
