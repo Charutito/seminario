@@ -72,17 +72,18 @@ namespace BattleSystem.Spells
 
             var casted = false;
 
+            var spellDamage = _behaviour.Definition.Damage;
+
             foreach (var enemy in targets)
             {
                 casted = true;
                 _character.EntityMove.RotateInstant(enemy.transform.position);
                 _character.EntityMove.SmoothMoveTransform(enemy.transform.position - transform.forward, halfWait);
                 
-                GameManager.Instance.Combo++;
                 DmgCast(enemy.transform);
                 enemy.TakeDamage(new Damage
                 {
-                    Amount = _behaviour.Definition.Damage,
+                    Amount = spellDamage,
                     Type = _behaviour.Definition.DamageType,
                     OriginPosition = transform.position,
                     OriginRotation = transform.rotation,
@@ -90,6 +91,8 @@ namespace BattleSystem.Spells
                 });
                 
                 yield return new WaitForSeconds(_behaviour.Definition.WaitTime);
+
+                spellDamage =  Mathf.RoundToInt(spellDamage * _behaviour.Definition.DamageMultiplier);
             }
 
             if (casted)

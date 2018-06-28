@@ -196,8 +196,6 @@ namespace Entities
                         
                         if (targetEntity != null && !targetEntity.IsInvulnerable)
                         {
-                            GameManager.Instance.Combo++;
-                            
                             if(damage.Type != DamageType.SpecialAttack) InputManager.Instance.Vibrate(0.4f, 0.2f, 0.15f);
                         }
                         

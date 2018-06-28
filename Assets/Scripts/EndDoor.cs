@@ -10,7 +10,8 @@ public class EndDoor : MonoBehaviour {
     public NavMeshObstacle collider;
     int lifes;
 
-	void Awake () {
+	void Awake ()
+	{
         lifes = lasers.Length-1;
         foreach (var item in consoles)
         {
@@ -26,7 +27,7 @@ public class EndDoor : MonoBehaviour {
         }
         lifes--;
 
-        if (lifes <= 0)
+        if (lifes <= 0 && collider != null)
         {
             collider.enabled = false;
         }

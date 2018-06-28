@@ -16,15 +16,6 @@ namespace Managers
     public class GameManager : SingletonObject<GameManager>
     {
         public CharacterEntity Character { get; private set; }
-        public int Combo
-        {
-            get { return _combo; }
-            set
-            {
-                _combo = value;
-                _currentTimeToReset = 0;
-            }
-        }
 
         public float CurrentLevelDuration
         {
@@ -35,22 +26,11 @@ namespace Managers
         {
             get { return Mathf.Round(Time.realtimeSinceStartup); }
         }
-
-        public Text ComboText;
-        public float TimeToReset = 2f;
         
         [Header("Game End")]
         public float TimeToRestartGame = 1f;
 
         private ScreenFadeController _fadeController;
-        
-        private float _currentTimeToReset;
-        private int _combo;
-        
-        public void ResetCombo()
-        {
-            _combo = 0;
-        }
 
         public static void EditorStop(string message)
         {
@@ -137,20 +117,6 @@ namespace Managers
             };
             
             AnalyticsEvent.LevelQuit(SceneManager.GetActiveScene().name, data);
-        }
-        
-
-        private void Update()
-        {
-            if (TimeToReset <= _currentTimeToReset)
-            {
-                ResetCombo();
-            }
-
-            ComboText.gameObject.SetActive(_combo > 0);
-            ComboText.text = "x" + _combo.ToString();
-
-            _currentTimeToReset += Time.deltaTime;
         }
     }
 }

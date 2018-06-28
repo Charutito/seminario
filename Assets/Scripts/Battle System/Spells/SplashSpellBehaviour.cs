@@ -77,8 +77,6 @@ namespace BattleSystem.Spells
             
             foreach (var enemy in enemies)
             {
-                GameManager.Instance.Combo++;
-
                 enemy.TakeDamage(new Damage
                 {
                     Amount = _behaviour.Definition.Damage,

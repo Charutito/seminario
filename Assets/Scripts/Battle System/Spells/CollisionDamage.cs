@@ -34,7 +34,7 @@ namespace BattleSystem.Spells
                 
                 if(_behaviour.Definition.DestroyOnCollision) Destroy(gameObject);
 
-                if (_behaviour.Definition.DamageMultiplier > 0) _damage = _damage * _behaviour.Definition.DamageMultiplier;
+                if (_behaviour.Definition.DamageMultiplier > 0) _damage = Mathf.RoundToInt(_damage * _behaviour.Definition.DamageMultiplier);
             }
         }
 

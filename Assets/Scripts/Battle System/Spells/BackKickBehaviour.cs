@@ -41,7 +41,6 @@ namespace BattleSystem.Spells
             foreach (var enemy in enemies)
             {
                 DmgCast(enemy.transform);
-                GameManager.Instance.Combo++;
                 _character.Heal(LifeRecover);
                 enemy.TakeDamage(new Damage
                 {
