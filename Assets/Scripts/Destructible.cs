@@ -38,9 +38,15 @@ public class Destructible : MonoBehaviour, IDamageable
             
             foreach (var item in drop)
             {
-                if (item != null&& DropPoint!=null)
+                if (item != null)
                 {
-                    Instantiate(item, DropPoint.position, DropPoint.rotation);
+                    var newItem = Instantiate(item, transform.position + Vector3.up, transform.rotation);
+                    
+                    if (DropPoint != null)
+                    {
+                        newItem.transform.position = DropPoint.position;
+                        newItem.transform.rotation = DropPoint.rotation;
+                    }
                 }
             }
             
