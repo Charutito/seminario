@@ -127,9 +127,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1613521944902168}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -34.84, y: 1.5499773, z: 179.43}
-  m_LocalScale: {x: 30.407116, y: 30.210361, z: 26.078415}
+  m_LocalScale: {x: 30.407146, y: 30.210377, z: 26.07843}
   m_Children:
   - {fileID: 4313782648435828}
   - {fileID: 4275907997563710}
@@ -352,12 +352,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drop:
-  - {fileID: 0}
+  - {fileID: 1589535810917144, guid: 55e8b33de6f6820468b146caa20c500b, type: 2}
+  DropPoint: {fileID: 0}
   particles: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
-  maxHits: 800
+  maxHits: 8
   currentHits: 0
   DestroyAudio: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
   DmgAudio: {fileID: 11400000, guid: 916ec9e585dcf72498e74feabd36ebd8, type: 2}
+  OnDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!208 &208950441560459032
 NavMeshObstacle:
   m_ObjectHideFlags: 1

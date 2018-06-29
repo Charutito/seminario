@@ -6,22 +6,22 @@ public class VendingMachine : MonoBehaviour {
     public GameObject drop;
     public Destructible dest;
     public int toDrop;
+    bool hasDropped=false;
     public Transform DropPos;
     void Start () {
 
         dest = gameObject.GetComponent<Destructible>();
-
     }
     private void Update()
     {
-        if (dest.currentHits >= toDrop)
+        if (dest.currentHits == toDrop&&!hasDropped)
         {
-            Drop();            
+            Drop();
+            hasDropped = true;
         }
     }
     void Drop()
     {
-        dest.currentHits = 0;
         var lata = Instantiate(drop);
         lata.transform.position = DropPos.position;
     }
