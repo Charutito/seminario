@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.163199, y: 2.1750226, z: 110.57864}
+  m_LocalPosition: {x: 15.457077, y: 5.403832, z: 142.88435}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4741889081882968}
@@ -88,7 +88,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4055859706179012}
   - component: {fileID: 33351660054068058}
-  - component: {fileID: 64237810092004754}
   - component: {fileID: 23513526747618830}
   m_Layer: 13
   m_Name: Gizmo
@@ -205,20 +204,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382906569470724}
   m_Mesh: {fileID: 4300000, guid: cf088a456aeccf34e90f84c258146188, type: 3}
---- !u!64 &64237810092004754
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1485683060340216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!95 &95607967147312744
 Animator:
   serializedVersion: 3
@@ -273,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f013b5237d7140a2d85b70e3005c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Particles: {fileID: 1198274502010172, guid: 95b10fa35b023d64981bfd136dea9c7a, type: 2}
+  Particles: {fileID: 1254565845255510, guid: fa873ed0c0bf08e468387ba2c2d2bb47, type: 2}
   Decal: {fileID: 1658303529198572, guid: 0601a6d573caef54b9b2a8a7c72ee264, type: 2}
 --- !u!135 &135105740000603334
 SphereCollider:

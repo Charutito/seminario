@@ -19,7 +19,8 @@ namespace SaveSystem
             public Vector3 Position;
             public string SceneName;
         }
-        
+
+        public bool IgnoreTrigger = false;
         public UnityEvent OnSaveEvent;
         public UnityEvent OnLoadEvent;
         public UnityEvent OnSaveUsedEvent;
@@ -32,7 +33,7 @@ namespace SaveSystem
             Destroy(gameObject);
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             _isUsed = true;
             
@@ -42,7 +43,7 @@ namespace SaveSystem
             Log("Game Loaded!");
         }
     
-        private void SaveData()
+        public void SaveData()
         {
             _isUsed = true;
 
@@ -93,7 +94,7 @@ namespace SaveSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_isUsed) return;
+            if (IgnoreTrigger || _isUsed) return;
         
             SaveData();
         }
