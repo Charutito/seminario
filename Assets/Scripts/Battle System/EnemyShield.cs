@@ -11,7 +11,9 @@ public class EnemyShield : MonoBehaviour
     public GameObject Shield;
     
     public LineRenderer Connection;
-        
+
+    public GameObject HitEffect;
+
     public Entity Entity;
 
     [HideInInspector]

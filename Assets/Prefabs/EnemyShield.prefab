@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4128389862358326}
   - component: {fileID: 33117625774983016}
   - component: {fileID: 23031213037087084}
-  m_Layer: 0
+  - component: {fileID: 114987830453821702}
+  - component: {fileID: 135311344135271416}
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4125188082151176}
   - component: {fileID: 114191333226889702}
+  - component: {fileID: 65074548235587176}
   m_Layer: 0
   m_Name: EnemyShield
   m_TagString: Untagged
@@ -142,6 +145,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1190948562510220}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65074548235587176
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338995120471396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114191333226889702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,8 +173,32 @@ MonoBehaviour:
     maxValue: 4.95356
   Shield: {fileID: 1190948562510220}
   Connection: {fileID: 120030902844548474}
+  HitEffect: {fileID: 1240289001169956, guid: af7215d0b82de864f836b6ae13d72543, type: 2}
   Entity: {fileID: 0}
   Generator: {fileID: 0}
+--- !u!114 &114987830453821702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1190948562510220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe9e9b1535b712419659b75957ad7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: []
+  DropPoint: {fileID: 0}
+  particles: {fileID: 1240289001169956, guid: af7215d0b82de864f836b6ae13d72543, type: 2}
+  maxHits: 500
+  currentHits: 0
+  DestroyAudio: {fileID: 11400000, guid: b34efbe9dc2277d44944387fb4cb615c, type: 2}
+  DmgAudio: {fileID: 11400000, guid: 1a0fdd6a280de48498f28f4a50c5391e, type: 2}
+  OnDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!120 &120030902844548474
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -248,3 +287,15 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!135 &135311344135271416
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1190948562510220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
