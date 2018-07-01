@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 33139417011479996}
   - component: {fileID: 23948572207977542}
   - component: {fileID: 95461478005604334}
+  - component: {fileID: 208572084483673320}
   m_Layer: 0
   m_Name: WheelMovecs
   m_TagString: Untagged
@@ -183,8 +184,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1718392832646940}
   m_LocalRotation: {x: -0, y: 0.53729963, z: -0, w: 0.8433915}
-  m_LocalPosition: {x: -26.762089, y: 0.37, z: 47.95}
-  m_LocalScale: {x: 0.5794754, y: 0.5794753, z: 0.5794754}
+  m_LocalPosition: {x: -17.17, y: 1.63, z: 178.59}
+  m_LocalScale: {x: 0.5794801, y: 0.57948, z: 0.5794801}
   m_Children:
   - {fileID: 4782832058460590}
   - {fileID: 4058778347055416}
@@ -411,3 +412,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!208 &208572084483673320
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661045843884022}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.004, y: 0.009000001, z: 0.009000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.001, y: 0, z: 0}
+  m_TimeToStationary: 0.5
