@@ -36,7 +36,7 @@ namespace AnimatorFSM.States
             {
                 disolve += 0.01f;
                 
-                if (mesh != null)
+                if (mesh != null && mesh.material != null)
                 {
                     mesh.material.SetFloat("_Disolve", disolve);
                 }
@@ -47,6 +47,6 @@ namespace AnimatorFSM.States
 
                 yield return null;
             }
-    }
+        }
     }
 }
