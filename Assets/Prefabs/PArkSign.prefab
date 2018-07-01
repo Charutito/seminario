@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 4090474063805550}
   - component: {fileID: 33092603002148160}
   - component: {fileID: 23558609488279160}
-  - component: {fileID: 95438185530587784}
   - component: {fileID: 208582232052137104}
   m_Layer: 0
   m_Name: PArkSign
@@ -70,7 +69,7 @@ Transform:
   m_GameObject: {fileID: 1963799079614550}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -23.79, y: 1.53, z: 159.68}
-  m_LocalScale: {x: 0.5388744, y: 1.5006458, z: 0.060304157}
+  m_LocalScale: {x: 0.5388744, y: 1.5006467, z: 0.060304187}
   m_Children:
   - {fileID: 4576549533775370}
   - {fileID: 4554587684840924}
@@ -117,7 +116,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6a2c1d7425cb7334fa47468d422b6ce4, type: 3}
+  - {fileID: 2100000, guid: af06b0b304a5d1445bb776f0295d5f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,23 +143,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963799079614550}
   m_Mesh: {fileID: 4300000, guid: 6a2c1d7425cb7334fa47468d422b6ce4, type: 3}
---- !u!95 &95438185530587784
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963799079614550}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6a2c1d7425cb7334fa47468d422b6ce4, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!108 &108596022301058130
 Light:
   m_ObjectHideFlags: 1

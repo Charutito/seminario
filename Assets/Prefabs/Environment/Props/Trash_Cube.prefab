@@ -66,7 +66,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1629695949852248}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.446, y: 0.636, z: 29.46}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
@@ -181,7 +181,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drop:
   - {fileID: 1517980918992274, guid: b2ec69bfa27d9db4ba467346402bef54, type: 2}
+  DropPoint: {fileID: 0}
   particles: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
   maxHits: 1
+  currentHits: 0
   DestroyAudio: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
   DmgAudio: {fileID: 11400000, guid: 1a0fdd6a280de48498f28f4a50c5391e, type: 2}
+  OnDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
