@@ -199,7 +199,21 @@ MonoBehaviour:
     minValue: 3.3045268
     maxValue: 5.224964
   UnitsToSpawn: 5
-  _cooldownImage: {fileID: 114139552878993580}
+  OnSpawnerSetup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.SpawnerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnSpawnerActivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.SpawnerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnSpawnerCleared:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: BattleSystem.SpawnerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!222 &222441036447554314
 CanvasRenderer:
   m_ObjectHideFlags: 1
