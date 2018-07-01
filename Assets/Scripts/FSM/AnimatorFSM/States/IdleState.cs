@@ -1,4 +1,5 @@
-﻿using Entities.Base;
+﻿using BattleSystem;
+using Entities.Base;
 using UnityEngine;
 
 namespace AnimatorFSM.States
@@ -15,7 +16,12 @@ namespace AnimatorFSM.States
 
         protected override void DefineState()
         {
-            OnEnter += () => _stateManager.Entity.Animator.SetBool(EntityAnimations.Relax, true);
+            OnEnter += () =>
+            {
+                _stateManager.Entity.CurrentAction = GroupAction.None;
+                _stateManager.Entity.Animator.SetBool(EntityAnimations.Relax, true);
+            };
+            
             OnExit += () => _stateManager.Entity.Animator.SetBool(EntityAnimations.Relax, false);
         }
     }
