@@ -29,6 +29,8 @@ namespace Managers
         
         [Header("Game End")]
         public float TimeToRestartGame = 1f;
+        [Tooltip("This should be empty unless you really need it")]
+        public string DeathScene = "";
 
         private ScreenFadeController _fadeController;
 
@@ -56,7 +58,14 @@ namespace Managers
 
         private void RestartAfterDeath()
         {
-            LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (DeathScene != string.Empty)
+            {
+                LoadScene(DeathScene);
+            }
+            else
+            {
+                LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
         private void Awake()

@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeToDestroy: 5
-  DeathEffect: {fileID: 1081645998238348, guid: 2490b34c1f0080347a2f0f545ed24334,
+  DeathEffect: {fileID: 1794254668211322, guid: 609335115b94ad24e9db122858b646d8,
     type: 2}
   DeathSound: {fileID: 11400000, guid: 916ec9e585dcf72498e74feabd36ebd8, type: 2}
 --- !u!114 &114539170839339988
@@ -348,6 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReturnDamage: 40
+  ReturnParticles: {fileID: 1081645998238348, guid: 2490b34c1f0080347a2f0f545ed24334,
+    type: 2}
   Speed: 15
   SpeedBoostMultiplier: 2
 --- !u!136 &136835082385265416
