@@ -18,10 +18,13 @@ MonoBehaviour:
   SubCast: {fileID: 1125787504973094, guid: 67a4df98a9d2a194aa711cbaf2005478, type: 2}
   HitEffect: {fileID: 1984644812623148, guid: b117bd767554474439b1b9a3ac95d013, type: 2}
   DeathEffect: {fileID: 0}
-  Cooldown: 2
+  SpellVariation: {fileID: 0}
+  Cooldown: 4
+  AutoCastTime: 2
   SpiritCost: 15
-  Damage: 10
+  Damage: 15
   DamageMultiplier: 0
+  DamageDisplacement: 0
   DamageType: 9
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
