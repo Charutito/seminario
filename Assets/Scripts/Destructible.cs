@@ -47,6 +47,11 @@ public class Destructible : MonoBehaviour, IDamageable
                         newItem.transform.position = DropPoint.position;
                         newItem.transform.rotation = DropPoint.rotation;
                     }
+                    else
+                    {
+                        newItem.transform.position = transform.position;
+                        newItem.transform.rotation = transform.rotation;
+                    }
                 }
             }
             
