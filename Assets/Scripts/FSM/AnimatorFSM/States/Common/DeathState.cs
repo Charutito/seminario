@@ -30,18 +30,23 @@ namespace AnimatorFSM.States
         private IEnumerator DisolveCorroutine()
         {
             var mesh = StateManager.Entity.GetComponentInChildren<SkinnedMeshRenderer>();
-
-            if (mesh != null)
+            float disolve = 0;
+        
+            while (disolve < 1)
             {
-                float disolve = 0;
-            
-                while (disolve < 1)
+                disolve += 0.01f;
+                
+                if (mesh != null)
                 {
-                    disolve += 0.01f;
                     mesh.material.SetFloat("_Disolve", disolve);
-                    yield return null;
                 }
+                else
+                {
+                   yield break;
+                }
+
+                yield return null;
             }
-        }
+    }
     }
 }
