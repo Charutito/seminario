@@ -4,6 +4,7 @@ using Menu;
 using Metadata;
 using SaveSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace Managers
         public GameObject selectedObject;
         public EventSystem eventSystem;
         public Text ContinueText;
+        public UnityEvent OnCanContinue;
 
         public Animator LoadingAnimator;
         public Animator CharacterAnimator;
@@ -104,6 +106,7 @@ namespace Managers
             if (CanContinue)
             {
                 ContinueText.color = Color.white;
+                OnCanContinue.Invoke();
             }
 
             Cursor.lockState = CursorLockMode.Locked;
