@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 23613464070915592}
   - component: {fileID: 65933148370235784}
   - component: {fileID: 114434453756501328}
+  - component: {fileID: 208521719122023598}
   m_Layer: 11
   m_Name: Trash_Cube Variant
   m_TagString: Untagged
@@ -66,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1188097225170274}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.65, y: 2.254, z: 171.933}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -25.973, y: 2.34, z: 91.34}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4044423314764520}
@@ -181,7 +182,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drop:
   - {fileID: 1517980918992274, guid: b2ec69bfa27d9db4ba467346402bef54, type: 2}
+  DropPoint: {fileID: 0}
   particles: {fileID: 1708116053989094, guid: dc701952d6181094a8b93212080c6d67, type: 2}
   maxHits: 1
+  currentHits: 0
   DestroyAudio: {fileID: 11400000, guid: 1df07efdc0f2a944e920d4cb7366f471, type: 2}
   DmgAudio: {fileID: 11400000, guid: 1a0fdd6a280de48498f28f4a50c5391e, type: 2}
+  OnDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!208 &208521719122023598
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188097225170274}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.70400006, y: 1.0370001, z: 0.70400006}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
