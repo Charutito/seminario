@@ -16,7 +16,7 @@ public class AnimatedText : MonoBehaviour
     
     void Start()
     {
-        
+        Time.timeScale = 1;
         textComp = GetComponent<Text>();
         
         message = textComp.text;
