@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 33884786669562306}
   - component: {fileID: 23149086705036528}
   - component: {fileID: 95273999998093102}
+  - component: {fileID: 208712379089624564}
   m_Layer: 0
   m_Name: PArkingSign
   m_TagString: Untagged
@@ -226,6 +227,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!208 &208712379089624564
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551698019087544}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.90000004, y: 0.132, z: 11.286}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 11.286}
+  m_TimeToStationary: 0.5
 --- !u!212 &212118015308732934
 SpriteRenderer:
   m_ObjectHideFlags: 1
