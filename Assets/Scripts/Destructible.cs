@@ -54,7 +54,9 @@ public class Destructible : MonoBehaviour, IDamageable
                     }
                 }
             }
-            
+
+            OnDestroyEvent.Invoke();
+
             Destroy(gameObject);
         }
         else
@@ -69,9 +71,7 @@ public class Destructible : MonoBehaviour, IDamageable
     }
 
     private void OnDestroy()
-    {
-        OnDestroyEvent.Invoke();
-        
+    {        
         if (_flashCoroutine != null)
         {
             StopCoroutine(_flashCoroutine);

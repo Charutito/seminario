@@ -7869,9 +7869,31 @@ Prefab:
       propertyPath: m_Name
       value: "\u2022 GAME STATE \u2022"
       objectReference: {fileID: 0}
+    - target: {fileID: 114995300334165190, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+        type: 2}
+      propertyPath: FirstAbiflityCooldown
+      value: 
+      objectReference: {fileID: 333379782}
+    - target: {fileID: 114995300334165190, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+        type: 2}
+      propertyPath: ThirdAbilityCooldown
+      value: 
+      objectReference: {fileID: 333379781}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b95ebf59a21a0f42a31d23101e9e8b3, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &333379781 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114180433455363504, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 333379780}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &333379782 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114660535678752954, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 333379780}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &335921640
 GameObject:
   m_ObjectHideFlags: 0
