@@ -13,6 +13,7 @@
         ThirdAttack = 9,
         FlyUp = 10,
         Graviton = 11,
-        Laser = 12
+        Laser = 12,
+        Self = 13
     }
 }

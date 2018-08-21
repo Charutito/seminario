@@ -32,7 +32,7 @@ namespace Entities
         
         public void DeathFeedback()
         {
-            if (LastDamage != null && LastDamage.Type == DamageType.Environment)
+            if (LastDamage.Type != DamageType.Unknown && LastDamage.Type == DamageType.Environment)
             {
                 EntitySounds.PlayEffect("Fall", transform.position);
             }

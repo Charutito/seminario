@@ -6,10 +6,10 @@ using UnityEngine.UI;
 namespace BattleSystem
 {
 	[Serializable]
-	sealed public class Damage
+	public struct Damage
 	{
 		public int Amount;
-		public DamageType Type = DamageType.Unknown;
+		public DamageType Type;
 		public Vector3 OriginPosition;
 		public Quaternion OriginRotation;
 		public float Displacement;
