@@ -41,7 +41,7 @@ namespace Environment
 #if UNITY_EDITOR
     public static class TeleporterCreator
     {
-        [MenuItem("Akane/Environment/Teleport", false)]
+        [MenuItem("Game/Environment/Teleport", false)]
         public static void CreateCustomGameObject(MenuCommand menuCommand)
         {
             var go = new GameObject("New Teleport");

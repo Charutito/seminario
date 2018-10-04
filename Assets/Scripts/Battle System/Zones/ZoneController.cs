@@ -282,7 +282,7 @@ namespace BattleSystem
 #if UNITY_EDITOR
     public static class ZoneCreator
     {
-        [MenuItem("Akane/Entities/Zone", false)]
+        [MenuItem("Game/Entities/Zone", false)]
         public static void CreateCustomGameObject(MenuCommand menuCommand)
         {
             const string ZONE_SOUND_PATH = "Assets/GameData/SoundEvents/Environment/ZoneAlert.asset";
