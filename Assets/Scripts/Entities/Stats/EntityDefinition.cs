@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    [CreateAssetMenu(menuName = "Akane/Entities/Definition")]
+    [CreateAssetMenu(menuName = "Game/Entities/Definition")]
     public sealed class EntityDefinition : ScriptableObject
     {
         #region Events

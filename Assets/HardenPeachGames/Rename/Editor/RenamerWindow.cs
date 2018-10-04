@@ -11,8 +11,8 @@
     /// </summary>
     public class RenamerWindow : EditorWindow
     {
-        private const string AssetsMenuPath = "Akane/Renamer";
-        private const string GameObjectMenuPath = "GameObject/Akane/Renamer";
+        private const string AssetsMenuPath = "Game/Renamer";
+        private const string GameObjectMenuPath = "GameObject/Game/Renamer";
 
         private Vector2 renameOperationsPanelScrollPosition;
         private Vector2 previewPanelScrollPosition;
