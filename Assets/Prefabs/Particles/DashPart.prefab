@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeToDestroy: 2
   DeathEffect: {fileID: 0}
+  DeathSound: {fileID: 0}
 --- !u!198 &198556352097289164
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -735,7 +736,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 142
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -776,7 +777,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 142
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4192,7 +4193,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 142
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4233,7 +4234,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 142
       minScalar: 0
       maxCurve:
         serializedVersion: 2

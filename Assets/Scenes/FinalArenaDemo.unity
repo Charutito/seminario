@@ -7879,6 +7879,11 @@ Prefab:
       propertyPath: ThirdAbilityCooldown
       value: 
       objectReference: {fileID: 333379781}
+    - target: {fileID: 114492063347302814, guid: 6b95ebf59a21a0f42a31d23101e9e8b3,
+        type: 2}
+      propertyPath: DeathScene
+      value: EndCredits
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b95ebf59a21a0f42a31d23101e9e8b3, type: 2}
   m_IsPrefabParent: 0
@@ -25524,7 +25529,7 @@ Transform:
   m_LocalScale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
   m_Children: []
   m_Father: {fileID: 242959342}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!23 &1171226791
 MeshRenderer:
