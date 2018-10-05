@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GameUtils;
 using UnityEngine;
+using Util;
 
 namespace QuestSystem
 {
@@ -29,13 +30,20 @@ namespace QuestSystem
         
         private QuestDefinition _currentQuest;
         private List<QuestObjective> _completedObjetives;
+        private QuestDefinition _nextQuest;
         
         public void StartQuest(QuestDefinition definition)
         {
+            if (_currentQuest != null)
+            {
+                _nextQuest = definition;
+                CompleteQuest(_currentQuest);
+                return;
+            }
+
             _currentQuest = definition;
+            _nextQuest = definition.NextQuest;
             _completedObjetives = new List<QuestObjective>();
-            
-            Debug.Log("Starting quest: " + definition.Title);
             
             var questPrefab = Instantiate(_simpleQuestPrefab, QuestContent);
             questPrefab.Setup(definition);
@@ -45,7 +53,6 @@ namespace QuestSystem
         {
             if (_currentQuest != null && _currentQuest.Objectives.Contains(objective) && !_completedObjetives.Contains(objective))
             {
-                Debug.Log("Updated Quest Progress: " + objective.Title);
                 _completedObjetives.Add(objective);
                 
                 OnObjectiveCompleted.Invoke(objective);
@@ -61,8 +68,12 @@ namespace QuestSystem
                 _currentQuest = null;
                 _completedObjetives.Clear();
                 
-                Debug.Log("Quest Complete: " + definition.Title);
                 OnQuestCompleted.Invoke(definition);
+
+                if (_nextQuest != null)
+                {
+                    FrameUtil.AfterDelay(0.5f, () => StartQuest(_nextQuest));
+                }
             }
         }
     }
