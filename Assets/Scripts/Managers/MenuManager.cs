@@ -110,6 +110,7 @@ namespace Managers
             }
 
             Cursor.lockState = CursorLockMode.Locked;
+            eventSystem.SetSelectedGameObject(selectedObject);
         }
 
         private void OnApplicationFocus(bool pauseStatus)

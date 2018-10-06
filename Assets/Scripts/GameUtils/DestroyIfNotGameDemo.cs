@@ -2,9 +2,9 @@
 
 namespace GameUtils
 {
-    public class DestroyIfNotDebug : MonoBehaviour
+    public class DestroyIfNotGameDemo : MonoBehaviour
     {
-    #if !DEBUG
+    #if !GAME_DEMO && !DEBUG
         private void Awake()
         {
             Destroy(gameObject);
