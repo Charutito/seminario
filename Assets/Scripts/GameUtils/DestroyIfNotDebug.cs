@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DestroyIfNotDebug : MonoBehaviour
+namespace GameUtils
 {
-#if !DEBUG
-    private void Awake()
+    public class DestroyIfNotDebug : MonoBehaviour
     {
-        Destroy(gameObject);
+    #if !DEBUG
+        private void Awake()
+        {
+            Destroy(gameObject);
+        }
+    #endif
     }
-#endif
 }

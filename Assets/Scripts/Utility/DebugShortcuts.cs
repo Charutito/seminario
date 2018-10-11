@@ -22,6 +22,7 @@ namespace Utility
         
         [Header("Scenes")]
         [SerializeField] private KeyCode _reloadScene = KeyCode.F5;
+        [SerializeField] private KeyCode _goToMainMenu = KeyCode.Escape;
         
         [Header("Save System")]
         [SerializeField] private KeyCode _clearSaveData = KeyCode.F9;
@@ -54,18 +55,17 @@ namespace Utility
 
         private void Update()
         {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
             if (Input.GetKeyDown(_editorPauseKey))
             {
                 EditorApplication.isPaused = true;
             }
-#endif
-#if DEBUG
+        #endif
+            
             if (Input.GetKeyDown(_toggleMouse))
             {
                 Cursor.lockState = _cursorLocked ? CursorLockMode.Locked : CursorLockMode.Confined;
             }
-#endif
             
             // Stats
             if (Input.GetKeyDown(_recoverHealthCharacter))
@@ -85,6 +85,10 @@ namespace Utility
             if (Input.GetKeyDown(_reloadScene))
             {
                 _loadScene.ReloadScene();
+            }
+            if (Input.GetKeyDown(_goToMainMenu))
+            {
+                _loadScene.LoadByIndex(0);
             }
 
             // Save System

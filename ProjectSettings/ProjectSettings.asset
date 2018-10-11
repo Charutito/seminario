@@ -12,7 +12,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Harden Peach Studio
-  productName: Akane
+  productName: Outsider
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -57,7 +57,7 @@ PlayerSettings:
   androidShowActivityIndicatorOnLoading: -1
   tizenShowActivityIndicatorOnLoading: -1
   iosAppInBackgroundBehavior: 0
-  displayResolutionDialog: 1
+  displayResolutionDialog: 0
   iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
   allowedAutorotateToPortraitUpsideDown: 1
@@ -561,7 +561,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    1: AMPLIFY_SHADER_EDITOR;UNITY_POST_PROCESSING_STACK_V1;ODIN_INSPECTOR
+    1: GAME_DEMO;AMPLIFY_SHADER_EDITOR;UNITY_POST_PROCESSING_STACK_V1;ODIN_INSPECTOR
     4: UNITY_POST_PROCESSING_STACK_V1
     7: UNITY_POST_PROCESSING_STACK_V1
     13: UNITY_POST_PROCESSING_STACK_V1
@@ -650,6 +650,7 @@ PlayerSettings:
   XboxOneSplashScreen: {fileID: 0}
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
+  XboxOneXTitleMemory: 8
   xboxOneScriptCompiler: 0
   vrEditorSettings:
     daydream:
