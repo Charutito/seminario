@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 public class BuilderScript
 {
@@ -28,7 +26,7 @@ public class BuilderScript
         }
     }
     
-    [MenuItem("Test/Menu")]
+    [MenuItem("Game/TestBuild/Windows")]
     public static void BuildWindows64()
     {
         GenericBuild(BuildTarget.StandaloneWindows64);
