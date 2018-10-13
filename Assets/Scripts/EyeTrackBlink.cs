@@ -42,7 +42,6 @@ public class EyeTrackBlink : MonoBehaviour
             eyeOffset.y = Mathf.Clamp(eyeOffset.y, -eyeMaxOffset, eyeMaxOffset);
         }
         // send offset to shader
-        var eyeOffsetI = new Vector2(-eyeOffset.x, eyeOffset.y);
         eyeRend.material.SetTextureOffset("_MainTex", eyeOffset);
     }
     IEnumerator Blink()
