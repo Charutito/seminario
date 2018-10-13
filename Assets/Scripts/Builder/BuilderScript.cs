@@ -1,22 +1,12 @@
 ﻿using System.Linq;
-using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BuilderScript
 {
     private const string BUILD_PATH = "Builds/{0}/{1}/";
-    
-    private static string BuildPathRoot
-    {
-        get
-        {
-            string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), ProductName);
-            if (!System.IO.Directory.Exists(path))
-                System.IO.Directory.CreateDirectory(path);
-            return path;
-        }
-    }
     
     public static void BuildWindows64()
     {
