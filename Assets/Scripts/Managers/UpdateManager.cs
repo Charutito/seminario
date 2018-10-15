@@ -7,9 +7,9 @@ namespace Managers
 {
     public class UpdateManager : SingletonObject<UpdateManager>
     {
-        private HashSet<IUpdatable> _updatables;
-        private HashSet<IUpdatable> _updatesToRemove;
-        private HashSet<IUpdatable> _updatesToAdd;
+        private HashSet<IUpdatable> _updatables = new HashSet<IUpdatable>();
+        private HashSet<IUpdatable> _updatesToRemove = new HashSet<IUpdatable>();
+        private HashSet<IUpdatable> _updatesToAdd = new HashSet<IUpdatable>();
 
         public void Add(IUpdatable updatable)
         {
@@ -45,13 +45,6 @@ namespace Managers
                 }
                 _updatesToRemove.Clear();
             }
-        }
-
-        private void Awake()
-        {
-            _updatables = new HashSet<IUpdatable>();
-            _updatesToAdd = new HashSet<IUpdatable>();
-            _updatesToRemove = new HashSet<IUpdatable>();
         }
     }
 }
