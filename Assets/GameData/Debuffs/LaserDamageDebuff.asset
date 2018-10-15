@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9428ddb365e9b2543a2ef552dab715de, type: 3}
+  m_Name: LaserDamageDebuff
+  m_EditorClassIdentifier: 
+  Name: Laser
+  ToolTip: 
+  Image: {fileID: 0}
+  CastSound: {fileID: 0}
+  LooptSound: {fileID: 0}
+  EffectPrefab: {fileID: 1399108368390022, guid: 36db9daf79bd7de4193763639c03aefd,
+    type: 2}
+  Duration: 1
+  TickDelay: 0.25
+  Damage: 5
+  DamageType: 12
+  IsAbsolute: 0

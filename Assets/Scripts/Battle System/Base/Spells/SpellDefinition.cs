@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BattleSystem
 {
-    [CreateAssetMenu(menuName = "Game/Spells/Definition")]
+    [CreateAssetMenu(menuName = "Game/Spells/New Spell")]
     sealed public class SpellDefinition : ScriptableObject
     {
         [Header("UI")]

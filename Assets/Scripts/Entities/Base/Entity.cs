@@ -1,9 +1,12 @@
 ﻿using BattleSystem;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using BattleSystem.Spells;
 using FSM;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Entities
 {
@@ -20,13 +23,19 @@ namespace Entities
         public EventFSM<int> EntityFsm { get; protected set; }
         #endregion
         
+        
         #region Stats
         public bool IsAttacking { get; set; }
         public bool IsSpecialAttacking { get; set; }
         public bool IsDead { get { return Stats.CurrentHealth <= 0; } }
-        public bool IsGod { get { return godMode; } }
+        public bool IsGod { get { return _godMode; } }
         public bool IsInvulnerable { get; set; }
         public Damage LastDamage { get; private set; }
+        public List<BuffEffect> Buffs
+        {
+            get { return _buffs; }
+            set { _buffs = value; }
+        }
         #endregion
 
 
@@ -43,7 +52,8 @@ namespace Entities
         #region Local Vars
         [HideInInspector] public EntityDefinition Stats;
         [SerializeField] public EntityDefinition Definition;
-        [SerializeField] private bool godMode = false;
+        [SerializeField] private bool _godMode = false;
+        [SerializeField] private List<BuffEffect> _buffs = new List<BuffEffect>();
         #endregion 
         
         

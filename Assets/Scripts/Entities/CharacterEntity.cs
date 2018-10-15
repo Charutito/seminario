@@ -126,7 +126,7 @@ namespace Entities
             {
                 OnGettingHitBack();
             }
-            else
+            else if(damage.Type == DamageType.Attack)
             {
                 OnGetHit();
             }

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Entities;
 using GameUtils;
-using Metadata;
 using Spawners;
 using UnityAnalyticsHeatmap;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Util;
 
 namespace Managers
