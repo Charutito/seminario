@@ -27,7 +27,7 @@ namespace Managers
         [Header("Game End")]
         public float TimeToRestartGame = 1f;
         [Tooltip("This should be empty unless you really need it")]
-        public string DeathScene = "";
+        public string DeathScene = string.Empty;
 
         private ScreenFadeController _fadeController;
 
