@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 61c12d7fb796167408a96ff46a1f6c04
-timeCreated: 1527282697
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: ArmorBody
     100002: ArmorBoot
@@ -168,6 +166,7 @@ ModelImporter:
     13700014: ArmorPadL
     13700016: ArmorPadR
     13700018: ArmorRerebrace
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -181,12 +180,36 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'CATRigLArm1'
+      : position error = 49.029621 mm\n\t'CATRigLArm2' : position error = 54.823132
+      mm\n\t'CATRigLArmPalm' : position error = 25.556917 mm\n\t'CATRigLArmDigit11'
+      : position error = 9.020043 mm\n\t'CATRigLArmDigit12' : position error = 6.208218
+      mm\n\t'CATRigLArmDigit21' : position error = 15.406656 mm\n\t'CATRigLArmDigit22'
+      : position error = 2.595855 mm\n\t'CATRigLArmDigit31' : position error = 11.532084
+      mm\n\t'CATRigLArmDigit32' : position error = 1.034911 mm\n\t'CATRigLArmDigit33'
+      : position error = 1.602839 mm\n\t'CATRigLArmDigit41' : position error = 11.410530
+      mm\n\t'CATRigLArmDigit42' : position error = 3.465519 mm\n\t'CATRigLArmDigit51'
+      : position error = 11.371154 mm\n\t'CATRigLArmDigit52' : position error = 4.946959
+      mm\n\t'CATRigRArm1' : position error = 49.029800 mm\n\t'CATRigRArm2' : position
+      error = 54.822731 mm\n\t'CATRigRArmPalm' : position error = 25.556488 mm\n\t'CATRigRArmDigit11'
+      : position error = 9.028975 mm\n\t'CATRigRArmDigit12' : position error = 6.150772
+      mm\n\t'CATRigRArmDigit21' : position error = 15.378477 mm\n\t'CATRigRArmDigit22'
+      : position error = 2.595821 mm\n\t'CATRigRArmDigit31' : position error = 11.532808
+      mm\n\t'CATRigRArmDigit32' : position error = 1.034992 mm\n\t'CATRigRArmDigit33'
+      : position error = 1.602769 mm\n\t'CATRigRArmDigit41' : position error = 11.411347
+      mm\n\t'CATRigRArmDigit42' : position error = 3.465478 mm\n\t'CATRigRArmDigit51'
+      : position error = 11.372273 mm\n\t'CATRigRArmDigit52' : position error = 4.946905
+      mm\nCopied Avatar Rig Configuration mis-match. Inbetween bone rotation in copied
+      configuration does not match rotation in animation file:\n\t'CATRigLLegDigit11'
+      : rotation error = 0.069657 deg\n\t'CATRigRLegDigit11' : rotation error = 0.065483
+      deg\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -201,6 +224,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -218,11 +242,16 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
@@ -956,7 +985,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1

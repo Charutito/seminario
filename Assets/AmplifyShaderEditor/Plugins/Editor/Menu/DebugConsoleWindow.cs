@@ -28,6 +28,12 @@ namespace AmplifyShaderEditor
 		{
 			OpenWindow();
 		}
+		[MenuItem( "Window/Amplify Shader Editor/Create Template Menu Items" )]
+		public static void CreateTemplateMenuItems()
+		{
+			TemplatesManager.CreateTemplateMenuItems();
+		}
+
 #else
 		public readonly static bool DeveloperMode = false;
 		public static bool UseShaderPanelsInfo = false;
@@ -89,6 +95,13 @@ namespace AmplifyShaderEditor
 			if ( GUILayout.Button( "Nodes Screen Shots" ) )
 			{
 				window.CurrentNodeExporterUtils.ActivateAutoScreenShot( Application.dataPath + "/../NodesInfo/Shots/" );
+			}
+
+			EditorGUILayout.Separator();
+
+			if( GUILayout.Button( "Nodes Undo Test" ) )
+			{
+				window.CurrentNodeExporterUtils.ActivateAutoUndo();
 			}
 
 			EditorGUILayout.Separator();

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Threading;
+using UnityEditor.VersionControl;
 
 namespace AmplifyShaderEditor
 {
@@ -75,16 +76,22 @@ namespace AmplifyShaderEditor
 		public static readonly string InstancedPropertiesHeader = "multi_compile_instancing";
 		public static readonly string VirtualTexturePragmaHeader = "multi_compile _ _VT_SINGLE_MODE";
 
-		public static readonly string InstancedPropertiesBeginTabs		= "\t\tUNITY_INSTANCING_CBUFFER_START({0})\n";
-		public static readonly string InstancedPropertiesEndTabs		= "\t\tUNITY_INSTANCING_CBUFFER_END\n";
-		public static readonly string InstancedPropertiesElementTabs	= "\t\t\tUNITY_DEFINE_INSTANCED_PROP({0}, {1})\n";
-
-
-		public static readonly string InstancedPropertiesBegin		= "UNITY_INSTANCING_CBUFFER_START({0})";
-		public static readonly string InstancedPropertiesEnd		= "UNITY_INSTANCING_CBUFFER_END";
-		public static readonly string InstancedPropertiesElement	= "UNITY_DEFINE_INSTANCED_PROP({0}, {1})";
+		public static readonly string InstancedPropertiesBegin = "UNITY_INSTANCING_CBUFFER_START({0})";
+		public static readonly string InstancedPropertiesEnd = "UNITY_INSTANCING_CBUFFER_END";
+		public static readonly string InstancedPropertiesElement = "UNITY_DEFINE_INSTANCED_PROP({0}, {1})";
 		public static readonly string InstancedPropertiesData = "UNITY_ACCESS_INSTANCED_PROP({0})";
 
+
+		public static readonly string LWSRPInstancedPropertiesBegin = "UNITY_INSTANCING_BUFFER_START({0})";
+		public static readonly string LWSRPInstancedPropertiesEnd = "UNITY_INSTANCING_BUFFER_END({0})";
+		public static readonly string LWSRPInstancedPropertiesElement = "UNITY_DEFINE_INSTANCED_PROP({0}, {1})";
+		public static readonly string LWSRPInstancedPropertiesData = "UNITY_ACCESS_INSTANCED_PROP({0},{1})";
+
+
+		public static readonly string InstancedPropertiesBeginTabs		= "\t\t"+ InstancedPropertiesBegin + "\n";
+		public static readonly string InstancedPropertiesEndTabs		= "\t\t"+ InstancedPropertiesEnd + "\n";
+		public static readonly string InstancedPropertiesElementTabs	= "\t\t\t"+ InstancedPropertiesElement + "\n";
+		
 		public static readonly string MetaBegin = "defaultTextures:";
 		public static readonly string MetaEnd = "userData:";
 		public static readonly string ShaderBodyBegin = "/*ASEBEGIN";
@@ -125,7 +132,7 @@ namespace AmplifyShaderEditor
 		public readonly static string DefaultASEDirtyCheckProperty = "[HideInInspector] " + DefaultASEDirtyCheckName + "( \"\", Int ) = 1";
 		public readonly static string DefaultASEDirtyCheckUniform = "uniform int " + DefaultASEDirtyCheckName + " = 1;";
 
-		public readonly static string MaskClipValueName = "_MaskClipValue";
+		public readonly static string MaskClipValueName = "_Cutoff";
 		public readonly static string MaskClipValueProperty = MaskClipValueName + "( \"{0}\", Float ) = {1}";
 		public readonly static string MaskClipValueUniform = "uniform float " + MaskClipValueName + " = {0};";
 
@@ -165,6 +172,20 @@ namespace AmplifyShaderEditor
 		public static string FocusNodeGUID = "da673e6179c67d346abb220a6935e359";
 		public static string FitViewGUID = "1def740f2314c6b4691529cadeee2e9c";
 		public static string ShowInfoWindowGUID = "77af20044e9766840a6be568806dc22e";
+		public static string ShowTipsWindowGUID = "066674048bbb1e64e8cdcc6c3b4abbeb";
+		public static string ShowConsoleWindowGUID = "9a81d7df8e62c044a9d1cada0c8a2131";
+
+
+		public static Dictionary<string, string> NodeTypeReplacer = new Dictionary<string, string>()
+		{
+			{"AmplifyShaderEditor.RotateAboutAxis", "AmplifyShaderEditor.RotateAboutAxisNode"},
+			{"GlobalArrayNode", "AmplifyShaderEditor.GlobalArrayNode"},
+			{"AmplifyShaderEditor.SimpleMaxOp", "AmplifyShaderEditor.SimpleMaxOpNode"},
+			{"AmplifyShaderEditor.SimpleMinNode", "AmplifyShaderEditor.SimpleMinOpNode"},
+			{"AmplifyShaderEditor.TFHCRemap", "AmplifyShaderEditor.TFHCRemapNode"},
+			{"AmplifyShaderEditor.TFHCPixelateUV", "AmplifyShaderEditor.TFHCPixelate"},
+			{"AmplifyShaderEditor.VirtualTexturePropertyNode", "AmplifyShaderEditor.VirtualTextureObject"}
+		};
 
 		private static readonly string AmplifyShaderEditorDefineSymbol = "AMPLIFY_SHADER_EDITOR";
 
@@ -185,7 +206,22 @@ namespace AmplifyShaderEditor
 
 		public static void StartSaveThread( string shaderBody, string pathName )
 		{
-			if ( UseSaveThread )
+			if( Provider.enabled && Provider.isActive )
+			{
+				Asset loadedAsset = Provider.GetAssetByPath( FileUtil.GetProjectRelativePath( pathName ) );
+				if( loadedAsset != null )
+				{
+					//Task statusTask = Provider.Status( loadedAsset );
+					//statusTask.Wait();
+					//if( Provider.CheckoutIsValid( statusTask.assetList[ 0 ] ) )
+					{
+						Task checkoutTask = Provider.Checkout( loadedAsset, CheckoutMode.Both );
+						checkoutTask.Wait();
+					}
+				}
+			}
+
+			if( UseSaveThread )
 			{
 				if ( !SaveInThreadFlag )
 				{
@@ -249,6 +285,48 @@ namespace AmplifyShaderEditor
 
 				//ASEFolderPath = AssetDatabase.GUIDToAssetPath( ASEFolderGUID );
 				//ASEResourcesPath = ASEFolderPath + ASEResourcesPath;
+			}
+		}
+
+
+		public static void DumpTemplateManagers()
+		{
+			for( int i = 0; i < AllOpenedWindows.Count; i++ )
+			{
+				if( AllOpenedWindows[ i ].TemplatesManagerInstance != null )
+				{
+					Debug.Log( AllOpenedWindows[ i ].titleContent.text + ": " + AllOpenedWindows[ i ].TemplatesManagerInstance.GetInstanceID() );
+				}
+			}
+		}
+
+		public static TemplatesManager FirstValidTemplatesManager
+		{
+			get
+			{
+				for( int i = 0; i < AllOpenedWindows.Count; i++ )
+				{
+					if( AllOpenedWindows[ i ].TemplatesManagerInstance != null )
+					{
+						return AllOpenedWindows[ i ].TemplatesManagerInstance;
+					}
+				}
+				return null;
+			}
+		}
+
+		public static void UpdateSFandRefreshWindows( AmplifyShaderFunction function )
+		{
+			for( int i = 0; i < AllOpenedWindows.Count; i++ )
+			{
+				AllOpenedWindows[ i ].LateRefreshAvailableNodes();
+				if( AllOpenedWindows[ i ].IsShaderFunctionWindow )
+				{
+					if( AllOpenedWindows[ i ].OpenedShaderFunction == function )
+					{
+						AllOpenedWindows[ i ].UpdateTabTitle();
+					}
+				}
 			}
 		}
 

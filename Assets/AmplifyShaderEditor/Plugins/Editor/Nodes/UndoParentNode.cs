@@ -12,11 +12,23 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		protected NodeAttributes m_nodeAttribs;
 
+		[SerializeField]
+		protected ParentGraph m_containerGraph;
+
 		public void UndoRecordObject( UndoParentNode objectToUndo, string name )
 		{
 			UIUtils.MarkUndoAction();
 			Undo.RegisterCompleteObjectUndo( UIUtils.CurrentWindow, name );
 			Undo.RecordObject( objectToUndo, name );
+		}
+
+		public virtual void RecordObject( string Id )
+		{
+			Undo.RecordObject( this, Id );
+		}
+		public virtual void RecordObjectOnDestroy( string Id )
+		{
+			Undo.RecordObject( this, Id );
 		}
 
 		public string EditorGUILayoutStringField( string name, string value, params GUILayoutOption[] options )
@@ -233,7 +245,17 @@ namespace AmplifyShaderEditor
 			}
 			return newValue;
 		}
-
+#if UNITY_2018_1_OR_NEWER
+		public Color EditorGUILayoutColorField( GUIContent label, Color value, bool showEyedropper, bool showAlpha, bool hdr, params GUILayoutOption[] options )
+		{
+			Color newValue = EditorGUILayout.ColorField( label, value, showEyedropper, showAlpha, hdr, options );
+			if( newValue != value )
+			{
+				UndoRecordObject( this, string.Format( MessageFormat, label, ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+			}
+			return newValue;
+		}
+#else
 		public Color EditorGUILayoutColorField( GUIContent label, Color value, bool showEyedropper, bool showAlpha, bool hdr, ColorPickerHDRConfig hdrConfig, params GUILayoutOption[] options )
 		{
 			Color newValue = EditorGUILayout.ColorField( label, value, showEyedropper, showAlpha, hdr, hdrConfig, options );
@@ -243,7 +265,7 @@ namespace AmplifyShaderEditor
 			}
 			return newValue;
 		}
-		
+#endif
 		public float EditorGUILayoutSlider( string label, float value, float leftValue, float rightValue, params GUILayoutOption[] options )
 		{
 			float newValue = EditorGUILayout.Slider( label, value, leftValue, rightValue, options );
@@ -363,6 +385,16 @@ namespace AmplifyShaderEditor
 
 		}
 
+		public string EditorGUITextField( Rect position, string label, string text )
+		{
+			string newValue = EditorGUI.TextField( position, label, text );
+			if( !newValue.Equals( text ) )
+			{
+				UndoRecordObject( this, string.Format( MessageFormat, label, ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+			}
+			return newValue;
+		}
+
 		public string EditorGUITextField( Rect position, string label, string text, [UnityEngine.Internal.DefaultValue( "EditorStyles.textField" )] GUIStyle style )
 		{
 			string newValue = EditorGUI.TextField( position, label, text, style );
@@ -372,7 +404,17 @@ namespace AmplifyShaderEditor
 			}
 			return newValue;
 		}
-
+#if UNITY_2018_1_OR_NEWER
+		public Color EditorGUIColorField( Rect position, GUIContent label, Color value, bool showEyedropper, bool showAlpha, bool hdr )
+		{
+			Color newValue = EditorGUI.ColorField( position, label, value, showEyedropper, showAlpha, hdr );
+			if( newValue != value )
+			{
+				UndoRecordObject( this, string.Format( MessageFormat, label, ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+			}
+			return newValue;
+		}
+#else
 		public Color EditorGUIColorField( Rect position, GUIContent label, Color value, bool showEyedropper, bool showAlpha, bool hdr, ColorPickerHDRConfig hdrConfig )
 		{
 			Color newValue = EditorGUI.ColorField( position, label, value, showEyedropper, showAlpha, hdr, hdrConfig );
@@ -382,7 +424,7 @@ namespace AmplifyShaderEditor
 			}
 			return newValue;
 		}
-
+#endif
 		public int EditorGUIIntField( Rect position, string label, int value, [UnityEngine.Internal.DefaultValue( "EditorStyles.numberField" )] GUIStyle style )
 		{
 			int newValue = EditorGUI.IntField( position, label, value, style );
@@ -413,6 +455,27 @@ namespace AmplifyShaderEditor
 			return newValue;
 		}
 
+        public float GUIHorizontalSlider( Rect position, float value, float leftValue, float rightValue, GUIStyle slider, GUIStyle thumb )
+        {
+            float newValue = GUI.HorizontalSlider( position, value, leftValue, rightValue, slider, thumb );
+            if( newValue != value )
+            {
+                UndoRecordObject( this, string.Format( MessageFormat, "GUIHorizontalSlider", ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+            }
+            return newValue;
+        }
+		
+		public Enum EditorGUIEnumPopup( Rect position, Enum selected )
+		{
+			Enum newValue = EditorGUI.EnumPopup( position, selected );
+			if( !newValue.ToString().Equals( selected.ToString() ) )
+			{
+				UndoRecordObject( this, string.Concat( "Changing value EditorGUIEnumPopup on node ", ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+				//UndoRecordObject( this, string.Format( MessageFormat, "EditorGUIEnumPopup", ( ( m_nodeAttribs != null ) ? m_nodeAttribs.Name : GetType().ToString() ) ) );
+			}
+			return newValue;
+		}
+
 		public Enum EditorGUIEnumPopup( Rect position, Enum selected, [UnityEngine.Internal.DefaultValue( "EditorStyles.popup" )] GUIStyle style )
 		{
 			Enum newValue = EditorGUI.EnumPopup( position, selected, style );
@@ -423,7 +486,7 @@ namespace AmplifyShaderEditor
 			}
 			return newValue;
 		}
-
+        
 		public int EditorGUIIntPopup( Rect position, int selectedValue, GUIContent[] displayedOptions, int[] optionValues, [UnityEngine.Internal.DefaultValue( "EditorStyles.popup" )] GUIStyle style )
 		{
 			int newValue = EditorGUI.IntPopup( position, selectedValue, displayedOptions, optionValues, style );
@@ -514,6 +577,14 @@ namespace AmplifyShaderEditor
 			return value;
 		}
 
+		/// <summary>
+		/// It's the graph the node exists in, this is set after node creation and it's not available on CommonInit
+		/// </summary>
+		public ParentGraph ContainerGraph
+		{
+			get { return m_containerGraph; }
+			set { m_containerGraph = value; }
+		}
 	}
 }
 
