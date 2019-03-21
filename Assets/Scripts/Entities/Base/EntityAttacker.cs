@@ -1,5 +1,4 @@
 ﻿using BattleSystem;
-using EZCameraShake;
 using UnityEngine;
 using GameUtils;
 using Util;
