@@ -2,7 +2,6 @@
 using Entities;
 using GameUtils;
 using Spawners;
-using UnityAnalyticsHeatmap;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
@@ -109,8 +108,6 @@ namespace Managers
                 };
                 
                 AnalyticsEvent.LevelFail(SceneManager.GetActiveScene().name, data);
-
-                HeatmapEvent.Send("character_death", Character.transform, data);
             };
         }
 
