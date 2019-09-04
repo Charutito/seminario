@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Managers;
 using Metadata;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -57,18 +54,7 @@ namespace SaveSystem
             PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
             
             OnSaveEvent.Invoke();
-            Log("Game Saved!");
-            
-            var data = new Dictionary<string, object>
-            {
-                {"level_name", SceneManager.GetActiveScene().name},
-                {"character_health", GameManager.Instance.Character.Stats.CurrentHealth},
-                {"character_spirit", GameManager.Instance.Character.Stats.CurrentSpirit},
-                {"level_duration", GameManager.Instance.CurrentLevelDuration},
-                {"current_session_time", GameManager.Instance.CurrentSessionTime}
-            };
-            
-            AnalyticsEvent.Custom("save_point", data);
+             Log("Game Saved!");
         }
 
         private void Awake()

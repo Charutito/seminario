@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Entities;
+﻿using Entities;
 using GameUtils;
 using Spawners;
-using UnityAnalyticsHeatmap;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using Util;
 
@@ -100,29 +97,7 @@ namespace Managers
             {
                 _fadeController.FadeOutCanvas();
                 FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
-                
-                var data = new Dictionary<string, object>
-                {
-                    {"character_spirit", Character.Stats.CurrentSpirit},
-                    {"level_duration", CurrentLevelDuration},
-                    {"current_session_time", CurrentSessionTime}
-                };
-                
-                AnalyticsEvent.LevelFail(SceneManager.GetActiveScene().name, data);
-
-                HeatmapEvent.Send("character_death", Character.transform, data);
             };
-        }
-
-        private void OnApplicationQuit()
-        {
-            var data = new Dictionary<string, object>
-            {
-                {"level_duration", CurrentLevelDuration},
-                {"current_session_time", CurrentSessionTime}
-            };
-            
-            AnalyticsEvent.LevelQuit(SceneManager.GetActiveScene().name, data);
         }
     }
 }
