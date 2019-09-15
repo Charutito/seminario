@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using Metadata;
 using UnityEngine;
 using UnityEngine.Events;
@@ -52,6 +53,10 @@ namespace SaveSystem
             PlayerPrefs.SetString(SaveKeys.LastSave, serializedData);
             PlayerPrefs.SetString(string.Format(SaveKeys.LastSaveScene, currentScene), JsonUtility.ToJson(dataToSave));
             PlayerPrefs.SetString(string.Format(SaveKeys.UsedSave, _uniqueId.GameObjectId), JsonUtility.ToJson(dataToSave));
+            
+            PlayerPrefs.SetInt(SaveKeys.CharacterHealth, GameManager.Instance.Character.Stats.CurrentHealth);
+            PlayerPrefs.SetInt(SaveKeys.CharacterSpirit, GameManager.Instance.Character.Stats.CurrentSpirit);
+            PlayerPrefs.SetInt(SaveKeys.CharacterDash, GameManager.Instance.Character.currentDashCharges);
             
             OnSaveEvent.Invoke();
              Log("Game Saved!");

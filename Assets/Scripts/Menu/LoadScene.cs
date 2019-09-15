@@ -14,5 +14,10 @@ namespace Menu
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        public void ClearData()
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 }

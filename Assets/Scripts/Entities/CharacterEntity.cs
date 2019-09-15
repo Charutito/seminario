@@ -3,6 +3,7 @@ using Managers;
 using System;
 using System.Runtime.Remoting.Messaging;
 using BattleSystem;
+using Metadata;
 using UnityEngine;
 using Util;
 
@@ -145,7 +146,9 @@ namespace Entities
 
 	    protected override void SetFsm()
 	    {
-		    currentDashCharges = maxDashCharges;
+		    currentDashCharges = PlayerPrefs.GetInt(SaveKeys.CharacterDash, maxDashCharges);
+			Stats.CurrentHealth = PlayerPrefs.GetInt(SaveKeys.CharacterHealth, Stats.CurrentHealth);
+		    Stats.CurrentSpirit = PlayerPrefs.GetInt(SaveKeys.CharacterSpirit, Stats.CurrentSpirit);
 		    EntityFsm = new CharacterFSM(this);
 	    }
 

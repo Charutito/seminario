@@ -1,4 +1,5 @@
 ﻿using Managers;
+using Metadata;
 using UnityEngine;
 
 namespace Environment
@@ -18,6 +19,10 @@ namespace Environment
         private void OnTriggerEnter(Collider other)
         {
             if (!_active) return;
+            
+            PlayerPrefs.SetInt(SaveKeys.CharacterHealth, GameManager.Instance.Character.Stats.CurrentHealth);
+            PlayerPrefs.SetInt(SaveKeys.CharacterSpirit, GameManager.Instance.Character.Stats.CurrentSpirit);
+            PlayerPrefs.SetInt(SaveKeys.CharacterDash, GameManager.Instance.Character.currentDashCharges);
             
             GameManager.Instance.LoadScene(SceneName);
         }

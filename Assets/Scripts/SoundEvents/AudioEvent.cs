@@ -12,6 +12,9 @@ public abstract class AudioEvent : ScriptableObject
 	
 	public void PlayAtPoint(Vector3 position)
 	{
-		SoundManager.Instance.PlayAtPoint(this, position);
+		if (SoundManager.Instance != null)
+		{
+			SoundManager.Instance.PlayAtPoint(this, position);
+		}
 	}
 }
