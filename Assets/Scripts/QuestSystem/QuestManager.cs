@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Entities;
 using GameUtils;
+using Managers;
 using UnityEngine;
 using Util;
 
@@ -11,7 +13,10 @@ namespace QuestSystem
         #region Events
         
         public event Action<QuestDefinition> OnQuestCompleted = delegate { };
+        public event Action<QuestDefinition> OnQuestFailed = delegate { };
+        
         public event Action<QuestObjective> OnObjectiveCompleted = delegate { };
+        public event Action<QuestObjective> OnObjectiveFailed = delegate { };
 
         public bool IsQuestCompleted
         {
@@ -31,7 +36,24 @@ namespace QuestSystem
         private QuestDefinition _currentQuest;
         private List<QuestObjective> _completedObjetives;
         private QuestDefinition _nextQuest;
+
+        private void Start()
+        {
+            GameManager.Instance.Character.OnDeath += OnCharacterDeath;
+        }
         
+        private void OnCharacterDeath(Entity entity)
+        {
+            if (_currentQuest == null) return;
+            
+            OnQuestFailed.Invoke(_currentQuest);
+
+            foreach (var failedObjective in _currentQuest.Objectives)
+            {
+                OnObjectiveFailed.Invoke(failedObjective);
+            }
+        }
+
         public void StartQuest(QuestDefinition definition)
         {
             if (_currentQuest != null)

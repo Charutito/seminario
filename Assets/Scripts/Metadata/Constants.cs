@@ -15,6 +15,11 @@ namespace Metadata
     {
         public static readonly string UPDATE = "Collider";
     }
+    
+    public static class ResourcesFolder
+    {
+        public static readonly string GameData = "GameData";
+    }
 
     public static class SaveKeys
     {

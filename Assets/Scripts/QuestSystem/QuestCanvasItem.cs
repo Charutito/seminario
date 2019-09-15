@@ -32,7 +32,7 @@ namespace QuestSystem
             
             _itemDefinition = definition;
 
-            QuestManager.Instance.OnQuestCompleted += OnQuestCompleted;
+            Bind();
             
             SetText();
         }
@@ -65,11 +65,32 @@ namespace QuestSystem
         {
             if (definition == _itemDefinition)
             {
-                QuestManager.Instance.OnQuestCompleted -= OnQuestCompleted;
+                Unbind();
                 animator.SetTrigger(OUTRO);
                 titleText.color = Color.green;
                 FrameUtil.AfterDelay(0.5f, () => Destroy(gameObject));
             }
+        }
+        
+        private void OnQuestFailed(QuestDefinition definition)
+        {
+            if (definition == _itemDefinition)
+            {
+                Unbind();
+                titleText.color = Color.red;
+            }
+        }
+
+        private void Bind()
+        {
+            QuestManager.Instance.OnQuestCompleted += OnQuestCompleted;
+            QuestManager.Instance.OnQuestFailed += OnQuestFailed;
+        }
+
+        private void Unbind()
+        {
+            QuestManager.Instance.OnQuestCompleted -= OnQuestCompleted;
+            QuestManager.Instance.OnQuestFailed -= OnQuestFailed;
         }
     }
 }

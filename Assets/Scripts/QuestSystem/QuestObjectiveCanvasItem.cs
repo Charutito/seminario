@@ -8,6 +8,7 @@ namespace QuestSystem
         private const string TITLE_FORMAT = "{0} {1}";
         private const string MINUS = "-";
         private const string CHECKMARK = "✓";
+        private const string CROSS = "X";
         
         [SerializeField]
         private Text titleText;
@@ -19,8 +20,8 @@ namespace QuestSystem
             if (_itemDefinition != null) return;
             
             _itemDefinition = definition;
-
-            QuestManager.Instance.OnObjectiveCompleted += OnObjectiveCompleted;
+            
+            Bind();
             
             SetText();
         }
@@ -34,11 +35,34 @@ namespace QuestSystem
         {
             if (definition == _itemDefinition)
             {
-                QuestManager.Instance.OnObjectiveCompleted -= OnObjectiveCompleted;
+                Unbind();
                 
                 titleText.text = string.Format(TITLE_FORMAT, CHECKMARK, _itemDefinition.Title);
                 titleText.color = Color.green;
             }
+        }
+        
+        private void OnObjectiveFailed(QuestObjective definition)
+        {
+            if (definition == _itemDefinition)
+            {
+                Unbind();
+                
+                titleText.text = string.Format(TITLE_FORMAT, CROSS, "FAILED");
+                titleText.color = Color.red;
+            }
+        }
+
+        private void Bind()
+        {
+            QuestManager.Instance.OnObjectiveCompleted += OnObjectiveCompleted;
+            QuestManager.Instance.OnObjectiveFailed += OnObjectiveFailed;
+        }
+
+        private void Unbind()
+        {
+            QuestManager.Instance.OnObjectiveCompleted -= OnObjectiveCompleted;
+            QuestManager.Instance.OnObjectiveFailed -= OnObjectiveFailed;
         }
     }
 }
