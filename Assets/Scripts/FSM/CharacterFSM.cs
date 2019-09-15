@@ -420,23 +420,22 @@ namespace FSM
 
             var dashLength = entity.dashLenght;
 
-            if (entity.currentDashCharges <= 0)
-            {
-                dashLength = 1;
-                entity.currentDashCooldown = entity.dashChargesCooldown;
-            }
-            else
+            if (entity.currentDashCharges > 0)
             {
                 entity.vfxManager.Dash();
                 entity.currentDashCharges--;
                 entity.Animator.SetTrigger("TriggerDash");
+                
+                var dashPosition =  entity.transform.position +
+                                    entity.EntityAttacker.lineArea.transform.forward * entity.transform.GetMaxDistance(entity.EntityAttacker.lineArea.transform.forward, dashLength);
+            
+                entity.EntityMove.RotateInstant(dashPosition);
+                entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
             }
-            
-            var dashPosition =  entity.transform.position +
-                               entity.EntityAttacker.lineArea.transform.forward * entity.transform.GetMaxDistance(entity.EntityAttacker.lineArea.transform.forward, dashLength);
-            
-            entity.EntityMove.RotateInstant(dashPosition);
-            entity.EntityMove.SmoothMoveTransform(dashPosition, 0.1f);
+            else
+            {
+                Debug.Log("PLACEHOLDER - NO DASH FEEDBACK");
+            }
         }
 
         #region Feed Functions
