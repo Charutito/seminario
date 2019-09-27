@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: be867421ed82a1844894cfeafa3832e2
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: mixamorig:Head
     100002: mixamorig:HeadTop_End
@@ -205,6 +205,7 @@ ModelImporter:
     13700022: Hair_1
     13700024: Hair_2
     13700026: Scissors
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -217,14 +218,20 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: "Avatar creation failed:\n\tTransform 'mixamorig:Hips' for human
-      bone 'Hips' not found\n"
-    rigImportWarnings: 
+    rigImportErrors: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'mixamorig:LeftUpLeg' : position
+      error = 5.990793 mm\n\t'mixamorig:LeftLeg' : position error = 47.871380 mm\n\t'mixamorig:LeftFoot'
+      : position error = 25.412188 mm\n\t'mixamorig:LeftToeBase' : position error
+      = 2.526355 mm\n\t'mixamorig:RightUpLeg' : position error = 5.934873 mm\n\t'mixamorig:RightLeg'
+      : position error = 47.569462 mm\n\t'mixamorig:RightFoot' : position error =
+      23.984831 mm\n\t'mixamorig:RightToeBase' : position error = 4.740800 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -239,6 +246,7 @@ ModelImporter:
     globalScale: 0.12
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -256,11 +264,16 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.003048
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -1044,7 +1057,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
