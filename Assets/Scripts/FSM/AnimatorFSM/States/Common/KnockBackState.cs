@@ -34,6 +34,8 @@ namespace AnimatorFSM.States
 					
 					FrameUtil.AfterDelay(DisplacementTime, () => CheckIfCanGoDown());
 					
+					StateManager.Entity.EntityMove.RotateInstant(normalizedOrigin);
+					
 					StateManager.Entity.EntityMove.SmoothMoveTransform(moveposition, DisplacementTime);
 				}
 
