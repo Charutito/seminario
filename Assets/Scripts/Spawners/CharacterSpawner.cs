@@ -1,4 +1,5 @@
-﻿using Metadata;
+﻿using Managers.Camera;
+using Metadata;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,8 +20,8 @@ namespace Spawners
 
                 transform.position = JsonUtility.FromJson<SavePoint.SavePointData>(serializedPosition).Position;
             }
-            
-           Camera.main.transform.position = transform.position;
+
+            CameraFollow.Instance.transform.position = transform.position;
 
             return Instantiate(CharacterPrefab, transform.position, transform.rotation);
         }
