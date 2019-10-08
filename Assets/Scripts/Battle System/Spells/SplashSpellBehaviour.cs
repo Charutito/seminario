@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using Entities;
+using EZCameraShake;
 using Managers;
 using UnityEngine;
 using Util;
@@ -20,7 +21,6 @@ namespace BattleSystem.Spells
             public float Range = 2f;
             public float DeltaTime = 0.7f;
             public List<AudioEvent> Sounds;
-            public CinemachineShake.ShakeConfig Shake;
             public List<GameObject> Objects;
         }
 
@@ -56,10 +56,8 @@ namespace BattleSystem.Spells
         {
             Time.timeScale = value.DeltaTime;
 
-            if (value.Shake != null)
-            {
-                CinemachineShake.Instance.ShakeCamera(value.Shake.Duration, value.Shake.Amplitude, value.Shake.Frequency, ShakeNoise);
-            }
+            InputManager.Instance.Vibrate(0.7f, 0.3f, 0.2f);
+            CameraShaker.Instance.ShakeOnce(5f, 0.5f, 0.1f, 0.5f);
 
             foreach (var sound in value.Sounds)
             {
