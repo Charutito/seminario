@@ -38,6 +38,7 @@ namespace Managers
 
         public void LoadScene(string sceneName)
         {
+            PauseManager.Instance.LockPause();
             _fadeController.FadeOut();
             
             FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(sceneName));
@@ -45,6 +46,7 @@ namespace Managers
         
         public void LoadScene(int sceneIndex)
         {
+            PauseManager.Instance.LockPause();
             _fadeController.FadeOut();
             
             FrameUtil.AfterDelay(TimeToRestartGame, () => SceneManager.LoadScene(sceneIndex));
@@ -95,9 +97,21 @@ namespace Managers
         {
             Character.OnDeath += (entity) =>
             {
+                PauseManager.Instance.LockPause();
                 _fadeController.FadeOutCanvas();
                 FrameUtil.AfterDelay(TimeToRestartGame, RestartAfterDeath);
             };
+        }
+        
+        private void Update()
+        {
+            if (InputManager.Instance.Pause)
+            {
+                if (PauseManager.Instance.IsGamePaused)
+                    PauseManager.Instance.UnpauseGame();
+                else
+                    PauseManager.Instance.PauseGame();
+            }
         }
     }
 }

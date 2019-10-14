@@ -30,7 +30,11 @@ namespace Managers
         public bool FirstAbility  { get { return Input.GetKey(keyboard.ThirdAbility)  || Mathf.Abs(Input.GetAxis("SpellAim")) > 0;  } }
         public bool FourthAbility { get { return Input.GetKeyDown(keyboard.FourthAbility) || Mathf.Abs(Input.GetAxis("SpellCast")) > 0; } }
         
+        // Movement
         public bool Dash { get { return Input.GetKeyDown(keyboard.Dash) || Input.GetKeyDown(joystick.Dash); } }
+
+        // UI
+        public bool Pause { get { return Input.GetKeyDown(keyboard.Pause) || Input.GetKeyDown(joystick.Pause); } }
         
         #endregion
 

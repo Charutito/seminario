@@ -24,5 +24,8 @@ namespace Managers.Mappings
 
         [Header("Movement")]
         public KeyCode Dash = KeyCode.Space;
+        
+        [Header("UI")]
+        public KeyCode Pause = KeyCode.Escape;
     }
 }

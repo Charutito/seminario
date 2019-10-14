@@ -22,7 +22,6 @@ namespace Utility
         
         [Header("Scenes")]
         [SerializeField] private KeyCode _reloadScene = KeyCode.F5;
-        [SerializeField] private KeyCode _goToMainMenu = KeyCode.Escape;
         
         [Header("Save System")]
         [SerializeField] private KeyCode _clearSaveData = KeyCode.F9;
@@ -85,10 +84,6 @@ namespace Utility
             if (Input.GetKeyDown(_reloadScene))
             {
                 _loadScene.ReloadScene();
-            }
-            if (Input.GetKeyDown(_goToMainMenu))
-            {
-                _loadScene.LoadByIndex(0);
             }
 
             // Save System
