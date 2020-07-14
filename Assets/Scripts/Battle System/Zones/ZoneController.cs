@@ -275,44 +275,5 @@ namespace BattleSystem
     
     [Serializable]
     public sealed class ZoneEvent : UnityEvent<ZoneController> {}
-
-#if UNITY_EDITOR
-    public static class ZoneCreator
-    {
-        [MenuItem("Game/Entities/Zone", false)]
-        public static void CreateCustomGameObject(MenuCommand menuCommand)
-        {
-            const string ZONE_SOUND_PATH = "Assets/GameData/SoundEvents/Environment/ZoneAlert.asset";
-            
-            var go = new GameObject("New Zone");
-            
-            var zoneCollider = go.AddComponent<BoxCollider>();
-            zoneCollider.isTrigger = true;
-            
-            var zoneController = go.AddComponent<ZoneController>();
-            
-            zoneController.ActionDelay.minValue = 1;
-            zoneController.ActionDelay.maxValue = 1;
-            zoneController.EntitiesToAttack.minValue = 1;
-            zoneController.EntitiesToAttack.maxValue = 1;
-                
-            var audioEvent = AssetDatabase.LoadAssetAtPath<SimpleAudioEvent>(ZONE_SOUND_PATH);
-
-            if (audioEvent != null)
-            {
-                zoneController.InitSound = audioEvent;
-            }
-            else
-            {
-                Debug.LogWarning("Can't reference Zone sound at : " + ZONE_SOUND_PATH);
-            }
-
-            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
-            
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-            Selection.activeObject = go;
-        }
-    }
-#endif
+    
 }

@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace QuestSystem
 {
@@ -44,25 +41,4 @@ namespace QuestSystem
             }
         }
     }
-    
-#if UNITY_EDITOR
-    public static class QuestTriggerCreator
-    {
-        [MenuItem("Game/Environment/Quest Trigger", false)]
-        public static void CreateCustomGameObject(MenuCommand menuCommand)
-        {
-            var go = new GameObject("New Quest Trigger");
-            go.AddComponent<QuestTrigger>();
-            
-            var collider = go.AddComponent<BoxCollider>();
-            collider.isTrigger = true;
-
-            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
-            
-            // Register the creation in the undo system
-            Undo.RegisterCreatedObjectUndo(go, "Created " + go.name);
-            Selection.activeObject = go;
-        }
-    }
-#endif
 }
