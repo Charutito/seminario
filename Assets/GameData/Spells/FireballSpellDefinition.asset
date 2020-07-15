@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,18 +13,19 @@ MonoBehaviour:
   m_Name: FireballSpellDefinition
   m_EditorClassIdentifier: 
   Name: Fireball
-  Description: 
+  Description: A spirit power that is used to slow down enemies
   Icon: {fileID: 0}
-  Prefab: {fileID: 100010, guid: 367a74e50844cfe4aa8f243f8429528a, type: 2}
+  Prefab: {fileID: 100010, guid: 367a74e50844cfe4aa8f243f8429528a, type: 3}
   SubCast: {fileID: 0}
   HitEffect: {fileID: 0}
-  DeathEffect: {fileID: 100014, guid: dc2085ede280df24cb05d19b91d0e545, type: 2}
+  DeathEffect: {fileID: 100014, guid: dc2085ede280df24cb05d19b91d0e545, type: 3}
   SpellVariation: {fileID: 11400000, guid: 8806249c84bd8ee4dabd448d05bb0968, type: 2}
   Cooldown: 0.1
   AutoCastTime: 2
   SpiritCost: 5
   Damage: 10
   DamageMultiplier: 0
+  DamageDisplacement: 0
   DamageType: 8
   CastSound: {fileID: 0}
   DeathSound: {fileID: 0}
